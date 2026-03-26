@@ -1,0 +1,236 @@
+/* Google Fonts for better readability */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+    --primary-color: #2563eb; /* Professional Blue */
+    --secondary-color: #64748b;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #1e293b;
+    --text-muted: #475569;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* --- HEADER & NAVIGATION --- */
+header {
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 10%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-main);
+    margin-left: 25px;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--primary-color);
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+}
+
+/* --- HERO SECTION --- */
+.hero {
+    padding: 80px 10%;
+    text-align: center;
+    background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #0f172a;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 25px;
+}
+
+.btn {
+    background: var(--primary-color);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
+/* --- CARDS & SECTIONS --- */
+.section {
+    padding: 60px 10%;
+}
+
+.section h3 {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #f1f5f9;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+}
+
+.card h4 {
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+}
+
+.card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* --- FOOTER --- */
+footer {
+    background: #0f172a;
+    color: #f1f5f9;
+    padding: 40px 10%;
+    text-align: center;
+    margin-top: 50px;
+    border-top: 5px solid var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    header { 
+        padding: 1rem 5%; 
+    }
+    
+    .menu-toggle { 
+        display: block; 
+        color: var(--primary-color);
+        font-size: 2rem;
+    }
+
+    nav {
+        position: fixed;
+        right: -100%; /* Default hidden */
+        top: 0;
+        width: 280px; /* Specific width for better look */
+        height: 100vh;
+        background: #ffffff;
+        display: flex;
+        flex-direction: column; /* Items stack vertically */
+        align-items: flex-start; /* Align text to left */
+        padding: 80px 30px; /* Space from top and sides */
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        z-index: 999;
+    }
+
+    nav.active { 
+        right: 0; 
+    }
+
+    nav a {
+        margin: 0;
+        padding: 15px 0;
+        font-size: 1.1rem;
+        width: 100%; /* Full width for better click area */
+        border-bottom: 1px solid #f1f5f9; /* Subtle divider */
+        color: var(--text-main);
+        display: block;
+        transition: padding-left 0.3s ease;
+    }
+
+    nav a:last-child {
+        border-bottom: none;
+    }
+
+    nav a:hover {
+        color: var(--primary-color);
+        padding-left: 10px; /* Small slide effect on hover */
+    }
+
+    /* Hero adjustments for mobile */
+    .hero h2 { font-size: 1.8rem; }
+    .hero { padding: 60px 5%; }
+}
+
+
+
+
+
+
+
+
