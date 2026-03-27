@@ -1,10 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!--Seo Part -->
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Xenors | Tech • AI • Finance</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Xenors | Explore the Future of AI, Tech, and Finance</title>
+    <meta name="title" content="Xenors | Tech • AI • Finance • News & Blogs">
+    <meta name="description" content="Xenors.in provides deep insights into AI technology, financial growth, latest tech news, and professional blogs. Stay ahead in the digital world.">
+    <meta name="keywords" content="AI technology, Finance tips, Tech news India, Xenors blogs, Machine Learning, Personal Finance, Latest Gadgets">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta name="author" content="Xenors Team">
 
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xenors.in/">
+    <meta property="og:title" content="Xenors | Tech • AI • Finance">
+    <meta property="og:description" content="Your go-to platform for the latest in Artificial Intelligence, Financial strategies, and Tech updates.">
+    <meta property="og:image" content="https://xenors.in/assets/og-image.png"> <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://xenors.in/">
+    <meta property="twitter:title" content="Xenors | Tech • AI • Finance">
+    <meta property="twitter:description" content="Stay updated with Xenors.in - The hub for AI enthusiasts and Finance experts.">
+    <meta property="twitter:image" content="https://xenors.in/assets/og-image.png">
+
+    <link rel="icon" type="image/png" href="images/xenors.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/xenors.png" sizes="16x16">
+    <link rel="apple-touch-icon" href="images/xenors.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <link rel="canonical" href="https://xenors.in/">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles/index.css">
+
+    <script src="scripts/main.js" defer></script>
+
+<!--json LD Schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://xenors.in/#website",
+      "url": "https://xenors.in/",
+      "name": "Xenors",
+      "description": "Expert insights into AI Technology, Finance, and Tech News.",
+      "publisher": {
+        "@id": "https://xenors.in/#organization"
+      },
+      "potentialAction": [
+        {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://xenors.in/search?q={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      ],
+      "inLanguage": "en-US"
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://xenors.in/#organization",
+      "name": "Xenors.in",
+      "url": "https://xenors.in/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://xenors.in/#logo",
+        "url": "https://xenors.in/logo.png",
+        "contentUrl": "https://xenors.in/logo.png",
+        "width": 512,
+        "height": 512,
+        "caption": "Xenors Logo"
+      },
+      "image": {
+        "@id": "https://xenors.in/#logo"
+      },
+      "sameAs": [
+        "https://facebook.com/xenors",
+        "https://twitter.com/xenors",
+        "https://linkedin.com/company/xenors",
+        "https://youtube.com/@xenors"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "contact@xenors.in",
+        "url": "https://xenors.in/contact"
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://xenors.in/#webpage",
+      "url": "https://xenors.in/",
+      "name": "Xenors | Tech • AI • Finance • Blogs",
+      "isPartOf": {
+        "@id": "https://xenors.in/#website"
+      },
+      "about": {
+        "@id": "https://xenors.in/#organization"
+      },
+      "description": "Stay ahead with Xenors.in - your hub for Artificial Intelligence tutorials, financial growth strategies, and real-time tech updates.",
+      "breadcrumb": {
+        "@id": "https://xenors.in/#breadcrumb"
+      },
+      "inLanguage": "en-US",
+      "potentialAction": [
+        {
+          "@type": "ReadAction",
+          "target": [
+            "https://xenors.in/"
+          ]
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://xenors.in/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://xenors.in/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tech",
+          "item": "https://xenors.in/tech"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "AI",
+          "item": "https://xenors.in/ai"
+        }
+      ]
+    }
+  ]
+}
+</script>    
 <link rel="stylesheet" href="styles/index.css">
 </head>
 
@@ -13,7 +154,7 @@
 <!-- HEADER -->
 <header>
     <div class="logo">
-        <img src="logo.png" alt="Xenors logo">
+        <img src="images/xenors.png" alt="Xenors logo">
         <h1>Xenors</h1>
     </div>
 
@@ -87,11 +228,96 @@
     </div>
 </section>
 
-<!--footers-->
-<footer>
-    © 2026 Xenors.in
-</footer>
+<!--images and videos for me -->
+<section class="section media-section">
+    <h3>Learn & Grow with Xenors</h3>
+    <div class="media-container">
+        
+        <div class="media-box video-box">
+            <h4>Latest from YouTube</h4>
+            <div class="video-wrapper">
+                <iframe 
+                    src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
+                    title="Xenors Official Video - AI & Tech Insights" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe >
+            </div>
+            <p>Subscribe to our channel for the latest in AI and Finance.</p>
+        </div>
 
+        <div class="media-box image-box">
+            <h4>Behind the Brand</h4>
+            <img src="images/mexenors.jpg" alt="Ashok Kumar Yadav - Founder of Xenors.in" loading="lazy">
+            <p>Bridging the gap between Technology and Financial Freedom.</p>
+        </div>
+
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-container">
+        
+        <div class="footer-col">
+            <h2 class="footer-logo">Xenors<span>.in</span></h2>
+            <p>Empowering your digital journey with the latest in AI technology, financial insights, and real-time news updates.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">LinkedIn</a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h3>Know Xenors</h3>
+            <ul>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/mission">Our Mission</a></li>
+                <li><a href="/team">The Team</a></li>
+                <li><a href="/careers">Work With Us</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Explore AI & Tech</h3>
+            <ul>
+                <li><a href="/ai-tools">AI Tools Review</a></li>
+                <li><a href="/machine-learning">Machine Learning</a></li>
+                <li><a href="/future-tech">Future Technology</a></li>
+                <li><a href="/coding">Coding Tutorials</a></li>
+                <li><a href="/gadgets">Smart Gadgets</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Finance & Insights</h3>
+            <ul>
+                <li><a href="/stock-market">Stock Market</a></li>
+                <li><a href="/crypto">Cryptocurrency</a></li>
+                <li><a href="/investing">Personal Finance</a></li>
+                <li><a href="/business-news">Business News</a></li>
+                <li><a href="/world-news">Global Updates</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="/blogs">Our Blogs</a></li>
+                <li><a href="/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/terms">Terms of Service</a></li>
+                <li><a href="/disclaimer">Disclaimer</a></li>
+                <li><a href="/sitemap">Sitemap</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <hr>
+        <p>&copy; 2026 <strong>Xenors.in</strong> | Designed for the Future of AI.</p>
+    </div>
+</footer>
 <script src="scripts/index.js"></script>
 
 </body>
