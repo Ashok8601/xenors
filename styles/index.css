@@ -337,8 +337,6 @@ nav a:hover {
     color: var(--text-muted);
     font-size: 0.95rem;
 }
-
-/* images and videos*/
 /* --- MEDIA SECTION STYLING --- */
 .media-section {
     background-color: #ffffff;
@@ -348,7 +346,7 @@ nav a:hover {
     display: flex;
     gap: 30px;
     flex-wrap: wrap;
-    align-items: flex-start;
+    align-items: stretch; /* 'flex-start' से बदलकर 'stretch' किया ताकि कार्ड्स की हाइट बराबर रहे */
 }
 
 .media-box {
@@ -359,6 +357,8 @@ nav a:hover {
     border-radius: 12px;
     border: 1px solid #f1f5f9;
     box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column; /* अंदर के कंटेंट को वर्टिकली अलाइन करने के लिए */
 }
 
 .media-box h4 {
@@ -366,38 +366,31 @@ nav a:hover {
     color: var(--primary-color);
 }
 
-/* Video Responsive Wrapper */
-.video-wrapper {
+/* Video & Image Wrapper (दोनों के लिए सेम रेशियो) */
+.video-wrapper, .image-wrapper {
     position: relative;
     padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
     height: 0;
     overflow: hidden;
     border-radius: 8px;
     margin-bottom: 15px;
+    border: 1px solid #e2e8f0;
 }
 
-.video-wrapper iframe {
+.video-wrapper iframe, .image-wrapper img {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-}
-
-/* Image Styling */
-.image-box img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-    margin-bottom: 15px;
-    border: 1px solid #e2e8f0;
+    object-fit: cover; /* इमेज को बिना स्ट्रेच किए बॉक्स में फिट करेगा */
 }
 
 .media-box p {
     font-size: 0.9rem;
     color: var(--text-muted);
     line-height: 1.4;
+    margin-top: auto; /* अगर टेक्स्ट छोटा-बड़ा हो, तो भी नीचे से अलाइन रहेगा */
 }
 
 /* Mobile Adjustments */
