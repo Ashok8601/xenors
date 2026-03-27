@@ -1,0 +1,130 @@
+.contact-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.contact-hero {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.contact-hero h1 { font-size: 2.5rem; color: #1a1a1a; }
+.contact-hero p { color: #666; font-size: 1.1rem; }
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+/* Info Cards */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-card {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 5px solid #007bff;
+}
+
+.info-card .icon { font-size: 1.5rem; margin-bottom: 10px; }
+.info-card h4 { margin-bottom: 5px; }
+
+/* Form Styles */
+.contact-form-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 600; }
+
+.form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: inherit;
+}
+
+.submit-btn {
+    background: #007bff;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover { background: #0056b3; }
+
+#formStatus { margin-top: 15px; text-align: center; font-weight: bold; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .contact-wrapper { grid-template-columns: 1fr; }
+}
+
+
+/* SEO Content Styling */
+.contact-details-rich {
+    margin-top: 60px;
+    line-height: 1.8;
+    color: #444;
+}
+
+.collaboration-guide {
+    background: #fdfdfd;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px dashed #007bff;
+    margin-bottom: 40px;
+}
+
+.collaboration-guide h2 {
+    color: #1a1a1a;
+    margin-bottom: 15px;
+}
+
+/* FAQ Styling */
+.faq-section h3 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 30px;
+    color: #111;
+}
+
+.faq-item {
+    background: #fff;
+    margin-bottom: 15px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.faq-item h4 {
+    color: #007bff;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.faq-item p {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Bold Keywords color for SEO emphasis */
+strong {
+    color: #222;
+}
