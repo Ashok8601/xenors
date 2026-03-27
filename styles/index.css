@@ -594,3 +594,63 @@ footer {
     .hero h2 { font-size: 1.8rem; }
     .hero { padding: 60px 5%; }
 }
+
+.header-title {
+    font-size: 1.5rem; /* smaller size */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.share-buttons {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.share-buttons a {
+    text-decoration: none;
+    background: #0077b6; /* blue, you can change per platform */
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: background 0.3s;
+}
+
+.share-buttons a:hover {
+    background: #023e8a;
+}
+
+.wikipedia-link {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 6px 10px;
+    background: #f8f9fa;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #0077b6;
+    font-weight: 500;
+    transition: background 0.3s, color 0.3s;
+}
+
+.wikipedia-link:hover {
+    background: #0077b6;
+    color: #fff;
+}
+
+.footer .social-links a {
+    text-decoration: none;
+    margin-right: 10px;
+    padding: 6px 10px;
+    background: #0077b6;
+    color: #fff;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.footer .social-links a:hover {
+    background: #023e8a;
+}
