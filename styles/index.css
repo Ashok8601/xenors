@@ -40,27 +40,112 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
+    flex-shrink: 0; /* Logo को दबने नहीं देगा */
 }
 
-.logo img {
-    height: 40px;
-    width: auto;
+/* PC Navigation Links Wrapper */
+#nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
 }
 
-.logo h1 {
-    font-size: 1.5rem;
-    color: var(--primary-color);
-    font-weight: 700;
-}
-
-nav a {
+/* Desktop links styling */
+#nav a {
     text-decoration: none;
     color: var(--text-main);
-    margin-left: 25px;
+    margin-left: 20px;
     font-weight: 500;
     transition: color 0.3s;
+    white-space: nowrap; /* Text को एक लाइन में रखेगा */
 }
 
+/* Login/Signup Buttons Container */
+.auth-links {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+/* Desktop पर Mobile Top Bar को छुपाएं */
+.mobile-top {
+    display: none;
+}
+
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+/* --- RESPONSIVE DESIGN (Mobile) --- */
+@media (max-width: 992px) {
+    header { padding: 1rem 5%; }
+    
+    .menu-toggle { 
+        display: block; 
+    }
+
+    #nav {
+        position: fixed;
+        right: -100%; /* Hidden by default */
+        top: 0;
+        width: 300px; 
+        height: 100vh;
+        background: #ffffff;
+        flex-direction: column; 
+        align-items: flex-start; 
+        justify-content: flex-start;
+        padding: 0; 
+        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+        z-index: 999;
+    }
+
+    #nav.active { 
+        right: 0; 
+    }
+
+    /* Mobile Top Section inside Drawer */
+    .mobile-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 20px;
+        background: var(--primary-color);
+        color: white;
+    }
+
+    .mobile-top .brand {
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    .mobile-top .close-btn {
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+
+    #nav a {
+        margin: 0;
+        padding: 15px 20px;
+        width: 100%;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .auth-links {
+        flex-direction: column;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .auth-links a {
+        border-bottom: 1px solid #f1f5f9;
+    }
+}
 nav a:hover {
     color: var(--primary-color);
 }
@@ -161,14 +246,212 @@ nav a:hover {
     font-size: 0.95rem;
 }
 
+/* images and videos*/
+/* --- MEDIA SECTION STYLING --- */
+.media-section {
+    background-color: #ffffff;
+}
+
+.media-container {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.media-box {
+    flex: 1;
+    min-width: 300px;
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.media-box h4 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+/* Video Responsive Wrapper */
+.video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Image Styling */
+.image-box img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 1px solid #e2e8f0;
+}
+
+.media-box p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+    .media-container {
+        flex-direction: column;
+    }
+    .media-box {
+        width: 100%;
+    }
+}
+
 /* --- FOOTER --- */
+/* Footer Main Styling */
 footer {
-    background: #0f172a;
+    background: #0f172a; /* Dark Navy Blue */
     color: #f1f5f9;
-    padding: 40px 10%;
-    text-align: center;
+    padding: 60px 8% 20px;
     margin-top: 50px;
-    border-top: 5px solid var(--primary-color);
+    border-top: 5px solid #3b82f6; /* Your primary color */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Container for all columns */
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+/* Individual Column Styling */
+.footer-col {
+    flex: 1;
+    min-width: 200px;
+    margin-bottom: 30px;
+}
+
+/* Brand/Bio Column (Wider than others) */
+.footer-col:first-child {
+    flex: 2;
+    min-width: 280px;
+}
+
+.footer-logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.footer-logo span {
+    color: #3b82f6; /* Primary Color for .in */
+}
+
+.footer-col p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+/* Heading Styling */
+.footer-col h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    position: relative;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* List Styling */
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 12px;
+}
+
+.footer-col ul li a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+/* Hover Effect on Links */
+.footer-col ul li a:hover {
+    color: #3b82f6;
+    padding-left: 8px;
+}
+
+/* Social Links Styling */
+.social-links a {
+    color: #f1f5f9;
+    margin-right: 15px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.social-links a:hover {
+    color: #3b82f6;
+}
+
+/* Footer Bottom Section */
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #1e293b;
+}
+
+.footer-bottom p {
+    font-size: 0.85rem;
+    color: #64748b;
+}
+
+/* --- Responsive Design (Mobile Friendly) --- */
+@media (max-width: 768px) {
+    footer {
+        padding: 40px 5% 20px;
+        text-align: left; /* Small devices par left-align zyada achha lagta hai */
+    }
+
+    .footer-container {
+        flex-direction: column;
+    }
+
+    .footer-col {
+        margin-bottom: 20px;
+        border-bottom: 1px solid #1e293b;
+        padding-bottom: 15px;
+    }
+
+    .footer-col:last-child {
+        border-bottom: none;
+    }
+
+    .footer-col:first-child {
+        flex: 1;
+    }
 }
 
 @media (max-width: 768px) {
@@ -226,11 +509,3 @@ footer {
     .hero h2 { font-size: 1.8rem; }
     .hero { padding: 60px 5%; }
 }
-
-
-
-
-
-
-
-
