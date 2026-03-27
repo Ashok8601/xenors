@@ -33,3 +33,20 @@ window.addEventListener('scroll', () => {
         header.style.padding = "1rem 10%";
     }
 });
+
+
+//search box javascript
+// Search Form Logic
+const searchForm = document.getElementById('searchForm');
+if (searchForm) {
+    searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const query = document.getElementById('searchInput').value.trim();
+        
+        if (query) {
+            // यहाँ आप Supabase वाले Search Page पर रीडायरेक्ट कर सकते हैं
+            // उदाहरण के लिए: xenors.in/search?q=python
+            window.location.href = `/search?q=${encodeURIComponent(query)}`;
+        }
+    });
+}
