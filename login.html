@@ -1,1 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <title>Login | Xenors.in - Secure Access to AI & Tech Dashboard</title>
+    <meta name="title" content="Login | Xenors.in - AI & Finance Tools">
+    <meta name="description" content="Securely log in to your Xenors account. Access personalized AI model evaluations, stock market predictive tools, and your Python development projects.">
+    
+    <meta name="robots" content="noindex, nofollow"> <meta name="googlebot" content="noindex, nofollow">
+    <meta name="theme-color" content="#1a1a1a"> <meta property="og:type" content="website">
+    <meta property="og:url" content="https://xenors.in/login">
+    <meta property="og:title" content="Secure Login - Xenors.in">
+    <meta property="og:description" content="Enter the gateway of Tech & Finance. Access your exclusive AI tools and coding dashboard.">
+    <meta property="og:image" content="https://xenors.in/images/xenors-auth-og.png">
 
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://xenors.in/login">
+    <meta property="twitter:title" content="Login to Xenors.in">
+    <meta property="twitter:image" content="https://xenors.in/images/xenors-auth-og.png">
+
+    <link rel="icon" type="image/png" href="/images/xenors.png" sizes="32x32">
+    <link rel="apple-touch-icon" href="/images/xenors.png">
+    <link rel="manifest" href="/manifest.json"> <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/login.css"> <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js" defer></script>
+    <script src="scripts/login.js" defer></script>
+
+    <link rel="preload" href="images/xenors.png" as="image">
+    <style>
+        :root {
+            --primary-blue: #007bff;
+            --dark-bg: #1a1a1a;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at top right, #1e3a8a, #111);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            padding: 40px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .login-card .logo-area img {
+            width: 70px;
+            margin-bottom: 15px;
+        }
+
+        .login-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .login-card p {
+            color: #ccc;
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .footer-links {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .footer-links a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        #status-msg {
+            margin-top: 15px;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <div class="logo-area">
+        <img src="images/xenors.png" alt="Xenors Logo">
+    </div>
+    <h2>Welcome Back</h2>
+    <p>Sign in to continue to Xenors.in</p>
+
+    <div class="input-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Enter your email" required>
+    </div>
+
+    <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter password" required>
+    </div>
+
+    <button class="login-btn" id="loginBtn" onclick="login()">Sign In</button>
+
+    <div id="status-msg"></div>
+
+    <div class="footer-links">
+        Don't have an account? <a href="signup.html">Create Account</a><br><br>
+        <a href="/">← Back to Home</a>
+    </div>
+</div>
+
+<script>
+    // Supabase Configuration
+    const supabaseClient = supabase.createClient(
+        "https://fejvrvzllmvizdvnwopk.supabase.co",
+        "sb_publishable_RIQQVfP2XVPV0woSF10isQ_kdvM21kV"
+    );
+
+    async function login() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const statusMsg = document.getElementById("status-msg");
+        const btn = document.getElementById("loginBtn");
+
+        if (!email || !password) {
+            statusMsg.style.color = "#ff4d4d";
+            statusMsg.innerText = "Please fill in all fields.";
+            return;
+        }
+
+        // Loading State
+        btn.innerText = "Authenticating...";
+        btn.disabled = true;
+
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+        });
+
+        if (error) {
+            statusMsg.style.color = "#ff4d4d";
+            statusMsg.innerText = error.message;
+            btn.innerText = "Sign In";
+            btn.disabled = false;
+        } else {
+            statusMsg.style.color = "#00ff88";
+            statusMsg.innerText = "Login successful! Redirecting...";
+            
+            // Success: Redirect to dashboard or home
+            setTimeout(() => {
+                window.location.href = "dashboard.html"; 
+            }, 1000);
+        }
+    }
+</script>
+
+</body>
+</html>
+  
