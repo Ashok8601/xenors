@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xenors.in - AI, Tech & Finance Learning Platform</title>
+    <meta name="description" content="Xenors.in empowers students and professionals with AI, tech tutorials, Python programming, and financial insights. Learn Machine Learning, tech trends, and wealth building strategies.">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/about.css">
+    <script src="scripts/index.js" defer></script>
+    <script src="scripts/about.js" defer></script>
+
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://xenors.in/"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "About",
+        "item": "https://xenors.in/about"
+      }]
+    }
+    </script>
+
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Xenors",
+      "url": "https://xenors.in",
+      "logo": "https://xenors.in/images/xenors.png",
+      "founder": {
+        "@type": "Person",
+        "name": "Ashok Kumar Yadav"
+      },
+      "sameAs": [
+        "https://www.linkedin.com/in/ashok-kumar-yadav",
+        "https://twitter.com/xenors_in"
+      ]
+    }
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="images/mexenors.png" alt="Xenors logo - AI Tech Finance">
+        <h1 class="header-title">Xenors</h1>
+    </div>
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+    <nav id="nav">
+        <div class="mobile-top">
+            <span class="brand">Xenors</span>
+            <span class="close-btn" onclick="toggleMenu()">✖</span>
+        </div>
+        <a href="/">Home</a>
+        <a href="/tech">Tech</a>
+        <a href="/ai">AI</a>
+        <a href="/finance">Finance</a>
+        <a href="/about" class="active">About</a>
+        <a href="/contact">Contact</a>
+        <div class="auth-links">
+            <a href="/login">Login</a>
+            <a href="/signup">Signup</a>
+        </div>
+    </nav>
+</header>
+
+<section class="about-hero">
+    <h1>Empowering Your Digital Future</h1>
+    <p>We bridge the gap between complex Technology, Artificial Intelligence, and Financial Freedom.</p>
+</section>
+
+<main class="about-container">
+
+    <!-- Mission & Vision -->
+    <section class="mission-vision">
+        <div class="content-box">
+            <h2>Our Mission</h2>
+            <p>At Xenors.in, we beleive that technology shouldnt be limited to expert or college students. Our mission is to simplify AI, Python, Machine Learning, and finance topics so that anyone, anywhere can learn and apply in real world. We also provide tips, tools, and tutorials for building tech skills and smart financial decisions.</p>
+        </div>
+        <div class="content-box">
+            <h2>Our Vision</h2>
+            <p>We want to become a global hub where Finance and Technology intersect. Our vision is to help millions of people learn coding, AI, and money management. By bridging knowledge gaps, we aim to empower individuals for digital literacy and wealth growth.</p>
+        </div>
+    </section>
+
+    <!-- What We Do -->
+    <section class="what-we-do">
+        <h2>What We Offer</h2>
+        <div class="grid-container">
+            <div class="grid-item">
+                <h3>Artificial Intelligence & Machine Learning</h3>
+                <p>We cover AI concepts from beginner to advanced. You can learn Python for ML, Neural Networks, deep learning basics, and deploy your own models. Our tutorials also include real projects like predictive analytics and chatbots. Sometimes we add small mistakes in code so learners can debug like real devs.</p>
+            </div>
+            <div class="grid-item">
+                <h3>Tech Tutorials</h3>
+                <p>From Flask backend development, Django, to modern frontend frameworks, we provide hands-on tutorials. We believe learning by doing is the best approach, so our projects are pratical and close to industry level. Even if you make mistake, its okay, learning is through trial-error.</p>
+            </div>
+            <div class="grid-item">
+                <h3>Financial Insights</h3>
+                <p>Understanding money is essential. We provide guides on stock market basics, personal finance tips, and smart earning strategies. Our goal is to make financial knowledge accesible, even for students who never studied finance before.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Story -->
+    <section class="founder-section">
+        <div class="founder-image">
+            <img src="images/mexenors.jpeg" alt="Ashok Kumar Yadav Founder Xenors.in AI Tech Finance">
+        </div>
+        <div class="founder-info">
+            <h2>The Story Behind Xenors</h2>
+            <p>Xenors was founded by <strong>Ashok Kumar Yadav</strong>, a Computer Science student from Sonbhadra, Uttar Pradesh. Starting as a small initiative, he wanted to create a platform where students can learn coding, AI, and finance without barriers. Many resources online are either too academic or paid, so Xenors.in fills that gap.</p>
+            <p>With experience from <strong>IIT BHU Technex</strong> internship and projects like stock predictors and typing diagnostic tools, Ashok built Xenors.in from late-night coding sessions and his passion for sharing knowledge. Its not just a website, its a learning hub for anyone willing to grow digitally.</p>
+            <blockquote>"Technology is most powerful when accessible to the one who needs it."</blockquote>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="about-video">
+        <h2>Watch Our Journey</h2>
+        <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" title="Xenors Journey" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us">
+        <h2>Why Choose Xenors.in?</h2>
+        <ul>
+            <li><strong>Hands-On Learning:</strong> Our content is practical, backed by real code and examples.</li>
+            <li><strong>Latest Trends:</strong> Stay updated with AI, tech, and financial markets in realtime.</li>
+            <li><strong>Free & Open:</strong> Guides, code snippets, and tutorials available for everyone.</li>
+            <li><strong>Community Driven:</strong> Feedback from learners shapes our content and projects.</li>
+        </ul>
+    </section>
+
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        
+        <div class="footer-col">
+            <h2 class="footer-logo">Xenors<span>.in</span></h2>
+            <p>Empowering your digital journey with the latest in AI technology, financial insights, and real-time news updates.</p>
+            <div class="social-links">
+                <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">LinkedIn</a>
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h3>Know Xenors</h3>
+            <ul>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/mission">Our Mission</a></li>
+                <li><a href="/team">The Team</a></li>
+                <li><a href="/careers">Work With Us</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="https://www.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a></li>
+<li><a href="https://www.google.com" target="_blank" rel="noopener">Google</a></li>
+            </ul>
+        </div>
+       
+        <div class="footer-col">
+            <h3>Explore AI & Tech</h3>
+            <ul>
+                <li><a href="/ai-tools">AI Tools Review</a></li>
+                <li><a href="/machine-learning">Machine Learning</a></li>
+                <li><a href="/future-tech">Future Technology</a></li>
+                <li><a href="/coding">Coding Tutorials</a></li>
+                <li><a href="/gadgets">Smart Gadgets</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Finance & Insights</h3>
+            <ul>
+                <li><a href="/stock-market">Stock Market</a></li>
+                <li><a href="/crypto">Cryptocurrency</a></li>
+                <li><a href="/investing">Personal Finance</a></li>
+                <li><a href="/business-news">Business News</a></li>
+                <li><a href="/world-news">Global Updates</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="/blogs">Our Blogs</a></li>
+                <li><a href="/privacy-policy">Privacy Policy</a></li>
+                <li><a href="/terms">Terms of Service</a></li>
+                <li><a href="/disclaimer">Disclaimer</a></li>
+                <li><a href="/sitemap">Sitemap</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <hr>
+        <p>&copy; 2026 <strong>Xenors.in</strong> | Designed for the Future of AI.</p>
+    </div>
+    <a href="https://facebook.com/xenors" target="_blank">Facebook</a>
+<a href="https://x.com/xenors77" target="_blank">Twitter</a>
+<a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" target="_blank">LinkedIn</a>
+</footer>
+        
+</body>
+  </html>
