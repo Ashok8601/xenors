@@ -39,10 +39,33 @@ header {
 .logo {
     display: flex;
     align-items: center;
-    gap: 10px;
-    flex-shrink: 0; /* Logo को दबने नहीं देगा */
+    gap: 12px;
+    flex-shrink: 0;
 }
 
+/* असली इमेज को यहाँ से कंट्रोल करें */
+.logo img {
+    height: 45px; /* हेडर के हिसाब से 40px से 50px बेस्ट रहता है */
+    width: auto;  /* Aspect ratio बना रहेगा, इमेज खिंचेगी नहीं */
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+/* डेस्कटॉप पर थोड़ा बड़ा और मोबाइल पर छोटा दिखाने के लिए */
+@media (max-width: 768px) {
+    .logo img {
+        height: 35px; /* मोबाइल के लिए थोड़ा छोटा साइज */
+    }
+    
+    .logo h1 {
+        font-size: 1.2rem; /* टेक्स्ट भी छोटा कर दें */
+    }
+}
+
+/* लोगो पर हल्का सा होवर इफ़ेक्ट (Optional) */
+.logo:hover img {
+    transform: scale(1.05);
+}
 /* PC Navigation Links Wrapper */
 #nav {
     display: flex;
