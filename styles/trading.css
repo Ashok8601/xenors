@@ -1,4 +1,6 @@
-/* Base Reset */
+/* =========================
+   RESET + BASE
+========================= */
 *,
 *::before,
 *::after {
@@ -7,83 +9,106 @@
     padding: 0;
 }
 
-/* Root + Global */
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    margin: 5px;
-    background-color: #ffffff;
     font-family: 'Inter', sans-serif;
-    color: #333;
+    background: #ffffff;
+    color: #222;
     line-height: 1.7;
+    font-size: clamp(0.95rem, 1vw, 1.05rem);
 }
 
-/* Layout */
+/* =========================
+   LAYOUT
+========================= */
 .container {
-    max-width: 850px;
-    margin: 0 auto;
-    padding: 20px;
+    max-width: 900px;
+    width: 100%;
+    margin: auto;
+    padding: 20px 16px;
 }
 
-/* Typography */
+/* =========================
+   TYPOGRAPHY
+========================= */
 .main-title {
-    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
-    margin-bottom: 20px;
+    font-size: clamp(1.8rem, 2.5vw, 2.4rem);
     font-weight: 700;
-    color: #1a1a1a;
+    margin-bottom: 20px;
+    color: #111;
 }
 
 .section-title {
-    font-size: clamp(1.5rem, 2vw, 2rem);
-    margin-bottom: 15px;
-    color: #1a1a1a;
+    font-size: clamp(1.4rem, 2vw, 1.9rem);
+    font-weight: 600;
+    margin: 30px 0 15px;
 }
 
 .sub-section-title {
-    font-size: 1.3rem;
-    margin-top: 25px;
-    color: #222;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    font-weight: 600;
 }
 
-.post-content {
-    font-size: 1.05rem;
+.post-content p {
+    margin-bottom: 16px;
     color: #333;
 }
 
-/* Paragraph spacing */
-.post-content p {
-    margin-bottom: 16px;
+/* =========================
+   LINKS
+========================= */
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 500;
 }
 
-/* Divider */
-.section-divider {
-    border: 0;
-    border-top: 1px solid #e5e5e5;
-    margin: 40px 0;
+a:hover {
+    text-decoration: underline;
 }
 
-/* Quote */
-.quote {
-    border-left: 4px solid #007bff;
-    background: #f9f9f9;
-    padding: 15px 20px;
-    margin: 25px 0;
-    font-style: italic;
-    color: #444;
-    border-radius: 4px;
+a:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
 }
 
-/* List */
+/* =========================
+   IMAGE
+========================= */
+.post-figure {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.post-figure img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+}
+
+.post-figure figcaption {
+    font-size: 0.85rem;
+    color: #666;
+    margin-top: 8px;
+}
+
+/* =========================
+   LIST
+========================= */
 .feature-list {
-    list-style: none;
     margin: 20px 0;
+    padding-left: 0;
+    list-style: none;
 }
 
 .feature-list li {
-    margin-bottom: 12px;
-    padding-left: 26px;
+    margin-bottom: 10px;
+    padding-left: 22px;
     position: relative;
 }
 
@@ -92,222 +117,148 @@ body {
     position: absolute;
     left: 0;
     color: #28a745;
-    font-weight: bold;
 }
 
-/* Links */
-a {
-    color: #007bff;
-    text-decoration: none;
-    font-weight: 600;
+/* =========================
+   QUOTE
+========================= */
+.quote {
+    border-left: 4px solid #007bff;
+    padding: 15px 18px;
+    background: #f7f9fc;
+    margin: 25px 0;
+    font-style: italic;
+    color: #444;
+}
+
+/* =========================
+   DIVIDER
+========================= */
+.section-divider {
+    border: none;
+    border-top: 1px solid #e5e5e5;
+    margin: 40px 0;
+}
+
+/* =========================
+   INFO BOX
+========================= */
+.info-box {
+    background: #f1f7fb;
+    border-left: 4px solid #17a2b8;
+    padding: 16px;
+    border-radius: 6px;
+    margin: 20px 0;
+}
+
+/* =========================
+   FAQ
+========================= */
+#faq {
+    margin-top: 40px;
+}
+
+#faq details {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 14px;
+    margin-bottom: 10px;
+    background: #fafafa;
     transition: 0.2s ease;
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
-/* Focus (Accessibility) */
-a:focus {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
-}
-
-/* Images */
-.post-figure {
-    margin: 30px 0;
-    text-align: center;
-}
-
-.post-figure img {
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.post-figure figcaption {
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 10px;
-    font-style: italic;
-}
-
-/* Info Box */
-.info-box {
-    background: #f4f8fb;
-    padding: 18px;
-    border-radius: 8px;
-    border-left: 4px solid #17a2b8;
-    margin-top: 25px;
-    color: #333;
-}
-
-/* Responsive tweaks */
-@media (max-width: 768px) {
-    .container {
-        padding: 15px;
-    }
-    
-    .main-title {
-        font-size: 1.8rem;
-    }
-    
-    .section-title {
-        font-size: 1.5rem;
-    }
-    
-    .post-content {
-        font-size: 1rem;
-    }
-}
-/* FAQ Section */
-#faq {
-    margin-top: 50px;
-}
-
-/* Each FAQ item */
-#faq details {
-    background: #f9fbfd;
-    border: 1px solid #e5e7eb;
-    border-radius: 10px;
-    padding: 14px 18px;
-    margin-bottom: 12px;
-    transition: all 0.25s ease;
-}
-
-/* Hover effect */
 #faq details:hover {
     border-color: #007bff;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-/* Question (summary) */
 #faq summary {
-    font-size: 1.05rem;
-    font-weight: 600;
     cursor: pointer;
+    font-weight: 600;
     list-style: none;
     position: relative;
-    padding-right: 30px;
-    color: #1a1a1a;
+    padding-right: 25px;
 }
 
-/* Remove default arrow */
 #faq summary::-webkit-details-marker {
     display: none;
 }
 
-/* Custom arrow */
 #faq summary::after {
     content: "+";
     position: absolute;
     right: 0;
-    top: 0;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: #007bff;
-    transition: transform 0.3s ease;
 }
 
-/* Open state arrow */
 #faq details[open] summary::after {
-    content: "−";
-    transform: rotate(180deg);
+    content: "-";
 }
 
-/* Answer text */
 #faq details p {
     margin-top: 10px;
-    font-size: 0.98rem;
-    color: #444;
-    line-height: 1.6;
+    font-size: 0.95rem;
 }
 
-/* Smooth opening animation */
-#faq details[open] {
-    background: #ffffff;
-    border-color: #007bff;
-}
-
-/* Focus accessibility */
-#faq summary:focus {
-    outline: 2px solid #007bff;
-    outline-offset: 3px;
-}
-
-/* Mobile Optimization */
-@media (max-width: 768px) {
-    #faq summary {
-        font-size: 1rem;
-    }
-
-    #faq details {
-        padding: 12px 14px;
-    }
-}
-
-/* Explore Topics Section */
+/* =========================
+   EXPLORE TOPICS
+========================= */
 #explore-topics {
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
-/* Grid layout for links */
 #explore-topics .feature-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 12px;
-    padding: 0;
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
 }
 
-/* Remove default list style */
-#explore-topics .feature-list li {
-    list-style: none;
-}
-
-/* Link card style */
 #explore-topics .feature-list a {
     display: block;
-    padding: 12px 14px;
+    padding: 10px;
     background: #f8f9fa;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: #333;
+    border-radius: 6px;
     border: 1px solid #e5e7eb;
-    transition: all 0.25s ease;
+    color: #333;
+    transition: 0.2s;
 }
 
-/* Hover effect */
 #explore-topics .feature-list a:hover {
     background: #007bff;
-    color: #ffffff;
-    border-color: #007bff;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    color: #fff;
 }
 
-/* Focus (Accessibility) */
-#explore-topics .feature-list a:focus {
-    outline: 2px solid #007bff;
-    outline-offset: 3px;
-}
-
-/* Section title spacing */
-#explore-topics .section-title {
-    margin-bottom: 10px;
-}
-
-/* Mobile Optimization */
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 768px) {
-    #explore-topics .feature-list {
-        grid-template-columns: 1fr;
+    .container {
+        padding: 16px;
     }
 
-    #explore-topics .feature-list a {
-        font-size: 0.9rem;
-        padding: 10px 12px;
+    .main-title {
+        font-size: 1.7rem;
     }
-  }
+
+    .section-title {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 12px;
+    }
+
+    .main-title {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .post-content p {
+        font-size: 0.95rem;
+    }
+}
