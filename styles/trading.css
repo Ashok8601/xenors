@@ -1,5 +1,5 @@
 /* =========================
-   RESET + BASE
+   RESET
 ========================= */
 *,
 *::before,
@@ -9,33 +9,45 @@
     padding: 0;
 }
 
+/* =========================
+   BASE
+========================= */
 html {
     scroll-behavior: smooth;
 }
 
 body {
     font-family: 'Inter', sans-serif;
-    background: #ffffff;
+    background: #f5f7fb;
     color: #222;
     line-height: 1.7;
     font-size: clamp(0.95rem, 1vw, 1.05rem);
 }
 
 /* =========================
-   LAYOUT
+   CONTAINER
 ========================= */
 .container {
     max-width: 900px;
-    width: 100%;
     margin: auto;
     padding: 20px 16px;
+}
+
+/* =========================
+   MAIN CARD (IMPORTANT)
+========================= */
+.blog-wrapper {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.05);
 }
 
 /* =========================
    TYPOGRAPHY
 ========================= */
 .main-title {
-    font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+    font-size: clamp(1.8rem, 2.5vw, 2.5rem);
     font-weight: 700;
     margin-bottom: 20px;
     color: #111;
@@ -43,8 +55,10 @@ body {
 
 .section-title {
     font-size: clamp(1.4rem, 2vw, 1.9rem);
+    margin: 35px 0 15px;
+    padding-left: 12px;
+    border-left: 4px solid #007bff;
     font-weight: 600;
-    margin: 30px 0 15px;
 }
 
 .sub-section-title {
@@ -53,6 +67,9 @@ body {
     font-weight: 600;
 }
 
+/* =========================
+   TEXT
+========================= */
 .post-content p {
     margin-bottom: 16px;
     color: #333;
@@ -71,64 +88,73 @@ a:hover {
     text-decoration: underline;
 }
 
-a:focus {
-    outline: 2px solid #007bff;
-    outline-offset: 2px;
-}
-
 /* =========================
    IMAGE
 ========================= */
 .post-figure {
     margin: 30px 0;
-    text-align: center;
 }
 
 .post-figure img {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+    border-radius: 12px;
     display: block;
 }
 
 .post-figure figcaption {
+    text-align: center;
     font-size: 0.85rem;
     color: #666;
     margin-top: 8px;
 }
 
 /* =========================
-   LIST
+   FEATURE LIST (UPGRADED)
 ========================= */
 .feature-list {
-    margin: 20px 0;
-    padding-left: 0;
     list-style: none;
+    margin: 20px 0;
 }
 
 .feature-list li {
+    background: #f8f9fa;
+    padding: 12px 14px;
+    border-radius: 8px;
     margin-bottom: 10px;
-    padding-left: 22px;
     position: relative;
+    padding-left: 35px;
 }
 
 .feature-list li::before {
     content: "✔";
     position: absolute;
-    left: 0;
+    left: 12px;
     color: #28a745;
+    font-weight: bold;
 }
 
 /* =========================
-   QUOTE
+   QUOTE (PREMIUM LOOK)
 ========================= */
 .quote {
+    background: #eef6ff;
     border-left: 4px solid #007bff;
-    padding: 15px 18px;
-    background: #f7f9fc;
+    padding: 18px;
+    border-radius: 8px;
     margin: 25px 0;
     font-style: italic;
-    color: #444;
+    color: #333;
+}
+
+/* =========================
+   INFO BOX
+========================= */
+.info-box {
+    background: #f1f7fb;
+    padding: 18px;
+    border-left: 4px solid #17a2b8;
+    border-radius: 8px;
+    margin: 25px 0;
 }
 
 /* =========================
@@ -141,39 +167,29 @@ a:focus {
 }
 
 /* =========================
-   INFO BOX
-========================= */
-.info-box {
-    background: #f1f7fb;
-    border-left: 4px solid #17a2b8;
-    padding: 16px;
-    border-radius: 6px;
-    margin: 20px 0;
-}
-
-/* =========================
-   FAQ
+   FAQ (MODERN)
 ========================= */
 #faq {
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 #faq details {
+    background: #ffffff;
     border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 14px;
-    margin-bottom: 10px;
-    background: #fafafa;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 12px;
     transition: 0.2s ease;
 }
 
 #faq details:hover {
     border-color: #007bff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
 }
 
 #faq summary {
-    cursor: pointer;
     font-weight: 600;
+    cursor: pointer;
     list-style: none;
     position: relative;
     padding-right: 25px;
@@ -204,7 +220,7 @@ a:focus {
    EXPLORE TOPICS
 ========================= */
 #explore-topics {
-    margin-top: 40px;
+    margin-top: 50px;
 }
 
 #explore-topics .feature-list {
@@ -213,31 +229,32 @@ a:focus {
     gap: 10px;
 }
 
-#explore-topics .feature-list a {
+#explore-topics a {
     display: block;
-    padding: 10px;
     background: #f8f9fa;
-    border-radius: 6px;
+    padding: 12px;
+    border-radius: 8px;
     border: 1px solid #e5e7eb;
-    color: #333;
     transition: 0.2s;
+    color: #333;
 }
 
-#explore-topics .feature-list a:hover {
+#explore-topics a:hover {
     background: #007bff;
     color: #fff;
+    transform: translateY(-2px);
 }
 
 /* =========================
    RESPONSIVE
 ========================= */
 @media (max-width: 768px) {
-    .container {
-        padding: 16px;
+    .blog-wrapper {
+        padding: 20px;
     }
 
     .main-title {
-        font-size: 1.7rem;
+        font-size: 1.8rem;
     }
 
     .section-title {
@@ -248,6 +265,10 @@ a:focus {
 @media (max-width: 480px) {
     .container {
         padding: 12px;
+    }
+
+    .blog-wrapper {
+        padding: 16px;
     }
 
     .main-title {
