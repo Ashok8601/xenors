@@ -1,6 +1,38 @@
- <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!--  created with Free Online Sitemap Generator www.xml-sitemaps.com  -->
 <url>
 <loc>https://xenors.in/</loc>
-<lastmod>2026-03-26T16:11:51+00:00</lastmod>
+<lastmod>2026-03-30T12:16:00+00:00</lastmod>
+<priority>1.00</priority>
+</url>
+<url>
+<loc>https://xenors.in/Blog/blog</loc>
+<lastmod>2026-03-30T12:16:00+00:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://xenors.in/about</loc>
+<lastmod>2026-03-30T12:16:00+00:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://xenors.in/contact</loc>
+<lastmod>2026-03-30T12:16:00+00:00</lastmod>
+<priority>0.80</priority>
+</url>
+<url>
+<loc>https://xenors.in/AI-transforming-stock-trading/</loc>
+<lastmod>2026-03-30T12:16:00+00:00</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://xenors.in/start-investing-with-100-dollars/</loc>
+<lastmod>2026-03-30T12:16:00+00:00</lastmod>
+<priority>0.64</priority>
+</url>
+<url>
+<loc>https://xenors.in/best-ai-tools-backend-development-2026/</loc>
+<lastmod>2026-03-30T12:16:00+00:00</lastmod>
+<priority>0.64</priority>
 </url>
 </urlset>
