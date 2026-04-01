@@ -173,111 +173,66 @@ nav a:hover {
     color: var(--primary-color);
 }
 
-.menu-toggle {
-    display: none;
-    font-size: 1.8rem;
-    cursor: pointer;
-}
-
-/*search box css */
-/* --- SEARCH BOX STYLING --- */
+/* =========================
+   SEARCH BOX
+========================= */
 .search-container {
     max-width: 600px;
     margin: 2rem auto;
-    width: 100%;
     padding: 0 20px;
 }
 
 .search-input-group {
     display: flex;
-    background: #ffffff;
+    background: #fff;
     border-radius: 50px;
-    padding: 5px 10px;
+    padding: 5px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    border: 2px solid transparent;
-    transition: 0.3s;
-}
-
-.search-input-group:focus-within {
-    border-color: #2563eb; /* Primary Blue */
-    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.2);
 }
 
 #searchInput {
     flex: 1;
     border: none;
+    padding: 12px 15px;
     outline: none;
-    padding: 12px 20px;
-    font-size: 1rem;
-    border-radius: 50px;
-    font-family: 'Inter', sans-serif;
 }
 
 .search-btn {
-    background: #2563eb;
+    background: var(--primary-color);
     border: none;
-    width: 45px;
-    height: 45px;
     border-radius: 50%;
+    width: 45px;
+    color: #fff;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: 0.3s;
 }
 
-.search-btn:hover {
-    background: #1d4ed8;
-    transform: scale(1.05);
-}
-
-.search-btn span {
-    color: white;
-    font-size: 1.2rem;
-}
-
-/* Mobile Adjustments */
-@media (max-width: 480px) {
-    .search-container {
-        margin: 1.5rem auto;
-    }
-    #searchInput {
-        padding: 10px 15px;
-        font-size: 0.9rem;
-    }
-}
-
-
-/* --- HERO SECTION --- */
+/* =========================
+   HERO
+========================= */
 .hero {
-    padding: 80px 10%;
     text-align: center;
-    background: linear-gradient(135deg, #ffffff 0%, #eff6ff 100%);
+    padding: 80px 10%;
+    background: linear-gradient(135deg, #fff, #eff6ff);
 }
 
 .hero h2 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    color: #0f172a;
+    font-size: clamp(1.6rem, 3vw, 2.5rem);
 }
 
 .hero p {
-    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 15px auto;
     color: var(--text-muted);
-    max-width: 600px;
-    margin: 0 auto 25px;
 }
 
 .btn {
     background: var(--primary-color);
-    color: white;
-    padding: 12px 30px;
-    border: none;
+    color: #fff;
+    padding: 12px 25px;
     border-radius: 8px;
-    font-size: 1rem;
+    border: none;
     cursor: pointer;
-    font-weight: 600;
-    transition: transform 0.2s, background 0.3s;
+    transition: 0.3s;
 }
 
 .btn:hover {
@@ -285,372 +240,182 @@ nav a:hover {
     transform: translateY(-2px);
 }
 
-/* --- CARDS & SECTIONS --- */
+/* =========================
+   SECTIONS
+========================= */
 .section {
     padding: 60px 10%;
 }
 
+.section h2,
 .section h3 {
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-    position: relative;
-    padding-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-.section h3::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 50px;
-    height: 4px;
-    background: var(--primary-color);
-    border-radius: 2px;
-}
-
+/* =========================
+   CARDS
+========================= */
 .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+    gap: 20px;
 }
 
 .card {
     background: var(--card-bg);
-    padding: 30px;
+    padding: 25px;
     border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-    transition: all 0.3s ease;
-    border: 1px solid #f1f5f9;
+    border: 1px solid #eee;
+    transition: 0.3s;
 }
 
 .card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
 }
 
 .card h4 {
-    margin-bottom: 12px;
-    font-size: 1.25rem;
+    margin-bottom: 10px;
 }
 
-.card p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-}
-/* --- MEDIA SECTION STYLING --- */
-.media-section {
-    background-color: #ffffff;
+/* =========================
+   RECENT POSTS SCROLLER
+========================= */
+.scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    scroll-behavior: smooth;
 }
 
+.post-card {
+    min-width: 250px;
+    background: #111;
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    transition: 0.3s;
+}
+
+.post-card:hover {
+    transform: scale(1.05);
+}
+
+/* =========================
+   SEARCH RESULTS
+========================= */
+#searchBox {
+    width: 100%;
+    max-width: 500px;
+    padding: 12px;
+    border-radius: 30px;
+    border: 2px solid #ddd;
+}
+
+#results {
+    margin-top: 20px;
+}
+
+#results div {
+    background: #f1f5f9;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+#results div:hover {
+    background: var(--primary-color);
+}
+
+#results a {
+    text-decoration: none;
+    color: #000;
+}
+
+#results div:hover a {
+    color: #fff;
+}
+
+/* =========================
+   MEDIA SECTION
+========================= */
 .media-container {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     flex-wrap: wrap;
-    align-items: stretch; /* 'flex-start' से बदलकर 'stretch' किया ताकि कार्ड्स की हाइट बराबर रहे */
 }
 
 .media-box {
     flex: 1;
     min-width: 300px;
-    background: var(--card-bg);
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid #f1f5f9;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column; /* अंदर के कंटेंट को वर्टिकली अलाइन करने के लिए */
 }
 
-.media-box h4 {
-    margin-bottom: 15px;
-    color: var(--primary-color);
-}
-
-/* Video & Image Wrapper (दोनों के लिए सेम रेशियो) */
-.video-wrapper, .image-wrapper {
+.video-wrapper,
+.image-wrapper {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    padding-bottom: 56%;
     height: 0;
-    overflow: hidden;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #e2e8f0;
 }
 
-.video-wrapper iframe, .image-wrapper img {
+.video-wrapper iframe,
+.image-wrapper img {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* इमेज को बिना स्ट्रेच किए बॉक्स में फिट करेगा */
 }
 
-.media-box p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.4;
-    margin-top: auto; /* अगर टेक्स्ट छोटा-बड़ा हो, तो भी नीचे से अलाइन रहेगा */
-}
-
-/* Mobile Adjustments */
-@media (max-width: 768px) {
-    .media-container {
-        flex-direction: column;
-    }
-    .media-box {
-        width: 100%;
-    }
-}
-
-/* --- FOOTER --- */
-/* Footer Main Styling */
+/* =========================
+   FOOTER
+========================= */
 footer {
-    background: #0f172a; /* Dark Navy Blue */
-    color: #f1f5f9;
-    padding: 60px 8% 20px;
-    margin-top: 50px;
-    border-top: 5px solid #3b82f6; /* Your primary color */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0f172a;
+    color: #fff;
+    padding: 50px 8%;
 }
 
-/* Container for all columns */
 .footer-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     gap: 30px;
 }
 
-/* Individual Column Styling */
 .footer-col {
     flex: 1;
     min-width: 200px;
-    margin-bottom: 30px;
 }
 
-/* Brand/Bio Column (Wider than others) */
-.footer-col:first-child {
-    flex: 2;
-    min-width: 280px;
-}
-
-.footer-logo {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: #fff;
-}
-
-.footer-logo span {
-    color: #3b82f6; /* Primary Color for .in */
-}
-
-.footer-col p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #94a3b8;
-    margin-bottom: 20px;
-}
-
-/* Heading Styling */
 .footer-col h3 {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    position: relative;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    margin-bottom: 15px;
 }
 
-/* List Styling */
-.footer-col ul {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-col ul li {
-    margin-bottom: 12px;
-}
-
-.footer-col ul li a {
+.footer-col a {
     color: #94a3b8;
     text-decoration: none;
-    font-size: 0.9rem;
-    transition: all 0.3s ease;
 }
 
-/* Hover Effect on Links */
-.footer-col ul li a:hover {
-    color: #3b82f6;
-    padding-left: 8px;
+.footer-col a:hover {
+    color: var(--primary-color);
 }
 
-/* Social Links Styling */
-.social-links a {
-    color: #f1f5f9;
-    margin-right: 15px;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-
-.social-links a:hover {
-    color: #3b82f6;
-}
-
-/* Footer Bottom Section */
 .footer-bottom {
     text-align: center;
-    margin-top: 40px;
-    padding-top: 20px;
-    border-top: 1px solid #1e293b;
+    margin-top: 30px;
+    font-size: 0.9rem;
 }
 
-.footer-bottom p {
-    font-size: 0.85rem;
-    color: #64748b;
-}
-
-/* --- Responsive Design (Mobile Friendly) --- */
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 768px) {
-    footer {
-        padding: 40px 5% 20px;
-        text-align: left; /* Small devices par left-align zyada achha lagta hai */
+    .hero {
+        padding: 60px 5%;
+    }
+
+    .section {
+        padding: 40px 5%;
     }
 
     .footer-container {
         flex-direction: column;
     }
-
-    .footer-col {
-        margin-bottom: 20px;
-        border-bottom: 1px solid #1e293b;
-        padding-bottom: 15px;
-    }
-
-    .footer-col:last-child {
-        border-bottom: none;
-    }
-
-    .footer-col:first-child {
-        flex: 1;
-    }
-}
-
-@media (max-width: 768px) {
-    header { 
-        padding: 1rem 5%; 
-    }
-    
-    .menu-toggle { 
-        display: block; 
-        color: var(--primary-color);
-        font-size: 2rem;
-    }
-
-    nav {
-        position: fixed;
-        right: -100%; /* Default hidden */
-        top: 0;
-        width: 280px; /* Specific width for better look */
-        height: 100vh;
-        background: #ffffff;
-        display: flex;
-        flex-direction: column; /* Items stack vertically */
-        align-items: flex-start; /* Align text to left */
-        padding: 80px 30px; /* Space from top and sides */
-        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-        z-index: 999;
-    }
-
-    nav.active { 
-        right: 0; 
-    }
-
-    nav a {
-        margin: 0;
-        padding: 15px 0;
-        font-size: 1.1rem;
-        width: 100%; /* Full width for better click area */
-        border-bottom: 1px solid #f1f5f9; /* Subtle divider */
-        color: var(--text-main);
-        display: block;
-        transition: padding-left 0.3s ease;
-    }
-
-    nav a:last-child {
-        border-bottom: none;
-    }
-
-    nav a:hover {
-        color: var(--primary-color);
-        padding-left: 10px; /* Small slide effect on hover */
-    }
-
-    /* Hero adjustments for mobile */
-    .hero h2 { font-size: 1.8rem; }
-    .hero { padding: 60px 5%; }
-}
-
-.header-title {
-    font-size: 1.5rem; /* smaller size */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.share-buttons {
-    display: flex;
-    gap: 10px;
-    margin: 20px 0;
-    flex-wrap: wrap;
-}
-
-.share-buttons a {
-    text-decoration: none;
-    background: #0077b6; /* blue, you can change per platform */
-    color: #fff;
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    transition: background 0.3s;
-}
-
-.share-buttons a:hover {
-    background: #023e8a;
-}
-
-.wikipedia-link {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 6px 10px;
-    background: #f8f9fa;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    text-decoration: none;
-    color: #0077b6;
-    font-weight: 500;
-    transition: background 0.3s, color 0.3s;
-}
-
-.wikipedia-link:hover {
-    background: #0077b6;
-    color: #fff;
-}
-
-.footer .social-links a {
-    text-decoration: none;
-    margin-right: 10px;
-    padding: 6px 10px;
-    background: #0077b6;
-    color: #fff;
-    border-radius: 4px;
-    transition: background 0.3s;
-}
-
-.footer .social-links a:hover {
-    background: #023e8a;
 }
