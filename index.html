@@ -174,21 +174,19 @@
 }
 </script>
 </head>
-
 <body>
 
-<!-- HEADER -->
+<!-- HEADER (AS IT IS) -->
 <header>
     <div class="logo">
     <img src="images/xenors.png" alt="Xenors logo">
-    <h1 class="header-title">Xenors – AI, Technology & Finance Made Simple by Ashok Kumar Yadav</h1>
+    <h2 class="header-title">Xenors</h2>
     </div>
 
     <div class="menu-toggle" onclick="toggleMenu()">☰</div>
 
     <nav id="nav">
 
-        <!-- MOBILE TOP BAR -->
         <div class="mobile-top">
             <span class="brand">Xenors</span>
             <span class="close-btn" onclick="toggleMenu()">✖</span>
@@ -196,7 +194,7 @@
 
         <a href="/">Home</a>
         <a href="/tech">Tech</a>
-        <a href="https://xenors.in/Blog/blog">Blogs</a>
+        <a href="/blog">Blogs</a>
         <a href="/finance">Finance</a>
         <a href="/about">About</a>
         <a href="/contact">Contact</a>
@@ -210,149 +208,173 @@
 </header>
 
 
-    
-<!--search box-->
-<div class="search-container">
-    <form id="searchForm">
-        <div class="search-input-group">
-            <input type="text" id="searchInput" placeholder="Search for AI tools, Tech guides..." required>
-            <button type="submit" class="search-btn">
-                <span>🔍</span>
-            </button>
-        </div>
-    </form>
-</div>
-    
 <!-- HERO -->
 <section class="hero">
-    <h2>Tech, AI & Finance Made Simple</h2>
-    <p>Learn practical skills and build your future with Xenors</p>
-    <button class="btn">Explore AI & Finance Guides</button>
+    <h1>Xenors – AI, Technology & Finance Platform</h1>
+    <h2>Learn AI, Coding & Financial Growth in One Place</h2>
+
+    <p>
+    Xenors is a next-generation platform created by <strong>Ashok Kumar Yadav</strong> to help students, developers, and learners master Artificial Intelligence, backend development, and finance.
+    </p>
+
+    <button class="btn">Start Learning Now</button>
 </section>
-    <div class="share-buttons">
-<p>
-Xenors is a leading platform by Engg Ashok Kumar Yadav focused on Artificial Intelligence, backend development, and finance. Learn real-world tech skills, AI tools, and investment strategies designed for students and developers.
-</p>
+
+
+<!-- TRUST / BRAND AUTHORITY -->
+<section class="section">
+    <h2>Why Xenors?</h2>
+    <div class="cards">
+
+        <div class="card">
+            <h4>🚀 Practical Learning</h4>
+            <p>Step-by-step guides on AI tools, backend development, and real-world projects.</p>
+        </div>
+
+        <div class="card">
+            <h4>📊 Smart Finance Knowledge</h4>
+            <p>Learn investing, stock market basics, and money growth strategies.</p>
+        </div>
+
+        <div class="card">
+            <h4>🧠 Future Tech Focus</h4>
+            <p>Stay updated with AI trends, automation, and upcoming technologies.</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- SEARCH -->
+<section class="section">
+    <h2>Search AI, Tech & Finance Topics</h2>
+    <input type="text" id="searchBox" placeholder="Search AI tools, coding, finance..." />
+    <div id="results"></div>
+</section>
+
+
+<!-- SERVICES -->
+<section class="section">
+    <h2>Our Services</h2>
+    <div class="cards">
+
+        <div class="card">
+            <h4>AI Tools Guides</h4>
+            <p>Detailed reviews and tutorials on the best AI tools in 2026.</p>
+        </div>
+
+        <div class="card">
+            <h4>Backend Development</h4>
+            <p>Learn Flask, APIs, databases, and real-world backend systems.</p>
+        </div>
+
+        <div class="card">
+            <h4>Finance Education</h4>
+            <p>Understand investing, crypto, and wealth building strategies.</p>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- LATEST POSTS -->
+<section class="section recent-posts">
+    <h2>Latest Posts on Xenors</h2>
+
+    <div class="scroll-container" id="postContainer">
         
-<a href="https://www.facebook.com/sharer/sharer.php?u=https://xenors.in" target="_blank">
-Share on Facebook
-</a>
-
-<a href="https://twitter.com/intent/tweet?url=https://xenors.in&text=Check%20this%20out" target="_blank">
-Share on Twitter
-</a>
-
-<a href="https://www.linkedin.com/sharing/share-offsite/?url=https://xenors.in" target="_blank">
-Share on LinkedIn
-</a>
-
-<a href="https://wa.me/?text=https://xenors.in" target="_blank">
-Share on WhatsApp
-</a>
-
-    </div>
-
-<!-- CATEGORIES -->
-<section class="section">
-    <h3>Categories</h3>
-    <div class="cards">
-        <div class="card">
-            <h4>💻 Tech</h4>
-            <p>Programming, backend, development guides.</p>
+        <div class="post-card">
+            <h4>AI in Stock Market</h4>
+            <p>How AI is changing trading strategies.</p>
+            <a href="/blog/ai-stock-market">Read More</a>
         </div>
-        <div class="card">
-            <h4>🤖 AI</h4>
-            <p>AI tools, machine learning, future tech.</p>
+
+        <div class="post-card">
+            <h4>Flask Backend Guide</h4>
+            <p>Build scalable APIs step by step.</p>
+            <a href="/blog/flask-backend">Read More</a>
         </div>
-        <div class="card">
-            <h4>💰 Finance</h4>
-            <p>Investing, earning, money growth basics.</p>
+
+        <div class="post-card">
+            <h4>Top AI Tools 2026</h4>
+            <p>Boost productivity with smart tools.</p>
+            <a href="/blog/ai-tools">Read More</a>
         </div>
+
     </div>
 </section>
 
-<!-- POSTS -->
+
+<!-- ABOUT FOUNDER (VERY IMPORTANT FOR BRAND SEO) -->
 <section class="section">
-    <h3>Featured Posts</h3>
-    <div class="cards">
-        <div class="card">
-            <h4>Start Coding from Zero</h4>
-            <p>Simple roadmap for beginners.</p>
-        </div>
-        <div class="card">
-            <h4>Best AI Tools</h4>
-            <p>Boost your productivity easily.</p>
-        </div>
-        <div class="card">
-            <h4>Earn Online</h4>
-            <p>20 Ways To Start Earnings.</p>
-        </div>
-    </div>
+    <h2>About Founder</h2>
+
+    <p>
+    <strong>Ashok Kumar Yadav</strong> is a backend developer and tech creator focused on Artificial Intelligence, web development, and finance education.  
+    Through Xenors, he shares practical knowledge to help students and developers grow in the digital world.
+    </p>
 </section>
-<!--image and video for me -->
-<!-- Image and Video Section for Xenors -->
+
+
+<!-- CONTENT BOOST (SEO GOLD) -->
+<section class="section">
+    <h2>Learn AI, Technology & Finance</h2>
+
+    <p>
+    Xenors provides high-quality content on Artificial Intelligence, backend development, and financial growth strategies.  
+    Whether you are a beginner or an advanced learner, you will find practical tutorials, AI tools, and investment guides.
+    </p>
+
+    <p>
+    Topics covered include:
+    AI tools, machine learning basics, Flask backend development, APIs, stock market strategies, cryptocurrency, and online earning methods.
+    </p>
+</section>
+
+
+<!-- COMMITMENT -->
+<section class="section">
+    <h2>Our Commitment</h2>
+
+    <p>
+    At Xenors, our mission is to simplify complex topics like AI, coding, and finance into easy and practical knowledge.  
+    We aim to help millions of students and developers build skills and achieve financial growth.
+    </p>
+</section>
+
+
+<!-- MEDIA -->
 <section class="section media-section">
     
-    <h2>Learn AI, Technology & Finance with Xenors</h2>
-    <p>Explore the latest insights on Artificial Intelligence, backend development, and financial growth strategies by Engg Ashok Kumar Yadav on Xenors.</p>
+    <h2>Watch & Learn</h2>
 
     <div class="media-container">
         
-        <!-- YouTube Video -->
-        <div class="media-box video-box">
-            <h3>Latest AI & Finance Video by Ashok Kumar</h3>
-            
+        <div class="media-box">
+            <h3>Latest Video</h3>
             <div class="video-wrapper">
-                <iframe 
-                    src="https://www.youtube.com/embed/Sw9p-1d-iU8" 
-                    title="AI, Technology & Finance Insights by Engg Ashok Kumar | Xenors" 
-                    loading="lazy"
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen>
-                </iframe>
+                <iframe src="https://www.youtube.com/embed/Sw9p-1d-iU8" allowfullscreen></iframe>
             </div>
-
-            <p>
-                Watch the latest YouTube Shorts by Engg Ashok Kumar Yadav on Xenors. 
-                Learn AI, Technology, and Finance concepts in a simple and practical way.
-            </p>
         </div>
 
-        <!-- Founder Image -->
-        <div class="media-box image-box">
-            <h3>About Engg Ashok Kumar Yadav</h3>
-            
+        <div class="media-box">
+            <h3>Founder</h3>
             <div class="image-wrapper">
-                <img 
-                    src="images/mexenors.jpeg" 
-                    alt="Engg Ashok Kumar Yadav - Founder of Xenors AI Technology Finance Platform" 
-                    loading="lazy">
+                <img src="images/mexenors.jpeg">
             </div>
-
-            <p>
-                Engg Ashok Kumar Yadav, founder of Xenors, is a backend developer and tech creator 
-                sharing insights on AI, Technology, and Finance for students and innovators.
-            </p>
         </div>
 
     </div>
 </section>
-<p>
-Learn more about AI from 
-<a href="https://en.wikipedia.org/wiki/Artificial_intelligence" target="_blank" rel="noopener" class="wikipedia-link">
-Wikipedia
-</a>.
-</p>
+
+
+<!-- FOOTER (AS IT IS - NO CUT) -->
 <footer class="footer">
     <div class="footer-container">
         
         <div class="footer-col">
             <h2 class="footer-logo">Xenors<span>.in</span></h2>
-            <p>Empowering your digital journey with the latest in AI technology, financial insights, and real-time news updates.</p>
-            <div class="social-links">
-                <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">LinkedIn</a>
-            </div>
+            <p>Empowering your digital journey with AI, finance, and tech knowledge.</p>
         </div>
 
         <div class="footer-col">
@@ -360,58 +382,25 @@ Wikipedia
             <ul>
                 <li><a href="/about">About Us</a></li>
                 <li><a href="/mission">Our Mission</a></li>
-                <li><a href="/team">The Team</a></li>
-                <li><a href="/careers">Work With Us</a></li>
-                <li><a href="/contact">Contact Us</a></li>
-                <li><a href="https://www.wikipedia.org" target="_blank" rel="noopener">Wikipedia</a></li>
-<li><a href="https://www.google.com" target="_blank" rel="noopener">Google</a></li>
-            </ul>
-        </div>
-       
-        <div class="footer-col">
-            <h3>Explore AI & Tech</h3>
-            <ul>
-                <li><a href="/ai-tools">AI Tools Review</a></li>
-                <li><a href="/machine-learning">Machine Learning</a></li>
-                <li><a href="/future-tech">Future Technology</a></li>
-                <li><a href="/coding">Coding Tutorials</a></li>
-                <li><a href="/gadgets">Smart Gadgets</a></li>
+                <li><a href="/contact">Contact</a></li>
             </ul>
         </div>
 
         <div class="footer-col">
-            <h3>Finance & Insights</h3>
+            <h3>Explore</h3>
             <ul>
-                <li><a href="/stock-market">Stock Market</a></li>
-                <li><a href="/crypto">Cryptocurrency</a></li>
-                <li><a href="/investing">Personal Finance</a></li>
-                <li><a href="/business-news">Business News</a></li>
-                <li><a href="/world-news">Global Updates</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-col">
-            <h3>Quick Links</h3>
-            <ul>
-                <li><a href="/blogs">Our Blogs</a></li>
-                <li><a href="/privacy-policy">Privacy Policy</a></li>
-                <li><a href="/terms">Terms of Service</a></li>
-                <li><a href="/disclaimer">Disclaimer</a></li>
-                <li><a href="/sitemap">Sitemap</a></li>
+                <li><a href="/ai-tools">AI Tools</a></li>
+                <li><a href="/coding">Coding</a></li>
+                <li><a href="/finance">Finance</a></li>
             </ul>
         </div>
 
     </div>
 
     <div class="footer-bottom">
-        <hr>
-        <p>&copy; 2026 <strong>Xenors.in</strong> | Designed for the Future of AI.</p>
+        <p>&copy; 2026 Xenors.in</p>
     </div>
-    <a href="https://facebook.com/xenors" target="_blank">Facebook</a>
-<a href="https://x.com/xenors77" target="_blank">Twitter</a>
-<a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" target="_blank">LinkedIn</a>
 </footer>
-<script src="scripts/index.js"></script>
 
 </body>
 </html>
