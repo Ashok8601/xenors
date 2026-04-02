@@ -703,4 +703,62 @@
     font-size: 1.2rem;
 }
 
-                                           
+/* SEO FAQ Section Styling */
+.faq-container {
+    margin: 50px 0;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 15px;
+}
+
+.faq-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.faq-header h2 {
+    font-size: 2rem;
+    color: var(--text);
+}
+
+.faq-item {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: var(--primary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.faq-question {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 10px;
+}
+
+.faq-question span {
+    color: var(--primary);
+    font-size: 1.4rem;
+}
+
+.faq-answer {
+    font-size: 0.95rem;
+    color: var(--secondary);
+    line-height: 1.7;
+    padding-left: 32px;
+}
+
+/* Specific highlight for keywords */
+.faq-answer strong {
+    color: var(--text);
+               }
+
