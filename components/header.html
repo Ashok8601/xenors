@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --primary: #2563eb; --dark: #0f172a; --light: #f8fafc; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; }
+        .navbar { background: var(--dark); padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .logo { color: white; font-size: 1.5rem; font-weight: 800; text-decoration: none; letter-spacing: 1px; }
+        .logo span { color: var(--primary); }
+        .nav-links { list-style: none; display: flex; gap: 20px; margin: 0; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary); }
+        .search-btn { color: white; cursor: pointer; font-size: 1.2rem; }
+        @media (max-width: 768px) { .nav-links { display: none; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="/" class="logo">XENORS<span>.IN</span></a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/Blog/ai/">AI Tools</a></li>
+            <li><a href="/finance/">Finance</a></li>
+            <li><a href="/tech/">Tech News</a></li>
+            <li><a href="/contact/">Contact</a></li>
+        </ul>
+        <div class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></div>
+    </nav>
+    
