@@ -25,7 +25,7 @@ body {
 
 /* --- HEADER & NAVIGATION --- */
 header {
-    background: #ffffff;
+    background: #3ab5184f;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -212,7 +212,7 @@ nav a:hover {
 .hero {
     text-align: center;
     padding: 80px 10%;
-    background: linear-gradient(135deg, #fff, #eff6ff);
+    background: rgb(203, 234, 225);
 }
 
 .hero h2 {
@@ -256,6 +256,7 @@ nav a:hover {
    CARDS
 ========================= */
 .cards {
+    background: #475569;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
     gap: 20px;
