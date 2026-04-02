@@ -1,48 +1,72 @@
-    <style>
-        .footer { background: #070b14; color: #94a3b8; padding: 60px 5% 20px; margin-top: 50px; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
-        .footer-h3 { color: white; margin-bottom: 20px; font-size: 1.2rem; }
-        .footer-links { list-style: none; padding: 0; }
-        .footer-links li { margin-bottom: 10px; }
-        .footer-links a { color: #94a3b8; text-decoration: none; transition: 0.3s; }
-        .footer-links a:hover { color: white; padding-left: 5px; }
-        .social-icons { display: flex; gap: 15px; margin-top: 20px; }
-        .social-icons a { color: white; font-size: 1.5rem; transition: 0.3s; }
-        .social-icons a:hover { transform: translateY(-5px); color: var(--primary); }
-        .copy-right { text-align: center; margin-top: 50px; padding-top: 20px; border-top: 1px solid #1e293b; font-size: 0.9rem; }
-    </style>
+<style>
+    .footer {
+        background: #070b14;
+        color: #94a3b8;
+        padding: 80px 5% 30px;
+        border-top: 1px solid #1e293b;
+        margin-top: 100px;
+    }
+    .footer-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 50px;
+    }
+    .footer-col h2 { color: white; font-size: 1.8rem; margin-bottom: 15px; }
+    .footer-col h2 span { color: var(--primary); }
+    .footer-col p { line-height: 1.6; font-size: 0.95rem; }
+    .footer-col h3 { color: white; font-size: 1.1rem; margin-bottom: 25px; font-weight: 600; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 12px; }
+    .footer-col ul li a { color: #94a3b8; text-decoration: none; transition: 0.3s; font-size: 0.95rem; }
+    .footer-col ul li a:hover { color: white; padding-left: 5px; }
 
-    <footer class="footer">
-        <div class="footer-grid">
-            <div>
-                <h3 class="footer-h3">About Xenors</h3>
-                <p>Decoding AI, Finance, and Technology for the next generation of digital pioneers. Stay updated with expert insights.</p>
-                <div class="social-icons">
-                    <a href="https://linkedin.com/company/xenors"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="https://x.com/xenors77"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://youtube.com/@xenors7"><i class="fa-brands fa-youtube"></i></a>
-                </div>
-            </div>
-            <div>
-                <h3 class="footer-h3">Quick Links</h3>
-                <ul class="footer-links">
-                    <li><a href="/about/">Our Story</a></li>
-                    <li><a href="/Blog/ai/">AI Trading Guide</a></li>
-                    <li><a href="/privacy-policy/">Privacy Policy</a></li>
-                    <li><a href="/terms/">Terms of Service</a></li>
-                </ul>
-            </div>
-            <div>
-                <h3 class="footer-h3">Contact Us</h3>
-                <ul class="footer-links">
-                    <li><i class="fa-solid fa-envelope"></i> contact@xenors.in</li>
-                    <li><i class="fa-solid fa-location-dot"></i> Uttar Pradesh, India</li>
-                </ul>
-            </div>
+    .footer-bottom {
+        text-align: center;
+        margin-top: 60px;
+        padding-top: 30px;
+        border-top: 1px solid #1e293b;
+        font-size: 0.85rem;
+    }
+
+    @media (max-width: 768px) {
+        .footer-container { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+        .footer-col ul li a:hover { padding-left: 0; color: var(--primary); }
+    }
+</style>
+
+<footer class="footer">
+    <div class="footer-container">
+        
+        <div class="footer-col">
+            <h2 class="footer-logo">Xenors<span>.in</span></h2>
+            <p>Empowering your digital journey with AI, finance, and tech knowledge. We decode complex trends for a smarter tomorrow.</p>
         </div>
-        <div class="copy-right">
-            <p>&copy; 2026 Xenors.in | Designed by Ashok Kumar Yadav</p>
+
+        <div class="footer-col">
+            <h3>Know Xenors</h3>
+            <ul>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/mission">Our Mission</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
         </div>
-    </footer>
+
+        <div class="footer-col">
+            <h3>Explore</h3>
+            <ul>
+                <li><a href="/ai-tools">AI Tools</a></li>
+                <li><a href="/coding">Coding</a></li>
+                <li><a href="/finance">Finance</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 Xenors.in | All Rights Reserved</p>
+    </div>
+</footer>
 </body>
 </html>
