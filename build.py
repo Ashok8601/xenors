@@ -1,71 +1,72 @@
-import os
 import shutil
+from pathlib import Path
 
-# Root directory
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# Base Directory (Jahan build.py hai)
+BASE_DIR = Path(__file__).resolve().parent
 
 # Settings
-DIST_DIR = os.path.join(BASE_DIR, 'dist')
-COMPONENTS_DIR = os.path.join(BASE_DIR, 'components')
+DIST_DIR = BASE_DIR / 'dist'
+COMPONENTS_DIR = BASE_DIR / 'components'
 
 def build_site():
     print(f"📂 BASE_DIR: {BASE_DIR}")
 
     # 1. Dist folder setup
-    if os.path.exists(DIST_DIR):
+    if DIST_DIR.exists():
         shutil.rmtree(DIST_DIR)
-    os.makedirs(DIST_DIR)
+    DIST_DIR.mkdir(parents=True, exist_ok=True)
+    print(f"🧹 Cleaned and created {DIST_DIR}")
 
     # 2. Header/Footer Load
-    header_path = os.path.join(COMPONENTS_DIR, 'header.html')
-    footer_path = os.path.join(COMPONENTS_DIR, 'footer.html')
+    header_file = COMPONENTS_DIR / 'header.html'
+    footer_file = COMPONENTS_DIR / 'footer.html'
 
-    with open(header_path, 'r', encoding='utf-8') as f:
-        header = f.read()
-    with open(footer_path, 'r', encoding='utf-8') as f:
-        footer = f.read()
+    if not header_file.exists() or not footer_file.exists():
+        print(f"❌ Error: Header/Footer missing at {COMPONENTS_DIR}")
+        return
 
-    # 3. Walk through Root
-    SKIP_DIRS = ['dist', 'components', 'scripts', 'styles', '.git', '.github', '__pycache__']
-    SKIP_FILES = ['build.py', 'requirements.txt', 'README.md', '.gitignore']
+    header = header_file.read_text(encoding='utf-8')
+    footer = footer_file.read_text(encoding='utf-8')
 
-    for root, dirs, files in os.walk(BASE_DIR):
-        # Skip folders logic
-        dirs[:] = [d for d in dirs if d not in SKIP_DIRS]
+    # 3. Directories to skip
+    SKIP_DIRS = {'dist', 'components', 'scripts', 'styles', '.git', '.github', '__pycache__'}
+    SKIP_FILES = {'build.py', 'requirements.txt', 'README.md', '.gitignore'}
+
+    # 4. Walk through files
+    # Hum saari files iterate karenge jo BASE_DIR mein hain
+    for item in BASE_DIR.rglob('*'):
+        # Skip if item is inside any of the SKIP_DIRS
+        if any(part in SKIP_DIRS for part in item.parts):
+            continue
         
-        # Use os.path.relpath instead of os.relpath
-        rel_path = os.path.path.relpath(root, BASE_DIR) if hasattr(os, 'path') else os.path.relpath(root, BASE_DIR)
-        # Simplified version that is more robust:
-        try:
-            rel_path = os.path.path.relpath(root, BASE_DIR)
-        except AttributeError:
-            # Absolute fallback for some environments
-            import os.path
-            rel_path = os.path.path.relpath(root, BASE_DIR)
-        
-        dest_path = os.path.join(DIST_DIR, rel_path) if rel_path != "." else DIST_DIR
+        # Skip specific files
+        if item.name in SKIP_FILES or item.name.startswith('.'):
+            continue
 
-        if not os.path.exists(dest_path):
-            os.makedirs(dest_path)
+        # Target path in dist folder
+        relative_path = item.relative_to(BASE_DIR)
+        dest_path = DIST_DIR / relative_path
 
-        for file in files:
-            if file in SKIP_FILES or file.startswith('.'):
-                continue
+        if item.is_dir():
+            dest_path.mkdir(parents=True, exist_ok=True)
+        elif item.is_file():
+            # Ensure parent directory exists
+            dest_path.parent.mkdir(parents=True, exist_ok=True)
             
-            src_file = os.path.join(root, file)
-            dist_file = os.path.join(dest_path, file)
-
-            if file.endswith('.html'):
-                with open(src_file, 'r', encoding='utf-8') as f:
-                    content = f.read()
-                with open(dist_file, 'w', encoding='utf-8') as f:
-                    f.write(header + content + footer)
-                print(f"✔️ Merged: {file}")
+            if item.suffix == '.html':
+                # Merge logic
+                content = item.read_text(encoding='utf-8')
+                dest_path.write_text(header + content + footer, encoding='utf-8')
+                print(f"✔️ Merged: {relative_path}")
             else:
-                shutil.copy2(src_file, dist_file)
-                print(f"📁 Copied: {file}")
+                # Copy other files (images, css, etc.)
+                shutil.copy2(item, dest_path)
+                print(f"📁 Copied: {relative_path}")
 
 if __name__ == "__main__":
-    build_site()
-    print("\n🚀 Build Complete!")
+    try:
+        build_site()
+        print("\n🚀 Build Complete! Site is ready in 'dist' folder.")
+    except Exception as e:
+        print(f"❌ Critical Error: {e}")
         
