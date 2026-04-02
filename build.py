@@ -1,25 +1,41 @@
-
 import os
 import shutil
 
-# Settings
-SRC_DIR = 'src'
-DIST_DIR = 'dist'
-COMPONENTS_DIR = 'components'
+# Ye line script ki current location (Root) nikal legi
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Ab saare paths absolute honge
+SRC_DIR = os.path.join(BASE_DIR, 'src')
+DIST_DIR = os.path.join(BASE_DIR, 'dist')
+COMPONENTS_DIR = os.path.join(BASE_DIR, 'components')
 
 def build_site():
-    # 1. Purana dist folder saaf karo
+    print(f"📂 Starting build from: {BASE_DIR}")
+
+    # 1. Purana dist folder saaf karo aur naya banao
     if os.path.exists(DIST_DIR):
         shutil.rmtree(DIST_DIR)
     os.makedirs(DIST_DIR)
+    print(f"🧹 Cleaned and created {DIST_DIR}")
 
-    # 2. Header aur Footer load karo
-    with open(f'{COMPONENTS_DIR}/header.html', 'r', encoding='utf-8') as f:
-        header = f.read()
-    with open(f'{COMPONENTS_DIR}/footer.html', 'r', encoding='utf-8') as f:
-        footer = f.read()
+    # 2. Header aur Footer load karo (Absolute Path se)
+    header_path = os.path.join(COMPONENTS_DIR, 'header.html')
+    footer_path = os.path.join(COMPONENTS_DIR, 'footer.html')
 
-    # 3. Saari files ko scan karo
+    try:
+        with open(header_path, 'r', encoding='utf-8') as f:
+            header = f.read()
+        with open(footer_path, 'r', encoding='utf-8') as f:
+            footer = f.read()
+    except FileNotFoundError as e:
+        print(f"❌ Error: Header ya Footer file nahi mili! {e}")
+        return
+
+    # 3. SRC folder ki saari files scan karo
+    if not os.path.exists(SRC_DIR):
+        print(f"❌ Error: {SRC_DIR} folder hi nahi mila!")
+        return
+
     for root, dirs, files in os.walk(SRC_DIR):
         # Path maintain rakho (Blog/ai/ etc.)
         relative_path = os.relpath(root, SRC_DIR)
@@ -39,12 +55,13 @@ def build_site():
                 
                 with open(dist_file, 'w', encoding='utf-8') as f:
                     f.write(header + content + footer)
-                print(f"✔️ Merged: {src_file}")
+                print(f"✔️  Merged: {os.path.relpath(src_file, SRC_DIR)}")
             else:
-                # Baki files (CSS, JS, Images) ko bas copy karo
+                # Baki files (CSS, JS, Images) ko copy karo
                 shutil.copy2(src_file, dist_file)
+                print(f"📁 Copied: {os.path.relpath(src_file, SRC_DIR)}")
 
 if __name__ == "__main__":
     build_site()
-    print("\n🚀 Build Complete! Now deploy the 'dist' folder.")
-  
+    print(f"\n🚀 Build Complete! Check your '{DIST_DIR}' folder.")
+    
