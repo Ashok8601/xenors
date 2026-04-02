@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GHNMYN1SYT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script>
+  // Yeh check karta hai ki kya browser ki LocalStorage mein 'ignore_me' true hai
+  if (localStorage.getItem('ignoreMe') !== 'true') {
+    
+    // Agar 'ignoreMe' nahi milta, tabhi Analytics load hoga
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-ZRZ11QPD5B";
+    document.head.appendChild(script);
 
-  gtag('config', 'G-GHNMYN1SYT');
-</script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-ZRZ11QPD5B');
+    
+    console.log("Analytics is active for this session.");
+  } else {
+    // Agar 'ignoreMe' mil gaya, toh console mein message dikhega (sirf testing ke liye)
+    console.log("Admin detected: Analytics is disabled.");
+  }
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
