@@ -1,0 +1,706 @@
+:root {
+            --primary: #2563eb;
+            --secondary: #64748b;
+            --bg: #ffffff;
+            --text: #0f172a;
+            --toc-bg: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            margin: 0;
+            background-color: var(--bg);
+            scroll-behavior: smooth;
+        }
+
+        /* Layout Container */
+        .main-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 40px;
+            padding: 40px 20px;
+        }
+
+        /* Content Area (Left Side) */
+        .content-area {
+            flex: 1; /* Ye bachi hui sari jagah le lega */
+            max-width: 800px;
+        }
+
+        /* TOC Sidebar (Right Side) */
+        .toc-sidebar {
+            width: 300px;
+            position: sticky;
+            top: 40px; /* Scroll karne par top pe chipka rahega */
+            height: fit-content;
+            background: var(--toc-bg);
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+
+        .toc-heading {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text);
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-list li { margin-bottom: 12px; }
+
+        .toc-link {
+            text-decoration: none;
+            color: var(--secondary);
+            font-size: 0.95rem;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .toc-link:hover { color: var(--primary); }
+
+        /* Active State */
+        .toc-link.active {
+            color: var(--primary);
+            font-weight: 600;
+            padding-left: 10px;
+            border-left: 3px solid var(--primary);
+        }
+
+        /* Responsive Logic */
+        @media (max-width: 1024px) {
+            .toc-sidebar {
+                display: none; /* Mobile aur Tablet par TOC gayab */
+            }
+            .main-wrapper {
+                justify-content: center;
+                padding: 20px;
+            }
+            .content-area {
+                max-width: 100%;
+            }
+        }
+
+        /* Content Styling */
+        section { padding: 40px 0; border-bottom: 1px solid #f1f5f9; }
+        h1 { font-size: 2.8rem; color: var(--primary); line-height: 1.2; }
+        h2 { font-size: 2rem; margin-bottom: 20px; }
+        p { margin-bottom: 20px; font-size: 1.1rem; }
+
+
+        /* Section Container Styling */
+#what-is-ai-trading {
+    margin-bottom: 40px;
+}
+
+#what-is-ai-trading h2 {
+    color: var(--text);
+    margin-bottom: 20px;
+}
+
+#what-is-ai-trading h3 {
+    margin: 30px 0 15px 0;
+    color: var(--primary);
+}
+
+/* Info Card (The Blue Quote Box) */
+.info-card {
+    background: #eff6ff;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 4px solid var(--primary);
+    margin: 25px 0;
+}
+
+.info-card p {
+    margin: 0;
+    font-style: italic;
+    color: #1e40af;
+}
+
+/* Feature List Styling */
+.feature-list {
+    list-style: none;
+    padding: 0;
+}
+
+.feature-list li {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.feature-list .icon {
+    font-size: 1.2rem;
+}
+
+.feature-list strong {
+    color: var(--text);
+}
+
+/* Section Container */
+#why-growing-fast {
+    margin-bottom: 40px;
+}
+
+/* Growth Grid Layout */
+.growth-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+/* Benefit Cards */
+.benefit-box {
+    background: #fdfdfd;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.benefit-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.benefit-box h3 {
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin-top: 0;
+}
+
+.benefit-box p {
+    font-size: 0.95rem;
+    margin-bottom: 0;
+    color: #475569;
+}
+
+/* Pro Insight Blockquote */
+.insight-quote {
+    border-left: 5px solid #10b981;
+    background: #ecfdf5;
+    padding: 15px 25px;
+    margin: 30px 0;
+    border-radius: 0 10px 10px 0;
+}
+
+.insight-quote strong {
+    color: #065f46;
+}
+
+/* Beginner Section Styles */
+.beginner-flex {
+    background: #fff;
+    border: 2px dashed var(--border);
+    padding: 25px;
+    border-radius: 15px;
+    margin: 30px 0;
+}
+
+.pillar-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.pillar-row {
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+}
+
+.pillar-number {
+    background: var(--primary);
+    color: white;
+    border-radius: 50%;
+    padding: 5px 12px;
+    font-weight: bold;
+    min-width: 35px;
+    text-align: center;
+}
+
+/* Strategy Table */
+.strategy-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.95rem;
+}
+
+.strategy-table th {
+    background: var(--primary);
+    color: white;
+    text-align: left;
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.strategy-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.td-bold {
+    font-weight: 600;
+}
+
+/* Pro Tip Box */
+.pro-tip {
+    background: #fff8e1;
+    padding: 15px;
+    border-radius: 8px;
+    border-left: 5px solid #ffc107;
+}
+/* Step-by-Step Roadmap Styling */
+.step-container {
+    margin: 30px 0;
+}
+
+.step-card {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #f8fafc;
+    border-radius: 0 12px 12px 0;
+    transition: transform 0.2s ease;
+}
+
+.step-card:hover {
+    transform: translateX(8px);
+}
+
+.step-card h3 {
+    margin-top: 0;
+    color: var(--text);
+    font-size: 1.2rem;
+}
+
+.step-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.step-details {
+    padding-left: 20px;
+    font-size: 0.9rem;
+    color: var(--secondary);
+}
+
+.step-details li {
+    margin-bottom: 8px;
+}
+
+/* Color Coding for Steps */
+.step-blue { border-left: 5px solid var(--primary); }
+.step-green { border-left: 5px solid #10b981; }
+.step-orange { border-left: 5px solid #f59e0b; }
+.step-indigo { border-left: 5px solid #6366f1; }
+.step-pink { border-left: 5px solid #ec4899; }
+.step-light-blue { border-left: 5px solid #3b82f6; }
+
+/* Final Summary Box */
+.step-footer {
+    text-align: center;
+    background: var(--primary);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    font-weight: 600;
+    margin-top: 30px;
+}
+        /* Tool Card Styling */
+.tool-card {
+    border: 1px solid var(--border);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    background: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+}
+
+.tool-card h3 {
+    margin-top: 0;
+    color: var(--text);
+    font-size: 1.4rem;
+}
+
+.tool-card p {
+    font-size: 1rem;
+    color: #475569;
+}
+
+.tool-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.tag-blue { background: #dcfce7; color: #166534; }
+.tag-green { background: #dcfce7; color: #166534; }
+.tag-orange { background: #fef3c7; color: #92400e; }
+
+.btn-link {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-top: 15px;
+    transition: opacity 0.2s;
+}
+
+.btn-blue { background: #2563eb; }
+.btn-green { background: #10b981; }
+.btn-orange { background: #f59e0b; }
+
+.dev-box {
+    background: #f1f5f9;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+}
+
+.dev-links {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.dev-links a {
+    color: var(--primary);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+/* Country Grid Styling */
+.market-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.market-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    padding: 25px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.market-card h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.market-card ul {
+    padding-left: 20px;
+    margin-bottom: 0;
+}
+
+.market-card li {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: #f1f5f9;
+}
+
+/* Automation Flow Styles */
+.flow-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin: 30px 0;
+    text-align: center;
+}
+
+.flow-step {
+    background: #f8fafc;
+    border: 1px solid var(--primary);
+    padding: 15px;
+    border-radius: 10px;
+    flex: 1;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.flow-arrow {
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+/* Comparison Table */
+.compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+.compare-table th, .compare-table td {
+    padding: 12px;
+    border: 1px solid var(--border);
+    text-align: left;
+}
+
+.compare-table th {
+    background: #f1f5f9;
+}
+
+/* Responsive Flow */
+@media (max-width: 600px) {
+    .flow-container {
+        flex-direction: column;
+    }
+    .flow-arrow {
+        transform: rotate(90deg);
+    }
+}
+/* Benefits & Risks Styling */
+.split-container {
+    display: flex;
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.card-box {
+    flex: 1;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+.benefit-card {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+}
+
+.risk-card {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+}
+
+.card-box h3 {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.benefit-card h3 { color: #166534; }
+.risk-card h3 { color: #9f1239; }
+
+.card-box ul {
+    padding-left: 20px;
+}
+
+.card-box li {
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+@media (max-width: 768px) {
+    .split-container {
+        flex-direction: column;
+    }
+}
+
+/* Mistake Cards Styling */
+.mistake-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 30px 0;
+}
+
+.mistake-item {
+    background: #fff;
+    border: 1px solid var(--border);
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 4px solid #ef4444; /* Red warning border */
+}
+
+.mistake-item h3 {
+    margin-top: 0;
+    font-size: 1.1rem;
+    color: #b91c1c;
+}
+
+.mistake-item p {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+    color: var(--secondary);
+}
+
+@media (max-width: 600px) {
+    .mistake-list {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Final Strategy Styling */
+.checklist-container {
+    background: #f0f9ff;
+    border: 2px solid #bae6fd;
+    padding: 30px;
+    border-radius: 20px;
+    margin: 40px 0;
+}
+
+.check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.check-icon {
+    background: var(--primary);
+    color: #fff;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.check-content h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1rem;
+    color: var(--text);
+}
+
+.check-content p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--secondary);
+}
+
+.final-cta {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--text);
+    color: #fff;
+    border-radius: 15px;
+    margin-top: 50px;
+}
+
+.final-cta h2 { color: #fff; margin-top: 0; }
+
+/* Conclusion & FAQ Styling */
+.conclusion-summary {
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    padding: 35px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    margin-top: 40px;
+}
+
+.faq-section {
+    margin-top: 50px;
+}
+
+.faq-item {
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 15px;
+}
+
+.faq-item h4 {
+    color: var(--primary);
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+
+.faq-item p {
+    font-size: 0.95rem;
+    color: var(--secondary);
+    line-height: 1.6;
+}
+
+/* Quick Links Section Styling */
+.resources-section {
+    background: #f8fafc;
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid var(--border);
+    margin: 40px 0;
+}
+
+.links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.resource-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.resource-link:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateX(5px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.link-icon {
+    font-size: 1.2rem;
+}
+
+                                           
