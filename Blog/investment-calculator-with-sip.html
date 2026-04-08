@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>All Financial Calculators</title>
+
+<style>
+body{
+    font-family: Arial;
+    background:#0f172a;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.container{
+    max-width:400px;
+    margin:auto;
+    background:#1e293b;
+    padding:20px;
+    border-radius:10px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border:none;
+    border-radius:5px;
+}
+
+button{
+    padding:10px;
+    margin:5px;
+    background:#22c55e;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.tabs button{
+    background:#334155;
+}
+
+.active{
+    background:#22c55e !important;
+}
+
+.result{
+    margin-top:20px;
+    font-size:18px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Financial Calculators</h1>
+
+<div class="tabs">
+    <button onclick="show('sip')" class="active">SIP</button>
+    <button onclick="show('lump')">Lump Sum</button>
+    <button onclick="show('simple')">Simple Interest</button>
+    <button onclick="show('compound')">Compound</button>
+    <button onclick="show('emi')">EMI</button>
+</div>
+
+<div class="container" id="form"></div>
+
+<div class="result" id="output"></div>
+
+<script>
+
+function show(type){
+    document.getElementById("output").innerHTML="";
+
+    let html = "";
+
+    if(type==="sip"){
+        html = `
+        <h3>SIP Calculator</h3>
+        <input id="monthly" placeholder="Monthly Investment">
+        <input id="rate" placeholder="Rate %">
+        <input id="years" placeholder="Years">
+        <button onclick="calcSIP()">Calculate</button>`;
+    }
+
+    if(type==="lump"){
+        html = `
+        <h3>Lump Sum</h3>
+        <input id="amount" placeholder="Amount">
+        <input id="rate" placeholder="Rate %">
+        <input id="years" placeholder="Years">
+        <button onclick="calcLump()">Calculate</button>`;
+    }
+
+    if(type==="simple"){
+        html = `
+        <h3>Simple Interest</h3>
+        <input id="p" placeholder="Principal">
+        <input id="r" placeholder="Rate %">
+        <input id="t" placeholder="Time">
+        <button onclick="calcSimple()">Calculate</button>`;
+    }
+
+    if(type==="compound"){
+        html = `
+        <h3>Compound Interest</h3>
+        <input id="p" placeholder="Principal">
+        <input id="r" placeholder="Rate %">
+        <input id="t" placeholder="Years">
+        <button onclick="calcCompound()">Calculate</button>`;
+    }
+
+    if(type==="emi"){
+        html = `
+        <h3>EMI Calculator</h3>
+        <input id="loan" placeholder="Loan Amount">
+        <input id="rate" placeholder="Rate %">
+        <input id="months" placeholder="Months">
+        <button onclick="calcEMI()">Calculate</button>`;
+    }
+
+    document.getElementById("form").innerHTML = html;
+
+    // active button
+    document.querySelectorAll(".tabs button").forEach(btn=>btn.classList.remove("active"));
+    event.target.classList.add("active");
+}
+
+// Default load SIP
+show('sip');
+
+
+// ===== FUNCTIONS =====
+
+function calcSIP(){
+    let M = +monthly.value;
+    let r = +rate.value/100/12;
+    let n = +years.value*12;
+
+    let result = M*((Math.pow(1+r,n)-1)/r)*(1+r);
+    output.innerHTML = "💰 ₹"+result.toFixed(0);
+}
+
+function calcLump(){
+    let P = +amount.value;
+    let r = +rate.value/100;
+    let t = +years.value;
+
+    let result = P*Math.pow(1+r,t);
+    output.innerHTML = "💰 ₹"+result.toFixed(0);
+}
+
+function calcSimple(){
+    let P = +p.value;
+    let R = +r.value;
+    let T = +t.value;
+
+    let SI = (P*R*T)/100;
+    output.innerHTML = "💰 Interest: ₹"+SI.toFixed(0);
+}
+
+function calcCompound(){
+    let P = +p.value;
+    let R = +r.value/100;
+    let T = +t.value;
+
+    let A = P*Math.pow(1+R,T);
+    output.innerHTML = "💰 ₹"+A.toFixed(0);
+}
+
+function calcEMI(){
+    let P = +loan.value;
+    let r = +rate.value/100/12;
+    let n = +months.value;
+
+    let emi = (P*r*Math.pow(1+r,n))/(Math.pow(1+r,n)-1);
+    output.innerHTML = "💰 EMI: ₹"+emi.toFixed(0);
+}
+
+</script>
+
+</body>
+</html>
