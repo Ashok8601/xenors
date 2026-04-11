@@ -4,64 +4,79 @@ from pathlib import Path
 # Base Directory
 BASE_DIR = Path(__file__).resolve().parent
 
-# Settings
+# Directories
 DIST_DIR = BASE_DIR / 'dist'
 COMPONENTS_DIR = BASE_DIR / 'components'
 
 def build_site():
     print(f"📂 BASE_DIR: {BASE_DIR}")
 
-    # 1. Dist folder setup
+    # 1. Clean dist folder
     if DIST_DIR.exists():
         shutil.rmtree(DIST_DIR)
     DIST_DIR.mkdir(parents=True, exist_ok=True)
 
-    # 2. Header/Footer Load
+    # 2. Load Components
     header_file = COMPONENTS_DIR / 'header.html'
     footer_file = COMPONENTS_DIR / 'footer.html'
-    
+    read_also_file = COMPONENTS_DIR / 'read-also.html'
+
     header = header_file.read_text(encoding='utf-8') if header_file.exists() else ""
     footer = footer_file.read_text(encoding='utf-8') if footer_file.exists() else ""
+    read_also = read_also_file.read_text(encoding='utf-8') if read_also_file.exists() else ""
 
-    # 3. Directories to completely SKIP (No copy, no merge)
+    # 3. Skip Config
     SKIP_DIRS = {'dist', 'components', 'scripts', 'styles', '.git', '.github', '__pycache__'}
-    
-    # 4. Directories for Web Stories (Only Copy, NO Merge)
     STORY_DIRS = {'Web-Stories'}
-    
     SKIP_FILES = {'build.py', 'requirements.txt', 'README.md', '.gitignore'}
 
+    # 4. Traverse Files
     for item in BASE_DIR.rglob('*'):
-        # Purely skip internal build folders
+
+        # Skip unwanted directories
         if any(part in SKIP_DIRS for part in item.parts):
             continue
-        
+
+        # Skip unwanted files
         if item.name in SKIP_FILES or item.name.startswith('.'):
             continue
 
         relative_path = item.relative_to(BASE_DIR)
         dest_path = DIST_DIR / relative_path
 
+        # Create directories
         if item.is_dir():
             dest_path.mkdir(parents=True, exist_ok=True)
-        elif item.is_file():
-            dest_path.parent.mkdir(parents=True, exist_ok=True)
-            
-            # Check if file is inside a Web-Stories folder
-            is_web_story = any(part in STORY_DIRS for part in item.parts)
+            continue
 
-            if item.suffix == '.html' and not is_web_story:
-                # Normal HTML: Merge Header + Content + Footer
-                content = item.read_text(encoding='utf-8')
-                dest_path.write_text(header + content + footer, encoding='utf-8')
-                print(f"✔️ Merged: {relative_path}")
+        # Ensure parent exists
+        dest_path.parent.mkdir(parents=True, exist_ok=True)
+
+        # Check Web Story
+        is_web_story = any(part in STORY_DIRS for part in item.parts)
+
+        # 5. HTML Processing
+        if item.suffix == '.html' and not is_web_story:
+            content = item.read_text(encoding='utf-8')
+
+            # 👉 Apply Read Also ONLY for blog pages
+            if "blog" in str(relative_path).lower():
+                final_content = header + content + read_also + footer
+                print(f"🔥 Blog Processed: {relative_path}")
             else:
-                # Web Stories OR Assets (Images/JS/CSS): Just Copy
-                shutil.copy2(item, dest_path)
-                status = "📖 Story Copied" if is_web_story else "📁 Copied"
-                print(f"{status}: {relative_path}")
+                final_content = header + content + footer
+                print(f"✔️ Page Processed: {relative_path}")
 
+            dest_path.write_text(final_content, encoding='utf-8')
+
+        else:
+            # Copy assets & Web Stories
+            shutil.copy2(item, dest_path)
+            status = "📖 Story Copied" if is_web_story else "📁 Copied"
+            print(f"{status}: {relative_path}")
+
+    print("\n🚀 Build Complete! Read Also injected successfully.")
+
+# Run
 if __name__ == "__main__":
     build_site()
-    print("\n🚀 Build Complete! Web Stories are preserved without Header/Footer.")
-    
