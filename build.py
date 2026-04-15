@@ -59,13 +59,10 @@ def build_site():
         if item.suffix == '.html' and not is_web_story:
             content = item.read_text(encoding='utf-8')
 
-            # 👉 Apply Read Also ONLY for blog pages
-            if "blog" in str(relative_path).lower():
-                final_content = header + content + read_also + footer
-                print(f"🔥 Blog Processed: {relative_path}")
-            else:
-                final_content = header + content + footer
-                print(f"✔️ Page Processed: {relative_path}")
+            # 👉 APPLY TO ALL HTML FILES
+            final_content = header + content + read_also + footer
+
+            print(f"🔥 Processed with Read Also: {relative_path}")
 
             dest_path.write_text(final_content, encoding='utf-8')
 
@@ -75,7 +72,7 @@ def build_site():
             status = "📖 Story Copied" if is_web_story else "📁 Copied"
             print(f"{status}: {relative_path}")
 
-    print("\n🚀 Build Complete! Read Also injected successfully.")
+    print("\n🚀 Build Complete! Read Also injected in ALL HTML files.")
 
 # Run
 if __name__ == "__main__":
