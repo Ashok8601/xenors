@@ -98,40 +98,88 @@
 </head>
     
 <body>
-    <!--
-<nav class="navbar">
-    <a href="https://xenors.in/" class="nav-logo-link" aria-label="Xenors Home">
+    <nav style="
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+    width: 100%;
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 5%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+">
+
+    <!-- Logo -->
+    <a href="https://xenors.in/" 
+       style="display:flex; align-items:center; text-decoration:none;" 
+       aria-label="Xenors Home">
+
         <img src="https://xenors.in/images/xenors.png" 
-             alt="Xenors Logo" 
-             class="nav-logo" 
+             alt="Xenors Logo"
+             style="height:40px; width:auto; object-fit:contain; display:block;"
              loading="lazy" 
              decoding="async">
     </a>
 
-    <div class="nav-links">
-        <div class="nav-profile-group">
+    <!-- Right Side -->
+    <div style="
+        display:flex;
+        align-items:center;
+        gap:18px;
+        flex-wrap:wrap;
+    ">
+
+        <!-- Profile + Contact -->
+        <div style="display:flex; align-items:center; gap:8px;">
             <img src="https://xenors.in/images/ashok-kumar-yadav.webp" 
-                 alt="Ashok Kumar Yadav" 
-                 class="nav-profile-img" 
+                 alt="Profile"
+                 style="
+                    width:32px;
+                    height:32px;
+                    border-radius:50%;
+                    object-fit:cover;
+                    border:2px solid #007bff;
+                 "
                  loading="lazy" 
                  decoding="async">
-            <a href="https://xenors.in/contact/" class="nav-item">Contact</a>
-        </div>
-        <a href="https://xenors.in/" class="nav-item">Home</a>
-        <a href="https://xenors.in/Blog/blog/" class="nav-item">Blogs</a>
-    </div>
-</nav>-->
-<a href="https://xenors.in/" 
-   style="display:flex; align-items:center; text-decoration:none;" 
-   aria-label="Xenors Home">
 
-    <img src="https://xenors.in/images/xenors.png" 
-         alt="Xenors Logo"
-         style="height:40px; width:auto; object-fit:contain; display:block;"
-         loading="lazy" 
-         decoding="async">
-         
-</a>
+            <a href="https://xenors.in/contact/" 
+               style="
+                   text-decoration:none;
+                   color:#222;
+                   font-size:14px;
+                   font-weight:500;
+               ">
+               Contact
+            </a>
+        </div>
+
+        <!-- Home -->
+        <a href="https://xenors.in/" 
+           style="
+               text-decoration:none;
+               color:#222;
+               font-size:14px;
+               font-weight:500;
+           ">
+           Home
+        </a>
+
+        <!-- Blogs -->
+        <a href="https://xenors.in/Blog/blog/" 
+           style="
+               text-decoration:none;
+               color:#222;
+               font-size:14px;
+               font-weight:500;
+           ">
+           Blogs
+        </a>
+
+    </div>
+</nav>
     <article>
         <headers>
             <h1 class="subtitle">Engineer Ashok Kumar Biography, Xenors Founder Story</h1>
