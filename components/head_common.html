@@ -1,0 +1,31 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="/styles/main.css">
+<link rel="icon" href="/favicon.ico">
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- ✅ FIXED Google Analytics -->
+<script>
+(function(){
+  if (localStorage.getItem('ignoreMe') === 'true') {
+    console.log("Analytics disabled");
+    return;
+  }
+
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = "https://www.googletagmanager.com/gtag/js?id=G-ZRZ11QPD5B";
+  document.head.appendChild(s);
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+
+  gtag('js', new Date());
+  gtag('config', 'G-ZRZ11QPD5B');
+
+})();
+</script>
