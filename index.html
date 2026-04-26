@@ -1,337 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<!--Seo Part -->
-<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Xenors | AI, Technology & Finance by Ashok Kumar Yadav</title>
-    <meta name="title" content="Xenors | Tech • AI • Finance • News & Blogs">
-  <meta name="description" content="Xenors is an AI, Technology & Finance platform by Engg Ashok Kumar Yadav. Learn backend development, AI tools, and financial growth strategies.">
-    <meta name="keywords" content="Ashok Kumar Yadav, Xenors, AI Technology, Finance Insights, Tech Blogs, Engineer Ashok Kumar, Backend Developer India">
-    <meta name="robots" content="index, follow"> 
-    <meta name="author" content="Xenors Team">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://xenors.in/">
-    <meta property="og:title" content="Xenors | Tech • AI • Finance">
-    <meta property="og:description" content="Your go-to platform for the latest in Artificial Intelligence, Financial strategies, and Tech updates.">
-    <meta property="og:image" content="https://xenors.in/images/xenors.png"> <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://xenors.in/">
-    <meta property="twitter:title" content="Xenors | Tech • AI • Finance">
-    <meta property="twitter:description" content="Stay updated with Xenors.in - The hub for AI enthusiasts and Finance experts.">
-    <meta property="twitter:image" content="https://xenors.in/images/xenors.png">
+{{HEAD_COMMON}}
 
-   <link rel="icon" href="https://xenors.in/favicon.ico" sizes="any">
+<title>Xenors | AI, Technology & Finance by Ashok Kumar Yadav</title>
 
-<link rel="icon" type="image/png" sizes="48x48" href="https://xenors.in/images/favicon.png">
+<meta name="description" content="Xenors is a powerful AI, Technology & Finance learning platform by Ashok Kumar Yadav. Learn backend development, AI tools, and smart financial strategies.">
+<meta name="keywords" content="Xenors, AI learning, backend development, finance education, stock market India, Flask tutorials, Ashok Kumar Yadav">
+<link rel="canonical" href="https://xenors.in/">
 
-<link rel="apple-touch-icon" sizes="180x180" href="https://xenors.in/images/apple-touch-icon.png">
+{{HEAD_EXTRA}}
 
-<link rel="shortcut icon" href="https://xenors.in/favicon.ico">
-    <link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/styles/index.css">
 
-    <link rel="canonical" href="https://xenors.in/">
- 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="./styles/main.css">
-    
-    <script src="scripts/main.js" defer></script>
-
+<!-- ✅ JSON-LD SEO (Homepage Specific) -->
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@graph": [
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "WebPage",
+   "@id": "https://xenors.in/#homepage",
+   "url": "https://xenors.in/",
+   "name": "Xenors | AI, Technology & Finance Platform",
+   "description": "Learn AI, backend development, and financial growth strategies.",
+   "inLanguage": "en",
+   "isPartOf": { "@id": "https://xenors.in/#website" }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
     {
-      "@type": "WebSite",
-      "@id": "https://xenors.in/#website",
-      "url": "https://xenors.in/",
-      "name": "Xenors",
-      "description": "Expert insights into AI Technology, Finance, and Tech News.",
-      "publisher": {
-        "@id": "https://xenors.in/#organization"
-      },
-      "potentialAction": [
-        {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://xenors.in/search?q={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
-        }
-      ],
-      "inLanguage": "en-US"
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://xenors.in/#organization",
-      "name": "Xenors.in",
-      "url": "https://xenors.in/",
-      "logo": {
-        "@type": "ImageObject",
-        "@id": "https://xenors.in/#logo",
-        "url": "https://xenors.in/images/xenors.png",
-        "contentUrl": "https://xenors.in/images/xenors.png",
-        "width": 512,
-        "height": 512,
-        "caption": "Xenors Logo"
-      },
-      "image": {
-        "@id": "https://xenors.in/#logo"
-      },
-      "founder": {
-        "@id": "https://xenors.in/#person"
-      },
-      "sameAs": [
-        "https://facebook.com/xenors",
-        "https://x.com/xenors77",
-        "https://linkedin.com/company/xenors",
-        "https://youtube.com/@xenors7"
-      ],
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "customer support",
-        "email": "contact@xenors.in",
-        "url": "https://xenors.in/contact"
-      }
-    },
-    {
-      "@type": "Person",
-      "@id": "https://xenors.in/#person",
-      "name": "Ashok Kumar Yadav",
-      "jobTitle": "Data Scientist & Founder",
-      "url": "https://xenors.in/",
-      "image": {
-        "@type": "ImageObject",
-        "url": "https://xenors.in/images/ashok.png",
-        "caption": "Ashok Kumar Yadav"
-      },
-      "sameAs": [
-        "https://www.linkedin.com/in/ashok-kumar-9a3ba5228",
-        "https://github.com/Ashok8601",
-        "https://www.instagram.com/mr_syist",
-        "https://x.com/xenors77",
-        "https://youtube.com/@xenors7"
-      ],
-      "worksFor": {
-        "@id": "https://xenors.in/#organization"
-      }
-    },
-    {
-      "@type": "WebPage",
-      "@id": "https://xenors.in/#webpage",
-      "url": "https://xenors.in/",
-      "name": "Xenors | Tech • AI • Finance • Blogs",
-      "isPartOf": {
-        "@id": "https://xenors.in/#website"
-      },
-      "about": {
-        "@id": "https://xenors.in/#organization"
-      },
-      "description": "Stay ahead with Xenors.in - your hub for Artificial Intelligence tutorials, financial growth strategies, and real-time tech updates.",
-      "breadcrumb": {
-        "@id": "https://xenors.in/#breadcrumb"
-      },
-      "inLanguage": "en-US",
-      "potentialAction": [
-        {
-          "@type": "ReadAction",
-          "target": [
-            "https://xenors.in/"
-          ]
-        }
-      ]
-    },
-    {
-      "@type": "BreadcrumbList",
-      "@id": "https://xenors.in/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://xenors.in/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Tech",
-          "item": "https://xenors.in/tech"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "AI",
-          "item": "https://xenors.in/ai"
-        }
-      ]
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://xenors.in/"
     }
-  ]
+   ]
+  }
+ ]
 }
 </script>
-<style>
-    
-    /* --- Variables & Globals --- */
-:root {
-    --primary-color: #2563eb; /* Modern Blue */
-    --text-dark: #1e293b;
-    --text-light: #64748b;
-    --bg-light: #f8fafc;
-    --white: #ffffff;
-    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: 'Inter', sans-serif;
-    line-height: 1.6;
-    color: var(--text-dark);
-    background-color: var(--bg-light);
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* --- Layout --- */
-.section {
-    padding: 60px 20px;
-}
-
-h1, h2, h3, h4 {
-    margin-bottom: 1rem;
-    line-height: 1.2;
-}
-
-/* --- Hero Section --- */
-.hero {
-    text-align: center;
-    padding: 80px 20px;
-    background: linear-gradient(135deg, #eff6ff 0%, #ffffff 100%);
-}
-
-.hero h1 { font-size: 2.5rem; color: var(--primary-color); }
-.hero h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; }
-.hero p { max-width: 600px; margin: 0 auto 2rem; color: var(--text-light); }
-
-.btn {
-    display: inline-block;
-    padding: 12px 30px;
-    background: var(--primary-color);
-    color: var(--white);
-    text-decoration: none;
-    border-radius: 8px;
-    font-weight: 600;
-    transition: transform 0.2s;
-}
-
-.btn:hover { transform: translateY(-2px); }
-
-/* --- Cards Layout --- */
-.cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-}
-
-.card {
-    background: var(--white);
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-}
-
-/* --- Search Box --- */
-#searchBox {
-    width: 100%;
-    max-width: 500px;
-    padding: 15px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    margin-top: 10px;
-}
-
-/* --- Posts & Articles --- */
-.scroll-container {
-    display: flex;
-    gap: 20px;
-    overflow-x: auto;
-    padding-bottom: 20px;
-}
-
-.post-card, .article-card {
-    background: var(--white);
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
-    text-decoration: none;
-    color: inherit;
-}
-
-.article-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 25px;
-}
-
-.article-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-
-/* --- Media Section --- */
-.media-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    align-items: center;
-}
-
-.media-box { flex: 1; min-width: 300px; }
-
-.video-wrapper {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-    height: 0;
-}
-
-.video-wrapper iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    border-radius: 8px;
-}
-
-.image-wrapper img {
-    width: 100%;
-    border-radius: 12px;
-}
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 768px) {
-    .hero h1 { font-size: 2rem; }
-    .section { padding: 40px 15px; }
-}
-
-</style>
-</head>
-<body>
+<!-- ================= CONTENT START ================= -->
+<div class="container">
 
 <section class="hero">
     <h1>Xenors – AI, Technology & Finance Platform</h1>
     <h2>Learn AI, Coding & Financial Growth in One Place</h2>
-    <p>Xenors is a next-generation platform created by <strong>Ashok Kumar Yadav</strong> to help students, developers, and learners master Artificial Intelligence, backend development, and finance.</p>
-    <a href="https://xenors.in/Blog/blog" class="btn">Start Learning Now</a>
+    <p>Master Artificial Intelligence, backend development, and finance with real-world practical knowledge.</p>
+    <a href="/Blog/blog" class="btn">Start Learning</a>
 </section>
 
 <section class="section">
@@ -339,199 +54,91 @@ h1, h2, h3, h4 {
     <div class="cards">
         <div class="card">
             <h4>🚀 Practical Learning</h4>
-            <p>Step-by-step guides on AI tools, backend development, and real-world projects.</p>
+            <p>Step-by-step real-world projects and guides.</p>
         </div>
         <div class="card">
-            <h4>📊 Smart Finance Knowledge</h4>
-            <p>Learn investing, stock market basics, and money growth strategies.</p>
+            <h4>📊 Finance Knowledge</h4>
+            <p>Smart investing & wealth-building strategies.</p>
         </div>
         <div class="card">
-            <h4>🧠 Future Tech Focus</h4>
-            <p>Stay updated with AI trends, automation, and upcoming technologies.</p>
-        </div>
-    </div>
-</section>
-
-<section class="section">
-    <h2>Search AI, Tech & Finance Topics</h2>
-    <input type="text" id="searchBox" placeholder="Search AI tools, coding, finance..." />
-    <div id="results"></div>
-</section>
-
-<section class="section">
-    <h2>Our Services</h2>
-    <div class="cards">
-        <div class="card">
-            <h4>AI Tools Guides</h4>
-            <p>Detailed reviews and tutorials on the best AI tools in 2026.</p>
-        </div>
-        <div class="card">
-            <h4>Backend Development</h4>
-            <p>Learn Flask, APIs, databases, and real-world backend systems.</p>
-        </div>
-        <div class="card">
-            <h4>Finance Education</h4>
-            <p>Understand investing, crypto, and wealth building strategies.</p>
+            <h4>🧠 Future Tech</h4>
+            <p>Latest AI trends and automation tools.</p>
         </div>
     </div>
 </section>
 
 <section class="section">
-    <h2>Explore Knowledge Hubs</h2>
+    <h2>Search Topics</h2>
+    <input type="text" id="searchBox" placeholder="Search AI, coding, finance...">
+</section>
+
+<section class="section">
+    <h2>Explore Categories</h2>
     <div class="cards">
         <div class="card">
-            <h3>📈 Finance & Investment</h3>
+            <h3>📈 Finance</h3>
             <ul>
-                <li><a href="/finance/stocks">Stock Market Basics</a></li>
-                <li><a href="/finance/trading">Algorithmic Trading</a></li>
-                <li><a href="/finance/investing">Wealth Strategies</a></li>
+                <li><a href="/finance/stocks">Stock Market</a></li>
+                <li><a href="/finance/trading">Trading</a></li>
             </ul>
         </div>
+
         <div class="card">
-            <h3>🐍 Python & Development</h3>
+            <h3>🐍 Development</h3>
             <ul>
-                <li><a href="/coding/flask">Flask Backend API</a></li>
-                <li><a href="/coding/django">Django Architecture</a></li>
-                <li><a href="/coding/python-data">Python for Data Science</a></li>
+                <li><a href="/coding/flask">Flask</a></li>
+                <li><a href="/coding/django">Django</a></li>
             </ul>
         </div>
+
         <div class="card">
-            <h3>🤖 AI & Future Tech</h3>
+            <h3>🤖 AI</h3>
             <ul>
-                <li><a href="/ai/models">ML & Regression</a></li>
-                <li><a href="/ai/tools">Productivity AI Tools</a></li>
-                <li><a href="/ai/news">Latest Tech Breakthroughs</a></li>
+                <li><a href="/ai/tools">AI Tools</a></li>
+                <li><a href="/ai/models">Machine Learning</a></li>
             </ul>
         </div>
     </div>
 </section>
 
 <section class="section recent-posts">
-    <h2>Latest Posts on Xenors</h2>
-    <div class="scroll-container" id="postContainer">
+    <h2>Latest Posts</h2>
+    <div class="scroll-container">
         <div class="post-card">
             <h4>AI in Stock Market</h4>
-            <p>How AI is changing trading strategies.</p>
             <a href="/blog/ai-stock-market">Read More</a>
         </div>
+
         <div class="post-card">
             <h4>Flask Backend Guide</h4>
-            <p>Build scalable APIs step by step.</p>
             <a href="/blog/flask-backend">Read More</a>
         </div>
+
         <div class="post-card">
-            <h4>Top AI Tools 2026</h4>
-            <p>Boost productivity with smart tools.</p>
+            <h4>Top AI Tools</h4>
             <a href="/blog/ai-tools">Read More</a>
         </div>
     </div>
 </section>
 
-<section class="section" style="background: #eef2ff;">
-    <h2>Stay Updated</h2>
-    <p>Join 1000+ developers and learners. Get weekly insights on AI, Tech, and Finance.</p>
-    <form style="display:flex; gap:10px; max-width: 400px; margin: 20px auto;">
-        <input type="email" placeholder="Enter your email" style="padding:10px; flex:1; border-radius:5px; border:1px solid #ccc;">
-        <button class="btn">Subscribe</button>
-    </form>
-</section>
-
 <section class="section">
     <h2>About Founder</h2>
-    <p><strong>Ashok Kumar Yadav</strong> is a backend developer and tech creator focused on Artificial Intelligence, web development, and finance education. Through Xenors, he shares practical knowledge to help students and developers grow in the digital world.</p>
-</section>
-
-<section class="section">
-    <h2>Learn AI, Technology & Finance</h2>
-    <p>Xenors provides high-quality content on Artificial Intelligence, backend development, and financial growth strategies. Whether you are a beginner or an advanced learner, you will find practical tutorials, AI tools, and investment guides.</p>
-    <p>Topics covered include: AI tools, machine learning basics, Flask backend development, APIs, stock market strategies, cryptocurrency, and online earning methods.</p>
-</section>
-
-<section class="section">
-    <h2>Our Commitment</h2>
-    <p>At Xenors, our mission is to simplify complex topics like AI, coding, and finance into easy and practical knowledge. We aim to help millions of students and developers build skills and achieve financial growth.</p>
+    <p><strong>Ashok Kumar Yadav</strong> is a backend developer and AI educator helping students grow in tech and finance.</p>
 </section>
 
 <section class="section media-section">
     <h2>Watch & Learn</h2>
     <div class="media-container">
         <div class="media-box">
-            <h3>Latest Video</h3>
             <div class="video-wrapper">
                 <iframe src="https://www.youtube.com/embed/Sw9p-1d-iU8" allowfullscreen></iframe>
             </div>
         </div>
         <div class="media-box">
-            <h3>Founder</h3>
-            <div class="image-wrapper">
-                <img src="https://xenors.in/images/mexenors.jpeg" alt="Ashok Kumar Yadav">
-            </div>
+            <img src="/images/mexenors.jpeg" alt="Ashok Kumar Yadav">
         </div>
     </div>
 </section>
 
-
-<section class="section related-articles">
-    <h2>Read Also</h2>
-
-    <div class="article-grid">
-
-        <a href="https://xenors.in/AI-transforming-stock-trading/" class="article-card">
-            <img src="images/stock-ai.jpg" alt="AI Transforming Stock Trading">
-            <div class="article-content">
-                <h3>AI Transforming Stock Trading</h3>
-                <p>Discover how AI is revolutionizing stock market trading strategies.</p>
-                <span>Read More →</span>
-            </div>
-        </a>
-
-        <a href="https://xenors.in/Blog/AI-trading-in-2026/" class="article-card">
-            <img src="images/ai-trading-2026.jpg" alt="AI Trading in 2026">
-            <div class="article-content">
-                <h3>AI Trading in 2026</h3>
-                <p>Future of algorithmic AI trading and automated investing trends.</p>
-                <span>Read More →</span>
-            </div>
-        </a>
-
-        <a href="https://xenors.in/start-investing-with-100-dollars/" class="article-card">
-            <img src="images/invest-100.jpg" alt="Start Investing with 100 Dollars">
-            <div class="article-content">
-                <h3>Start Investing with $100</h3>
-                <p>Begin your investing journey even with a small amount.</p>
-                <span>Read More →</span>
-            </div>
-        </a>
-
-        <a href="https://xenors.in/best-ai-tools-backend-development-2026" class="article-card">
-            <img src="images/backend-ai-tools.jpg" alt="Best AI Tools Backend Development">
-            <div class="article-content">
-                <h3>Best AI Tools for Developers</h3>
-                <p>Top AI tools every backend developer should use in 2026.</p>
-                <span>Read More →</span>
-            </div>
-        </a>
-
-        <a href="https://xenors.in/Blog/ai-image-generators-tools-2026/" class="article-card">
-            <img src="images/ai-image-tools.jpg" alt="AI Image Generators">
-            <div class="article-content">
-                <h3>Top AI Image Generators</h3>
-                <p>Best AI tools to generate stunning creative visuals instantly.</p>
-                <span>Read More →</span>
-            </div>
-        </a>
-
-        <a href="https://xenors.in/Blog/how-to-earn-money-using-ai-tool/" class="article-card">
-            <img src="images/earn-ai-money.jpg" alt="Earn Money Using AI Tools">
-            <div class="article-content">
-                <h3>Earn Money Using AI Tools</h3>
-                <p>Learn smart ways to generate income with AI platforms.</p>
-                <span>Read More →</span>
-            </div>
-        </a>
-
-    </div>
-</section>
-
-</body>
-    </html>
+</div>
+<!-- ================= CONTENT END ================= -->
