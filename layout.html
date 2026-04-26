@@ -333,19 +333,25 @@ body.menu-open {
     console.log("Admin detected: Analytics is disabled.");
   }
     
-function toggleMenu() {
+document.addEventListener("DOMContentLoaded", function () {
+
+    function toggleMenu() {
         const nav = document.getElementById('nav');
         nav.classList.toggle('active');
-        // Prevent scrolling when menu is open
-        document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : 'auto';
+
+        document.body.classList.toggle('menu-open');
     }
-    // Close menu when clicking links
+
+    window.toggleMenu = toggleMenu; // IMPORTANT (global banana)
+
     document.querySelectorAll('#nav a').forEach(link => {
-        link.onclick = () => {
+        link.addEventListener('click', () => {
             document.getElementById('nav').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        };
+            document.body.classList.remove('menu-open');
+        });
     });
+
+});
 </script>
 </body>
 </html>
