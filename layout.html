@@ -12,75 +12,200 @@
 
 <link rel="stylesheet" href="/styles/main.css">
 <style>
- :root {
-            --primary: #2563eb;
-            --dark: #0f172a;
-            --glass: rgba(15, 23, 42, 0.9);
-            --text-light: #f8fafc;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-        
-        header {
-            background: var(--dark);
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 5%;
-            position: relative;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-        }
+/* ================= ROOT VARIABLES ================= */
+:root {
+    --primary: #2563eb;
+    --dark: #0f172a;
+    --glass: rgba(15, 23, 42, 0.92);
+    --text-light: #f8fafc;
+}
 
-        .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; }
-        .logo img { height: 40px; width: auto; }
-        .header-title { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
+/* ================= GLOBAL RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-        /* Desktop Nav */
-        nav { display: flex; align-items: center; gap: 25px; }
-        nav a { color: white; text-decoration: none; font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
-        nav a:hover { color: var(--primary); }
+body {
+    font-family: 'Inter', sans-serif;
+}
 
-        .auth-links { display: flex; gap: 15px; margin-left: 20px; }
-        .auth-links a { padding: 8px 18px; border-radius: 6px; font-weight: 600; }
-        .auth-links a:first-child { border: 1px solid var(--primary); }
-        .auth-links a:last-child { background: var(--primary); }
+/* ================= HEADER ================= */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
 
-        /* Mobile specific elements (hidden on desktop) */
-        .menu-toggle { display: none; font-size: 28px; cursor: pointer; }
-        .mobile-top { display: none; }
+    background: var(--dark);
+    color: var(--text-light);
 
-        @media (max-width: 992px) {
-            .menu-toggle { display: block; }
-            nav {
-                position: fixed;
-                top: 0;
-                right: -100%; /* Hidden off-screen */
-                height: 100vh;
-                width: 300px;
-                background: var(--glass);
-                backdrop-filter: blur(10px);
-                flex-direction: column;
-                align-items: flex-start;
-                padding: 30px;
-                transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-            }
-            nav.active { right: 0; }
-            .mobile-top {
-                display: flex;
-                width: 100%;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 40px;
-                border-bottom: 1px solid rgba(255,255,255,0.1);
-                padding-bottom: 15px;
-            }
-            .close-btn { font-size: 24px; cursor: pointer; }
-            .auth-links { flex-direction: column; width: 100%; margin-left: 0; margin-top: 20px; gap: 10px; }
-            .auth-links a { text-align: center; }
-        }
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 15px 20px;
+    max-width: 1200px;
+    margin: auto;
+
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+/* ================= LOGO ================= */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.logo img {
+    height: 40px;
+    width: auto;
+}
+
+.header-title {
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+/* ================= NAV (DESKTOP) ================= */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+nav a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+/* Hover + Active */
+nav a:hover {
+    color: var(--primary);
+    transform: translateY(-1px);
+}
+
+nav a:active {
+    opacity: 0.7;
+}
+
+/* Focus (Accessibility + SEO) */
+nav a:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+}
+
+/* ================= AUTH BUTTONS ================= */
+.auth-links {
+    display: flex;
+    gap: 12px;
+    margin-left: 15px;
+}
+
+.auth-links a {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+/* Login */
+.auth-links a:first-child {
+    border: 1px solid var(--primary);
+}
+
+/* Signup */
+.auth-links a:last-child {
+    background: var(--primary);
+}
+
+/* ================= MOBILE ================= */
+.menu-toggle {
+    display: none;
+    font-size: 26px;
+    cursor: pointer;
+}
+
+/* ================= MOBILE NAV ================= */
+@media (max-width: 992px) {
+
+    .menu-toggle {
+        display: block;
+    }
+
+    nav {
+        position: fixed;
+        top: 0;
+        right: -100%;
+
+        height: 100vh;
+        width: 80%;
+        max-width: 320px;
+
+        background: var(--glass);
+        backdrop-filter: blur(10px);
+
+        flex-direction: column;
+        align-items: flex-start;
+
+        padding: 25px;
+
+        transition: right 0.4s ease;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    }
+
+    nav.active {
+        right: 0;
+    }
+
+    /* Top section inside mobile menu */
+    .mobile-top {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+
+        margin-bottom: 30px;
+        padding-bottom: 10px;
+
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .close-btn {
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    /* Nav links mobile spacing */
+    nav a {
+        width: 100%;
+        padding: 10px 0;
+        font-size: 1rem;
+    }
+
+    /* Auth buttons stack */
+    .auth-links {
+        flex-direction: column;
+        width: 100%;
+        margin-top: 20px;
+        gap: 10px;
+    }
+
+    .auth-links a {
+        text-align: center;
+    }
+}
+
+/* ================= BODY LOCK (MENU OPEN) ================= */
+body.menu-open {
+    overflow: hidden;
+}
  /* ===== FOOTER BASE ===== */
 .footer {
     background: #0f172a; /* dark navy */
