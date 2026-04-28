@@ -11,57 +11,54 @@ def read_file(path):
     return path.read_text(encoding="utf-8") if path.exists() else ""
 
 
-def extract(pattern, text, default=""):
-    match = re.search(pattern, text, re.IGNORECASE)
-    return match.group(1).strip() if match else default
+def extract_between(text, start, end):
+    try:
+        return text.split(start)[1].split(end)[0].strip()
+    except:
+        return ""
+
+
+def extract_head(raw):
+    """Extract full head content"""
+    match = re.search(r'<head[^>]*>(.*?)</head>', raw, re.DOTALL | re.IGNORECASE)
+    return match.group(1).strip() if match else ""
 
 
 def extract_body(raw):
-    """Safe body extractor"""
-    if "<body" in raw.lower():
-        match = re.search(r'<body[^>]*>(.*?)</body>', raw, re.DOTALL | re.IGNORECASE)
-        if match:
-            return match.group(1)
-    return raw
+    """Extract body content only"""
+    match = re.search(r'<body[^>]*>(.*?)</body>', raw, re.DOTALL | re.IGNORECASE)
+    return match.group(1).strip() if match else raw
 
 
 def clean_placeholders(html):
-    """Remove any leftover {{ }}"""
     return re.sub(r"{{.*?}}", "", html)
 
 
 def build_site():
-    print(f"📂 BASE_DIR: {BASE_DIR}")
 
-    # 1. Clean dist
     if DIST_DIR.exists():
         shutil.rmtree(DIST_DIR)
     DIST_DIR.mkdir(parents=True, exist_ok=True)
 
-    # 2. Load layout
     layout = read_file(BASE_DIR / "layout.html")
 
-    # 3. Load components
     head_common = read_file(COMPONENTS_DIR / "head_common.html")
     header = read_file(COMPONENTS_DIR / "header.html")
     footer = read_file(COMPONENTS_DIR / "footer.html")
     read_also = read_file(COMPONENTS_DIR / "read-also.html")
 
-    # 4. Skip config
-    SKIP_DIRS = {'dist', 'components', 'scripts', 'styles', '.git', '.github', '__pycache__'}
-    SKIP_FILES = {'build.py', 'layout.html', 'README.md', '.gitignore'}
+    SKIP_DIRS = {'dist', 'components', 'scripts', 'styles', '.git', '__pycache__'}
+    SKIP_FILES = {'build.py', 'layout.html'}
 
-    # 5. Traverse files
     for item in BASE_DIR.rglob('*'):
 
         if any(part in SKIP_DIRS for part in item.parts):
             continue
 
-        if item.name in SKIP_FILES or item.name.startswith('.'):
+        if item.name in SKIP_FILES:
             continue
 
-        relative_path = item.relative_to(BASE_DIR)
-        dest_path = DIST_DIR / relative_path
+        dest_path = DIST_DIR / item.relative_to(BASE_DIR)
 
         if item.is_dir():
             dest_path.mkdir(parents=True, exist_ok=True)
@@ -69,47 +66,46 @@ def build_site():
 
         dest_path.parent.mkdir(parents=True, exist_ok=True)
 
-        # ================= HTML PROCESS =================
+        # ===== HTML BUILD =====
         if item.suffix == '.html':
 
             raw = read_file(item)
 
-            # 🔥 SEO extraction
-            title = extract(r'<title>(.*?)</title>', raw, "Xenors")
-            description = extract(r'<meta name="description" content="(.*?)"', raw)
-            keywords = extract(r'<meta name="keywords" content="(.*?)"', raw)
+            # 🔥 Extract FULL HEAD
+            page_head = extract_head(raw)
 
-            # 🔥 Body extraction (safe)
+            # 🔥 Remove unwanted tags from head
+            page_head = re.sub(r'<head[^>]*>|</head>', '', page_head, flags=re.IGNORECASE)
+            page_head = re.sub(r'<html.*?>|</html>', '', page_head, flags=re.IGNORECASE)
+            page_head = re.sub(r'<!DOCTYPE.*?>', '', page_head, flags=re.IGNORECASE)
+
+            # 🔥 Extract BODY
             body_content = extract_body(raw)
+
+            # Remove header/footer from body (important)
+            body_content = re.sub(r'<header.*?>.*?</header>', '', body_content, flags=re.DOTALL)
+            body_content = re.sub(r'<footer.*?>.*?</footer>', '', body_content, flags=re.DOTALL)
 
             # Inject Read Also
             body_content += read_also
 
-            # 🔥 Build final page
+            # 🔥 Build final
             final = layout
             final = final.replace("{{HEAD_COMMON}}", head_common)
-            final = final.replace("{{HEAD_EXTRA}}", "")
-            final = final.replace("{{TITLE}}", title)
-            final = final.replace("{{DESCRIPTION}}", description)
-            final = final.replace("{{KEYWORDS}}", keywords)
+            final = final.replace("{{PAGE_HEAD}}", page_head)
             final = final.replace("{{HEADER}}", header)
             final = final.replace("{{FOOTER}}", footer)
             final = final.replace("{{CONTENT}}", body_content)
 
-            # 💣 Remove leftover placeholders
             final = clean_placeholders(final)
 
-            # Write output
             dest_path.write_text(final, encoding="utf-8")
+            print(f"🔥 Built: {item}")
 
-            print(f"🔥 Built: {relative_path}")
-
-        # ================= STATIC FILES =================
         else:
             shutil.copy2(item, dest_path)
-            print(f"📁 Copied: {relative_path}")
 
-    print("\n🚀 Build Complete — Clean, SEO-ready, No bugs!")
+    print("\n🚀 Build Complete — Perfect Output!")
 
 
 if __name__ == "__main__":
