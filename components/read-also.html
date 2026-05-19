@@ -83,38 +83,42 @@
 <style>
     
 .read-also {
-    margin-top: 50px;
-    padding: 20px 10px;
+    margin-top: 40px;
+    padding: 10px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .read-also h2 {
     font-size: 24px;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     border-left: 4px solid #38bdf8;
     padding-left: 10px;
+    color: #fff;
 }
 
-/* Grid Layout */
+/* Grid */
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 18px;
+    gap: 14px;
+    width: 100%;
 }
 
-/* Card Design */
+/* Card */
 .card {
     background: #0f172a;
-    border-radius: 14px;
+    border-radius: 12px;
     overflow: hidden;
-    transition: all 0.3s ease;
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: 0.3s ease;
 }
 
-/* Hover Effect */
+/* Hover */
 .card:hover {
-    transform: translateY(-6px) scale(1.02);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
 }
 
 /* Image */
@@ -127,27 +131,35 @@
 
 /* Text */
 .card p {
-    padding: 12px;
+    margin: 0;
+    padding: 10px;
     font-size: 14px;
-    font-weight: 500;
-    color: #e2e8f0;
     line-height: 1.4;
+    color: #e2e8f0;
 }
 
-/* Link Remove Default Style */
+/* Remove link style */
 .cards a {
     text-decoration: none;
     color: inherit;
+    display: block;
 }
 
-/* Mobile Optimization */
+/* Mobile */
 @media (max-width: 500px) {
+
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
     .card img {
-        height: 110px;
+        height: 95px;
     }
 
     .card p {
-        font-size: 13px;
+        font-size: 12px;
+        padding: 8px;
     }
 }
     </style>
