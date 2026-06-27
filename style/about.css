@@ -1,0 +1,389 @@
+/* ==========================================================================
+   XENORS.IN - PROFESSIONAL ABOUT PAGE CORE STYLESHEET (2026)
+   ========================================================================== */
+
+/* 1. Global Reset & Typography Baseline */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body.about-page-body {
+    background-color: #fcfcfc;
+    color: #2b2b2b;
+    font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Global Container Utility */
+.about-container {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* 2. Premium Header / Navigation Sync */
+.investo-headers {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e5e5;
+    position: relative;
+    top: 0;
+    
+}
+
+.header-wrap {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand-zone {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-logo {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #1f1f1f;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.tagline {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #757575;
+    margin-top: 2px;
+}
+
+.main-nav {
+    display: flex;
+    gap: 24px;
+}
+
+.main-nav a {
+    color: #4a4a4a;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+    color: #000000;
+}
+
+/* 3. Hero Identity Section (Investopedia Clean Minimalist Archetype) */
+.about-hero {
+    background-color: #1f1f1f;
+    color: #ffffff;
+    padding: 100px 20px;
+    text-align: center;
+}
+
+.hero-inner-wrapper {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.editorial-badge {
+    display: inline-block;
+    background-color: #383838;
+    color: #e0e0e0;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 6px 14px;
+    border-radius: 3px;
+    margin-bottom: 24px;
+    font-weight: 600;
+}
+
+.about-hero h1 {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+}
+
+.about-hero p {
+    font-size: 18px;
+    color: #cccccc;
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+/* 4. Mission & Vision Dual Columns */
+.mission-vision-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 80px;
+}
+
+.editorial-card {
+    background: #ffffff;
+    border: 1px solid #eaf0f6;
+    border-radius: 6px;
+    padding: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.editorial-card h2 {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 24px;
+    color: #1f1f1f;
+    margin-bottom: 18px;
+    position: relative;
+    padding-bottom: 12px;
+}
+
+.editorial-card h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 45px;
+    height: 3px;
+    background-color: #2b2b2b;
+}
+
+.editorial-card p {
+    color: #4a4a4a;
+    font-size: 15.5px;
+    text-align: justify;
+}
+
+/* 5. What We Do - Competency Matrix Layout */
+.what-we-do-matrix {
+    margin-bottom: 90px;
+    background-color: #fcfcfc;
+}
+
+.section-header-center {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 50px auto;
+}
+
+.section-header-center h2 {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 30px;
+    color: #1f1f1f;
+    margin-bottom: 12px;
+}
+
+.section-subtitle {
+    font-size: 15px;
+    color: #666666;
+}
+
+.competency-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.competency-item {
+    background: #ffffff;
+    border-top: 3px solid #2b2b2b;
+    padding: 35px 25px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.01);
+    border-radius: 0 0 4px 4px;
+}
+
+.competency-index {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #999999;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.competency-item h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin-bottom: 14px;
+    line-height: 1.4;
+}
+
+.competency-item p {
+    font-size: 14.5px;
+    color: #555555;
+    line-height: 1.6;
+}
+
+/* 6. Executive Leadership / Founder Split Section */
+.founder-section-split {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 60px;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    padding: 50px;
+    border-radius: 8px;
+    margin-bottom: 80px;
+}
+
+.founder-media-block {
+    width: 100%;
+}
+
+.leader-image-frame {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    object-fit: cover;
+    display: block;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+    filter: grayscale(10%);
+}
+
+.founder-narrative-block .narrative-meta {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #888888;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.founder-narrative-block h2 {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 28px;
+    color: #1f1f1f;
+    margin-bottom: 20px;
+}
+
+.founder-narrative-block p {
+    font-size: 15px;
+    color: #444444;
+    margin-bottom: 18px;
+}
+
+/* Editorial Blockquote Engine */
+.editorial-quote {
+    margin-top: 30px;
+    padding-left: 24px;
+    border-left: 4px solid #1f1f1f;
+    font-style: italic;
+}
+
+.editorial-quote p {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    font-size: 16px;
+    color: #333333;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.editorial-quote cite {
+    font-family: 'Public Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #777777;
+    letter-spacing: 1px;
+    not-style: normal;
+}
+
+/* 7. Institutional Trust Signals Section */
+.why-us-authoritative {
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.trust-signals-layout {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.trust-card {
+    text-align: left;
+}
+
+.trust-card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f1f1f;
+    margin-bottom: 10px;
+}
+
+.trust-card p {
+    font-size: 14px;
+    color: #666666;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   8. RESPONSIVE MEDIA QUERIES (FLAWLESS TABLET & MOBILE VIEWPORTS)
+   ========================================================================== */
+
+@media (max-width: 992px) {
+    .header-wrap {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .founder-section-split {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 30px;
+    }
+    .competency-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .trust-signals-layout {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .about-hero h1 {
+        font-size: 32px;
+    }
+    .about-hero p {
+        font-size: 16px;
+    }
+    .mission-vision-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    .section-header-center h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-nav {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+    .competency-grid {
+        grid-template-columns: 1fr;
+    }
+    .trust-signals-layout {
+        grid-template-columns: 1fr;
+    }
+    .editorial-card {
+        padding: 25px;
+    }
+  }
+  
