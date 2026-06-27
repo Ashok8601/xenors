@@ -30,13 +30,13 @@ body {
 }
 
 /* Header & Typography Structures */
-.investo-header {
+.investo-headers {
     border-bottom: 4px solid var(--text-dark);
     padding: 24px 0 16px 0;
     background: #fff;
 }
 
-.header-wrap {
+.headers-wrap {
     display: flex;
     flex-direction: column;
     gap: 15px;
