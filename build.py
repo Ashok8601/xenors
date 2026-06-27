@@ -57,26 +57,21 @@ def build_site():
     # ==========================================
     for item in BASE_DIR.rglob('*'):
 
-        # Skip unwanted directories
         if any(part in SKIP_DIRS for part in item.parts):
             continue
 
-        # Skip unwanted files
         if item.name in SKIP_FILES or item.name.startswith('.'):
             continue
 
         relative_path = item.relative_to(BASE_DIR)
         dest_path = DIST_DIR / relative_path
 
-        # Create directories
         if item.is_dir():
             dest_path.mkdir(parents=True, exist_ok=True)
             continue
 
-        # Ensure parent exists
         dest_path.parent.mkdir(parents=True, exist_ok=True)
 
-        # Check if Web Story
         is_web_story = any(part in STORY_DIRS for part in item.parts)
 
         # ==========================================
@@ -85,15 +80,27 @@ def build_site():
         if item.suffix == '.html' and not is_web_story:
             content = item.read_text(encoding='utf-8')
 
-            final_content = header + content + read_also + footer
+            # Inject header after <body>
+            if "<body>" in content:
+                content = content.replace("<body>", f"<body>\n{header}", 1)
+            else:
+                print(f"⚠ No <body> tag in {relative_path}")
 
-            dest_path.write_text(final_content, encoding='utf-8')
+            # Inject read_also + footer before </body>
+            if "</body>" in content:
+                content = content.replace(
+                    "</body>",
+                    f"\n{read_also}\n{footer}\n</body>",
+                    1
+                )
+            else:
+                content += f"\n{read_also}\n{footer}"
 
+            dest_path.write_text(content, encoding='utf-8')
             print(f"🔥 Processed HTML: {relative_path}")
 
         else:
             shutil.copy2(item, dest_path)
-
             status = "📖 Story Copied" if is_web_story else "📁 Copied"
             print(f"{status}: {relative_path}")
 
