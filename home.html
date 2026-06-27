@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" href="https:xenors.in/components/header.css">
+<link rel="stylesheet" href="https:xenors.in/components/footer.css">
+<script src="https:xenors.in/components/header.js" defer></script>
 
   <!-- Basic SEO & Core Engine Setup -->
   <meta charset="UTF-8">
@@ -52,7 +55,7 @@
 
   <!-- Centralized Style Injection -->
   <link rel="stylesheet" href="https://xenors.in/share-market/style.css">
-  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="https://xenors.in/home.css">
 
   <!-- Execution Optimization scripts -->
   <script src="https://xenors.in/scripts/main.js" defer></script>
@@ -129,6 +132,35 @@
 </head>
 
 <body>
+<!------headers section -->
+   <header>
+    <div class="logo" onclick="window.location.href='/'">
+        <img src="/images/xenors.png" alt="Xenors logo">
+        <h2 class="header-title">Xenors</h2>
+    </div>
+
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <nav id="nav">
+        <div class="mobile-top">
+            <span class="brand" style="font-weight: 800; font-size: 1.2rem;">Xenors</span>
+            <span class="close-btn" onclick="toggleMenu()">✖</span>
+        </div>
+
+        <a href="/">Home</a>
+        <a href="/tech">Tech</a>
+        <a href="/blog">Blogs</a>
+        <a href="/finance">Finance</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+
+        <div class="auth-links">
+            <a href="/login">Login</a>
+            <a href="/signup">Signup</a>
+        </div>
+    </nav>
+</header>
+    <!--header end-->
 
     <!-- Investopedia Style Branding Top Bar -->
     <headers class="investo-header">
@@ -310,6 +342,40 @@
         </aside>
 
     </main>
+ <!--footer section -->
+    <footer class="footer">
+    <div class="footer-container">
+
+        <div class="footer-col">
+            <h2 class="footer-logo">Xenors<span>.in</span></h2>
+            <p>Empowering your digital journey with AI, finance, and tech knowledge. We decode complex trends for a smarter tomorrow.</p>
+        </div>
+
+        <div class="footer-col">
+            <h3>Know Xenors</h3>
+            <ul>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/mission">Our Mission</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h3>Explore</h3>
+            <ul>
+                <li><a href="/ai-tools">AI Tools</a></li>
+                <li><a href="/coding">Coding</a></li>
+                <li><a href="/finance">Finance</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 Xenors.in | All Rights Reserved</p>
+    </div>
+</footer>
+        <!--footer section end -->
 
 
 </body>
