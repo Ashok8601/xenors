@@ -1,27 +1,30 @@
-<header>
-    <div class="logo" onclick="window.location.href='/'">
-        <img src="/images/xenors.png" alt="Xenors logo">
-        <h2 class="header-title">Xenors</h2>
-    </div>
+<!-- Google Analytics (Disabled for Admin) -->
+<script>
+(function () {
 
-    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  // Admin browser me analytics disable
+  if (localStorage.getItem("ignoreMe") === "true") {
+    console.log("Admin Mode: Google Analytics Disabled");
+    return;
+  }
 
-    <nav id="nav">
-        <div class="mobile-top">
-            <span class="brand" style="font-weight: 800; font-size: 1.2rem;">Xenors</span>
-            <span class="close-btn" onclick="toggleMenu()">✖</span>
-        </div>
+  // Load GA4
+  var ga = document.createElement("script");
+  ga.async = true;
+  ga.src = "https://www.googletagmanager.com/gtag/js?id=G-ZRZ11QPD5B";
+  document.head.appendChild(ga);
 
-        <a href="/">Home</a>
-        <a href="/tech">Tech</a>
-        <a href="/blog">Blogs</a>
-        <a href="finance/five-simple-step-to-start-budgeting-in-2026">Finance</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
 
-        <div class="auth-links">
-            <a href="/login">Login</a>
-            <a href="/signup">Signup</a>
-        </div>
-    </nav>
-</header>
+  gtag("js", new Date());
+
+  gtag("config", "G-ZRZ11QPD5B", {
+      page_title: document.title,
+      page_location: window.location.href,
+      page_path: window.location.pathname
+  });
+
+})();
+</script>
