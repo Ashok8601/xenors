@@ -1,4 +1,5 @@
 import shutil
+import re
 from pathlib import Path
 
 # Base Directory
@@ -10,17 +11,20 @@ COMPONENTS_DIR = BASE_DIR / 'components'
 
 
 def inject_header(content, header):
-    has_header = "<header" in content or "<site-header" in content
+    # Regex jo <header...>...</header> aur <site-header...>...</site-header> dono ko target karega
+    # re.DOTALL se ye multi-line headers ko bhi select kar lega
+    header_pattern = re.compile(r'<(header|site-header).*?>.*?</\1>', re.DOTALL)
+    
+    # Agar pehle se koi header exists karta hai, toh use remove (blank) kar do
+    if header_pattern.search(content):
+        print("♻️ Old header found! Replacing it with the new component.")
+        content = header_pattern.sub('', content)
 
-    if has_header:
-        print("⚠ Header already exists, skipping injection.")
-        return content
-
+    # Naya header inject karne ke liye <body> tag dhundhein
     body_index = content.find("<body")
 
     if body_index != -1:
         body_tag_end = content.find(">", body_index) + 1
-
         content = (
             content[:body_tag_end]
             + "\n"
@@ -29,22 +33,28 @@ def inject_header(content, header):
             + content[body_tag_end:]
         )
     else:
-        print("⚠ No <body> tag found.")
+        print("⚠ No <body> tag found. Injecting header at the very top.")
+        content = header + "\n" + content
 
     return content
 
 
 def inject_footer(content, read_also, footer):
-    has_footer = "<footer" in content
-    has_read_also = 'class="read-also"' in content
+    # Safe Footer & Read Also Injection
+    # Agar pehle se class="read-also" ya <footer> hai toh use clean ya replace kar sakte hain
+    
+    # Purane footer ko remove karne ka pattern
+    footer_pattern = re.compile(r'<footer.*?>.*?</footer>', re.DOTALL)
+    if footer_pattern.search(content):
+        print("♻️ Old footer found! Replacing it.")
+        content = footer_pattern.sub('', content)
+        
+    read_also_pattern = re.compile(r'<section class=["\']read-also["\'].*?>.*?</section>', re.DOTALL)
+    if read_also_pattern.search(content):
+        print("♻️ Old read-also section found! Replacing it.")
+        content = read_also_pattern.sub('', content)
 
-    inject_block = ""
-
-    if not has_read_also:
-        inject_block += "\n" + read_also
-
-    if not has_footer:
-        inject_block += "\n" + footer
+    inject_block = "\n" + read_also + "\n" + footer
 
     body_close = content.rfind("</body>")
 
@@ -138,3 +148,4 @@ def build_site():
 
 if __name__ == "__main__":
     build_site()
+    
