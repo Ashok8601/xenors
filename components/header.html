@@ -1,35 +1,4 @@
 <header>
-<!-- Google Analytics (Disabled for Admin) -->
-<script>
-(function () {
-
-  // Admin browser me analytics disable
-  if (localStorage.getItem("ignoreMe") === "true") {
-    console.log("Admin Mode: Google Analytics Disabled");
-    return;
-  }
-
-  // Load GA4
-  var ga = document.createElement("script");
-  ga.async = true;
-  ga.src = "https://www.googletagmanager.com/gtag/js?id=G-ZRZ11QPD5B";
-  document.head.appendChild(ga);
-
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  window.gtag = gtag;
-
-  gtag("js", new Date());
-
-  gtag("config", "G-ZRZ11QPD5B", {
-      page_title: document.title,
-      page_location: window.location.href,
-      page_path: window.location.pathname
-  });
-
-})();
-</script>
-
     <div class="logo" onclick="window.location.href='/'">
         <img src="/images/xenors.png" alt="Xenors logo">
         <h2 class="header-title">Xenors</h2>
