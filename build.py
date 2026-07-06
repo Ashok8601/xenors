@@ -71,6 +71,52 @@ def inject_footer(content, read_also, footer):
     return content
 
 
+def inject_head_scripts(content):
+    head_scripts = """
+<script>
+(function () {
+
+  if (localStorage.getItem("ignoreMe") === "true") {
+    console.log("Admin Mode: Google Analytics Disabled");
+    return;
+  }
+
+  var ga = document.createElement("script");
+  ga.async = true;
+  ga.src = "https://www.googletagmanager.com/gtag/js?id=G-ZRZ11QPD5B";
+  document.head.appendChild(ga);
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  window.gtag = gtag;
+
+  gtag("js", new Date());
+
+  gtag("config", "G-ZRZ11QPD5B", {
+      page_title: document.title,
+      page_location: window.location.href,
+      page_path: window.location.pathname
+  });
+
+})();
+</script>
+
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7151523366810242" crossorigin="anonymous"></script>
+"""
+
+    # Duplication check karne ke liye exact ID aur updated script tag search kiya ja raha hai
+    if (
+        "G-ZRZ11QPD5B" in content
+        or "ca-pub-7151523366810242" in content
+    ):
+        return content
+
+    if "</head>" in content:
+        return content.replace("</head>", head_scripts + "\n</head>")
+
+    return head_scripts + "\n" + content
+
+
 def build_site():
     print(f"📂 BASE_DIR: {BASE_DIR}")
 
@@ -130,8 +176,10 @@ def build_site():
         if item.suffix == '.html' and not is_web_story:
             content = item.read_text(encoding='utf-8')
 
+            # Inject Header, Footer, and Head Scripts
             content = inject_header(content, header)
             content = inject_footer(content, read_also, footer)
+            content = inject_head_scripts(content)
 
             dest_path.write_text(content, encoding='utf-8')
 
@@ -148,4 +196,4 @@ def build_site():
 
 if __name__ == "__main__":
     build_site()
-    
+            
