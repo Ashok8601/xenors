@@ -1,78 +1,163 @@
-/* Layout */
-.container{
-    max-width:1150px;
-    margin:auto;
-    padding:0 20px;
+/* ==========================================================================
+   Design Tokens & System Variables
+   ========================================================================== */
+:root {
+  /* Brand Colors */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --primary-border: #bfdbfe;
+
+  /* Neutrals (Professional Light Palette) */
+  --bg-main: #ffffff;
+  --bg-surface: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;      /* Slate-900: High contrast, readable */
+  --text-muted: #475569;     /* Slate-600 */
+  --border-light: #e2e8f0;    /* Slate-200 */
+  --border-subtle: #f1f5f9;
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  
+  /* Shadows & Elevation */
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+  --shadow-hover: 0 12px 24px -4px rgba(37, 99, 235, 0.12);
+
+  /* Utilities */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-full: 9999px;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-section{
-    padding:70px 0;
+/* ==========================================================================
+   Base & Reset Settings
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-/* Hero */
-.hero{
-    padding:80px 0;
-    background:#f8fafc;
+body {
+  font-family: var(--font-sans);
+  color: var(--text-main);
+  background-color: var(--bg-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-.hero-grid{
-    display:grid;
-    grid-template-columns:2fr 1fr;
-    gap:40px;
-    align-items:center;
+/* ==========================================================================
+   Layout Structure
+   ========================================================================== */
+.container {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.kicker{
-    color:#2563eb;
-    font-weight:700;
-    margin-bottom:12px;
-    text-transform:uppercase;
-    font-size:.9rem;
+section {
+  padding: 80px 0;
 }
 
-.hero h1{
-    font-size:48px;
-    line-height:1.2;
-    margin-bottom:20px;
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero {
+  padding: 96px 0 80px;
+  background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-main) 100%);
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-.hero h1 em{
-    color:#2563eb;
-    font-style:normal;
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1.2fr;
+  gap: 48px;
+  align-items: center;
 }
 
-.hero-text{
-    color:#555;
-    line-height:1.8;
+.kicker {
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
 }
 
-/* Buttons */
-.actions{
-    display:flex;
-    gap:15px;
-    margin-top:30px;
-    flex-wrap:wrap;
+.hero h1 {
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
 }
 
-.btn{
-    display:inline-block;
-    padding:12px 22px;
-    border-radius:8px;
-    text-decoration:none;
-    font-weight:600;
+.hero h1 em {
+  color: var(--primary);
+  font-style: normal;
+  background: linear-gradient(120deg, #2563eb, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.btn-primary{
-    background:#2563eb;
-    color:#fff;
+.hero-text {
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  line-height: 1.75;
 }
 
-.btn-secondary{
-    border:1px solid #2563eb;
-    color:#2563eb;
+/* ==========================================================================
+   Interactive Actions & Buttons
+   ========================================================================== */
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+  flex-wrap: wrap;
 }
 
-/* Card */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+}
+
+.btn-secondary {
+  border: 1px solid var(--border-light);
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary-border);
+  background: var(--primary-light);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Cards & Component UI
+   ========================================================================== */
 .hero-card,
 .edu-card,
 .skill-card,
@@ -80,30 +165,45 @@ section{
 .focus-card,
 .pill,
 .mindset-card,
-.cta{
-    background:#fff;
-    border:1px solid #e5e7eb;
-    border-radius:12px;
-    padding:24px;
-    box-shadow:0 4px 12px rgba(0,0,0,.05);
+.cta {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
 }
 
-/* Avatar */
-.avatar{
-    width:80px;
-    height:80px;
-    border-radius:50%;
-    background:#2563eb;
-    color:#fff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-size:28px;
-    font-weight:bold;
-    margin-bottom:20px;
+/* Subtle Interactive Lift on Hover */
+.edu-card:hover,
+.skill-card:hover,
+.project-card:hover,
+.focus-card:hover,
+.mindset-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-hover);
 }
 
-/* Grid */
+/* Avatar Component */
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--primary), #60a5fa);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+/* ==========================================================================
+   Grids Architecture
+   ========================================================================== */
 .about-grid,
 .hero-grid,
 .education,
@@ -111,111 +211,143 @@ section{
 .projects,
 .focus-grid,
 .xenors-grid,
-.mindset{
-    display:grid;
-    gap:25px;
+.mindset {
+  display: grid;
+  gap: 28px;
 }
 
 .about-grid,
 .hero-grid,
-.xenors-grid{
-    grid-template-columns:repeat(2,1fr);
+.xenors-grid {
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .education,
 .skills-grid,
 .projects,
 .focus-grid,
-.mindset{
-    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+.mindset {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-/* Timeline */
-.timeline{
-    border-left:3px solid #2563eb;
-    padding-left:25px;
+/* ==========================================================================
+   Timeline Styling
+   ========================================================================== */
+.timeline {
+  border-left: 2px solid var(--primary-border);
+  padding-left: 28px;
+  margin-left: 8px;
 }
 
-.timeline-item{
-    margin-bottom:35px;
-    position:relative;
+.timeline-item {
+  margin-bottom: 40px;
+  position: relative;
 }
 
-.dot{
-    width:12px;
-    height:12px;
-    border-radius:50%;
-    background:#2563eb;
-    position:absolute;
-    left:-32px;
-    top:5px;
+.timeline-item:last-child {
+  margin-bottom: 0;
 }
 
-/* Tags */
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  border: 3px solid var(--primary);
+  position: absolute;
+  left: -36px;
+  top: 4px;
+  box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+/* ==========================================================================
+   Pills & Micro Components
+   ========================================================================== */
 .tag,
-.project-meta span{
-    display:inline-block;
-    padding:6px 12px;
-    margin:4px;
-    border-radius:20px;
-    background:#eef4ff;
-    color:#2563eb;
-    font-size:13px;
+.project-meta span {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  margin: 4px;
+  border-radius: var(--radius-full);
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.825rem;
+  font-weight: 600;
+  border: 1px solid var(--primary-border);
 }
 
 /* Headings */
-.section-head{
-    text-align:center;
-    margin-bottom:45px;
+.section-head {
+  text-align: center;
+  margin-bottom: 56px;
 }
 
-.section-label{
-    color:#2563eb;
-    font-size:14px;
-    font-weight:700;
-    text-transform:uppercase;
-    margin-bottom:10px;
+.section-label {
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
 }
 
-h2{
-    margin-bottom:12px;
+h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
 }
 
-/* Quote */
-.quote{
-    border-left:4px solid #2563eb;
-    background:#f8fafc;
-    padding:20px;
-    border-radius:10px;
-    font-style:italic;
+/* Quote Section */
+.quote {
+  border-left: 4px solid var(--primary);
+  background: var(--bg-surface);
+  padding: 24px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 1.05rem;
 }
 
-/* Footer */
-.footer-inner{
-    display:flex;
-    justify-content:space-between;
-    gap:20px;
-    padding:30px 0;
-    border-top:1px solid #eee;
-    font-size:14px;
+/* Footer Section */
+footer {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-light);
+  margin-top: 40px;
 }
 
-/* Responsive */
-@media(max-width:768px){
-
-.hero-grid,
-.about-grid,
-.xenors-grid{
-    grid-template-columns:1fr;
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }
 
-.hero h1{
-    font-size:34px;
-}
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 868px) {
+  section {
+    padding: 56px 0;
+  }
 
-.footer-inner{
-    flex-direction:column;
-    text-align:center;
-}
+  .hero-grid,
+  .about-grid,
+  .xenors-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 
+  .hero h1 {
+    font-size: 2.25rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
 }
