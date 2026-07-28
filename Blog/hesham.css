@@ -1,0 +1,519 @@
+/* ==========================================================================
+   Hesham Industrial Solutions Blog
+   Premium Industrial Technology Article Layout
+   Target Container: .content-section
+   ========================================================================== */
+
+
+/* Main Article Container */
+.content-section {
+
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 32px 24px;
+
+  font-family:
+  Inter,
+  -apple-system,
+  BlinkMacSystemFont,
+  "Segoe UI",
+  Roboto,
+  Oxygen,
+  Ubuntu,
+  Cantarell,
+  "Helvetica Neue",
+  Arial,
+  sans-serif;
+
+  line-height: 1.8;
+  color: #334155;
+  background: #ffffff;
+
+}
+
+
+/* Article Intro Text */
+.content-section .article-intro {
+
+  font-size: 1.15rem;
+  color: #475569;
+  line-height: 1.9;
+  margin-bottom: 35px;
+
+}
+
+
+
+/* ==========================================================================
+   Headings
+   ========================================================================== */
+
+
+.content-section h2 {
+
+  position: relative;
+
+  font-size: 2.15rem;
+  font-weight: 750;
+
+  color: #0f172a;
+
+  margin-top: 55px;
+  margin-bottom: 25px;
+
+  line-height: 1.25;
+
+  letter-spacing: -0.02em;
+
+  padding-left: 18px;
+
+}
+
+
+.content-section h2::before {
+
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  top:8px;
+
+  width:5px;
+  height:38px;
+
+  background:#2563eb;
+
+  border-radius:10px;
+
+}
+
+
+
+.content-section h3 {
+
+  font-size:1.55rem;
+
+  font-weight:700;
+
+  color:#1e293b;
+
+  margin-top:38px;
+  margin-bottom:18px;
+
+  line-height:1.35;
+
+}
+
+
+
+.content-section h4 {
+
+  font-size:1.25rem;
+
+  font-weight:650;
+
+  color:#2563eb;
+
+  margin-top:28px;
+  margin-bottom:14px;
+
+}
+
+
+
+/* ==========================================================================
+   Paragraph Typography
+   ========================================================================== */
+
+
+.content-section p {
+
+  font-size:1.08rem;
+
+  color:#334155;
+
+  margin-bottom:22px;
+
+  letter-spacing:0.01em;
+
+}
+
+
+
+.content-section strong {
+
+  color:#0f172a;
+
+  font-weight:700;
+
+}
+
+
+
+/* Links */
+
+.content-section a {
+
+  color:#2563eb;
+
+  font-weight:600;
+
+  text-decoration:none;
+
+}
+
+
+.content-section a:hover {
+
+  text-decoration:underline;
+
+}
+
+
+
+/* ==========================================================================
+   Lists
+   ========================================================================== */
+
+
+.content-section ul,
+.content-section ol {
+
+  margin:20px 0 30px;
+
+  padding-left:32px;
+
+}
+
+
+.content-section li {
+
+  font-size:1.05rem;
+
+  color:#334155;
+
+  margin-bottom:12px;
+
+  line-height:1.7;
+
+}
+
+
+
+.content-section ul li::marker {
+
+  color:#2563eb;
+
+  font-size:1.2rem;
+
+}
+
+
+
+/* ==========================================================================
+   Quote / Highlight
+   ========================================================================== */
+
+
+.content-section blockquote {
+
+  margin:35px 0;
+
+  padding:22px 28px;
+
+  background:#f8fafc;
+
+  border-left:5px solid #2563eb;
+
+  border-radius:8px;
+
+  font-size:1.1rem;
+
+  color:#475569;
+
+}
+
+
+
+/* ==========================================================================
+   Images
+   ========================================================================== */
+
+
+.content-section figure {
+
+  margin:40px 0;
+
+  background:#f8fafc;
+
+  border-radius:14px;
+
+  overflow:hidden;
+
+  border:1px solid #e2e8f0;
+
+  box-shadow:
+  0 10px 25px rgba(15,23,42,0.08);
+
+}
+
+
+
+.content-section figure img {
+
+  width:100%;
+
+  height:auto;
+
+  display:block;
+
+  transition:transform .35s ease;
+
+}
+
+
+
+.content-section figure:hover img {
+
+  transform:scale(1.02);
+
+}
+
+
+
+.content-section figcaption {
+
+  padding:14px 18px;
+
+  text-align:center;
+
+  font-size:.9rem;
+
+  color:#64748b;
+
+  background:#ffffff;
+
+  font-style:italic;
+
+}
+
+
+
+/* ==========================================================================
+   SEO Information Box
+   ========================================================================== */
+
+
+.content-section .seo-metadata-box {
+
+
+  background:
+  linear-gradient(
+  135deg,
+  #f0fdf4,
+  #ffffff
+  );
+
+
+  border:1px solid #bbf7d0;
+
+  border-left:6px solid #16a34a;
+
+  padding:28px;
+
+  border-radius:12px;
+
+  margin:45px 0;
+
+}
+
+
+
+.content-section .seo-metadata-box h3 {
+
+  margin-top:0;
+
+  color:#15803d;
+
+}
+
+
+.content-section .seo-metadata-box p {
+
+  font-size:.98rem;
+
+  color:#166534;
+
+}
+
+
+
+/* ==========================================================================
+   Internal Linking Box
+   ========================================================================== */
+
+
+.content-section .internal-links-box {
+
+
+  background:
+
+  linear-gradient(
+  135deg,
+  #eff6ff,
+  #ffffff
+  );
+
+
+  border:1px solid #bfdbfe;
+
+  border-left:6px solid #2563eb;
+
+  padding:28px;
+
+  border-radius:12px;
+
+  margin:45px 0;
+
+
+}
+
+
+
+.content-section .internal-links-box h3 {
+
+  margin-top:0;
+
+  color:#1d4ed8;
+
+}
+
+
+
+.content-section .internal-links-box li {
+
+  margin-bottom:10px;
+
+}
+
+
+
+/* ==========================================================================
+   FAQ Section
+   ========================================================================== */
+
+
+.content-section .faq-item {
+
+  background:#f8fafc;
+
+  border:1px solid #e2e8f0;
+
+  padding:20px;
+
+  border-radius:10px;
+
+  margin-bottom:18px;
+
+}
+
+
+
+.content-section .faq-item h3 {
+
+  margin-top:0;
+
+  font-size:1.15rem;
+
+}
+
+
+
+/* ==========================================================================
+   Divider
+   ========================================================================== */
+
+
+.content-section hr {
+
+  border:0;
+
+  height:1px;
+
+  background:#e2e8f0;
+
+  margin:55px 0;
+
+}
+
+
+
+/* ==========================================================================
+   Mobile Responsive
+   ========================================================================== */
+
+
+@media(max-width:768px){
+
+
+.content-section {
+
+padding:20px 16px;
+
+}
+
+
+
+.content-section h2 {
+
+font-size:1.65rem;
+
+margin-top:40px;
+
+}
+
+
+
+.content-section h3 {
+
+font-size:1.3rem;
+
+}
+
+
+
+.content-section h4 {
+
+font-size:1.1rem;
+
+}
+
+
+
+.content-section p,
+.content-section li {
+
+font-size:1rem;
+
+}
+
+
+
+.content-section figure {
+
+margin:28px 0;
+
+}
+
+
+
+.content-section .seo-metadata-box,
+.content-section .internal-links-box {
+
+padding:20px;
+
+}
+
+
+}
