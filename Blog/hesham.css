@@ -1,519 +1,366 @@
 /* ==========================================================================
    Hesham Industrial Solutions Blog
-   Premium Industrial Technology Article Layout
+   Next-Gen Industrial Technology Showcase Layout
    Target Container: .content-section
    ========================================================================== */
 
+/* Import Google Fonts for sleek typography */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap');
 
-/* Main Article Container */
+/* Main Canvas */
 .content-section {
-
-  max-width: 920px;
+  max-width: 960px;
   margin: 0 auto;
-  padding: 32px 24px;
-
-  font-family:
-  Inter,
-  -apple-system,
-  BlinkMacSystemFont,
-  "Segoe UI",
-  Roboto,
-  Oxygen,
-  Ubuntu,
-  Cantarell,
-  "Helvetica Neue",
-  Arial,
-  sans-serif;
-
-  line-height: 1.8;
+  padding: 40px 28px;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.85;
   color: #334155;
-  background: #ffffff;
-
+  background-color: #ffffff;
 }
 
-
-/* Article Intro Text */
-.content-section .article-intro {
-
-  font-size: 1.15rem;
-  color: #475569;
+/* Accent Intro Paragraph */
+.content-section > p:first-of-type {
+  font-size: 1.2rem;
+  font-weight: 500;
   line-height: 1.9;
-  margin-bottom: 35px;
-
+  color: #1e293b;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(14, 165, 233, 0.05) 100%);
+  border-left: 4px solid #2563eb;
+  border-radius: 0 12px 12px 0;
+  margin-bottom: 32px;
 }
-
-
 
 /* ==========================================================================
-   Headings
+   Headings & Visual Anchors
    ========================================================================== */
-
 
 .content-section h2 {
-
   position: relative;
-
-  font-size: 2.15rem;
-  font-weight: 750;
-
+  font-size: 2.2rem;
+  font-weight: 800;
   color: #0f172a;
-
-  margin-top: 55px;
-  margin-bottom: 25px;
-
+  margin-top: 60px;
+  margin-bottom: 24px;
   line-height: 1.25;
-
-  letter-spacing: -0.02em;
-
-  padding-left: 18px;
-
+  letter-spacing: -0.03em;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f1f5f9;
 }
 
-
-.content-section h2::before {
-
-  content:"";
-
-  position:absolute;
-
-  left:0;
-  top:8px;
-
-  width:5px;
-  height:38px;
-
-  background:#2563eb;
-
-  border-radius:10px;
-
+/* Glowing Indicator Dot under Section Headings */
+.content-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #2563eb, #06b6d4);
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
 }
-
-
 
 .content-section h3 {
-
-  font-size:1.55rem;
-
-  font-weight:700;
-
-  color:#1e293b;
-
-  margin-top:38px;
-  margin-bottom:18px;
-
-  line-height:1.35;
-
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 42px;
+  margin-bottom: 18px;
+  letter-spacing: -0.01em;
 }
 
-
+/* Accent Icon Bullet for H3 */
+.content-section h3::before {
+  content: "⚡";
+  font-size: 1.1rem;
+  margin-right: 10px;
+  opacity: 0.85;
+}
 
 .content-section h4 {
-
-  font-size:1.25rem;
-
-  font-weight:650;
-
-  color:#2563eb;
-
-  margin-top:28px;
-  margin-bottom:14px;
-
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-top: 28px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-
-
 /* ==========================================================================
-   Paragraph Typography
+   Typography & Interactive Elements
    ========================================================================== */
-
 
 .content-section p {
-
-  font-size:1.08rem;
-
-  color:#334155;
-
-  margin-bottom:22px;
-
-  letter-spacing:0.01em;
-
+  font-size: 1.08rem;
+  color: #475569;
+  margin-bottom: 22px;
 }
-
-
 
 .content-section strong {
-
-  color:#0f172a;
-
-  font-weight:700;
-
+  color: #0f172a;
+  font-weight: 700;
+  background: linear-gradient(120deg, rgba(37, 99, 235, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
-
-
-/* Links */
-
+/* Modern Hyperlinks with Animated Underline */
 .content-section a {
-
-  color:#2563eb;
-
-  font-weight:600;
-
-  text-decoration:none;
-
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+  background-image: linear-gradient(#2563eb, #2563eb);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  transition: background-size 0.25s ease-in-out, color 0.2s ease;
+  padding-bottom: 2px;
 }
-
 
 .content-section a:hover {
-
-  text-decoration:underline;
-
+  color: #1d4ed8;
+  background-size: 100% 2px;
 }
-
-
 
 /* ==========================================================================
-   Lists
+   Lists Transformation (Glass Cards Concept)
    ========================================================================== */
 
-
-.content-section ul,
-.content-section ol {
-
-  margin:20px 0 30px;
-
-  padding-left:32px;
-
+.content-section ul {
+  list-style: none; /* Custom Icons */
+  padding: 0;
+  margin: 24px 0 32px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
 }
 
-
-.content-section li {
-
-  font-size:1.05rem;
-
-  color:#334155;
-
-  margin-bottom:12px;
-
-  line-height:1.7;
-
+.content-section ul li {
+  position: relative;
+  font-size: 1.02rem;
+  font-weight: 500;
+  color: #334155;
+  background: #f8fafc;
+  padding: 14px 18px 14px 44px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-
-
-.content-section ul li::marker {
-
-  color:#2563eb;
-
-  font-size:1.2rem;
-
+.content-section ul li::before {
+  content: "✓";
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  background: #dbeafe;
+  color: #2563eb;
+  font-size: 0.8rem;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
+/* Hover Lift Effect on List Items */
+.content-section ul li:hover {
+  background: #ffffff;
+  border-color: #93c5fd;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px -6px rgba(37, 99, 235, 0.15);
+}
 
 /* ==========================================================================
-   Quote / Highlight
+   High-Tech Image Cards
    ========================================================================== */
-
-
-.content-section blockquote {
-
-  margin:35px 0;
-
-  padding:22px 28px;
-
-  background:#f8fafc;
-
-  border-left:5px solid #2563eb;
-
-  border-radius:8px;
-
-  font-size:1.1rem;
-
-  color:#475569;
-
-}
-
-
-
-/* ==========================================================================
-   Images
-   ========================================================================== */
-
 
 .content-section figure {
-
-  margin:40px 0;
-
-  background:#f8fafc;
-
-  border-radius:14px;
-
-  overflow:hidden;
-
-  border:1px solid #e2e8f0;
-
-  box-shadow:
-  0 10px 25px rgba(15,23,42,0.08);
-
+  position: relative;
+  margin: 44px 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #0f172a;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 20px 30px -10px rgba(15, 23, 42, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-
+.content-section figure:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 25px 35px -10px rgba(37, 99, 235, 0.2);
+}
 
 .content-section figure img {
-
-  width:100%;
-
-  height:auto;
-
-  display:block;
-
-  transition:transform .35s ease;
-
+  width: 100%;
+  height: auto;
+  display: block;
+  opacity: 0.95;
+  transition: opacity 0.3s ease, transform 0.5s ease;
 }
-
-
 
 .content-section figure:hover img {
-
-  transform:scale(1.02);
-
+  opacity: 1;
+  transform: scale(1.025);
 }
-
-
 
 .content-section figcaption {
-
-  padding:14px 18px;
-
-  text-align:center;
-
-  font-size:.9rem;
-
-  color:#64748b;
-
-  background:#ffffff;
-
-  font-style:italic;
-
+  position: relative;
+  padding: 16px 20px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: #f8fafc;
+  background: #0f172a;
+  border-top: 1px solid #1e293b;
+  text-align: center;
+  letter-spacing: 0.01em;
 }
 
-
+/* Glossy Badge on Image Caption */
+.content-section figcaption::before {
+  content: "FEATURED visual";
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #2563eb, #06b6d4);
+  color: #ffffff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 10px;
+  letter-spacing: 0.08em;
+}
 
 /* ==========================================================================
-   SEO Information Box
+   Modern Collapsible / FAQ Style Block
    ========================================================================== */
 
-
-.content-section .seo-metadata-box {
-
-
-  background:
-  linear-gradient(
-  135deg,
-  #f0fdf4,
-  #ffffff
-  );
-
-
-  border:1px solid #bbf7d0;
-
-  border-left:6px solid #16a34a;
-
-  padding:28px;
-
-  border-radius:12px;
-
-  margin:45px 0;
-
+.content-section h4 + p {
+  background: #f8fafc;
+  padding: 16px 20px;
+  border-radius: 10px;
+  border: 1px dashed #cbd5e1;
+  border-left: 4px solid #06b6d4;
+  margin-top: -6px;
 }
 
+/* ==========================================================================
+   Callout Boxes (SEO & Internal Linking)
+   ========================================================================== */
 
+/* SEO Box - Vibrant Emerald Theme */
+.content-section .seo-metadata-box {
+  position: relative;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  border: 1px solid #a7f3d0;
+  border-left: 6px solid #10b981;
+  padding: 32px;
+  border-radius: 16px;
+  margin: 50px 0;
+  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.1);
+}
 
 .content-section .seo-metadata-box h3 {
-
-  margin-top:0;
-
-  color:#15803d;
-
+  color: #047857;
+  margin-top: 0;
+  font-size: 1.35rem;
 }
 
+.content-section .seo-metadata-box h3::before {
+  content: "🎯";
+}
 
 .content-section .seo-metadata-box p {
-
-  font-size:.98rem;
-
-  color:#166534;
-
+  color: #065f46;
+  font-size: 1rem;
+  margin-bottom: 10px;
 }
 
-
-
-/* ==========================================================================
-   Internal Linking Box
-   ========================================================================== */
-
-
+/* Internal Links Box - Electric Blue Theme */
 .content-section .internal-links-box {
-
-
-  background:
-
-  linear-gradient(
-  135deg,
-  #eff6ff,
-  #ffffff
-  );
-
-
-  border:1px solid #bfdbfe;
-
-  border-left:6px solid #2563eb;
-
-  padding:28px;
-
-  border-radius:12px;
-
-  margin:45px 0;
-
-
+  position: relative;
+  background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+  border: 1px solid #bfdbfe;
+  border-left: 6px solid #2563eb;
+  padding: 32px;
+  border-radius: 16px;
+  margin: 50px 0;
+  box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.1);
 }
-
-
 
 .content-section .internal-links-box h3 {
-
-  margin-top:0;
-
-  color:#1d4ed8;
-
+  color: #1e40af;
+  margin-top: 0;
+  font-size: 1.35rem;
 }
 
-
-
-.content-section .internal-links-box li {
-
-  margin-bottom:10px;
-
+.content-section .internal-links-box h3::before {
+  content: "🔗";
 }
 
+.content-section .internal-links-box ul {
+  display: block; /* Override grid for links box */
+  background: transparent;
+  padding-left: 20px;
+}
 
+.content-section .internal-links-box ul li {
+  background: transparent;
+  border: none;
+  padding: 6px 0;
+  box-shadow: none;
+}
+
+.content-section .internal-links-box ul li::before {
+  display: none;
+}
 
 /* ==========================================================================
-   FAQ Section
+   Divider & Footprint
    ========================================================================== */
-
-
-.content-section .faq-item {
-
-  background:#f8fafc;
-
-  border:1px solid #e2e8f0;
-
-  padding:20px;
-
-  border-radius:10px;
-
-  margin-bottom:18px;
-
-}
-
-
-
-.content-section .faq-item h3 {
-
-  margin-top:0;
-
-  font-size:1.15rem;
-
-}
-
-
-
-/* ==========================================================================
-   Divider
-   ========================================================================== */
-
 
 .content-section hr {
-
-  border:0;
-
-  height:1px;
-
-  background:#e2e8f0;
-
-  margin:55px 0;
-
+  border: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #cbd5e1, transparent);
+  margin: 60px 0;
 }
-
-
 
 /* ==========================================================================
-   Mobile Responsive
+   Responsive Adaptations
    ========================================================================== */
 
+@media (max-width: 768px) {
+  .content-section {
+    padding: 24px 16px;
+  }
 
-@media(max-width:768px){
+  .content-section h2 {
+    font-size: 1.75rem;
+  }
 
+  .content-section h3 {
+    font-size: 1.3rem;
+  }
 
-.content-section {
+  .content-section ul {
+    grid-template-columns: 1fr; /* Single column on mobile */
+  }
 
-padding:20px 16px;
+  .content-section figure {
+    border-radius: 12px;
+    margin: 30px 0;
+  }
 
-}
-
-
-
-.content-section h2 {
-
-font-size:1.65rem;
-
-margin-top:40px;
-
-}
-
-
-
-.content-section h3 {
-
-font-size:1.3rem;
-
-}
-
-
-
-.content-section h4 {
-
-font-size:1.1rem;
-
-}
-
-
-
-.content-section p,
-.content-section li {
-
-font-size:1rem;
-
-}
-
-
-
-.content-section figure {
-
-margin:28px 0;
-
-}
-
-
-
-.content-section .seo-metadata-box,
-.content-section .internal-links-box {
-
-padding:20px;
-
-}
-
-
+  .content-section .seo-metadata-box,
+  .content-section .internal-links-box {
+    padding: 20px;
+    border-radius: 12px;
+  }
 }
