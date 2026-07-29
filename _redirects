@@ -1,0 +1,78 @@
+# ==============================
+# Xenors Static Site Redirects
+# ==============================
+
+
+# Uppercase category folders
+
+/AI/*                                  /ai/:splat                                  301
+
+/Blog/*                                /blog/:splat                                301
+
+/Tech/*                                /tech/:splat                                301
+
+/Web-Stories/*                         /web-stories/:splat                         301
+
+/Share-markate/*                       /share-market/:splat                        301
+
+
+
+# Duplicate blog URLs
+
+/Blog/blog                             /blog                                       301
+
+
+# AI trading duplicate URLs
+
+/Blog/AI-trading-in-2026/               /AI-trading-in-2026/                        301
+
+
+# AI image generator blog
+
+/Blog/ai-image-generators-tools-2026/   /ai-image-generators-tools-2026/            301
+
+
+# AI earning article
+
+/Blog/how-to-earn-money-using-ai-tool/  /how-to-earn-money-using-ai-tool/           301
+
+
+# Dividend article
+
+/Blog/dividend-stocks-for-passive-income/ /blog/dividend-stocks-for-passive-income/ 301
+
+
+
+# Investing duplicate
+
+/start-investing-with-100-dollars/      /start-investing-with-100/                  301
+
+
+
+# Backend AI tools duplicate
+
+/best-ai-tools-backend-development-2026 /best-ai-tools-backend-development-2026/    301
+
+
+
+# Share market spelling correction
+
+/Share-markate/swing-trading-guide-2026/ /share-market/swing-trading-guide-2026/     301
+
+
+
+# Root uppercase articles
+
+/AI-transforming-stock-trading/         /ai-transforming-stock-trading/             301
+
+
+
+# Contact slash consistency
+
+/contact                                 /contact/                                   301
+
+
+
+# Home duplicate
+
+/home/                                   /                                           301
