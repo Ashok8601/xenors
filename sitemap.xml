@@ -1,186 +1,290 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<?xml-stylesheet type="text/css" href="https://www.xml-sitemaps.com/css/sitemap.css"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
   <url>
-    <loc>https://xenors.in/</loc>
+       <loc>https://xenors.in/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>1.0000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/about/</loc>
+       <loc>https://xenors.in/ai/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/ai-basics-finance/</loc>
+       <loc>https://xenors.in/tech/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/ai-tools/</loc>
+       <loc>https://xenors.in/coding/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/ai-trading-in-2026/</loc>
+       <loc>https://xenors.in/finance/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/ai-transforming-stock-trading/</loc>
+       <loc>https://xenors.in/share-market/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/ai/</loc>
+       <loc>https://xenors.in/blog/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/ashok-kumar-yadav-biography/</loc>
+       <loc>https://xenors.in/about/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/best-ai-tools-backend-development-2026/</loc>
+       <loc>https://xenors.in/contact/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/black-swan-events/</loc>
+       <loc>https://xenors.in/share-market/best-ai-tools-for-stock-market-analysis/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/blockchain-finance/</loc>
+       <loc>https://xenors.in/coding/flask/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/blog/</loc>
+       <loc>https://xenors.in/ai-tools/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/business-news/</loc>
+       <loc>https://xenors.in/ai-transforming-stock-trading/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/careers/</loc>
+       <loc>https://xenors.in/ai-trading-in-2026/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/coding/</loc>
+       <loc>https://xenors.in/start-investing-with-100/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/contact/</loc>
+       <loc>https://xenors.in/best-ai-tools-backend-development-2026/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/crypto/</loc>
+       <loc>https://xenors.in/blog/ai-image-generators-tools-2026/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/finance/</loc>
+       <loc>https://xenors.in/blog/how-to-earn-money-using-ai-tool/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/future-of-web-development/</loc>
+       <loc>https://xenors.in/finance/five-simple-step-to-start-budgeting-in-2026/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/machine-learning-projects/</loc>
+       <loc>https://xenors.in/ai-basics-finance/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/machine-learning/</loc>
+       <loc>https://xenors.in/black-swan-events/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/mission/</loc>
+       <loc>https://xenors.in/blockchain-finance/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/nlp-in-finance/</loc>
+       <loc>https://xenors.in/mission/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/privacy-policy/</loc>
+       <loc>https://xenors.in/ashok-kumar-yadav-biography/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/python-for-data-science/</loc>
+       <loc>https://xenors.in/careers/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.8000</priority>
   </url>
   <url>
-    <loc>https://xenors.in/python-trading-bot-tutorial/</loc>
+       <loc>https://xenors.in/ai/models/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/share-market/</loc>
+       <loc>https://xenors.in/ai/news/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/sqlite-for-trading/</loc>
+       <loc>https://xenors.in/ai/tools/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/start-investing-with-100/</loc>
+       <loc>https://xenors.in/ai/ai-vs-human-trading-2026-winner/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/stock-market/</loc>
+       <loc>https://xenors.in/tech/top-10-framework-for-web-development-2026/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/tech/</loc>
+       <loc>https://xenors.in/share-market/best-ai-crypto-trading-bots/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/terms/</loc>
+       <loc>https://xenors.in/coding/django/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/ai/ai-vs-human-trading-2026-winner/</loc>
+       <loc>https://xenors.in/coding/python-data/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/ai/models/</loc>
+       <loc>https://xenors.in/sqlite-for-trading/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/ai/news/</loc>
+       <loc>https://xenors.in/finance/investing/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/ai/tools/</loc>
+       <loc>https://xenors.in/finance/stocks/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/blog/ai-image-generators-tools-2026/</loc>
+       <loc>https://xenors.in/finance/trading/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/blog/dividend-stocks-for-passive-income/</loc>
+       <loc>https://xenors.in/share-market/ai-stock-in-dow-jones/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/blog/hesham-industrial-solution/</loc>
+       <loc>https://xenors.in/share-market/ai-crypto-price-prediction-2026/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/blog/how-to-earn-money-using-ai-tool/</loc>
+       <loc>https://xenors.in/share-market/ai-crypto-coins-2026/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/blog/industrial-safety-ai-iot-product-manufacturer/</loc>
+       <loc>https://xenors.in/share-market/stock-market-today-spacex-ipo/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/blog/investment-calculator-with-sip/</loc>
+       <loc>https://xenors.in/blog/dividend-stocks-for-passive-income/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/blog/stock-market-today-dow-jones-s-and-p/</loc>
+       <loc>https://xenors.in/python-trading-bot-tutorial/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/coding/django/</loc>
+       <loc>https://xenors.in/blog/investment-calculator-with-sip/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/coding/flask/</loc>
+       <loc>https://xenors.in/blog/hesham-industrial-solution/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/coding/python-data/</loc>
+       <loc>https://xenors.in/web-stories/us-stocks-weekly/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/finance/five-simple-step-to-start-budgeting-in-2026/</loc>
+       <loc>https://xenors.in/machine-learning/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/finance/investing/</loc>
+       <loc>https://xenors.in/stock-market/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/finance/stocks/</loc>
+       <loc>https://xenors.in/machine-learning-projects/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/finance/trading/</loc>
+       <loc>https://xenors.in/nlp-in-finance/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/founder/ashok-kumar-yadav-application-engineer/</loc>
+       <loc>https://xenors.in/python-for-data-science/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/share-market/ai-crypto-coins-2026/</loc>
+       <loc>https://xenors.in/future-of-web-development/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/share-market/ai-crypto-price-prediction-2026/</loc>
+       <loc>https://xenors.in/world/world/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/share-market/ai-stock-in-dow-jones/</loc>
+       <loc>https://xenors.in/blog/industrial-safety-ai-iot-product-manufacturer/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/share-market/best-ai-crypto-trading-bots/</loc>
+       <loc>https://xenors.in/founder/ashok-kumar-yadav-application-engineer/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.6400</priority>
   </url>
   <url>
-    <loc>https://xenors.in/share-market/best-ai-tools-for-stock-market-analysis/</loc>
+       <loc>https://xenors.in/crypto/</loc>
+       <lastmod>2026-09-27T14:34:11+00:00</lastmod>
+       <priority>0.5120</priority>
   </url>
   <url>
-    <loc>https://xenors.in/share-market/stock-market-today-spacex-ipo/</loc>
-  </url>
-  <url>
-    <loc>https://xenors.in/share-market/swing-trading-guide-2026/</loc>
-  </url>
-  <url>
-    <loc>https://xenors.in/tech/top-10-framework-for-web-development-2026/</loc>
-  </url>
-  <url>
-    <loc>https://xenors.in/web-stories/us-stocks-weekly/</loc>
-  </url>
-  <url>
-    <loc>https://xenors.in/world/world/</loc>
+       <loc>https://xenors.in/share-market/swing-trading-guide-2026/</loc>
+       <lastmod>2026-09-27T00:00:00+00:00</lastmod>
+       <priority>0.5120</priority>
   </url>
 </urlset>
