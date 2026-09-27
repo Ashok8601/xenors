@@ -146,3 +146,5 @@ nav a:hover {
         text-align: center;
     }
 }
+\n/* XENORS BUILD HEADER */
+.xenors-site-header{position:relative;z-index:1000;background:#0f172a;color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}.xenors-header-inner{max-width:1180px;margin:auto;padding:12px 20px;display:flex;align-items:center;gap:22px}.xenors-brand{display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;font-weight:800;font-size:1.25rem}.xenors-brand img{border-radius:9px}.xenors-primary-nav{margin-left:auto;display:flex;gap:18px;align-items:center}.xenors-primary-nav a{color:#e2e8f0;text-decoration:none;font-weight:600;font-size:.94rem}.xenors-primary-nav a:hover,.xenors-primary-nav a:focus-visible{color:#fff}.xenors-menu-toggle{display:none;margin-left:auto;background:#1e293b;color:#fff;border:1px solid #334155;border-radius:8px;padding:8px 12px}@media(max-width:860px){.xenors-menu-toggle{display:block}.xenors-primary-nav{display:none;position:absolute;left:0;right:0;top:66px;background:#0f172a;padding:16px 20px;flex-direction:column;align-items:stretch}.xenors-primary-nav.is-open{display:flex}.xenors-primary-nav a{padding:8px 0}}\n

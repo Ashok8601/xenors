@@ -1,29 +1,28 @@
 {
-  "name": "Xenors | Tech, AI & Finance",
-  "short_name": "Xenors",
-  "description": "Xenors publishes practical guides on artificial intelligence, technology, coding, data and finance for a global audience.",
-  "start_url": "/",
-  "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#2563eb",
-  "orientation": "portrait",
-  "icons": [
-    {
-      "src": "images/xenors.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "images/xenors.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "images/xenors.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
-  ],
-  "scope": "/"
+    "name": "Xenors | Tech, AI & Finance",
+    "short_name": "Xenors",
+    "description": "Stay updated with the latest in AI, Tech, and Financial growth.",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#0f172a",
+    "theme_color": "#2563eb",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "images/xenors.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "images/xenors.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "images/xenors.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
 }

@@ -75,3 +75,5 @@
         padding-left: 0;
     }
 }
+\n/* XENORS BUILD FOOTER */
+.xenors-site-footer{margin-top:48px;background:#0f172a;color:#cbd5e1;font-family:Inter,system-ui,sans-serif}.xenors-footer-grid{max-width:1180px;margin:auto;padding:42px 20px 28px;display:grid;grid-template-columns:2fr repeat(3,1fr);gap:34px}.xenors-site-footer h2{font-size:1rem;color:#fff;margin:0 0 12px}.xenors-site-footer ul{list-style:none;padding:0;margin:0}.xenors-site-footer li{margin:8px 0}.xenors-site-footer a{color:#e2e8f0;text-decoration:none}.xenors-site-footer a:hover{text-decoration:underline}.xenors-footer-brand{font-size:1.35rem;font-weight:800;color:#fff!important}.xenors-footer-bottom{max-width:1180px;margin:auto;padding:18px 20px 28px;border-top:1px solid #334155;display:flex;justify-content:space-between;gap:20px;font-size:.88rem}.xenors-editorial-note{font-size:.85rem;line-height:1.5}@media(max-width:820px){.xenors-footer-grid{grid-template-columns:1fr 1fr}.xenors-footer-bottom{flex-direction:column}}@media(max-width:520px){.xenors-footer-grid{grid-template-columns:1fr}}\n
