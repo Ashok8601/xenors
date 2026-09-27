@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<title>Create Your Xenors Account | Join the AI &amp; Tech | Xenors</title>
+<meta content="Sign Up | Xenors.in - Future of Tech &amp; Finance" name="title"/>
+<meta content="Join Xenors.in today. Create a free account to access exclusive Machine Learning tutorials, Python development projects, and financial growth insights." name="description"/>
+<meta content="noindex, follow" name="robots"/> <meta content="#0f172a" name="theme-color"/>
+<meta content="article" property="og:type"/>
+<meta content="https://xenors.in/signup/" property="og:url"/>
+<meta content="Create Your Xenors Account | Join the AI &amp; Tech | Xenors" property="og:title"/>
+<meta content="Join Xenors.in today. Create a free account to access exclusive Machine Learning tutorials, Python development projects, and financial growth insights." property="og:description"/>
+<meta content="https://xenors.in/images/xenors.png" property="og:image"/>
+<link href="/images/xenors.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/images/xenors.png" rel="apple-touch-icon"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<style>
+        :root {
+            --primary-blue: #007bff;
+            --dark-bg: #111;
+            --accent-glow: rgba(0, 123, 255, 0.4);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at bottom left, #1e3a8a, #0a0a0a);
+            font-family: 'Inter', sans-serif;
+            color: white;
+        }
+
+        .signup-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .signup-card .logo-area img {
+            width: 60px;
+            margin-bottom: 20px;
+        }
+
+        .signup-card h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .signup-card p {
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: #d1d1d1;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-blue);
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            margin-top: 15px;
+        }
+
+        .signup-btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .signup-btn:active {
+            transform: translateY(0);
+        }
+
+        .footer-links {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .footer-links a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        #status-msg {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            min-height: 20px;
+        }
+
+        /* Password strength indicator (Visual only) */
+        .strength-bar {
+            height: 4px;
+            width: 100%;
+            background: #333;
+            margin-top: 8px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+    </style>
+<meta content="Ashok Kumar Yadav" name="author"/><link href="https://xenors.in/signup/" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Create Your Xenors Account | Join the AI &amp; Tech | Xenors" name="twitter:title"/><meta content="Join Xenors.in today. Create a free account to access exclusive Machine Learning tutorials, Python development projects, and financial growth insights." name="twitter:description"/><meta content="Xenors" name="publisher"/><meta content="strict-origin-when-cross-origin" name="referrer"/><meta content="noindex, follow" name="googlebot"/><link href="https://xenors.in/signup/" hreflang="x-default" rel="alternate"/><link href="https://xenors.in/styles/seo-global.css" rel="stylesheet"/><meta content="Xenors" property="og:site_name"/><meta content="en_US" property="og:locale"/><meta content="https://xenors.in/images/xenors.png" name="twitter:image"/><meta content="@xenors77" name="twitter:site"/><meta content="@xenors77" name="twitter:creator"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://xenors.in/#organization",
+      "name": "Xenors",
+      "url": "https://xenors.in/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://xenors.in/images/xenors.png"
+      },
+      "sameAs": [
+        "https://x.com/xenors77",
+        "https://github.com/Ashok8601",
+        "https://www.linkedin.com/in/ashok-kumar-9a3ba5228",
+        "https://youtube.com/@xenors7"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://xenors.in/#website",
+      "url": "https://xenors.in/",
+      "name": "Xenors",
+      "publisher": {
+        "@id": "https://xenors.in/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://xenors.in/signup/#webpage",
+      "url": "https://xenors.in/signup/",
+      "name": "Create Your Xenors Account | Join the AI & Tech",
+      "description": "Join Xenors.in today. Create a free account to access exclusive Machine Learning tutorials, Python development projects, and financial growth insights.",
+      "isPartOf": {
+        "@id": "https://xenors.in/#website"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://xenors.in/images/xenors.png"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BlogPosting",
+      "@id": "https://xenors.in/signup/#article",
+      "headline": "Create Your Xenors Account | Join the AI & Tech",
+      "description": "Join Xenors.in today. Create a free account to access exclusive Machine Learning tutorials, Python development projects, and financial growth insights.",
+      "image": [
+        "https://xenors.in/images/xenors.png"
+      ],
+      "author": {
+        "@type": "Person",
+        "name": "Ashok Kumar Yadav",
+        "url": "https://xenors.in/ashok-kumar-yadav-biography/"
+      },
+      "publisher": {
+        "@id": "https://xenors.in/#organization"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://xenors.in/signup/#webpage"
+      },
+      "datePublished": "2026-09-27",
+      "dateModified": "2026-09-27",
+      "articleSection": "Xenors",
+      "keywords": [
+        "Create Your Xenors Account",
+        "Join the AI & Tech Join Xenors"
+      ],
+      "inLanguage": "en",
+      "isAccessibleForFree": true
+    }
+  ]
+}</script></head>
+<body><a class="xenors-skip-link" href="#main-content">Skip to main content</a>
+<div class="signup-card" id="main-content">
+<div class="logo-area">
+<img alt="Xenors Logo" decoding="async" loading="lazy" src="/images/xenors.png"/>
+</div>
+<h2>Join Xenors</h2>
+<p>Empower your journey in Tech &amp; AI.</p>
+<div class="input-group">
+<label for="fullName">Full Name</label>
+<input id="fullName" placeholder="Enter your full name" required="" type="text"/>
+</div>
+<div class="input-group">
+<label for="email">Email Address</label>
+<input id="email" placeholder="name@example.com" required="" type="email"/>
+</div>
+<div class="input-group">
+<label for="password">Password</label>
+<input id="password" placeholder="Create a strong password" required="" type="password"/>
+<div class="strength-bar"></div>
+</div>
+<button class="signup-btn" id="signupBtn" onclick="signUp()">Create Account</button>
+<div id="status-msg"></div>
+<div class="footer-links">
+        Already have an account? <a href="/login/">Sign In</a><br/><br/>
+        By signing up, you agree to our <a href="/terms/">Terms</a> &amp; <a href="/privacy-policy/">Privacy Policy</a>
+</div>
+</div>
+<script>
+    // Supabase Configuration
+    const supabaseClient = supabase.createClient(
+        "https://fejvrvzllmvizdvnwopk.supabase.co",
+        "sb_publishable_RIQQVfP2XVPV0woSF10isQ_kdvM21kV"
+    );
+
+    async function signUp() {
+        const fullName = document.getElementById("fullName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const statusMsg = document.getElementById("status-msg");
+        const btn = document.getElementById("signupBtn");
+
+        if (!fullName || !email || !password) {
+            statusMsg.style.color = "#ff4d4d";
+            statusMsg.innerText = "Please fill in all the details.";
+            return;
+        }
+
+        if (password.length < 6) {
+            statusMsg.style.color = "#ff4d4d";
+            statusMsg.innerText = "Password must be at least 6 characters.";
+            return;
+        }
+
+        // Loading state
+        btn.innerText = "Creating Account...";
+        btn.disabled = true;
+
+        const { data, error } = await supabaseClient.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    full_name: fullName // Saving name in User Metadata
+                }
+            }
+        });
+
+        if (error) {
+            statusMsg.style.color = "#ff4d4d";
+            statusMsg.innerText = error.message;
+            btn.innerText = "Create Account";
+            btn.disabled = false;
+        } else {
+            statusMsg.style.color = "#00ff88";
+            statusMsg.innerText = "Registration successful! Please check your email or Login.";
+            
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 2000);
+        }
+    }
+</script>
+</body>
+</html>

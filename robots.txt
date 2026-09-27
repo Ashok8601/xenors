@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /dist/
+Disallow: /components/
+Disallow: /test/
+Disallow: /try/
+Disallow: /login/
+Disallow: /signup/
+
+Sitemap: https://xenors.in/sitemap.xml

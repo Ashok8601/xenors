@@ -1,0 +1,368 @@
+[
+  {
+    "url": "https://xenors.in/",
+    "source": "src/pages/index.html",
+    "title": "Xenors | AI, Technology & Finance by Ashok Kumar Yadav",
+    "description": "Xenors is an AI, Technology & Finance platform by Engg Ashok Kumar Yadav. Learn backend development, AI tools, and financial growth strategies."
+  },
+  {
+    "url": "https://xenors.in/about/",
+    "source": "src/pages/about/index.html",
+    "title": "About Xenors | Editorial Mission, AI Research & | Xenors",
+    "description": "Meet Xenors. Founded by Ashok Kumar Yadav, we are an authoritative educational hub bridging the gap between advanced Machine Learning engineering, backend."
+  },
+  {
+    "url": "https://xenors.in/ai-basics-finance/",
+    "source": "src/pages/ai-basics-finance/index.html",
+    "title": "AI Basics for Finance | Artificial Intelligence in | Xenors",
+    "description": "Learn the basics of Artificial Intelligence in finance, including machine learning, automation, fraud detection, risk management, algorithmic trading, and."
+  },
+  {
+    "url": "https://xenors.in/ai-tools/",
+    "source": "src/pages/ai-tools/index.html",
+    "title": "AI Tools Guides, Reviews & Tutorials | Xenors",
+    "description": "Explore AI tools, software, tutorials, reviews and artificial intelligence resources on Xenors. Explore practical, clear guides from Xenors on AI."
+  },
+  {
+    "url": "https://xenors.in/ai-trading-in-2026/",
+    "source": "src/pages/ai-trading-in-2026/index.html",
+    "title": "AI Trading in 2026 | Complete Beginner's Guide - Xenors",
+    "description": "Learn AI Trading in 2026 with this beginner-friendly guide covering artificial intelligence, algorithmic trading, machine learning, automation, benefits."
+  },
+  {
+    "url": "https://xenors.in/ai-transforming-stock-trading/",
+    "source": "src/pages/ai-transforming-stock-trading/index.html",
+    "title": "How AI & Automation Are Transforming Stock Trading in | Xenors",
+    "description": "Discover how AI and automation are transforming stock trading in 2026. Learn algorithmic trading, sentiment analysis, and AI-powered investing strategies."
+  },
+  {
+    "url": "https://xenors.in/ai/",
+    "source": "src/pages/ai/index.html",
+    "title": "Artificial Intelligence | Xenors",
+    "description": "Explore Artificial Intelligence articles, AI tools, machine learning, AI news, automation, robotics and emerging AI technologies on Xenors."
+  },
+  {
+    "url": "https://xenors.in/ashok-kumar-yadav-biography/",
+    "source": "src/pages/ashok-kumar-yadav-biography/index.html",
+    "title": "Who is Ashok Kumar Yadav? | Biography of Engg Ashok | Xenors",
+    "description": "Official biography of Ashok Kumar Yadav (Engg Ashok Kumar). Explore the journey of the Xenors founder, backend developer from Sonebhadra, and tech enthusiast."
+  },
+  {
+    "url": "https://xenors.in/best-ai-tools-backend-development-2026/",
+    "source": "src/pages/best-ai-tools-backend-development-2026/index.html",
+    "title": "Top 10 AI Tools for Backend Development in 2026 | Xenors",
+    "description": "AI tools for backend developer Master the future of backend engineering. Compare Cursor vs GitHub Copilot, explore AI-driven API automation, and discover the."
+  },
+  {
+    "url": "https://xenors.in/black-swan-events/",
+    "source": "src/pages/black-swan-events/index.html",
+    "title": "Black Swan Events in Finance | Market Crashes, Risk & | Xenors",
+    "description": "Understand Black Swan events in finance, their impact on stock markets, historical examples, risk management strategies, and how investors prepare for."
+  },
+  {
+    "url": "https://xenors.in/blockchain-finance/",
+    "source": "src/pages/blockchain-finance/index.html",
+    "title": "Blockchain in Finance | Applications, Benefits & | Xenors",
+    "description": "Learn how blockchain technology is transforming finance through digital assets, smart contracts, secure transactions, decentralized systems, and future."
+  },
+  {
+    "url": "https://xenors.in/blog/",
+    "source": "src/pages/blog/index.html",
+    "title": "Blog | AI, Technology & Finance Articles - Xenors",
+    "description": "Explore the Xenors Blog for the latest articles on Artificial Intelligence, Technology, Programming, Finance, Machine Learning, Cybersecurity, and Software."
+  },
+  {
+    "url": "https://xenors.in/business-news/",
+    "source": "src/pages/business-news/index.html",
+    "title": "Business News | Latest Business & Startup Updates - Xenors",
+    "description": "Read the latest business news, startup updates, market trends, entrepreneurship, finance, economy, and corporate developments on Xenors."
+  },
+  {
+    "url": "https://xenors.in/careers/",
+    "source": "src/pages/careers/index.html",
+    "title": "Careers | Jobs & Career Opportunities - Xenors",
+    "description": "Explore career opportunities at Xenors. Learn about job openings, internships, AI careers, software development roles, and technology positions."
+  },
+  {
+    "url": "https://xenors.in/coding/",
+    "source": "src/pages/coding/index.html",
+    "title": "Coding | Programming Tutorials & Development Resources - Xenors",
+    "description": "Explore coding tutorials, programming languages, web development, Python, C++, Java, JavaScript, HTML, CSS, SQL, and software development guides on Xenors."
+  },
+  {
+    "url": "https://xenors.in/contact/",
+    "source": "src/pages/contact/index.html",
+    "title": "Contact Xenors | AI, Tech & Finance Support by Ashok Kumar Yadav",
+    "description": "Have questions about Python development, AI tools, or Financial strategies? Contact Ashok Kumar Yadav at Xenors.in for expert guidance and collaborations."
+  },
+  {
+    "url": "https://xenors.in/crypto/",
+    "source": "src/pages/crypto/index.html",
+    "title": "Cryptocurrency | Crypto News, Blockchain & Bitcoin | Xenors",
+    "description": "Explore cryptocurrency news, Bitcoin, Ethereum, blockchain technology, Web3, DeFi, NFTs, crypto trading, and digital asset guides on Xenors."
+  },
+  {
+    "url": "https://xenors.in/finance/",
+    "source": "src/pages/finance/index.html",
+    "title": "Finance | Financial News, Investing & Money Guides - Xenors",
+    "description": "Explore finance articles, investing guides, stock market insights, personal finance, cryptocurrency, banking, business, and financial technology updates on."
+  },
+  {
+    "url": "https://xenors.in/future-of-web-development/",
+    "source": "src/pages/future-of-web-development/index.html",
+    "title": "Future of Web Development | Trends, AI & Modern | Xenors",
+    "description": "Explore the future of web development with AI, WebAssembly, serverless computing, progressive web apps, modern frameworks, cloud technologies, and emerging."
+  },
+  {
+    "url": "https://xenors.in/machine-learning-projects/",
+    "source": "src/pages/machine-learning-projects/index.html",
+    "title": "Machine Learning Projects | AI Ideas, Real World ML | Xenors",
+    "description": "Explore machine learning projects for beginners and professionals including AI applications, predictive models, computer vision, NLP, finance, and real-world."
+  },
+  {
+    "url": "https://xenors.in/machine-learning/",
+    "source": "src/pages/machine-learning/index.html",
+    "title": "Machine Learning | Guides, Tutorials & Latest Trends - Xenors",
+    "description": "Explore Machine Learning tutorials, algorithms, deep learning, neural networks, model training, AI applications, and practical guides on Xenors."
+  },
+  {
+    "url": "https://xenors.in/mission/",
+    "source": "src/pages/mission/index.html",
+    "title": "Our Mission: Practical AI, Tech & Finance Education | Xenors",
+    "description": "Learn the Xenors editorial mission: practical, transparent and accessible education across AI, software development, technology and personal finance."
+  },
+  {
+    "url": "https://xenors.in/nlp-in-finance/",
+    "source": "src/pages/nlp-in-finance/index.html",
+    "title": "NLP in Finance | Applications, AI Models & Financial | Xenors",
+    "description": "Learn how Natural Language Processing (NLP) is transforming finance through sentiment analysis, fraud detection, market research, trading intelligence, and."
+  },
+  {
+    "url": "https://xenors.in/privacy-policy/",
+    "source": "src/pages/privacy-policy/index.html",
+    "title": "Privacy Policy & Data Practices | Xenors",
+    "description": "Read the Privacy Policy of Xenors to understand how we collect, use, store, and protect your information while using our website."
+  },
+  {
+    "url": "https://xenors.in/python-for-data-science/",
+    "source": "src/pages/python-for-data-science/index.html",
+    "title": "Python for Data Science | Tutorials & Learning | Xenors",
+    "description": "Learn Python for Data Science with tutorials on Pandas, NumPy, Matplotlib, data visualization, machine learning, data analysis, and real-world projects on."
+  },
+  {
+    "url": "https://xenors.in/python-trading-bot-tutorial/",
+    "source": "src/pages/python-trading-bot-tutorial/index.html",
+    "title": "Python Trading Bot Tutorial | Build AI Algorithmic | Xenors",
+    "description": "Learn how to build Python trading bots using APIs, market data, technical indicators, automation, machine learning, and algorithmic trading strategies."
+  },
+  {
+    "url": "https://xenors.in/share-market/",
+    "source": "src/pages/share-market/index.html",
+    "title": "Share Market Articles | AI Trading, Stocks & Investment - Xenors",
+    "description": "Explore Share Market articles on Xenors. Learn stock market basics, AI trading bots, investment strategies, crypto trading, technical analysis, and finance."
+  },
+  {
+    "url": "https://xenors.in/sqlite-for-trading/",
+    "source": "src/pages/sqlite-for-trading/index.html",
+    "title": "SQLite for Trading | Database Guide for Trading | Xenors",
+    "description": "Learn how SQLite can be used in trading applications for storing market data, transactions, historical prices, portfolios, and trading logs."
+  },
+  {
+    "url": "https://xenors.in/start-investing-with-100/",
+    "source": "src/pages/start-investing-with-100/index.html",
+    "title": "Start Investing With $100 | Beginner Investment Guide - Xenors",
+    "description": "Learn how to start investing with $100. Explore beginner investment options, financial planning, risk management, stocks, ETFs, and long-term wealth building."
+  },
+  {
+    "url": "https://xenors.in/stock-market/",
+    "source": "src/pages/stock-market/index.html",
+    "title": "Stock Market | Investing, Trading & Market News - Xenors",
+    "description": "Explore stock market news, investing guides, trading strategies, IPOs, mutual funds, technical analysis, and financial market insights on Xenors."
+  },
+  {
+    "url": "https://xenors.in/tech/",
+    "source": "src/pages/tech/index.html",
+    "title": "Tech | Technology News, AI & Software Guides - Xenors",
+    "description": "Explore the latest technology news, Artificial Intelligence, software, programming, cybersecurity, gadgets, cloud computing, and innovation guides on Xenors."
+  },
+  {
+    "url": "https://xenors.in/terms/",
+    "source": "src/pages/terms/index.html",
+    "title": "Terms of Use Guides & Insights | Xenors",
+    "description": "Read the Xenors terms of use covering educational content, acceptable use, third-party links, limitations and updates to these terms."
+  },
+  {
+    "url": "https://xenors.in/ai/ai-vs-human-trading-2026-winner/",
+    "source": "src/pages/ai/ai-vs-human-trading-2026-winner/index.html",
+    "title": "AI vs Human Trading: Who Wins in 2026? | Xenors AI",
+    "description": "AI vs Human Trading showdown 2026. Discover why the hybrid 'AI + Human' model is the future of the stock market. Deep insights into speed, logic, and."
+  },
+  {
+    "url": "https://xenors.in/ai/models/",
+    "source": "src/pages/ai/models/index.html",
+    "title": "AI Models | Machine Learning & Large Language Models - Xenors",
+    "description": "Explore AI models including Large Language Models (LLMs), computer vision, deep learning, generative AI, neural networks, and machine learning technologies."
+  },
+  {
+    "url": "https://xenors.in/ai/news/",
+    "source": "src/pages/ai/news/index.html",
+    "title": "AI News | Latest Artificial Intelligence News & Updates - Xenors",
+    "description": "Read the latest Artificial Intelligence news, AI breakthroughs, product launches, research updates, startups, and technology trends on Xenors."
+  },
+  {
+    "url": "https://xenors.in/ai/tools/",
+    "source": "src/pages/ai/tools/index.html",
+    "title": "AI Tools | Artificial Intelligence Tools & Software - Xenors",
+    "description": "Explore the latest AI tools for content creation, coding, image generation, productivity, machine learning, automation, chatbots, and business solutions on."
+  },
+  {
+    "url": "https://xenors.in/blog/ai-image-generators-tools-2026/",
+    "source": "src/pages/blog/ai-image-generators-tools-2026/index.html",
+    "title": "20 Best Free AI Image Generator Tools in 2026 | Xenors",
+    "description": "Discover the top 20 free AI image generators in 2026. Learn how they work, their benefits, and step-by-step tips to create high-quality AI art on Xenors.in."
+  },
+  {
+    "url": "https://xenors.in/blog/dividend-stocks-for-passive-income/",
+    "source": "src/pages/blog/dividend-stocks-for-passive-income/index.html",
+    "title": "Dividend Stocks for Passive Income | Complete Guide - Xenors",
+    "description": "Learn about dividend stocks for passive income, dividend investing strategies, high-yield dividend companies, risks, and long-term wealth creation."
+  },
+  {
+    "url": "https://xenors.in/blog/hesham-industrial-solution/",
+    "source": "src/pages/blog/hesham-industrial-solution/index.html",
+    "title": "Hesham Industrial Solutions: Industrial Safety | Xenors",
+    "description": "Complete guide to Hesham Industrial Solutions. Discover top industrial safety equipment, forklift anti-collision systems, LED warning lights, fuel transfer."
+  },
+  {
+    "url": "https://xenors.in/blog/how-to-earn-money-using-ai-tool/",
+    "source": "src/pages/blog/how-to-earn-money-using-ai-tool/index.html",
+    "title": "How to Make Money with AI in 2026: The Ultimate Guide | Xenors",
+    "description": "Master AI-based earning in 2026. Discover a step-by-step roadmap for beginners, top 10 AI tools, and proven strategies to maximize your income on Xenors.in."
+  },
+  {
+    "url": "https://xenors.in/blog/industrial-safety-ai-iot-product-manufacturer/",
+    "source": "src/pages/blog/industrial-safety-ai-iot-product-manufacturer/index.html",
+    "title": "Hesham Industrial Solutions | Industrial Safety, AI & | Xenors",
+    "description": "Explore Hesham Industrial Solutions, an industrial safety and IoT solutions provider offering forklift safety systems, AI camera solutions, industrial LED."
+  },
+  {
+    "url": "https://xenors.in/blog/investment-calculator-with-sip/",
+    "source": "src/pages/blog/investment-calculator-with-sip/index.html",
+    "title": "SIP Investment Calculator: Calculate Mutual Fund | Xenors",
+    "description": "Plan your financial future with our free SIP Investment Calculator. Estimate your mutual fund returns, wealth gain, and maturity amount with ease on."
+  },
+  {
+    "url": "https://xenors.in/blog/stock-market-today-dow-jones-s-and-p/",
+    "source": "src/pages/blog/stock-market-today-dow-jones-s-and-p/index.html",
+    "title": "Stock Market Today: Dow Jones & S&P 500 Rally Update | Xenors",
+    "description": "Get the latest stock market update for April 17, 2026. Discover why the Dow Jones, S&P 500, and Nasdaq reached record highs, and how the Strait of Hormuz."
+  },
+  {
+    "url": "https://xenors.in/coding/django/",
+    "source": "src/pages/coding/django/index.html",
+    "title": "Django | Python Web Framework Tutorials & Guides - Xenors",
+    "description": "Learn Django with tutorials, project guides, REST APIs, authentication, ORM, deployment, and best practices for modern Python web development."
+  },
+  {
+    "url": "https://xenors.in/coding/flask/",
+    "source": "src/pages/coding/flask/index.html",
+    "title": "Flask | Python Web Framework Tutorials & Guides - Xenors",
+    "description": "Learn Flask web development with tutorials on routing, templates, APIs, authentication, databases, deployment, and Python backend development on Xenors."
+  },
+  {
+    "url": "https://xenors.in/coding/python-data/",
+    "source": "src/pages/coding/python-data/index.html",
+    "title": "Python Data | Data Analysis, Pandas & NumPy Tutorials - Xenors",
+    "description": "Learn Python for data analysis, Pandas, NumPy, data visualization, data processing, machine learning datasets, and Python data science tutorials on Xenors."
+  },
+  {
+    "url": "https://xenors.in/finance/five-simple-step-to-start-budgeting-in-2026/",
+    "source": "src/pages/finance/five-simple-step-to-start-budgeting-in-2026/index.html",
+    "title": "5 Simple Steps to Start Budgeting for Beginners in 2026 | Xenors",
+    "description": "Learn how to create a monthly budget, save money, track expenses, and use the 50/30/20 budgeting rule. A complete beginner-friendly budgeting guide with."
+  },
+  {
+    "url": "https://xenors.in/finance/investing/",
+    "source": "src/pages/finance/investing/index.html",
+    "title": "Investing | Investment Strategies & Financial Guides - Xenors",
+    "description": "Learn investing with guides on stocks, mutual funds, ETFs, cryptocurrency, long-term investing, portfolio management, financial planning, and wealth creation."
+  },
+  {
+    "url": "https://xenors.in/finance/stocks/",
+    "source": "src/pages/finance/stocks/index.html",
+    "title": "Stocks | Stock Market Investing & Trading Guides - Xenors",
+    "description": "Explore stock market investing, trading strategies, IPOs, dividend stocks, technical analysis, fundamental analysis, portfolio management, and market."
+  },
+  {
+    "url": "https://xenors.in/finance/trading/",
+    "source": "src/pages/finance/trading/index.html",
+    "title": "Trading | Stock, Forex & Crypto Trading Guides - Xenors",
+    "description": "Learn trading with guides on stock market trading, forex, cryptocurrency, technical analysis, risk management, swing trading, intraday trading, and investing."
+  },
+  {
+    "url": "https://xenors.in/founder/ashok-kumar-yadav-application-engineer/",
+    "source": "src/pages/founder/ashok-kumar-yadav-application-engineer/index.html",
+    "title": "Ashok Kumar Yadav | Application Engineer | Hesham | Xenors",
+    "description": "At Hesham Industrial Solutions Pvt. Ltd. (HSI), innovation is driven by engineers who transform ideas into practical industrial solutions. Ashok Kumar Yadav."
+  },
+  {
+    "url": "https://xenors.in/share-market/ai-crypto-coins-2026/",
+    "source": "src/pages/share-market/ai-crypto-coins-2026/index.html",
+    "title": "Top AI Crypto Coins to Watch Before the Next Bull Run | Xenors",
+    "description": "Explore the top AI crypto coins and DePIN projects for the 2026 bull run. Discover promising AI altcoins, decentralized AI networks, GPU compute tokens, AI."
+  },
+  {
+    "url": "https://xenors.in/share-market/ai-crypto-price-prediction-2026/",
+    "source": "src/pages/share-market/ai-crypto-price-prediction-2026/index.html",
+    "title": "Can ChatGPT Predict Crypto Prices? Real AI Test in 2026 | Xenors",
+    "description": "Can ChatGPT accurately predict Bitcoin and crypto prices in 2026? Explore real AI crypto prediction tests, market analysis, trading signals, trend."
+  },
+  {
+    "url": "https://xenors.in/share-market/ai-stock-in-dow-jones/",
+    "source": "src/pages/share-market/ai-stock-in-dow-jones/index.html",
+    "title": "Top AI Stocks in Dow Jones to Watch in 2026 | Xenors",
+    "description": "Discover the top AI stocks in the Dow Jones Industrial Average for 2026. Explore leading artificial intelligence companies like Microsoft, NVIDIA, Apple."
+  },
+  {
+    "url": "https://xenors.in/share-market/best-ai-crypto-trading-bots/",
+    "source": "src/pages/share-market/best-ai-crypto-trading-bots/index.html",
+    "title": "20 Best AI Crypto Trading Bots in 2026 (Tested & | Xenors",
+    "description": "Discover the 20 best AI crypto trading bots in 2026 for Binance, Bitcoin, Ethereum, futures, scalping, copy trading, and automated crypto strategies."
+  },
+  {
+    "url": "https://xenors.in/share-market/best-ai-tools-for-stock-market-analysis/",
+    "source": "src/pages/share-market/best-ai-tools-for-stock-market-analysis/index.html",
+    "title": "Best AI Tools for Stock Market Analysis (2026 Guide) | Xenors",
+    "description": "Discover the best AI tools for stock market analysis in 2026. Learn how AI helps traders analyze charts, predict trends, manage risk, and improve trading."
+  },
+  {
+    "url": "https://xenors.in/share-market/stock-market-today-spacex-ipo/",
+    "source": "src/pages/share-market/stock-market-today-spacex-ipo/index.html",
+    "title": "Stock Market Today: SpaceX IPO, Federal Reserve | Xenors",
+    "description": "Latest stock market news covering the SpaceX IPO, Federal Reserve outlook, oil price movements, Bitcoin performance, major U.S. indexes, and the key trends."
+  },
+  {
+    "url": "https://xenors.in/share-market/swing-trading-guide-2026/",
+    "source": "src/pages/share-market/swing-trading-guide-2026/index.html",
+    "title": "Ultimate Swing Trading Guide 2026 | Best Strategies | Xenors",
+    "description": "Learn swing trading step-by-step in 2026 with powerful strategies, risk management, chart patterns, indicators, and profitable trading setups for beginners."
+  },
+  {
+    "url": "https://xenors.in/tech/top-10-framework-for-web-development-2026/",
+    "source": "src/pages/tech/top-10-framework-for-web-development-2026/index.html",
+    "title": "Top 10 Web Development Frameworks to Learn in 2026 | Xenors",
+    "description": "Struggling to choose a framework? Discover the top 10 web development frameworks for 2026. A data-driven roadmap to help you land high-paying tech jobs fast."
+  },
+  {
+    "url": "https://xenors.in/web-stories/us-stocks-weekly/",
+    "source": "src/pages/web-stories/us-stocks-weekly/index.html",
+    "title": "Top 20 US Stocks Ready to Explode This Week 🚀 | High | Xenors",
+    "description": "Top 20 US stocks to watch this week including NVDA, TSLA, MSFT, AMZN. High volatility breakout stocks with explosive upside potential."
+  },
+  {
+    "url": "https://xenors.in/world/world/",
+    "source": "src/pages/world/world/index.html",
+    "title": "How AI is Decoding the 2026 Stock Market: Algorithmic | Xenors",
+    "description": "An elite deep-dive into deployment steps for production-grade AI financial models. Open-source code blocks inside. Explore practical, clear guides from."
+  }
+]

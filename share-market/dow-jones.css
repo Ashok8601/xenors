@@ -1,0 +1,704 @@
+        :root {
+            --primary-color: #0f172a;
+            --secondary-color: #2563eb;
+            --text-color: #334155;
+            --bg-light: #f8fafc;
+            --accent-color: #0d9488;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-top: 2.5rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            font-size: 1.1rem;
+        }
+
+        .lead-text {
+            font-size: 1.25rem;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        ul {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .highlight-box {
+            background-color: var(--bg-light);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 1.25rem;
+        }
+
+        .grid-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            list-style-type: none;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+
+        .grid-list li {
+            background: var(--bg-light);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            font-weight: 600;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            h2 { font-size: 1.5rem; }
+            .container { padding: 1rem; }
+        }
+        
+        /* ==========================================================================
+   PASTE THIS INTO YOUR EXTERNAL CSS FILE (e.g., style.css)
+   ========================================================================== */
+
+.stock-container {
+    margin-top: 3rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.company-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.75rem;
+    margin-top: 3rem;
+}
+
+.company-header h2 {
+    font-size: 1.8rem;
+    color: #0f172a;
+    margin: 0;
+    padding: 0;
+    font-weight: 800;
+}
+
+.ticker-badge {
+    background-color: #0f172a;
+    color: #ffffff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.section-title {
+    font-size: 1.3rem;
+    color: #0f172a;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+}
+
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem 0;
+}
+
+.tag {
+    background-color: #eff6ff;
+    color: #2563eb;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #dbeafe;
+}
+
+.numbered-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.numbered-list li {
+    position: relative;
+    padding-left: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.numbered-list .num {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    background-color: #2563eb;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.numbered-list strong {
+    color: #0f172a;
+    display: block;
+    font-size: 1.15rem;
+    margin-bottom: 0.25rem;
+}
+
+.drivers-box {
+    background-color: #f0fdf4;
+    border-left: 4px solid #0d9488;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.drivers-box h3 {
+    color: #115e59;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.drivers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.drivers-grid li {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #334155;
+}
+
+.drivers-grid li::before {
+    content: "✓";
+    color: #0d9488;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    .company-header h2 { font-size: 1.5rem; }
+    .company-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+}
+/* ==========================================================================
+   PASTE THIS INTO YOUR EXTERNAL CSS FILE (e.g., style.css)
+   ========================================================================== */
+
+.stock-container {
+    margin-top: 3rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.company-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.75rem;
+    margin-top: 4rem;
+}
+
+.company-header h2 {
+    font-size: 1.8rem;
+    color: #0f172a;
+    margin: 0;
+    padding: 0;
+    font-weight: 800;
+}
+
+.ticker-badge {
+    background-color: #0f172a;
+    color: #ffffff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+.section-title {
+    font-size: 1.3rem;
+    color: #0f172a;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+    font-weight: 700;
+}
+
+.tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0 1.5rem 0;
+}
+
+.tag {
+    background-color: #eff6ff;
+    color: #2563eb;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid #dbeafe;
+}
+
+.numbered-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+}
+
+.numbered-list li {
+    position: relative;
+    padding-left: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.numbered-list .num {
+    position: absolute;
+    left: 0;
+    top: 2px;
+    background-color: #2563eb;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.numbered-list strong {
+    color: #0f172a;
+    display: block;
+    font-size: 1.15rem;
+    margin-bottom: 0.25rem;
+}
+
+.drivers-box {
+    background-color: #f0fdf4;
+    border-left: 4px solid #0d9488;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.drivers-box.long-term {
+    background-color: #f8fafc;
+    border-left-color: #64748b;
+}
+
+.drivers-box h3 {
+    color: #0f172a;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.drivers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.75rem;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.drivers-grid li {
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #334155;
+}
+
+.drivers-grid li::before {
+    content: "✓";
+    color: #0d9488;
+    font-weight: bold;
+}
+
+/* RISK HIGHLIGHT BOX */
+.risk-highlight-box {
+    background-color: #fff5f5;
+    border-left: 4px solid #f56565;
+    padding: 1.5rem;
+    margin: 2.5rem 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.risk-highlight-box h4 {
+    margin: 0 0 1rem 0;
+    color: #c53030;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.risk-list {
+    padding-left: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.risk-list li {
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+}
+
+.analyst-note {
+    margin: 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #718096;
+}
+
+/* DATA TABLE STYLE */
+.table-wrapper {
+    overflow-x: auto;
+    margin: 2rem 0;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 1rem;
+}
+
+.data-table th {
+    background-color: #f8fafc;
+    color: #0f172a;
+    font-weight: 700;
+    padding: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.data-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+    color: #334155;
+}
+
+/* TABLE BADGES */
+.badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.label-low { background-color: #edfdfd; color: #234e52; }
+.label-medium { background-color: #fffaf0; color: #7b341e; }
+.label-high { background-color: #fff5f5; color: #742a2a; }
+.label-moderate { background-color: #f7fafc; color: #2d3748; }
+.label-high-growth { background-color: #ebf8ff; color: #2b6cb0; }
+.label-vhigh { background-color: #f0fdf4; color: #166534; }
+.label-exhigh { background-color: #faf5ff; color: #5b21b6; }
+
+/* PROFILE CARDS ALLOCATION */
+.profile-allocation-box {
+    background-color: #f8fafc;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 3rem 0;
+    border: 1px solid #e2e8f0;
+}
+
+.profile-allocation-box h3 {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #0f172a;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.profile-card {
+    background-color: #ffffff;
+    padding: 1.25rem;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.profile-card h5 {
+    margin: 0 0 0.5rem 0;
+    color: #475569;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.focus-stock {
+    font-size: 1.3rem;
+    color: #2563eb;
+    font-weight: 800;
+    margin: 0.5rem 0;
+}
+
+.profile-card small {
+    color: #64748b;
+    display: block;
+    line-height: 1.4;
+}
+
+/* TREND GRID LIST */
+.trend-grid-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    padding: 0;
+    list-style-type: none;
+    margin: 2rem 0;
+}
+
+.trend-grid-list li {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    padding: 1rem;
+    border-radius: 6px;
+    color: #334155;
+    font-size: 0.95rem;
+}
+
+.trend-grid-list li strong {
+    color: #0f172a;
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+/* RISK MANAGEMENT STRATEGY PILLS */
+.risk-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.25rem;
+    margin: 2rem 0;
+}
+
+.risk-pill {
+    border-top: 3px solid #f56565;
+    background-color: #fafafa;
+    padding: 1.25rem;
+    border-radius: 0 0 6px 6px;
+}
+
+.risk-pill h5 {
+    margin: 0 0 0.5rem 0;
+    color: #0f172a;
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.risk-pill p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #4a5568;
+    line-height: 1.5;
+}
+
+.conclusion-banner {
+    background-color: #eff6ff;
+    border: 1px solid #bfdbfe;
+    padding: 1.25rem;
+    border-radius: 6px;
+    margin-top: 3rem;
+    color: #1e3a8a;
+}
+
+@media (max-width: 600px) {
+    .company-header h2 { font-size: 1.5rem; }
+    .company-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .profile-grid { grid-template-columns: 1fr; }
+}
+/* ==========================================================================
+   PASTE THIS INTO YOUR EXTERNAL CSS FILE (e.g., style.css)
+   ========================================================================== */
+
+.stock-container {
+    margin-top: 3rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+.conclusion-header {
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 1rem;
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+}
+
+.conclusion-header h2 {
+    font-size: 2rem;
+    color: #0f172a;
+    margin: 0;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.lead-text {
+    font-size: 1.2rem;
+    color: #475569;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+/* SUMMARY CARDS ARCHITECTURE */
+.summary-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.summary-card {
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* BRAND SPECIFIC BORDERS */
+.msft-border { border-top: 4px solid #00a4ef; }
+.nvda-border { border-top: 4px solid #76b900; }
+.aapl-border { border-top: 4px solid #a2aaad; }
+.ibm-border { border-top: 4px solid #054ada; }
+
+.card-brand-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.card-brand-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.brand-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* BRAND DOT COLORS */
+.msft-bg { background-color: #00a4ef; }
+.nvda-bg { background-color: #76b900; }
+.aapl-bg { background-color: #a2aaad; }
+.ibm-bg { background-color: #054ada; }
+
+.summary-card p {
+    margin: 0;
+    font-size: 1rem;
+    color: #475569;
+    line-height: 1.6;
+}
+
+/* STRATEGIC TAKEAWAY BOX */
+.strategic-takeaway-box {
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border: 1px solid #e2e8f0;
+    padding: 2rem;
+    border-radius: 12px;
+    margin-top: 3rem;
+}
+
+.strategic-takeaway-box h4 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    color: #0f172a;
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+}
+
+.strategic-takeaway-box p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #334155;
+    line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+    .conclusion-header h2 { font-size: 1.6rem; }
+    .lead-text { font-size: 1.1rem; }
+    .summary-cards-container { grid-template-columns: 1fr; gap: 1.25rem; }
+    .strategic-takeaway-box { padding: 1.5rem; }
+}
