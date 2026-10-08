@@ -1,0 +1,12 @@
+[
+  {
+    "url": "https://xenors.in/login/",
+    "source": "src/pages/login/index.html",
+    "indexable": false
+  },
+  {
+    "url": "https://xenors.in/signup/",
+    "source": "src/pages/signup/index.html",
+    "indexable": false
+  }
+]

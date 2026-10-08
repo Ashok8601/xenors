@@ -1,0 +1,524 @@
+services:
+- type: web
+  name: xenors
+  runtime: static
+  buildCommand: pip install -r requirements.txt && python build.py && python validate_site.py
+  staticPublishPath: .
+  headers:
+  - path: /*
+    name: X-Content-Type-Options
+    value: nosniff
+  - path: /*
+    name: Referrer-Policy
+    value: strict-origin-when-cross-origin
+  - path: /*
+    name: X-Frame-Options
+    value: SAMEORIGIN
+  - path: /images/*
+    name: Cache-Control
+    value: public, max-age=604800
+  routes:
+  - type: redirect
+    source: /ai-tools
+    destination: /ai/tools/
+  - type: redirect
+    source: /ai-tools/
+    destination: /ai/tools/
+  - type: redirect
+    source: /ai-tools/index.html
+    destination: /ai/tools/
+  - type: redirect
+    source: /blog/ai-tools
+    destination: /ai/tools/
+  - type: redirect
+    source: /plc
+    destination: /plc/
+  - type: redirect
+    source: /plc/plc-basics-inputs-outpuths-ladder-logic
+    destination: /plc/plc-basics-inputs-outputs-ladder-logic
+  - type: redirect
+    source: /plc/plc-basics-inputs-outpuths-ladder-logic.html
+    destination: /plc/plc-basics-inputs-outputs-ladder-logic
+  - type: redirect
+    source: /AI-trading-in-2026/
+    destination: /ai-trading-in-2026/
+  - type: redirect
+    source: /AI-trading-in-2026/index.html
+    destination: /ai-trading-in-2026/
+  - type: redirect
+    source: /AI-transforming-stock-trading.html
+    destination: /ai-transforming-stock-trading/
+  - type: redirect
+    source: /AI-transforming-stock-trading/
+    destination: /ai-transforming-stock-trading/
+  - type: redirect
+    source: /AI/
+    destination: /ai/
+  - type: redirect
+    source: /AI/ai-vs-human-trading-2026-winner.html
+    destination: /ai/ai-vs-human-trading-2026-winner/
+  - type: redirect
+    source: /AI/index.html
+    destination: /ai/
+  - type: redirect
+    source: /AI/models.html
+    destination: /ai/models/
+  - type: redirect
+    source: /AI/news.html
+    destination: /ai/news/
+  - type: redirect
+    source: /AI/tools.html
+    destination: /ai/tools/
+  - type: redirect
+    source: /Ashok-kumar-yadav-biography.html
+    destination: /ashok-kumar-yadav-biography/
+  - type: redirect
+    source: /Blog/
+    destination: /blog/
+  - type: redirect
+    source: /Blog/AI-trading-in-2026.html
+    destination: /ai-trading-in-2026/
+  - type: redirect
+    source: /Blog/ai-image-generators-tools-2026.html
+    destination: /blog/ai-image-generators-tools-2026/
+  - type: redirect
+    source: /Blog/blog.html
+    destination: /blog/
+  - type: redirect
+    source: /Blog/dividend-stocks-for-passive-income.html
+    destination: /blog/dividend-stocks-for-passive-income/
+  - type: redirect
+    source: /Blog/hesham-industrial-solution.html
+    destination: /blog/hesham-industrial-solution/
+  - type: redirect
+    source: /Blog/how-to-earn-money-using-ai-tool.html
+    destination: /blog/how-to-earn-money-using-ai-tool/
+  - type: redirect
+    source: /Blog/index.html
+    destination: /blog/
+  - type: redirect
+    source: /Blog/industrial-safety-ai-iot-product-manufacturer.html
+    destination: /blog/industrial-safety-ai-iot-product-manufacturer/
+  - type: redirect
+    source: /Blog/investment-calculator-with-sip.html
+    destination: /blog/investment-calculator-with-sip/
+  - type: redirect
+    source: /Blog/stock-market-today-dow-jones-s-and-p.html
+    destination: /blog/stock-market-today-dow-jones-s-and-p/
+  - type: redirect
+    source: /Share-markate/swing-trading-guide-2026.html
+    destination: /share-market/swing-trading-guide-2026/
+  - type: redirect
+    source: /Share-markate/swing-trading-guide-2026/
+    destination: /share-market/swing-trading-guide-2026/
+  - type: redirect
+    source: /Tech/
+    destination: /tech/
+  - type: redirect
+    source: /Tech/index.html
+    destination: /tech/
+  - type: redirect
+    source: /Tech/top-10-framework-for-web-development-2026.html
+    destination: /tech/top-10-framework-for-web-development-2026/
+  - type: redirect
+    source: /Web-Stories/Hi.html
+    destination: /web-stories/us-stocks-weekly/
+  - type: redirect
+    source: /Web-Stories/us-stocks-weekly.html
+    destination: /web-stories/us-stocks-weekly/
+  - type: redirect
+    source: /about
+    destination: /about/
+  - type: redirect
+    source: /about.html
+    destination: /about/
+  - type: redirect
+    source: /ai
+    destination: /ai/
+  - type: redirect
+    source: /ai-basics-finance
+    destination: /ai-basics-finance/
+  - type: redirect
+    source: /ai-basics-finance/index.html
+    destination: /ai-basics-finance/
+  - type: redirect
+    source: /ai-trading-in-2026
+    destination: /ai-trading-in-2026/
+  - type: redirect
+    source: /ai-transforming-stock-trading
+    destination: /ai-transforming-stock-trading/
+  - type: redirect
+    source: /ai/ai-vs-human-trading-2026-winner
+    destination: /ai/ai-vs-human-trading-2026-winner/
+  - type: redirect
+    source: /ai/models
+    destination: /ai/models/
+  - type: redirect
+    source: /ai/news
+    destination: /ai/news/
+  - type: redirect
+    source: /ai/tools
+    destination: /ai/tools/
+  - type: redirect
+    source: /ashok-kumar-yadav-biography
+    destination: /ashok-kumar-yadav-biography/
+  - type: redirect
+    source: /best-ai-tools-backend-development-2026
+    destination: /best-ai-tools-backend-development-2026/
+  - type: redirect
+    source: /best-ai-tools-backend-development-2026.html
+    destination: /best-ai-tools-backend-development-2026/
+  - type: redirect
+    source: /black-swan-events
+    destination: /black-swan-events/
+  - type: redirect
+    source: /black-swan-events/index.html
+    destination: /black-swan-events/
+  - type: redirect
+    source: /blockchain-finance
+    destination: /blockchain-finance/
+  - type: redirect
+    source: /blockchain-finance/index.html
+    destination: /blockchain-finance/
+  - type: redirect
+    source: /blog
+    destination: /blog/
+  - type: redirect
+    source: /blog-url-1
+    destination: /ai-transforming-stock-trading/
+  - type: redirect
+    source: /blog-url-1.html
+    destination: /ai-transforming-stock-trading/
+  - type: redirect
+    source: /blog-url-2
+    destination: /coding/flask/
+  - type: redirect
+    source: /blog-url-2.html
+    destination: /coding/flask/
+  - type: redirect
+    source: /blog-url-3
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /blog-url-3.html
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /blog-url-4
+    destination: /tech/
+  - type: redirect
+    source: /blog-url-4.html
+    destination: /tech/
+  - type: redirect
+    source: /blog-url-5
+    destination: /finance/
+  - type: redirect
+    source: /blog-url-5.html
+    destination: /finance/
+  - type: redirect
+    source: /blog-url-6
+    destination: /coding/
+  - type: redirect
+    source: /blog-url-6.html
+    destination: /coding/
+  - type: redirect
+    source: /blog/ai-image-generators-tools-2026
+    destination: /blog/ai-image-generators-tools-2026/
+  - type: redirect
+    source: /blog/ai-stock-market
+    destination: /share-market/best-ai-tools-for-stock-market-analysis/
+  - type: redirect
+    source: /blog/dividend-stocks-for-passive-income
+    destination: /blog/dividend-stocks-for-passive-income/
+  - type: redirect
+    source: /blog/flask-backend
+    destination: /coding/flask/
+  - type: redirect
+    source: /blog/hesham-industrial-solution
+    destination: /blog/hesham-industrial-solution/
+  - type: redirect
+    source: /blog/how-to-earn-money-using-ai-tool
+    destination: /blog/how-to-earn-money-using-ai-tool/
+  - type: redirect
+    source: /blog/industrial-safety-ai-iot-product-manufacturer
+    destination: /blog/industrial-safety-ai-iot-product-manufacturer/
+  - type: redirect
+    source: /blog/investment-calculator-with-sip
+    destination: /blog/investment-calculator-with-sip/
+  - type: redirect
+    source: /blog/stock-market-today-dow-jones-s-and-p
+    destination: /blog/stock-market-today-dow-jones-s-and-p/
+  - type: redirect
+    source: /business-new.html
+    destination: /business-news/
+  - type: redirect
+    source: /business-news
+    destination: /business-news/
+  - type: redirect
+    source: /business-news.html
+    destination: /business-news/
+  - type: redirect
+    source: /careers
+    destination: /careers/
+  - type: redirect
+    source: /careers.html
+    destination: /careers/
+  - type: redirect
+    source: /coding
+    destination: /coding/
+  - type: redirect
+    source: /coding.html
+    destination: /coding/
+  - type: redirect
+    source: /coding/django
+    destination: /coding/django/
+  - type: redirect
+    source: /coding/django.html
+    destination: /coding/django/
+  - type: redirect
+    source: /coding/flask
+    destination: /coding/flask/
+  - type: redirect
+    source: /coding/flask.html
+    destination: /coding/flask/
+  - type: redirect
+    source: /coding/index.html
+    destination: /coding/
+  - type: redirect
+    source: /coding/python-data
+    destination: /coding/python-data/
+  - type: redirect
+    source: /coding/python-data.html
+    destination: /coding/python-data/
+  - type: redirect
+    source: /contact
+    destination: /contact/
+  - type: redirect
+    source: /contact.html
+    destination: /contact/
+  - type: redirect
+    source: /crypto
+    destination: /crypto/
+  - type: redirect
+    source: /crypto/index.html
+    destination: /crypto/
+  - type: redirect
+    source: /finance
+    destination: /finance/
+  - type: redirect
+    source: /finance/five-simple-step-to-start-budgeting-in-2026
+    destination: /finance/five-simple-step-to-start-budgeting-in-2026/
+  - type: redirect
+    source: /finance/five-simple-step-to-start-budgeting-in-2026.html
+    destination: /finance/five-simple-step-to-start-budgeting-in-2026/
+  - type: redirect
+    source: /finance/index.html
+    destination: /finance/
+  - type: redirect
+    source: /finance/investing
+    destination: /finance/investing/
+  - type: redirect
+    source: /finance/investing.html
+    destination: /finance/investing/
+  - type: redirect
+    source: /finance/stocks
+    destination: /finance/stocks/
+  - type: redirect
+    source: /finance/stocks.html
+    destination: /finance/stocks/
+  - type: redirect
+    source: /finance/trading
+    destination: /finance/trading/
+  - type: redirect
+    source: /finance/trading.html
+    destination: /finance/trading/
+  - type: redirect
+    source: /founder/ashok-kumar-yadav-application-engineer
+    destination: /founder/ashok-kumar-yadav-application-engineer/
+  - type: redirect
+    source: /founder/hesham-industrial-solution-engineer.html
+    destination: /founder/ashok-kumar-yadav-application-engineer/
+  - type: redirect
+    source: /future-of-web-dev.html
+    destination: /future-of-web-development/
+  - type: redirect
+    source: /future-of-web-dev/
+    destination: /future-of-web-development/
+  - type: redirect
+    source: /future-of-web-development
+    destination: /future-of-web-development/
+  - type: redirect
+    source: /home
+    destination: /
+  - type: redirect
+    source: /home.html
+    destination: /
+  - type: redirect
+    source: /home/
+    destination: /
+  - type: redirect
+    source: /index.html
+    destination: /
+  - type: redirect
+    source: /layout.html
+    destination: /
+  - type: redirect
+    source: /login
+    destination: /login/
+  - type: redirect
+    source: /login.html
+    destination: /login/
+  - type: redirect
+    source: /machine-learning
+    destination: /machine-learning/
+  - type: redirect
+    source: /machine-learning-projects
+    destination: /machine-learning-projects/
+  - type: redirect
+    source: /machine-learning-projects/index.html
+    destination: /machine-learning-projects/
+  - type: redirect
+    source: /machine-learning/index.html
+    destination: /machine-learning/
+  - type: redirect
+    source: /nlp-in-finance
+    destination: /nlp-in-finance/
+  - type: redirect
+    source: /nlp-in-finance.html
+    destination: /nlp-in-finance/
+  - type: redirect
+    source: /privacy-policy
+    destination: /privacy-policy/
+  - type: redirect
+    source: /privacy-policy.html
+    destination: /privacy-policy/
+  - type: redirect
+    source: /python-for-data-science
+    destination: /python-for-data-science/
+  - type: redirect
+    source: /python-for-data-science.html
+    destination: /python-for-data-science/
+  - type: redirect
+    source: /python-trading-bot-tutorial
+    destination: /python-trading-bot-tutorial/
+  - type: redirect
+    source: /python-trading-bot-tutorial/index.html
+    destination: /python-trading-bot-tutorial/
+  - type: redirect
+    source: /share-market
+    destination: /share-market/
+  - type: redirect
+    source: /share-market/ai-crypto-coins-2026
+    destination: /share-market/ai-crypto-coins-2026/
+  - type: redirect
+    source: /share-market/ai-crypto-coins-2026.html
+    destination: /share-market/ai-crypto-coins-2026/
+  - type: redirect
+    source: /share-market/ai-crypto-price-prediction-2026
+    destination: /share-market/ai-crypto-price-prediction-2026/
+  - type: redirect
+    source: /share-market/ai-crypto-price-prediction-2026.html
+    destination: /share-market/ai-crypto-price-prediction-2026/
+  - type: redirect
+    source: /share-market/ai-stock-in-dow-jones
+    destination: /share-market/ai-stock-in-dow-jones/
+  - type: redirect
+    source: /share-market/ai-stock-in-dow-jones.html
+    destination: /share-market/ai-stock-in-dow-jones/
+  - type: redirect
+    source: /share-market/best-ai-crypto-trading-bots
+    destination: /share-market/best-ai-crypto-trading-bots/
+  - type: redirect
+    source: /share-market/best-ai-crypto-trading-bots.html
+    destination: /share-market/best-ai-crypto-trading-bots/
+  - type: redirect
+    source: /share-market/best-ai-tools-for-stock-market-analysis
+    destination: /share-market/best-ai-tools-for-stock-market-analysis/
+  - type: redirect
+    source: /share-market/best-ai-tools-for-stock-market-analysis.html
+    destination: /share-market/best-ai-tools-for-stock-market-analysis/
+  - type: redirect
+    source: /share-market/index.html
+    destination: /share-market/
+  - type: redirect
+    source: /share-market/stock-market-today-spacex-ipo
+    destination: /share-market/stock-market-today-spacex-ipo/
+  - type: redirect
+    source: /share-market/stock-market-today-spacex-ipo.html
+    destination: /share-market/stock-market-today-spacex-ipo/
+  - type: redirect
+    source: /share-market/swing-trading-guide-2026
+    destination: /share-market/swing-trading-guide-2026/
+  - type: redirect
+    source: /signup
+    destination: /signup/
+  - type: redirect
+    source: /signup.html
+    destination: /signup/
+  - type: redirect
+    source: /sitemap/index.html
+    destination: /sitemap.xml
+  - type: redirect
+    source: /sqlite-for-trading
+    destination: /sqlite-for-trading/
+  - type: redirect
+    source: /sqlite-for-trading/index.html
+    destination: /sqlite-for-trading/
+  - type: redirect
+    source: /start-investing-with-100
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /start-investing-with-100-dollars.html
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /start-investing-with-100-dollars/
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /start-investing-with-100/index.html
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /stock-market
+    destination: /stock-market/
+  - type: redirect
+    source: /stock-market.html
+    destination: /stock-market/
+  - type: redirect
+    source: /stock-markete.html
+    destination: /stock-market/
+  - type: redirect
+    source: /tart-investing-with-100/
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /tech
+    destination: /tech/
+  - type: redirect
+    source: /tech/top-10-framework-for-web-development-2026
+    destination: /tech/top-10-framework-for-web-development-2026/
+  - type: redirect
+    source: /test.html
+    destination: /
+  - type: redirect
+    source: /try.html
+    destination: /
+  - type: redirect
+    source: /web-stories/us-stocks-weekly
+    destination: /web-stories/us-stocks-weekly/
+  - type: redirect
+    source: /world/world
+    destination: /world/world/
+  - type: redirect
+    source: /world/world.html
+    destination: /world/world/
+  - type: redirect
+    source: /AI/*
+    destination: /ai/:splat
+  - type: redirect
+    source: /Blog/*
+    destination: /blog/:splat
+  - type: redirect
+    source: /Tech/*
+    destination: /tech/:splat
+  - type: redirect
+    source: /Web-Stories/*
+    destination: /web-stories/:splat
+  - type: redirect
+    source: /Share-markate/*
+    destination: /share-market/:splat

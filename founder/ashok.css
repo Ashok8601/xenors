@@ -1,0 +1,418 @@
+/* ==========================================================================
+   Design Tokens & System Variables
+   ========================================================================== */
+:root {
+  /* Brand Colors */
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --primary-border: #bfdbfe;
+
+  /* Neutrals (Professional Light Palette) */
+  --bg-main: #ffffff;
+  --bg-surface: #f8fafc;
+  --bg-card: #ffffff;
+  --text-main: #0f172a;      /* Slate-900: High contrast, readable */
+  --text-muted: #475569;     /* Slate-600 */
+  --border-light: #e2e8f0;    /* Slate-200 */
+  --border-subtle: #f1f5f9;
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  
+  /* Shadows & Elevation */
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08);
+  --shadow-hover: 0 12px 24px -4px rgba(37, 99, 235, 0.12);
+
+  /* Utilities */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-full: 9999px;
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   Base & Reset Settings
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-main);
+  background-color: var(--bg-main);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   Layout Structure
+   ========================================================================== */
+.container {
+  max-width: 1150px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+section {
+  padding: 80px 0;
+}
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+.hero {
+  padding: 96px 0 80px;
+  background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-main) 100%);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1.2fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.kicker {
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+}
+
+.hero h1 {
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.hero h1 em {
+  color: var(--primary);
+  font-style: normal;
+  background: linear-gradient(120deg, #2563eb, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-text {
+  color: var(--text-muted);
+  font-size: 1.125rem;
+  line-height: 1.75;
+}
+
+/* ==========================================================================
+   Interactive Actions & Buttons
+   ========================================================================== */
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
+}
+
+.btn-secondary {
+  border: 1px solid var(--border-light);
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+
+.btn-secondary:hover {
+  border-color: var(--primary-border);
+  background: var(--primary-light);
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* ==========================================================================
+   Cards & Component UI
+   ========================================================================== */
+.hero-card,
+.edu-card,
+.skill-card,
+.project-card,
+.focus-card,
+.pill,
+.mindset-card,
+.cta {
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+
+/* Subtle Interactive Lift on Hover */
+.edu-card:hover,
+.skill-card:hover,
+.project-card:hover,
+.focus-card:hover,
+.mindset-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary-border);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Avatar Component */
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--primary), #60a5fa);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+}
+
+/* ==========================================================================
+   Grids Architecture
+   ========================================================================== */
+.about-grid,
+.hero-grid,
+.education,
+.skills-grid,
+.projects,
+.focus-grid,
+.xenors-grid,
+.mindset {
+  display: grid;
+  gap: 28px;
+}
+
+.about-grid,
+.hero-grid,
+.xenors-grid {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.education,
+.skills-grid,
+.projects,
+.focus-grid,
+.mindset {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+/* ==========================================================================
+   Timeline Styling
+   ========================================================================== */
+.timeline {
+  border-left: 2px solid var(--primary-border);
+  padding-left: 28px;
+  margin-left: 8px;
+}
+
+.timeline-item {
+  margin-bottom: 40px;
+  position: relative;
+}
+
+.timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: var(--radius-full);
+  background: var(--bg-card);
+  border: 3px solid var(--primary);
+  position: absolute;
+  left: -36px;
+  top: 4px;
+  box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+/* ==========================================================================
+   Pills & Micro Components
+   ========================================================================== */
+.tag,
+.project-meta span {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  margin: 4px;
+  border-radius: var(--radius-full);
+  background: var(--primary-light);
+  color: var(--primary);
+  font-size: 0.825rem;
+  font-weight: 600;
+  border: 1px solid var(--primary-border);
+}
+
+/* Headings */
+.section-head {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.section-label {
+  color: var(--primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+}
+
+/* Quote Section */
+.quote {
+  border-left: 4px solid var(--primary);
+  background: var(--bg-surface);
+  padding: 24px;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 1.05rem;
+}
+
+/* Footer Section */
+footer {
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-light);
+  margin-top: 40px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   Responsive Adaptations
+   ========================================================================== */
+@media (max-width: 868px) {
+  section {
+    padding: 56px 0;
+  }
+
+  .hero-grid,
+  .about-grid,
+  .xenors-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .hero h1 {
+    font-size: 2.25rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+  }
+}
+/* ==========================
+   Hero Images
+========================== */
+
+.hero-image{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:20px;
+}
+
+.hero-image img:first-child{
+
+width:240px;
+height:240px;
+
+object-fit:cover;
+
+border-radius:50%;
+
+border:5px solid #fff;
+
+box-shadow:0 10px 30px rgba(0,0,0,.12);
+
+background:#fff;
+
+}
+
+.hero-image img:last-child{
+
+width:220px;
+max-width:100%;
+height:auto;
+
+padding:16px;
+
+background:#fff;
+
+border:1px solid var(--border-light);
+
+border-radius:12px;
+
+box-shadow:var(--shadow-sm);
+
+}
+
+/* Mobile */
+
+@media(max-width:868px){
+
+.hero-image img:first-child{
+
+width:190px;
+height:190px;
+
+}
+
+.hero-image img:last-child{
+
+width:180px;
+
+}
+
+}

@@ -1,0 +1,17 @@
+XENORS STATIC SEO / BUILD VALIDATION
+========================================================================
+HTML pages checked: 71
+Indexable pages: 68
+Sitemap URLs: 68
+Critical issues: 0
+Warnings: 0
+
+CRITICAL ISSUES
+------------------------------------------------------------------------
+- None
+
+WARNINGS / REVIEW ITEMS
+------------------------------------------------------------------------
+- None
+
+Notes: title/description character limits are diagnostics, not direct ranking rules. A clean validator does not guarantee rankings or Core Web Vitals; production Search Console and field data must still be monitored.

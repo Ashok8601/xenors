@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="IE=edge" http-equiv="X-UA-Compatible"/>
+<link href="/images/xenors.png" rel="icon" sizes="32x32" type="image/png"/>
+<link href="/images/xenors.png" rel="apple-touch-icon"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<style>
+        :root {
+            --primary-blue: #007bff;
+            --dark-bg: #111;
+            --accent-glow: rgba(0, 123, 255, 0.4);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: radial-gradient(circle at bottom left, #1e3a8a, #0a0a0a);
+            font-family: 'Inter', sans-serif;
+            color: white;
+        }
+
+        .signup-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            border-radius: 24px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .signup-card .logo-area img {
+            width: 60px;
+            margin-bottom: 20px;
+        }
+
+        .signup-card h2 {
+            font-size: 2rem;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .signup-card p {
+            color: #b0b0b0;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: #d1d1d1;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-blue);
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        .signup-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            margin-top: 15px;
+        }
+
+        .signup-btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .signup-btn:active {
+            transform: translateY(0);
+        }
+
+        .footer-links {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .footer-links a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        #status-msg {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            min-height: 20px;
+        }
+
+        /* Password strength indicator (Visual only) */
+        .strength-bar {
+            height: 4px;
+            width: 100%;
+            background: #333;
+            margin-top: 8px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+    </style>
+
+&lt;!-- XENORS PROFESSIONAL SEO HEAD --&gt;
+<title>Xenors | Xenors</title><meta content="Xenors | Xenors" name="title"/><meta content="This section adds clear, practical context for visitors who want to understand how this page fits into Xenors and how to use it safely and effectively." name="description"/><meta content="signup" name="keywords"/><meta content="noindex, follow" name="robots"/><meta content="noindex, follow" name="googlebot"/><meta content="noindex, follow" name="bingbot"/><meta content="Ashok Kumar Yadav" name="author"/><meta content="Xenors" name="publisher"/><meta content="#0f172a" name="theme-color"/><meta content="strict-origin-when-cross-origin" name="referrer"/><meta content="Xenors" name="application-name"/><link href="https://xenors.in/signup/" rel="canonical"/><link href="https://xenors.in/signup/" hreflang="en" rel="alternate"/><link href="https://xenors.in/signup/" hreflang="x-default" rel="alternate"/><meta content="website" property="og:type"/><meta content="Xenors" property="og:site_name"/><meta content="en_US" property="og:locale"/><meta content="https://xenors.in/signup/" property="og:url"/><meta content="Xenors" property="og:title"/><meta content="This section adds clear, practical context for visitors who want to understand how this page fits into Xenors and how to use it safely and effectively." property="og:description"/><meta content="https://xenors.in/images/xenors.png" property="og:image"/><meta content="Xenors" property="og:image:alt"/><meta content="summary_large_image" name="twitter:card"/><meta content="@xenors77" name="twitter:site"/><meta content="@xenors77" name="twitter:creator"/><meta content="Xenors" name="twitter:title"/><meta content="This section adds clear, practical context for visitors who want to understand how this page fits into Xenors and how to use it safely and effectively." name="twitter:description"/><meta content="https://xenors.in/images/xenors.png" name="twitter:image"/><meta content="Xenors" name="twitter:image:alt"/><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://xenors.in/#organization",
+      "name": "Xenors",
+      "url": "https://xenors.in/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://xenors.in/images/xenors.png"
+      },
+      "sameAs": [
+        "https://x.com/xenors77",
+        "https://github.com/Ashok8601",
+        "https://www.linkedin.com/in/ashok-kumar-9a3ba5228",
+        "https://youtube.com/@xenors7"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://xenors.in/#website",
+      "url": "https://xenors.in/",
+      "name": "Xenors",
+      "publisher": {
+        "@id": "https://xenors.in/#organization"
+      },
+      "inLanguage": "en"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://xenors.in/signup/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://xenors.in/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Xenors",
+          "item": "https://xenors.in/signup/"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://xenors.in/signup/#webpage",
+      "url": "https://xenors.in/signup/",
+      "name": "Xenors",
+      "description": "This section adds clear, practical context for visitors who want to understand how this page fits into Xenors and how to use it safely and effectively.",
+      "isPartOf": {
+        "@id": "https://xenors.in/#website"
+      },
+      "inLanguage": "en",
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://xenors.in/images/xenors.png"
+      }
+    }
+  ]
+}</script><link href="/components/header.css" rel="stylesheet"/><link href="/components/footer.css" rel="stylesheet"/><link href="/components/read-also.css" rel="stylesheet"/><link href="/styles/seo-global.css" rel="stylesheet"/><script data-xenors-common="read-also-js" defer="" src="/components/read-also.js"></script><script async="" data-xenors-ga="gtag-js" src="https://www.googletagmanager.com/gtag/js?id=G-ZRZ11QPD5B"></script><script data-xenors-ga="gtag-config">window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZRZ11QPD5B');</script><script data-cfasync="false" data-xenors-ad="head-end" src="https://abscloud.org/1/4be04ffca38622a7f1c2af8a08f23c0b"></script></head>
+<body><a class="xenors-skip-link" href="#xenors-main-content">Skip to main content</a><header class="xenors-site-header" data-xenors-build="header">
+<div class="xenors-header-inner">
+<a aria-label="Xenors home" class="xenors-brand" href="/">
+<img alt="Xenors" decoding="async" height="42" src="/images/xenors.png" width="42"/>
+<span>Xenors</span>
+</a>
+<button aria-controls="xenors-primary-nav" aria-expanded="false" aria-label="Open navigation" class="xenors-menu-toggle" type="button">
+<span aria-hidden="true" class="xenors-menu-icon"></span>
+<span class="xenors-menu-label">Menu</span>
+</button>
+<nav aria-label="Primary navigation" class="xenors-primary-nav" id="xenors-primary-nav">
+<a href="/">Home</a>
+<a href="/ai/">AI</a>
+<a href="/tech/">Tech</a>
+<a href="/coding/">Coding</a>
+<a href="/plc/">PLC</a>
+<a href="/finance/">Finance</a>
+<a href="/share-market/">Markets</a>
+<a href="/blog/">Blog</a>
+<a href="/about/">About</a>
+</nav>
+</div>
+</header><script data-cfasync="false" data-xenors-ad="body-anywhere" src="https://araplhn.org/4/3c5b939e73e43fafe4ccf990a7613c27"></script>
+
+<div class="signup-card" id="xenors-main-content">
+<div class="logo-area">
+<img alt="Xenors Logo" decoding="async" height="1024" loading="lazy" src="/images/xenors.png" width="1024"/>
+</div>
+<h2>Join Xenors</h2>
+<p>Empower your journey in Tech &amp; AI.</p>
+<div class="input-group">
+<label for="fullName">Full Name</label>
+<input id="fullName" placeholder="Enter your full name" required="" type="text"/>
+</div>
+<div class="input-group">
+<label for="email">Email Address</label>
+<input id="email" placeholder="name@example.com" required="" type="email"/>
+</div>
+<div class="input-group">
+<label for="password">Password</label>
+<input id="password" placeholder="Create a strong password" required="" type="password"/>
+<div class="strength-bar"></div>
+</div>
+<button class="signup-btn" id="signupBtn" onclick="signUp()">Create Account</button>
+<div id="status-msg"></div>
+<div class="footer-links">
+        Already have an account? <a href="/login/">Sign In</a><br/><br/>
+        By signing up, you agree to our <a href="/terms/">Terms</a> &amp; <a href="/privacy-policy/">Privacy Policy</a>
+</div>
+</div>
+<section aria-labelledby="xenors-depth-heading" class="xenors-depth-content"><h2 id="xenors-depth-heading">Create a Xenors Account: Registration and Privacy Guide</h2><p>This section adds clear, practical context for visitors who want to understand how this page fits into Xenors and how to use it safely and effectively.</p><h3>Before creating an account</h3><p>Account registration should be completed only on the official xenors.in domain. Review what the feature is for and provide only the information requested by the form. Avoid using an email address or profile field to store sensitive data unrelated to registration. If account functionality is limited or experimental, the surrounding page should explain the purpose clearly so users understand what they are signing up for.</p><h3>Choose a unique password</h3><p>Use a password that is unique to Xenors and not reused on email, banking, workplace or social-media accounts. Password reuse turns a breach at one unrelated service into a risk everywhere the same credential was used. Password managers can generate and store long random passwords so users do not need to memorize dozens of variations. Never send a password to support or include it in a public screenshot.</p><h3>Use accurate recovery information</h3><p>If the registration flow requests recovery information, provide an address you can access and keep it current. Recovery channels help prove control of an account if a password is forgotten, but they can also become a target for attackers. Protect the email account connected to your Xenors account and enable stronger security on that email provider when available. Do not use a shared inbox if account privacy matters.</p><h3>Understand verification messages</h3><p>A legitimate verification message should correspond to an action you initiated. Be cautious if you receive a registration or password message unexpectedly. Instead of following a suspicious link, visit xenors.in directly and check whether an account action is pending. Attackers sometimes copy branding and use similar-looking domains. Domain checking is more reliable than judging a message only by its logo or visual design.</p><h3>Privacy during registration</h3><p>Registration may require basic identifiers such as a name, email address and authentication data. Technical logs and session information can also be processed for security and abuse prevention. The Privacy Policy explains the broader approach to website data. Do not submit financial account numbers, identity documents, private health data or employer secrets through a general account form unless a specific secure feature explicitly requires and explains that information.</p><h3>Responsible profile information</h3><p>If profile fields are available, remember that some information may be visible to other users or administrators depending on the feature. Do not publish private contact details, authentication secrets or information you would not want associated with a public account. Use professional and lawful profile content. Impersonation, harassment, malicious links and deceptive identity claims can undermine the safety of the service and may lead to access restrictions.</p><h3>Account security after registration</h3><p>After creating the account, keep the browser and operating system updated and sign out on devices you do not control. If security settings are offered, review active sessions and recovery information periodically. Unexpected login notifications or password-reset messages can be a sign that someone else is attempting access. Change the password from a trusted device if you suspect compromise and avoid communicating secrets through general support channels.</p><h3>Terms and acceptable use</h3><p>Creating an account does not remove the general Terms of Use. Users are expected to access the service lawfully, respect intellectual-property rights, avoid attempts to bypass security controls and refrain from activity that disrupts the site. Automated abuse, credential stuffing, malicious uploads and unauthorized access attempts are not acceptable uses. Additional rules can apply to specific interactive features and may be shown within those features.</p><h3>Why registration pages are noindex</h3><p>Registration pages are functional destinations, not editorial articles intended to appear in general search results. Xenors marks signup and similar utility pages as noindex so search engines can focus on public guides and topic hubs. Users should reach registration through official navigation and account flows. This also reduces confusion between educational content and pages that request credentials or personal information.</p><h3>Where to go next</h3><p>After registration, use the main navigation to explore Xenors articles on AI, software development, finance, machine learning and emerging technology. If an account-specific feature does not work, contact Xenors with the error message and non-sensitive context. Never send passwords, one-time codes or private authentication tokens. If you only want to read public material, most educational pages can be browsed without placing confidential information into a form.</p></section><script>
+    // Supabase Configuration
+    const supabaseClient = supabase.createClient(
+        "https://fejvrvzllmvizdvnwopk.supabase.co",
+        "sb_publishable_RIQQVfP2XVPV0woSF10isQ_kdvM21kV"
+    );
+
+    async function signUp() {
+        const fullName = document.getElementById("fullName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const password = document.getElementById("password").value;
+        const statusMsg = document.getElementById("status-msg");
+        const btn = document.getElementById("signupBtn");
+
+        if (!fullName || !email || !password) {
+            statusMsg.style.color = "#ff4d4d";
+            statusMsg.innerText = "Please fill in all the details.";
+            return;
+        }
+
+        if (password.length < 6) {
+            statusMsg.style.color = "#ff4d4d";
+            statusMsg.innerText = "Password must be at least 6 characters.";
+            return;
+        }
+
+        // Loading state
+        btn.innerText = "Creating Account...";
+        btn.disabled = true;
+
+        const { data, error } = await supabaseClient.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+                data: {
+                    full_name: fullName // Saving name in User Metadata
+                }
+            }
+        });
+
+        if (error) {
+            statusMsg.style.color = "#ff4d4d";
+            statusMsg.innerText = error.message;
+            btn.innerText = "Create Account";
+            btn.disabled = false;
+        } else {
+            statusMsg.style.color = "#00ff88";
+            statusMsg.innerText = "Registration successful! Please check your email or Login.";
+            
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 2000);
+        }
+    }
+</script>
+<section class="xenors-depth-content xenors-topic-context"><h2>Helpful context about Create Your Xenors Account | Join the AI &amp; Tech</h2><h3>How to use this page</h3><p>Use this page as a starting point for create your xenors account | join the ai &amp; tech. Read the main information first, then follow the related links to deeper Xenors guides. The site is organized around topic hubs so you can move from definitions to examples and practical implementation without relying on a single isolated article. When a subject is time-sensitive, verify current product documentation, laws, prices or market data before acting.</p><h3>Accuracy and updates</h3><p>Xenors aims to keep create your xenors account | join the ai &amp; tech information clear and current. Technology interfaces, financial rules and third-party services can change, so the most durable parts of a page focus on principles and methods. If you notice a material error or outdated instruction, the Contact page provides a route to report it with the exact URL and supporting context.</p><h3>Global audience</h3><p>This resource is written for a global audience. Country-specific services, taxes, regulations and eligibility rules are not assumed to apply everywhere. Where jurisdiction matters, readers should check the rules that apply to them. Universal concepts are explained separately from local implementation so the material remains useful across regions.</p><h3>Accessibility and navigation</h3><p>Xenors pages use structured headings, mobile-friendly layouts, keyboard focus states and related-reading links to make create your xenors account | join the ai &amp; tech easier to explore. Informative images should include useful alternative text, tables should remain usable on narrow screens, and the main content should remain distinguishable from navigation and supporting material.</p><h3>Editorial approach</h3><p>Our editorial approach to create your xenors account | join the ai &amp; tech favors explanation over hype. Claims should be proportional to the evidence available, examples should be labeled as examples, and readers should be able to tell when a statement is a general principle rather than a guaranteed outcome. This is especially important where AI performance, security, finance or regulation can have real-world consequences.</p><h3>Continue learning</h3><p>After finishing this page, use the Read Also section to continue with related Xenors material. Internal links are selected to keep the next step relevant to the current topic rather than sending readers to unrelated pages. Building knowledge through connected articles helps readers understand both the main subject and the tradeoffs around it.</p></section><script>document.addEventListener('click',e=>{const b=e.target.closest('.xenors-menu-toggle');if(!b)return;const n=document.getElementById('xenors-primary-nav');const o=n.classList.toggle('is-open');b.setAttribute('aria-expanded',String(o));});</script>
+
+<footer class="xenors-site-footer" data-xenors-build="footer">
+<div class="xenors-footer-grid">
+<section>
+<a class="xenors-footer-brand" href="/">Xenors</a>
+<p>Practical, reader-first guides covering artificial intelligence, technology, software development, industrial automation, finance and emerging digital trends for a global audience.</p>
+</section>
+<section>
+<h2>Explore</h2>
+<ul>
+<li><a href="/ai/">Artificial Intelligence</a></li>
+<li><a href="/tech/">Technology</a></li>
+<li><a href="/coding/">Coding</a></li>
+<li><a href="/plc/">PLC &amp; Automation</a></li>
+<li><a href="/finance/">Finance</a></li>
+<li><a href="/share-market/">Markets</a></li>
+</ul>
+</section>
+<section>
+<h2>About Xenors</h2>
+<ul>
+<li><a href="/about/">About</a></li>
+<li><a href="/mission/">Mission</a></li>
+<li><a href="/ashok-kumar-yadav-biography/">Author</a></li>
+<li><a href="/contact/">Contact</a></li>
+<li><a href="/careers/">Careers</a></li>
+</ul>
+</section>
+<section>
+<h2>Policies</h2>
+<ul>
+<li><a href="/privacy-policy/">Privacy Policy</a></li>
+<li><a href="/terms/">Terms of Use</a></li>
+</ul>
+<p class="xenors-editorial-note">Educational content only. Finance pages are not personalized financial, tax or legal advice.</p>
+</section>
+</div>
+<div class="xenors-footer-bottom">
+<p>Articles and guides by <a href="/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow.</p>
+<p>© 2026 Xenors. All rights reserved.</p>
+</div>
+</footer>
+<script data-xenors-build="site-shell-js" defer="" src="/components/site-shell.js"></script><script data-cfasync="false" data-xenors-ad="body-end" src="https://bauval.org/14/c23127895f32664499a98d92d4a2d4f0"></script></body>
+</html>
