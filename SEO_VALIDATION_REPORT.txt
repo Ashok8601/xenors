@@ -1,8 +1,8 @@
 XENORS STATIC SEO / BUILD VALIDATION
 ========================================================================
-HTML pages checked: 71
-Indexable pages: 68
-Sitemap URLs: 68
+HTML pages checked: 72
+Indexable pages: 69
+Sitemap URLs: 69
 Critical issues: 0
 Warnings: 0
 
