@@ -1,0 +1,30 @@
+{
+  "repair_date": "2026-10-15",
+  "html_pages_source": 364,
+  "sitemap_urls": 358,
+  "broken_internal_links": 0,
+  "missing_local_assets": 0,
+  "faq_schema_pages_remaining": 0,
+  "flat_content_html_files_remaining": 0,
+  "favicon_bytes": 5195,
+  "images_over_500kb": 0,
+  "interview_preparation_hub_exists": true,
+  "stock_query_pages_consolidated_with_redirects": 10,
+  "web_story_h1_counts": {
+    "gemini-in-chrome-auto-browse-india-2026": 1,
+    "google-gemini-4-argon-ai-2026": 1,
+    "us-stocks-weekly": 1,
+    "gpt-6-intelligent-ui-chatgpt-2026": 1
+  },
+  "web_story_visible_text_words": {
+    "gemini-in-chrome-auto-browse-india-2026": 779,
+    "google-gemini-4-argon-ai-2026": 791,
+    "us-stocks-weekly": 1366,
+    "gpt-6-intelligent-ui-chatgpt-2026": 611
+  },
+  "generated_unique_topic_hero_webp": 350,
+  "public_publish_directory": "dist",
+  "public_source_or_audit_file_leakage": 0,
+  "validator_errors": 0,
+  "validator_warnings": 0
+}

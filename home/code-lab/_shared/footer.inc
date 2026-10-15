@@ -1,0 +1,1 @@
+<footer class="footer" data-code-lab-build="footer"><div class="foot"><strong>Xenors Code Lab</strong> - practical coding tutorials with examples, exercises and references.<br><a href="https://xenors.in/home/code-lab/">All tutorials</a> - <a href="https://xenors.in/ashok-kumar-yadav-biography/">About the author</a></div></footer>

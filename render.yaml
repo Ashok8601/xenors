@@ -1,0 +1,1648 @@
+services:
+- type: web
+  name: xenors
+  runtime: static
+  buildCommand: pip install -r requirements.txt && python publish.py && python validate_site.py
+  staticPublishPath: dist
+headers:
+  - path: /*
+    name: X-Content-Type-Options
+    value: nosniff
+  - path: /*
+    name: Referrer-Policy
+    value: strict-origin-when-cross-origin
+  - path: /*
+    name: X-Frame-Options
+    value: SAMEORIGIN
+  - path: /images/*
+    name: Cache-Control
+    value: public, max-age=604800
+  routes:
+  - type: rewrite
+    source: /home
+    destination: /home/index.html
+  - type: rewrite
+    source: /search
+    destination: /search/index.html
+  - type: rewrite
+    source: /sitemap
+    destination: /sitemap/index.html
+  - type: rewrite
+    source: /industrial-automation-plc-integration
+    destination: /industrial-automation-plc-integration/index.html
+  - type: rewrite
+    source: /industrial-safety-equipment-guide
+    destination: /industrial-safety-equipment-guide/index.html
+  - type: rewrite
+    source: /ai-camera-based-human-detection-system
+    destination: /ai-camera-based-human-detection-system/index.html
+  - type: rewrite
+    source: /forklift-safety-solutions-guide
+    destination: /forklift-safety-solutions-guide/index.html
+  - type: rewrite
+    source: /web-stories/gemini-in-chrome-auto-browse-india-2026
+    destination: /web-stories/gemini-in-chrome-auto-browse-india-2026.html
+  - type: rewrite
+    source: /web-stories/gemini-in-chrome-auto-browse-india-2026/
+    destination: /web-stories/gemini-in-chrome-auto-browse-india-2026.html
+  - type: redirect
+    source: /ai-tools
+    destination: /ai/tools/
+  - type: redirect
+    source: /ai-tools/
+    destination: /ai/tools/
+  - type: redirect
+    source: /ai-tools/index.html
+    destination: /ai/tools/
+  - type: redirect
+    source: /blog/ai-tools
+    destination: /ai/tools/
+  - type: redirect
+    source: /plc
+    destination: /plc/
+  - type: redirect
+    source: /plc/plc-basics-inputs-outpuths-ladder-logic
+    destination: /plc/plc-basics-inputs-outputs-ladder-logic
+  - type: redirect
+    source: /plc/plc-basics-inputs-outpuths-ladder-logic.html
+    destination: /plc/plc-basics-inputs-outputs-ladder-logic
+  - type: redirect
+    source: /AI-trading-in-2026/
+    destination: /ai-trading-in-2026/
+  - type: redirect
+    source: /AI-trading-in-2026/index.html
+    destination: /ai-trading-in-2026/
+  - type: redirect
+    source: /AI-transforming-stock-trading.html
+    destination: /ai-transforming-stock-trading/
+  - type: redirect
+    source: /AI-transforming-stock-trading/
+    destination: /ai-transforming-stock-trading/
+  - type: redirect
+    source: /AI/
+    destination: /ai/
+  - type: redirect
+    source: /AI/ai-vs-human-trading-2026-winner.html
+    destination: /ai/ai-vs-human-trading-2026-winner/
+  - type: redirect
+    source: /AI/index.html
+    destination: /ai/
+  - type: redirect
+    source: /AI/models.html
+    destination: /ai/models/
+  - type: redirect
+    source: /AI/news.html
+    destination: /ai/news/
+  - type: redirect
+    source: /AI/tools.html
+    destination: /ai/tools/
+  - type: redirect
+    source: /Ashok-kumar-yadav-biography.html
+    destination: /ashok-kumar-yadav-biography/
+  - type: redirect
+    source: /Blog/
+    destination: /blog/
+  - type: redirect
+    source: /Blog/AI-trading-in-2026.html
+    destination: /ai-trading-in-2026/
+  - type: redirect
+    source: /Blog/ai-image-generators-tools-2026.html
+    destination: /blog/ai-image-generators-tools-2026/
+  - type: redirect
+    source: /Blog/blog.html
+    destination: /blog/
+  - type: redirect
+    source: /Blog/dividend-stocks-for-passive-income.html
+    destination: /blog/dividend-stocks-for-passive-income/
+  - type: redirect
+    source: /Blog/hesham-industrial-solution.html
+    destination: /blog/hesham-industrial-solution/
+  - type: redirect
+    source: /Blog/how-to-earn-money-using-ai-tool.html
+    destination: /blog/how-to-earn-money-using-ai-tool/
+  - type: redirect
+    source: /Blog/index.html
+    destination: /blog/
+  - type: redirect
+    source: /Blog/industrial-safety-ai-iot-product-manufacturer.html
+    destination: /blog/industrial-safety-ai-iot-product-manufacturer/
+  - type: redirect
+    source: /Blog/investment-calculator-with-sip.html
+    destination: /blog/investment-calculator-with-sip/
+  - type: redirect
+    source: /Blog/stock-market-today-dow-jones-s-and-p.html
+    destination: /blog/stock-market-today-dow-jones-s-and-p/
+  - type: redirect
+    source: /Share-markate/swing-trading-guide-2026.html
+    destination: /share-market/swing-trading-guide-2026/
+  - type: redirect
+    source: /Share-markate/swing-trading-guide-2026/
+    destination: /share-market/swing-trading-guide-2026/
+  - type: redirect
+    source: /Tech/
+    destination: /tech/
+  - type: redirect
+    source: /Tech/index.html
+    destination: /tech/
+  - type: redirect
+    source: /Tech/top-10-framework-for-web-development-2026.html
+    destination: /tech/top-10-framework-for-web-development-2026/
+  - type: redirect
+    source: /Web-Stories/Hi.html
+    destination: /web-stories/us-stocks-weekly/
+  - type: redirect
+    source: /Web-Stories/us-stocks-weekly.html
+    destination: /web-stories/us-stocks-weekly/
+  - type: redirect
+    source: /about
+    destination: /about/
+  - type: redirect
+    source: /about.html
+    destination: /about/
+  - type: redirect
+    source: /ai
+    destination: /ai/
+  - type: redirect
+    source: /ai-basics-finance
+    destination: /ai-basics-finance/
+  - type: redirect
+    source: /ai-basics-finance/index.html
+    destination: /ai-basics-finance/
+  - type: redirect
+    source: /ai-trading-in-2026
+    destination: /ai-trading-in-2026/
+  - type: redirect
+    source: /ai-transforming-stock-trading
+    destination: /ai-transforming-stock-trading/
+  - type: redirect
+    source: /ai/ai-vs-human-trading-2026-winner
+    destination: /ai/ai-vs-human-trading-2026-winner/
+  - type: redirect
+    source: /ai/models
+    destination: /ai/models/
+  - type: redirect
+    source: /ai/news
+    destination: /ai/news/
+  - type: redirect
+    source: /ai/tools
+    destination: /ai/tools/
+  - type: redirect
+    source: /ashok-kumar-yadav-biography
+    destination: /ashok-kumar-yadav-biography/
+  - type: redirect
+    source: /best-ai-tools-backend-development-2026
+    destination: /best-ai-tools-backend-development-2026/
+  - type: redirect
+    source: /best-ai-tools-backend-development-2026.html
+    destination: /best-ai-tools-backend-development-2026/
+  - type: redirect
+    source: /black-swan-events
+    destination: /black-swan-events/
+  - type: redirect
+    source: /black-swan-events/index.html
+    destination: /black-swan-events/
+  - type: redirect
+    source: /blockchain-finance
+    destination: /blockchain-finance/
+  - type: redirect
+    source: /blockchain-finance/index.html
+    destination: /blockchain-finance/
+  - type: redirect
+    source: /blog
+    destination: /blog/
+  - type: redirect
+    source: /blog-url-1
+    destination: /ai-transforming-stock-trading/
+  - type: redirect
+    source: /blog-url-1.html
+    destination: /ai-transforming-stock-trading/
+  - type: redirect
+    source: /blog-url-2
+    destination: /coding/flask/
+  - type: redirect
+    source: /blog-url-2.html
+    destination: /coding/flask/
+  - type: redirect
+    source: /blog-url-3
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /blog-url-3.html
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /blog-url-4
+    destination: /tech/
+  - type: redirect
+    source: /blog-url-4.html
+    destination: /tech/
+  - type: redirect
+    source: /blog-url-5
+    destination: /finance/
+  - type: redirect
+    source: /blog-url-5.html
+    destination: /finance/
+  - type: redirect
+    source: /blog-url-6
+    destination: /coding/
+  - type: redirect
+    source: /blog-url-6.html
+    destination: /coding/
+  - type: redirect
+    source: /blog/ai-image-generators-tools-2026
+    destination: /blog/ai-image-generators-tools-2026/
+  - type: redirect
+    source: /blog/ai-stock-market
+    destination: /share-market/best-ai-tools-for-stock-market-analysis/
+  - type: redirect
+    source: /blog/dividend-stocks-for-passive-income
+    destination: /blog/dividend-stocks-for-passive-income/
+  - type: redirect
+    source: /blog/flask-backend
+    destination: /coding/flask/
+  - type: redirect
+    source: /blog/hesham-industrial-solution
+    destination: /blog/hesham-industrial-solution/
+  - type: redirect
+    source: /blog/how-to-earn-money-using-ai-tool
+    destination: /blog/how-to-earn-money-using-ai-tool/
+  - type: redirect
+    source: /blog/industrial-safety-ai-iot-product-manufacturer
+    destination: /blog/industrial-safety-ai-iot-product-manufacturer/
+  - type: redirect
+    source: /blog/investment-calculator-with-sip
+    destination: /blog/investment-calculator-with-sip/
+  - type: redirect
+    source: /blog/stock-market-today-dow-jones-s-and-p
+    destination: /blog/stock-market-today-dow-jones-s-and-p/
+  - type: redirect
+    source: /business-new.html
+    destination: /business-news/
+  - type: redirect
+    source: /business-news
+    destination: /business-news/
+  - type: redirect
+    source: /business-news.html
+    destination: /business-news/
+  - type: redirect
+    source: /careers
+    destination: /careers/
+  - type: redirect
+    source: /careers.html
+    destination: /careers/
+  - type: redirect
+    source: /coding
+    destination: /coding/
+  - type: redirect
+    source: /coding.html
+    destination: /coding/
+  - type: redirect
+    source: /coding/django
+    destination: /coding/django/
+  - type: redirect
+    source: /coding/django.html
+    destination: /coding/django/
+  - type: redirect
+    source: /coding/flask
+    destination: /coding/flask/
+  - type: redirect
+    source: /coding/flask.html
+    destination: /coding/flask/
+  - type: redirect
+    source: /coding/index.html
+    destination: /coding/
+  - type: redirect
+    source: /coding/python-data
+    destination: /coding/python-data/
+  - type: redirect
+    source: /coding/python-data.html
+    destination: /coding/python-data/
+  - type: redirect
+    source: /contact
+    destination: /contact/
+  - type: redirect
+    source: /contact.html
+    destination: /contact/
+  - type: redirect
+    source: /crypto
+    destination: /crypto/
+  - type: redirect
+    source: /crypto/index.html
+    destination: /crypto/
+  - type: redirect
+    source: /finance
+    destination: /finance/
+  - type: redirect
+    source: /finance/five-simple-step-to-start-budgeting-in-2026
+    destination: /finance/five-simple-step-to-start-budgeting-in-2026/
+  - type: redirect
+    source: /finance/five-simple-step-to-start-budgeting-in-2026.html
+    destination: /finance/five-simple-step-to-start-budgeting-in-2026/
+  - type: redirect
+    source: /finance/index.html
+    destination: /finance/
+  - type: redirect
+    source: /finance/investing
+    destination: /finance/investing/
+  - type: redirect
+    source: /finance/investing.html
+    destination: /finance/investing/
+  - type: redirect
+    source: /finance/stocks
+    destination: /finance/stocks/
+  - type: redirect
+    source: /finance/stocks.html
+    destination: /finance/stocks/
+  - type: redirect
+    source: /finance/trading
+    destination: /finance/trading/
+  - type: redirect
+    source: /finance/trading.html
+    destination: /finance/trading/
+  - type: redirect
+    source: /founder/ashok-kumar-yadav-application-engineer
+    destination: /founder/ashok-kumar-yadav-application-engineer/
+  - type: redirect
+    source: /founder/hesham-industrial-solution-engineer.html
+    destination: /founder/ashok-kumar-yadav-application-engineer/
+  - type: redirect
+    source: /future-of-web-dev.html
+    destination: /future-of-web-development/
+  - type: redirect
+    source: /future-of-web-dev/
+    destination: /future-of-web-development/
+  - type: redirect
+    source: /future-of-web-development
+    destination: /future-of-web-development/
+  - type: redirect
+    source: /index.html
+    destination: /
+  - type: redirect
+    source: /layout.html
+    destination: /
+  - type: redirect
+    source: /login
+    destination: /login/
+  - type: redirect
+    source: /login.html
+    destination: /login/
+  - type: redirect
+    source: /machine-learning
+    destination: /machine-learning/
+  - type: redirect
+    source: /machine-learning-projects
+    destination: /machine-learning-projects/
+  - type: redirect
+    source: /machine-learning-projects/index.html
+    destination: /machine-learning-projects/
+  - type: redirect
+    source: /machine-learning/index.html
+    destination: /machine-learning/
+  - type: redirect
+    source: /nlp-in-finance
+    destination: /nlp-in-finance/
+  - type: redirect
+    source: /nlp-in-finance.html
+    destination: /nlp-in-finance/
+  - type: redirect
+    source: /privacy-policy
+    destination: /privacy-policy/
+  - type: redirect
+    source: /privacy-policy.html
+    destination: /privacy-policy/
+  - type: redirect
+    source: /python-for-data-science
+    destination: /python-for-data-science/
+  - type: redirect
+    source: /python-for-data-science.html
+    destination: /python-for-data-science/
+  - type: redirect
+    source: /python-trading-bot-tutorial
+    destination: /python-trading-bot-tutorial/
+  - type: redirect
+    source: /python-trading-bot-tutorial/index.html
+    destination: /python-trading-bot-tutorial/
+  - type: redirect
+    source: /share-market
+    destination: /share-market/
+  - type: redirect
+    source: /share-market/ai-crypto-coins-2026
+    destination: /share-market/ai-crypto-coins-2026/
+  - type: redirect
+    source: /share-market/ai-crypto-coins-2026.html
+    destination: /share-market/ai-crypto-coins-2026/
+  - type: redirect
+    source: /share-market/ai-crypto-price-prediction-2026
+    destination: /share-market/ai-crypto-price-prediction-2026/
+  - type: redirect
+    source: /share-market/ai-crypto-price-prediction-2026.html
+    destination: /share-market/ai-crypto-price-prediction-2026/
+  - type: redirect
+    source: /share-market/ai-stock-in-dow-jones
+    destination: /share-market/ai-stock-in-dow-jones/
+  - type: redirect
+    source: /share-market/ai-stock-in-dow-jones.html
+    destination: /share-market/ai-stock-in-dow-jones/
+  - type: redirect
+    source: /share-market/best-ai-crypto-trading-bots
+    destination: /share-market/best-ai-crypto-trading-bots/
+  - type: redirect
+    source: /share-market/best-ai-crypto-trading-bots.html
+    destination: /share-market/best-ai-crypto-trading-bots/
+  - type: redirect
+    source: /share-market/best-ai-tools-for-stock-market-analysis
+    destination: /share-market/best-ai-tools-for-stock-market-analysis/
+  - type: redirect
+    source: /share-market/best-ai-tools-for-stock-market-analysis.html
+    destination: /share-market/best-ai-tools-for-stock-market-analysis/
+  - type: redirect
+    source: /share-market/index.html
+    destination: /share-market/
+  - type: redirect
+    source: /share-market/stock-market-today-spacex-ipo
+    destination: /share-market/stock-market-today-spacex-ipo/
+  - type: redirect
+    source: /share-market/stock-market-today-spacex-ipo.html
+    destination: /share-market/stock-market-today-spacex-ipo/
+  - type: redirect
+    source: /share-market/swing-trading-guide-2026
+    destination: /share-market/swing-trading-guide-2026/
+  - type: redirect
+    source: /signup
+    destination: /signup/
+  - type: redirect
+    source: /signup.html
+    destination: /signup/
+  - type: redirect
+    source: /sitemap/index.html
+    destination: /sitemap.xml
+  - type: redirect
+    source: /sqlite-for-trading
+    destination: /sqlite-for-trading/
+  - type: redirect
+    source: /sqlite-for-trading/index.html
+    destination: /sqlite-for-trading/
+  - type: redirect
+    source: /start-investing-with-100
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /start-investing-with-100-dollars.html
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /start-investing-with-100-dollars/
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /start-investing-with-100/index.html
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /stock-market
+    destination: /stock-market/
+  - type: redirect
+    source: /stock-market.html
+    destination: /stock-market/
+  - type: redirect
+    source: /stock-markete.html
+    destination: /stock-market/
+  - type: redirect
+    source: /tart-investing-with-100/
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /tech
+    destination: /tech/
+  - type: redirect
+    source: /tech/top-10-framework-for-web-development-2026
+    destination: /tech/top-10-framework-for-web-development-2026/
+  - type: redirect
+    source: /test.html
+    destination: /
+  - type: redirect
+    source: /try.html
+    destination: /
+  - type: redirect
+    source: /web-stories/us-stocks-weekly
+    destination: /web-stories/us-stocks-weekly/
+  - type: redirect
+    source: /world/world
+    destination: /world/world/
+  - type: redirect
+    source: /world/world.html
+    destination: /world/world/
+  - type: redirect
+    source: /Blog/hesham-industrial-solution
+    destination: /blog/hesham-industrial-solution/
+  - type: redirect
+    source: /Ashok-kumar-yadav-biography
+    destination: /ashok-kumar-yadav-biography/
+  - type: redirect
+    source: /Blog/industrial-safety-ai-iot-product-manufacturer/
+    destination: /blog/industrial-safety-ai-iot-product-manufacturer/
+  - type: redirect
+    source: /Blog/blog
+    destination: /blog/
+  - type: redirect
+    source: /Blog/investment-calculator-with-sip/
+    destination: /blog/investment-calculator-with-sip/
+  - type: redirect
+    source: /Blog/how-to-earn-money-using-ai-tool/
+    destination: /blog/how-to-earn-money-using-ai-tool/
+  - type: redirect
+    source: /Blog/AI-trading-in-2026/
+    destination: /ai-trading-in-2026/
+  - type: redirect
+    source: /AI/ai-vs-human-trading-2026-winner/
+    destination: /ai/ai-vs-human-trading-2026-winner/
+  - type: redirect
+    source: /Blog/ai-image-generators-tools-2026/
+    destination: /blog/ai-image-generators-tools-2026/
+  - type: redirect
+    source: /Blog/blog/
+    destination: /blog/
+  - type: redirect
+    source: /Tech/top-10-framework-for-web-development-2026/
+    destination: /tech/top-10-framework-for-web-development-2026/
+  - type: redirect
+    source: /mission
+    destination: /mission/
+  - type: redirect
+    source: /Blog
+    destination: /blog/
+  - type: redirect
+    source: /Web-Stories/us-stocks-weekly/
+    destination: /web-stories/us-stocks-weekly/
+  - type: redirect
+    source: /finance.html
+    destination: /finance/
+  - type: redirect
+    source: /Blog/stock-market-today-dow-jones-s-and-p/
+    destination: /blog/stock-market-today-dow-jones-s-and-p/
+  - type: redirect
+    source: /AI/*
+    destination: /ai/:splat
+  - type: redirect
+    source: /Blog/*
+    destination: /blog/:splat
+  - type: redirect
+    source: /Tech/*
+    destination: /tech/:splat
+  - type: redirect
+    source: /Web-Stories/*
+    destination: /web-stories/:splat
+  - type: redirect
+    source: /Share-markate/*
+    destination: /share-market/:splat
+
+  # generated canonical and consolidation redirects
+  - type: redirect
+    source: /ai-basics-finance.html
+    destination: /ai-basics-finance/
+  - type: redirect
+    source: /ai-camera-based-human-detection-system.html
+    destination: /ai-camera-based-human-detection-system/
+  - type: redirect
+    source: /ai-trading-in-2026.html
+    destination: /ai-trading-in-2026/
+  - type: redirect
+    source: /ai-transforming-stock-trading.html
+    destination: /ai-transforming-stock-trading/
+  - type: redirect
+    source: /ai.html
+    destination: /ai/
+  - type: redirect
+    source: /ai/agentic-ai-vs-generative-ai-2026.html
+    destination: /ai/agentic-ai-vs-generative-ai-2026//
+  - type: redirect
+    source: /ai/ai-agent-evaluation-testing-2026.html
+    destination: /ai/ai-agent-evaluation-testing-2026//
+  - type: redirect
+    source: /ai/ai-agent-guardrails-safety-2026.html
+    destination: /ai/ai-agent-guardrails-safety-2026//
+  - type: redirect
+    source: /ai/ai-agent-memory-explained-2026.html
+    destination: /ai/ai-agent-memory-explained-2026//
+  - type: redirect
+    source: /ai/ai-agent-workflow-automation-2026.html
+    destination: /ai/ai-agent-workflow-automation-2026//
+  - type: redirect
+    source: /ai/ai-agents-for-beginners.html
+    destination: /ai/ai-agents-for-beginners//
+  - type: redirect
+    source: /ai/ai-agents-for-customer-service-2026.html
+    destination: /ai/ai-agents-for-customer-service-2026//
+  - type: redirect
+    source: /ai/ai-agents-for-cybersecurity-2026.html
+    destination: /ai/ai-agents-for-cybersecurity-2026//
+  - type: redirect
+    source: /ai/ai-agents-for-developers-2026.html
+    destination: /ai/ai-agents-for-developers-2026//
+  - type: redirect
+    source: /ai/ai-agents-for-ecommerce-2026.html
+    destination: /ai/ai-agents-for-ecommerce-2026//
+  - type: redirect
+    source: /ai/ai-agents-for-marketing-2026.html
+    destination: /ai/ai-agents-for-marketing-2026//
+  - type: redirect
+    source: /ai/ai-agents-for-productivity-2026.html
+    destination: /ai/ai-agents-for-productivity-2026//
+  - type: redirect
+    source: /ai/ai-agents-for-recruiting-2026.html
+    destination: /ai/ai-agents-for-recruiting-2026//
+  - type: redirect
+    source: /ai/ai-agents-for-sales-2026.html
+    destination: /ai/ai-agents-for-sales-2026//
+  - type: redirect
+    source: /ai/ai-agents-for-small-business-2026.html
+    destination: /ai/ai-agents-for-small-business-2026//
+  - type: redirect
+    source: /ai/ai-agents-vs-chatbots-2026.html
+    destination: /ai/ai-agents-vs-chatbots-2026//
+  - type: redirect
+    source: /ai/ai-search-agents-seo-2026.html
+    destination: /ai/ai-search-agents-seo-2026//
+  - type: redirect
+    source: /ai/ai-vs-human-trading-2026-winner.html
+    destination: /ai/ai-vs-human-trading-2026-winner/
+  - type: redirect
+    source: /ai/best-ai-agents-for-business-2026.html
+    destination: /ai/best-ai-agents-for-business-2026//
+  - type: redirect
+    source: /ai/build-ai-agent-without-coding-2026.html
+    destination: /ai/build-ai-agent-without-coding-2026//
+  - type: redirect
+    source: /ai/gen-ai-vs-ai-agents-vs-agentic-ai.html
+    destination: /ai/gen-ai-vs-ai-agents-vs-agentic-ai//
+  - type: redirect
+    source: /ai/google-gemini-agent-for-work-2026.html
+    destination: /ai/google-gemini-agent-for-work-2026//
+  - type: redirect
+    source: /ai/google-search-agents-seo-website-traffic-2026.html
+    destination: /ai/google-search-agents-seo-website-traffic-2026//
+  - type: redirect
+    source: /ai/gpt-6-1-sol-ultrafast-explained.html
+    destination: /ai/gpt-6-1-sol-ultrafast-explained//
+  - type: redirect
+    source: /ai/mcp-vs-a2a-ai-agent-protocols-2026.html
+    destination: /ai/mcp-vs-a2a-ai-agent-protocols-2026//
+  - type: redirect
+    source: /ai/models.html
+    destination: /ai/models/
+  - type: redirect
+    source: /ai/multi-agent-systems-explained-2026.html
+    destination: /ai/multi-agent-systems-explained-2026//
+  - type: redirect
+    source: /ai/news.html
+    destination: /ai/news/
+  - type: redirect
+    source: /ai/tools.html
+    destination: /ai/tools/
+  - type: redirect
+    source: /ai/us-super-intelligence-force-ai-safety-2026.html
+    destination: /ai/us-super-intelligence-force-ai-safety-2026//
+  - type: redirect
+    source: /ai/what-are-ai-agents-and-how-to-create-them.html
+    destination: /ai/what-are-ai-agents-and-how-to-create-them//
+  - type: redirect
+    source: /ashok-kumar-yadav-biography.html
+    destination: /ashok-kumar-yadav-biography/
+  - type: redirect
+    source: /ashok-kumar-yadav-portfolio.html
+    destination: /ashok-kumar-yadav-portfolio/
+  - type: redirect
+    source: /black-swan-events.html
+    destination: /black-swan-events/
+  - type: redirect
+    source: /blockchain-finance.html
+    destination: /blockchain-finance/
+  - type: redirect
+    source: /blog.html
+    destination: /blog/
+  - type: redirect
+    source: /blog/ai-image-generators-tools-2026.html
+    destination: /blog/ai-image-generators-tools-2026/
+  - type: redirect
+    source: /blog/dividend-stocks-for-passive-income.html
+    destination: /blog/dividend-stocks-for-passive-income/
+  - type: redirect
+    source: /blog/hesham-industrial-solution.html
+    destination: /blog/hesham-industrial-solution/
+  - type: redirect
+    source: /blog/how-to-earn-money-using-ai-tool.html
+    destination: /blog/how-to-earn-money-using-ai-tool/
+  - type: redirect
+    source: /blog/how-to-make-money-with-ai-2026.html
+    destination: /blog/how-to-make-money-with-ai-2026//
+  - type: redirect
+    source: /blog/industrial-safety-ai-iot-product-manufacturer.html
+    destination: /blog/industrial-safety-ai-iot-product-manufacturer/
+  - type: redirect
+    source: /blog/investment-calculator-with-sip.html
+    destination: /blog/investment-calculator-with-sip/
+  - type: redirect
+    source: /blog/stock-market-today-dow-jones-s-and-p.html
+    destination: /blog/stock-market-today-dow-jones-s-and-p/
+  - type: redirect
+    source: /crypto.html
+    destination: /crypto/
+  - type: redirect
+    source: /forklift-safety-solutions-guide.html
+    destination: /forklift-safety-solutions-guide/
+  - type: redirect
+    source: /future-of-web-development.html
+    destination: /future-of-web-development/
+  - type: redirect
+    source: /home.html
+    destination: /home/
+  - type: redirect
+    source: /home/code-lab.html
+    destination: /home/code-lab/
+  - type: redirect
+    source: /home/code-lab/ai.html
+    destination: /home/code-lab/ai/
+  - type: redirect
+    source: /home/code-lab/ai/agentic-ai.html
+    destination: /home/code-lab/ai/agentic-ai/
+  - type: redirect
+    source: /home/code-lab/ai/ai-agents.html
+    destination: /home/code-lab/ai/ai-agents/
+  - type: redirect
+    source: /home/code-lab/ai/ai-basics.html
+    destination: /home/code-lab/ai/ai-basics/
+  - type: redirect
+    source: /home/code-lab/ai/ai-evaluation.html
+    destination: /home/code-lab/ai/ai-evaluation/
+  - type: redirect
+    source: /home/code-lab/ai/computer-vision-basics.html
+    destination: /home/code-lab/ai/computer-vision-basics/
+  - type: redirect
+    source: /home/code-lab/ai/llm-basics.html
+    destination: /home/code-lab/ai/llm-basics/
+  - type: redirect
+    source: /home/code-lab/ai/ml-basics.html
+    destination: /home/code-lab/ai/ml-basics/
+  - type: redirect
+    source: /home/code-lab/ai/prompt-engineering.html
+    destination: /home/code-lab/ai/prompt-engineering/
+  - type: redirect
+    source: /home/code-lab/ai/rag.html
+    destination: /home/code-lab/ai/rag/
+  - type: redirect
+    source: /home/code-lab/css.html
+    destination: /home/code-lab/css/
+  - type: redirect
+    source: /home/code-lab/css/css-animations.html
+    destination: /home/code-lab/css/css-animations/
+  - type: redirect
+    source: /home/code-lab/css/css-basics.html
+    destination: /home/code-lab/css/css-basics/
+  - type: redirect
+    source: /home/code-lab/css/css-box-model.html
+    destination: /home/code-lab/css/css-box-model/
+  - type: redirect
+    source: /home/code-lab/css/css-colors.html
+    destination: /home/code-lab/css/css-colors/
+  - type: redirect
+    source: /home/code-lab/css/css-flexbox.html
+    destination: /home/code-lab/css/css-flexbox/
+  - type: redirect
+    source: /home/code-lab/css/css-grid.html
+    destination: /home/code-lab/css/css-grid/
+  - type: redirect
+    source: /home/code-lab/css/css-position.html
+    destination: /home/code-lab/css/css-position/
+  - type: redirect
+    source: /home/code-lab/css/css-selectors.html
+    destination: /home/code-lab/css/css-selectors/
+  - type: redirect
+    source: /home/code-lab/css/css-typography.html
+    destination: /home/code-lab/css/css-typography/
+  - type: redirect
+    source: /home/code-lab/css/responsive-css.html
+    destination: /home/code-lab/css/responsive-css/
+  - type: redirect
+    source: /home/code-lab/dsa.html
+    destination: /home/code-lab/dsa/
+  - type: redirect
+    source: /home/code-lab/dsa/arrays.html
+    destination: /home/code-lab/dsa/arrays/
+  - type: redirect
+    source: /home/code-lab/dsa/big-o.html
+    destination: /home/code-lab/dsa/big-o/
+  - type: redirect
+    source: /home/code-lab/dsa/dsa-basics.html
+    destination: /home/code-lab/dsa/dsa-basics/
+  - type: redirect
+    source: /home/code-lab/dsa/graphs.html
+    destination: /home/code-lab/dsa/graphs/
+  - type: redirect
+    source: /home/code-lab/dsa/hash-tables.html
+    destination: /home/code-lab/dsa/hash-tables/
+  - type: redirect
+    source: /home/code-lab/dsa/linked-lists.html
+    destination: /home/code-lab/dsa/linked-lists/
+  - type: redirect
+    source: /home/code-lab/dsa/searching.html
+    destination: /home/code-lab/dsa/searching/
+  - type: redirect
+    source: /home/code-lab/dsa/sorting.html
+    destination: /home/code-lab/dsa/sorting/
+  - type: redirect
+    source: /home/code-lab/dsa/stacks-queues.html
+    destination: /home/code-lab/dsa/stacks-queues/
+  - type: redirect
+    source: /home/code-lab/dsa/trees.html
+    destination: /home/code-lab/dsa/trees/
+  - type: redirect
+    source: /home/code-lab/git.html
+    destination: /home/code-lab/git/
+  - type: redirect
+    source: /home/code-lab/git/git-add-commit.html
+    destination: /home/code-lab/git/git-add-commit/
+  - type: redirect
+    source: /home/code-lab/git/git-basics.html
+    destination: /home/code-lab/git/git-basics/
+  - type: redirect
+    source: /home/code-lab/git/git-branches.html
+    destination: /home/code-lab/git/git-branches/
+  - type: redirect
+    source: /home/code-lab/git/git-init-clone.html
+    destination: /home/code-lab/git/git-init-clone/
+  - type: redirect
+    source: /home/code-lab/git/git-merge.html
+    destination: /home/code-lab/git/git-merge/
+  - type: redirect
+    source: /home/code-lab/git/git-push-pull.html
+    destination: /home/code-lab/git/git-push-pull/
+  - type: redirect
+    source: /home/code-lab/git/git-rebase.html
+    destination: /home/code-lab/git/git-rebase/
+  - type: redirect
+    source: /home/code-lab/git/git-undo.html
+    destination: /home/code-lab/git/git-undo/
+  - type: redirect
+    source: /home/code-lab/html.html
+    destination: /home/code-lab/html/
+  - type: redirect
+    source: /home/code-lab/html/html-accessibility.html
+    destination: /home/code-lab/html/html-accessibility/
+  - type: redirect
+    source: /home/code-lab/html/html-accessible-forms.html
+    destination: /home/code-lab/html/html-accessible-forms/
+  - type: redirect
+    source: /home/code-lab/html/html-accessible-navigation.html
+    destination: /home/code-lab/html/html-accessible-navigation/
+  - type: redirect
+    source: /home/code-lab/html/html-alt-text.html
+    destination: /home/code-lab/html/html-alt-text/
+  - type: redirect
+    source: /home/code-lab/html/html-aria-basics.html
+    destination: /home/code-lab/html/html-aria-basics/
+  - type: redirect
+    source: /home/code-lab/html/html-attributes.html
+    destination: /home/code-lab/html/html-attributes/
+  - type: redirect
+    source: /home/code-lab/html/html-audio.html
+    destination: /home/code-lab/html/html-audio/
+  - type: redirect
+    source: /home/code-lab/html/html-autocomplete.html
+    destination: /home/code-lab/html/html-autocomplete/
+  - type: redirect
+    source: /home/code-lab/html/html-basics.html
+    destination: /home/code-lab/html/html-basics/
+  - type: redirect
+    source: /home/code-lab/html/html-bdi-bdo.html
+    destination: /home/code-lab/html/html-bdi-bdo/
+  - type: redirect
+    source: /home/code-lab/html/html-block-inline.html
+    destination: /home/code-lab/html/html-block-inline/
+  - type: redirect
+    source: /home/code-lab/html/html-blog-article-project.html
+    destination: /home/code-lab/html/html-blog-article-project/
+  - type: redirect
+    source: /home/code-lab/html/html-browser-support.html
+    destination: /home/code-lab/html/html-browser-support/
+  - type: redirect
+    source: /home/code-lab/html/html-button.html
+    destination: /home/code-lab/html/html-button/
+  - type: redirect
+    source: /home/code-lab/html/html-canonical-tag.html
+    destination: /home/code-lab/html/html-canonical-tag/
+  - type: redirect
+    source: /home/code-lab/html/html-canvas-vs-svg.html
+    destination: /home/code-lab/html/html-canvas-vs-svg/
+  - type: redirect
+    source: /home/code-lab/html/html-canvas.html
+    destination: /home/code-lab/html/html-canvas/
+  - type: redirect
+    source: /home/code-lab/html/html-charset.html
+    destination: /home/code-lab/html/html-charset/
+  - type: redirect
+    source: /home/code-lab/html/html-cheat-sheet.html
+    destination: /home/code-lab/html/html-cheat-sheet/
+  - type: redirect
+    source: /home/code-lab/html/html-classes.html
+    destination: /home/code-lab/html/html-classes/
+  - type: redirect
+    source: /home/code-lab/html/html-colors.html
+    destination: /home/code-lab/html/html-colors/
+  - type: redirect
+    source: /home/code-lab/html/html-comments.html
+    destination: /home/code-lab/html/html-comments/
+  - type: redirect
+    source: /home/code-lab/html/html-computer-code.html
+    destination: /home/code-lab/html/html-computer-code/
+  - type: redirect
+    source: /home/code-lab/html/html-contact-form-project.html
+    destination: /home/code-lab/html/html-contact-form-project/
+  - type: redirect
+    source: /home/code-lab/html/html-css.html
+    destination: /home/code-lab/html/html-css/
+  - type: redirect
+    source: /home/code-lab/html/html-data-attributes.html
+    destination: /home/code-lab/html/html-data-attributes/
+  - type: redirect
+    source: /home/code-lab/html/html-datalist.html
+    destination: /home/code-lab/html/html-datalist/
+  - type: redirect
+    source: /home/code-lab/html/html-date-time-inputs.html
+    destination: /home/code-lab/html/html-date-time-inputs/
+  - type: redirect
+    source: /home/code-lab/html/html-debugging.html
+    destination: /home/code-lab/html/html-debugging/
+  - type: redirect
+    source: /home/code-lab/html/html-deprecated-tags.html
+    destination: /home/code-lab/html/html-deprecated-tags/
+  - type: redirect
+    source: /home/code-lab/html/html-details-summary.html
+    destination: /home/code-lab/html/html-details-summary/
+  - type: redirect
+    source: /home/code-lab/html/html-dialog.html
+    destination: /home/code-lab/html/html-dialog/
+  - type: redirect
+    source: /home/code-lab/html/html-div-span.html
+    destination: /home/code-lab/html/html-div-span/
+  - type: redirect
+    source: /home/code-lab/html/html-doctype.html
+    destination: /home/code-lab/html/html-doctype/
+  - type: redirect
+    source: /home/code-lab/html/html-document-structure.html
+    destination: /home/code-lab/html/html-document-structure/
+  - type: redirect
+    source: /home/code-lab/html/html-drag-drop.html
+    destination: /home/code-lab/html/html-drag-drop/
+  - type: redirect
+    source: /home/code-lab/html/html-editors.html
+    destination: /home/code-lab/html/html-editors/
+  - type: redirect
+    source: /home/code-lab/html/html-elements.html
+    destination: /home/code-lab/html/html-elements/
+  - type: redirect
+    source: /home/code-lab/html/html-embed-object.html
+    destination: /home/code-lab/html/html-embed-object/
+  - type: redirect
+    source: /home/code-lab/html/html-emojis.html
+    destination: /home/code-lab/html/html-emojis/
+  - type: redirect
+    source: /home/code-lab/html/html-entities.html
+    destination: /home/code-lab/html/html-entities/
+  - type: redirect
+    source: /home/code-lab/html/html-event-attributes.html
+    destination: /home/code-lab/html/html-event-attributes/
+  - type: redirect
+    source: /home/code-lab/html/html-favicon.html
+    destination: /home/code-lab/html/html-favicon/
+  - type: redirect
+    source: /home/code-lab/html/html-fieldset-legend.html
+    destination: /home/code-lab/html/html-fieldset-legend/
+  - type: redirect
+    source: /home/code-lab/html/html-file-paths.html
+    destination: /home/code-lab/html/html-file-paths/
+  - type: redirect
+    source: /home/code-lab/html/html-file-upload.html
+    destination: /home/code-lab/html/html-file-upload/
+  - type: redirect
+    source: /home/code-lab/html/html-first-website.html
+    destination: /home/code-lab/html/html-first-website/
+  - type: redirect
+    source: /home/code-lab/html/html-form-attributes.html
+    destination: /home/code-lab/html/html-form-attributes/
+  - type: redirect
+    source: /home/code-lab/html/html-form-elements.html
+    destination: /home/code-lab/html/html-form-elements/
+  - type: redirect
+    source: /home/code-lab/html/html-form-input-attributes.html
+    destination: /home/code-lab/html/html-form-input-attributes/
+  - type: redirect
+    source: /home/code-lab/html/html-form-validation.html
+    destination: /home/code-lab/html/html-form-validation/
+  - type: redirect
+    source: /home/code-lab/html/html-forms.html
+    destination: /home/code-lab/html/html-forms/
+  - type: redirect
+    source: /home/code-lab/html/html-geolocation.html
+    destination: /home/code-lab/html/html-geolocation/
+  - type: redirect
+    source: /home/code-lab/html/html-global-attributes.html
+    destination: /home/code-lab/html/html-global-attributes/
+  - type: redirect
+    source: /home/code-lab/html/html-head.html
+    destination: /home/code-lab/html/html-head/
+  - type: redirect
+    source: /home/code-lab/html/html-header-footer.html
+    destination: /home/code-lab/html/html-header-footer/
+  - type: redirect
+    source: /home/code-lab/html/html-headings.html
+    destination: /home/code-lab/html/html-headings/
+  - type: redirect
+    source: /home/code-lab/html/html-id.html
+    destination: /home/code-lab/html/html-id/
+  - type: redirect
+    source: /home/code-lab/html/html-iframes.html
+    destination: /home/code-lab/html/html-iframes/
+  - type: redirect
+    source: /home/code-lab/html/html-image-maps.html
+    destination: /home/code-lab/html/html-image-maps/
+  - type: redirect
+    source: /home/code-lab/html/html-images.html
+    destination: /home/code-lab/html/html-images/
+  - type: redirect
+    source: /home/code-lab/html/html-input-attributes.html
+    destination: /home/code-lab/html/html-input-attributes/
+  - type: redirect
+    source: /home/code-lab/html/html-input-types.html
+    destination: /home/code-lab/html/html-input-types/
+  - type: redirect
+    source: /home/code-lab/html/html-interview-questions.html
+    destination: /home/code-lab/html/html-interview-questions/
+  - type: redirect
+    source: /home/code-lab/html/html-label.html
+    destination: /home/code-lab/html/html-label/
+  - type: redirect
+    source: /home/code-lab/html/html-language-attribute.html
+    destination: /home/code-lab/html/html-language-attribute/
+  - type: redirect
+    source: /home/code-lab/html/html-layout.html
+    destination: /home/code-lab/html/html-layout/
+  - type: redirect
+    source: /home/code-lab/html/html-lazy-loading.html
+    destination: /home/code-lab/html/html-lazy-loading/
+  - type: redirect
+    source: /home/code-lab/html/html-link-target-rel.html
+    destination: /home/code-lab/html/html-link-target-rel/
+  - type: redirect
+    source: /home/code-lab/html/html-links.html
+    destination: /home/code-lab/html/html-links/
+  - type: redirect
+    source: /home/code-lab/html/html-lists.html
+    destination: /home/code-lab/html/html-lists/
+  - type: redirect
+    source: /home/code-lab/html/html-main-nav.html
+    destination: /home/code-lab/html/html-main-nav/
+  - type: redirect
+    source: /home/code-lab/html/html-media.html
+    destination: /home/code-lab/html/html-media/
+  - type: redirect
+    source: /home/code-lab/html/html-meta-tags.html
+    destination: /home/code-lab/html/html-meta-tags/
+  - type: redirect
+    source: /home/code-lab/html/html-noscript.html
+    destination: /home/code-lab/html/html-noscript/
+  - type: redirect
+    source: /home/code-lab/html/html-open-graph.html
+    destination: /home/code-lab/html/html-open-graph/
+  - type: redirect
+    source: /home/code-lab/html/html-output.html
+    destination: /home/code-lab/html/html-output/
+  - type: redirect
+    source: /home/code-lab/html/html-page-title.html
+    destination: /home/code-lab/html/html-page-title/
+  - type: redirect
+    source: /home/code-lab/html/html-paragraphs.html
+    destination: /home/code-lab/html/html-paragraphs/
+  - type: redirect
+    source: /home/code-lab/html/html-performance.html
+    destination: /home/code-lab/html/html-performance/
+  - type: redirect
+    source: /home/code-lab/html/html-popover.html
+    destination: /home/code-lab/html/html-popover/
+  - type: redirect
+    source: /home/code-lab/html/html-portfolio-project.html
+    destination: /home/code-lab/html/html-portfolio-project/
+  - type: redirect
+    source: /home/code-lab/html/html-preload-prefetch.html
+    destination: /home/code-lab/html/html-preload-prefetch/
+  - type: redirect
+    source: /home/code-lab/html/html-progress-meter.html
+    destination: /home/code-lab/html/html-progress-meter/
+  - type: redirect
+    source: /home/code-lab/html/html-quotations.html
+    destination: /home/code-lab/html/html-quotations/
+  - type: redirect
+    source: /home/code-lab/html/html-responsive-design.html
+    destination: /home/code-lab/html/html-responsive-design/
+  - type: redirect
+    source: /home/code-lab/html/html-responsive-images.html
+    destination: /home/code-lab/html/html-responsive-images/
+  - type: redirect
+    source: /home/code-lab/html/html-resume-project.html
+    destination: /home/code-lab/html/html-resume-project/
+  - type: redirect
+    source: /home/code-lab/html/html-robots-meta.html
+    destination: /home/code-lab/html/html-robots-meta/
+  - type: redirect
+    source: /home/code-lab/html/html-ruby.html
+    destination: /home/code-lab/html/html-ruby/
+  - type: redirect
+    source: /home/code-lab/html/html-script-loading.html
+    destination: /home/code-lab/html/html-script-loading/
+  - type: redirect
+    source: /home/code-lab/html/html-section-article-aside.html
+    destination: /home/code-lab/html/html-section-article-aside/
+  - type: redirect
+    source: /home/code-lab/html/html-security-links.html
+    destination: /home/code-lab/html/html-security-links/
+  - type: redirect
+    source: /home/code-lab/html/html-select-option.html
+    destination: /home/code-lab/html/html-select-option/
+  - type: redirect
+    source: /home/code-lab/html/html-seo-basics.html
+    destination: /home/code-lab/html/html-seo-basics/
+  - type: redirect
+    source: /home/code-lab/html/html-server-sent-events.html
+    destination: /home/code-lab/html/html-server-sent-events/
+  - type: redirect
+    source: /home/code-lab/html/html-source-track.html
+    destination: /home/code-lab/html/html-source-track/
+  - type: redirect
+    source: /home/code-lab/html/html-structured-data.html
+    destination: /home/code-lab/html/html-structured-data/
+  - type: redirect
+    source: /home/code-lab/html/html-style-guide.html
+    destination: /home/code-lab/html/html-style-guide/
+  - type: redirect
+    source: /home/code-lab/html/html-svg.html
+    destination: /home/code-lab/html/html-svg/
+  - type: redirect
+    source: /home/code-lab/html/html-symbols.html
+    destination: /home/code-lab/html/html-symbols/
+  - type: redirect
+    source: /home/code-lab/html/html-table-accessibility.html
+    destination: /home/code-lab/html/html-table-accessibility/
+  - type: redirect
+    source: /home/code-lab/html/html-tables.html
+    destination: /home/code-lab/html/html-tables/
+  - type: redirect
+    source: /home/code-lab/html/html-template.html
+    destination: /home/code-lab/html/html-template/
+  - type: redirect
+    source: /home/code-lab/html/html-text-formatting.html
+    destination: /home/code-lab/html/html-text-formatting/
+  - type: redirect
+    source: /home/code-lab/html/html-textarea.html
+    destination: /home/code-lab/html/html-textarea/
+  - type: redirect
+    source: /home/code-lab/html/html-twitter-cards.html
+    destination: /home/code-lab/html/html-twitter-cards/
+  - type: redirect
+    source: /home/code-lab/html/html-url-encoding.html
+    destination: /home/code-lab/html/html-url-encoding/
+  - type: redirect
+    source: /home/code-lab/html/html-validation.html
+    destination: /home/code-lab/html/html-validation/
+  - type: redirect
+    source: /home/code-lab/html/html-video.html
+    destination: /home/code-lab/html/html-video/
+  - type: redirect
+    source: /home/code-lab/html/html-viewport.html
+    destination: /home/code-lab/html/html-viewport/
+  - type: redirect
+    source: /home/code-lab/html/html-void-elements.html
+    destination: /home/code-lab/html/html-void-elements/
+  - type: redirect
+    source: /home/code-lab/html/html-web-storage.html
+    destination: /home/code-lab/html/html-web-storage/
+  - type: redirect
+    source: /home/code-lab/html/html-web-workers.html
+    destination: /home/code-lab/html/html-web-workers/
+  - type: redirect
+    source: /home/code-lab/html/html-xhtml.html
+    destination: /home/code-lab/html/html-xhtml/
+  - type: redirect
+    source: /home/code-lab/html/html-youtube.html
+    destination: /home/code-lab/html/html-youtube/
+  - type: redirect
+    source: /home/code-lab/html/semantic-html.html
+    destination: /home/code-lab/html/semantic-html/
+  - type: redirect
+    source: /home/code-lab/javascript.html
+    destination: /home/code-lab/javascript/
+  - type: redirect
+    source: /home/code-lab/javascript/javascript-arrays.html
+    destination: /home/code-lab/javascript/javascript-arrays/
+  - type: redirect
+    source: /home/code-lab/javascript/javascript-async-await.html
+    destination: /home/code-lab/javascript/javascript-async-await/
+  - type: redirect
+    source: /home/code-lab/javascript/javascript-basics.html
+    destination: /home/code-lab/javascript/javascript-basics/
+  - type: redirect
+    source: /home/code-lab/javascript/javascript-conditionals.html
+    destination: /home/code-lab/javascript/javascript-conditionals/
+  - type: redirect
+    source: /home/code-lab/javascript/javascript-data-types.html
+    destination: /home/code-lab/javascript/javascript-data-types/
+  - type: redirect
+    source: /home/code-lab/javascript/javascript-dom.html
+    destination: /home/code-lab/javascript/javascript-dom/
+  - type: redirect
+    source: /home/code-lab/javascript/javascript-events.html
+    destination: /home/code-lab/javascript/javascript-events/
+  - type: redirect
+    source: /home/code-lab/javascript/javascript-fetch.html
+    destination: /home/code-lab/javascript/javascript-fetch/
+  - type: redirect
+    source: /home/code-lab/javascript/javascript-functions.html
+    destination: /home/code-lab/javascript/javascript-functions/
+  - type: redirect
+    source: /home/code-lab/javascript/javascript-loops.html
+    destination: /home/code-lab/javascript/javascript-loops/
+  - type: redirect
+    source: /home/code-lab/javascript/javascript-objects.html
+    destination: /home/code-lab/javascript/javascript-objects/
+  - type: redirect
+    source: /home/code-lab/javascript/javascript-variables.html
+    destination: /home/code-lab/javascript/javascript-variables/
+  - type: redirect
+    source: /home/code-lab/linux.html
+    destination: /home/code-lab/linux/
+  - type: redirect
+    source: /home/code-lab/linux/bash-scripting.html
+    destination: /home/code-lab/linux/bash-scripting/
+  - type: redirect
+    source: /home/code-lab/linux/linux-command-line.html
+    destination: /home/code-lab/linux/linux-command-line/
+  - type: redirect
+    source: /home/code-lab/linux/linux-environment.html
+    destination: /home/code-lab/linux/linux-environment/
+  - type: redirect
+    source: /home/code-lab/linux/linux-files.html
+    destination: /home/code-lab/linux/linux-files/
+  - type: redirect
+    source: /home/code-lab/linux/linux-grep-find.html
+    destination: /home/code-lab/linux/linux-grep-find/
+  - type: redirect
+    source: /home/code-lab/linux/linux-permissions.html
+    destination: /home/code-lab/linux/linux-permissions/
+  - type: redirect
+    source: /home/code-lab/linux/linux-pipes.html
+    destination: /home/code-lab/linux/linux-pipes/
+  - type: redirect
+    source: /home/code-lab/linux/linux-processes.html
+    destination: /home/code-lab/linux/linux-processes/
+  - type: redirect
+    source: /home/code-lab/nodejs.html
+    destination: /home/code-lab/nodejs/
+  - type: redirect
+    source: /home/code-lab/nodejs/express-js.html
+    destination: /home/code-lab/nodejs/express-js/
+  - type: redirect
+    source: /home/code-lab/nodejs/node-auth.html
+    destination: /home/code-lab/nodejs/node-auth/
+  - type: redirect
+    source: /home/code-lab/nodejs/node-environment.html
+    destination: /home/code-lab/nodejs/node-environment/
+  - type: redirect
+    source: /home/code-lab/nodejs/node-rest-api.html
+    destination: /home/code-lab/nodejs/node-rest-api/
+  - type: redirect
+    source: /home/code-lab/nodejs/nodejs-basics.html
+    destination: /home/code-lab/nodejs/nodejs-basics/
+  - type: redirect
+    source: /home/code-lab/nodejs/nodejs-fs.html
+    destination: /home/code-lab/nodejs/nodejs-fs/
+  - type: redirect
+    source: /home/code-lab/nodejs/nodejs-http.html
+    destination: /home/code-lab/nodejs/nodejs-http/
+  - type: redirect
+    source: /home/code-lab/nodejs/nodejs-modules.html
+    destination: /home/code-lab/nodejs/nodejs-modules/
+  - type: redirect
+    source: /home/code-lab/python.html
+    destination: /home/code-lab/python/
+  - type: redirect
+    source: /home/code-lab/python/python-basics.html
+    destination: /home/code-lab/python/python-basics/
+  - type: redirect
+    source: /home/code-lab/python/python-classes.html
+    destination: /home/code-lab/python/python-classes/
+  - type: redirect
+    source: /home/code-lab/python/python-data-types.html
+    destination: /home/code-lab/python/python-data-types/
+  - type: redirect
+    source: /home/code-lab/python/python-dictionaries.html
+    destination: /home/code-lab/python/python-dictionaries/
+  - type: redirect
+    source: /home/code-lab/python/python-exceptions.html
+    destination: /home/code-lab/python/python-exceptions/
+  - type: redirect
+    source: /home/code-lab/python/python-files.html
+    destination: /home/code-lab/python/python-files/
+  - type: redirect
+    source: /home/code-lab/python/python-functions.html
+    destination: /home/code-lab/python/python-functions/
+  - type: redirect
+    source: /home/code-lab/python/python-if-else.html
+    destination: /home/code-lab/python/python-if-else/
+  - type: redirect
+    source: /home/code-lab/python/python-lists.html
+    destination: /home/code-lab/python/python-lists/
+  - type: redirect
+    source: /home/code-lab/python/python-loops.html
+    destination: /home/code-lab/python/python-loops/
+  - type: redirect
+    source: /home/code-lab/python/python-tuples.html
+    destination: /home/code-lab/python/python-tuples/
+  - type: redirect
+    source: /home/code-lab/python/python-variables.html
+    destination: /home/code-lab/python/python-variables/
+  - type: redirect
+    source: /home/code-lab/react.html
+    destination: /home/code-lab/react/
+  - type: redirect
+    source: /home/code-lab/react/react-basics.html
+    destination: /home/code-lab/react/react-basics/
+  - type: redirect
+    source: /home/code-lab/react/react-components.html
+    destination: /home/code-lab/react/react-components/
+  - type: redirect
+    source: /home/code-lab/react/react-events.html
+    destination: /home/code-lab/react/react-events/
+  - type: redirect
+    source: /home/code-lab/react/react-forms.html
+    destination: /home/code-lab/react/react-forms/
+  - type: redirect
+    source: /home/code-lab/react/react-hooks.html
+    destination: /home/code-lab/react/react-hooks/
+  - type: redirect
+    source: /home/code-lab/react/react-props.html
+    destination: /home/code-lab/react/react-props/
+  - type: redirect
+    source: /home/code-lab/react/react-state.html
+    destination: /home/code-lab/react/react-state/
+  - type: redirect
+    source: /home/code-lab/react/react-useeffect.html
+    destination: /home/code-lab/react/react-useeffect/
+  - type: redirect
+    source: /home/code-lab/search.html
+    destination: /home/code-lab/search/
+  - type: redirect
+    source: /home/code-lab/sql.html
+    destination: /home/code-lab/sql/
+  - type: redirect
+    source: /home/code-lab/sql/sql-basics.html
+    destination: /home/code-lab/sql/sql-basics/
+  - type: redirect
+    source: /home/code-lab/sql/sql-cte.html
+    destination: /home/code-lab/sql/sql-cte/
+  - type: redirect
+    source: /home/code-lab/sql/sql-group-by.html
+    destination: /home/code-lab/sql/sql-group-by/
+  - type: redirect
+    source: /home/code-lab/sql/sql-joins.html
+    destination: /home/code-lab/sql/sql-joins/
+  - type: redirect
+    source: /home/code-lab/sql/sql-order-by.html
+    destination: /home/code-lab/sql/sql-order-by/
+  - type: redirect
+    source: /home/code-lab/sql/sql-select.html
+    destination: /home/code-lab/sql/sql-select/
+  - type: redirect
+    source: /home/code-lab/sql/sql-subqueries.html
+    destination: /home/code-lab/sql/sql-subqueries/
+  - type: redirect
+    source: /home/code-lab/sql/sql-transactions.html
+    destination: /home/code-lab/sql/sql-transactions/
+  - type: redirect
+    source: /home/code-lab/sql/sql-where.html
+    destination: /home/code-lab/sql/sql-where/
+  - type: redirect
+    source: /home/code-lab/sql/sql-window-functions.html
+    destination: /home/code-lab/sql/sql-window-functions/
+  - type: redirect
+    source: /industrial-automation-plc-integration.html
+    destination: /industrial-automation-plc-integration/
+  - type: redirect
+    source: /industrial-safety-equipment-guide.html
+    destination: /industrial-safety-equipment-guide/
+  - type: redirect
+    source: /interview-preparation.html
+    destination: /interview-preparation/
+  - type: redirect
+    source: /interview-preparation/ai-agent-interview-questions-2026.html
+    destination: /interview-preparation/ai-agent-interview-questions-2026/
+  - type: redirect
+    source: /interview-preparation/ai-engineer-roadmap-2026.html
+    destination: /interview-preparation/ai-engineer-roadmap-2026/
+  - type: redirect
+    source: /interview-preparation/ai-interview-questions-for-freshers-2026.html
+    destination: /interview-preparation/ai-interview-questions-for-freshers-2026/
+  - type: redirect
+    source: /interview-preparation/ai-projects-for-resume-interviews.html
+    destination: /interview-preparation/ai-projects-for-resume-interviews/
+  - type: redirect
+    source: /interview-preparation/computer-vision-interview-questions-2026.html
+    destination: /interview-preparation/computer-vision-interview-questions-2026/
+  - type: redirect
+    source: /interview-preparation/data-science-interview-questions-2026.html
+    destination: /interview-preparation/data-science-interview-questions-2026/
+  - type: redirect
+    source: /interview-preparation/data-science-projects-for-resume.html
+    destination: /interview-preparation/data-science-projects-for-resume/
+  - type: redirect
+    source: /interview-preparation/deep-learning-interview-questions-2026.html
+    destination: /interview-preparation/deep-learning-interview-questions-2026/
+  - type: redirect
+    source: /interview-preparation/generative-ai-interview-questions-2026.html
+    destination: /interview-preparation/generative-ai-interview-questions-2026/
+  - type: redirect
+    source: /interview-preparation/machine-learning-interview-questions-2026.html
+    destination: /interview-preparation/machine-learning-interview-questions-2026/
+  - type: redirect
+    source: /interview-preparation/machine-learning-projects-for-beginners.html
+    destination: /interview-preparation/machine-learning-projects-for-beginners/
+  - type: redirect
+    source: /interview-preparation/mlops-interview-questions-2026.html
+    destination: /interview-preparation/mlops-interview-questions-2026/
+  - type: redirect
+    source: /interview-preparation/nlp-interview-questions-2026.html
+    destination: /interview-preparation/nlp-interview-questions-2026/
+  - type: redirect
+    source: /interview-preparation/python-interview-questions-for-data-science.html
+    destination: /interview-preparation/python-interview-questions-for-data-science/
+  - type: redirect
+    source: /interview-preparation/rag-interview-questions-2026.html
+    destination: /interview-preparation/rag-interview-questions-2026/
+  - type: redirect
+    source: /interview-preparation/sql-interview-questions-for-data-science.html
+    destination: /interview-preparation/sql-interview-questions-for-data-science/
+  - type: redirect
+    source: /machine-learning-projects.html
+    destination: /machine-learning-projects/
+  - type: redirect
+    source: /machine-learning.html
+    destination: /machine-learning/
+  - type: redirect
+    source: /mission.html
+    destination: /mission/
+  - type: redirect
+    source: /plc.html
+    destination: /plc/
+  - type: redirect
+    source: /plc/plc-basics-inputs-outputs-ladder-logic.html
+    destination: /plc/plc-basics-inputs-outputs-ladder-logic//
+  - type: redirect
+    source: /python-trading-bot-tutorial.html
+    destination: /python-trading-bot-tutorial/
+  - type: redirect
+    source: /search.html
+    destination: /search/
+  - type: redirect
+    source: /share-market.html
+    destination: /share-market/
+  - type: redirect
+    source: /share-market/100-shares-of-stock-is-called.html
+    destination: /share-market/100-shares-of-stock-is-called/
+  - type: redirect
+    source: /share-market/best-stocks-for-beginners-with-little-money.html
+    destination: /share-market/best-stocks-for-beginners-with-little-money/
+  - type: redirect
+    source: /share-market/best-stocks-under-100.html
+    destination: /share-market/best-stocks-under-100/
+  - type: redirect
+    source: /share-market/can-i-become-millionaire-by-trading-cryptocurrency.html
+    destination: /share-market/can-i-become-millionaire-by-trading-cryptocurrency/
+  - type: redirect
+    source: /share-market/can-i-earn-500-daily-by-trading.html
+    destination: /share-market/is-it-possible-to-make-100-a-day-in-stock-market/
+  - type: redirect
+    source: /share-market/can-i-earn-500-daily-by-trading/
+    destination: /share-market/is-it-possible-to-make-100-a-day-in-stock-market/
+  - type: redirect
+    source: /share-market/can-i-make-200-per-day-from-trading.html
+    destination: /share-market/is-it-possible-to-make-100-a-day-in-stock-market/
+  - type: redirect
+    source: /share-market/can-i-make-200-per-day-from-trading/
+    destination: /share-market/is-it-possible-to-make-100-a-day-in-stock-market/
+  - type: redirect
+    source: /share-market/can-stock-market-make-me-millionaire.html
+    destination: /share-market/can-stock-market-make-me-millionaire/
+  - type: redirect
+    source: /share-market/can-stock-market-make-you-rich-in-india.html
+    destination: /share-market/can-stock-market-make-me-millionaire/
+  - type: redirect
+    source: /share-market/can-stock-market-make-you-rich-in-india/
+    destination: /share-market/can-stock-market-make-me-millionaire/
+  - type: redirect
+    source: /share-market/can-trading-make-you-a-billionaire.html
+    destination: /share-market/can-stock-market-make-me-millionaire/
+  - type: redirect
+    source: /share-market/can-trading-make-you-a-billionaire/
+    destination: /share-market/can-stock-market-make-me-millionaire/
+  - type: redirect
+    source: /share-market/can-trading-make-you-a-millionaire-in-india.html
+    destination: /share-market/can-stock-market-make-me-millionaire/
+  - type: redirect
+    source: /share-market/can-trading-make-you-a-millionaire-in-india/
+    destination: /share-market/can-stock-market-make-me-millionaire/
+  - type: redirect
+    source: /share-market/can-you-make-money-daily-in-stock-market.html
+    destination: /share-market/how-to-earn-money-in-share-market-daily/
+  - type: redirect
+    source: /share-market/can-you-make-money-daily-in-stock-market/
+    destination: /share-market/how-to-earn-money-in-share-market-daily/
+  - type: redirect
+    source: /share-market/how-much-money-can-you-make-from-stocks-in-a-month.html
+    destination: /share-market/how-much-money-can-you-make-from-stocks-in-a-month/
+  - type: redirect
+    source: /share-market/how-to-earn-1000-rupees-per-day-from-trading.html
+    destination: /share-market/how-to-earn-1000-rupees-per-day-from-trading/
+  - type: redirect
+    source: /share-market/how-to-earn-20000-per-day-in-stock-market.html
+    destination: /share-market/how-to-earn-1000-rupees-per-day-from-trading/
+  - type: redirect
+    source: /share-market/how-to-earn-20000-per-day-in-stock-market/
+    destination: /share-market/how-to-earn-1000-rupees-per-day-from-trading/
+  - type: redirect
+    source: /share-market/how-to-earn-3000-per-day-in-stock-market.html
+    destination: /share-market/how-to-earn-1000-rupees-per-day-from-trading/
+  - type: redirect
+    source: /share-market/how-to-earn-3000-per-day-in-stock-market/
+    destination: /share-market/how-to-earn-1000-rupees-per-day-from-trading/
+  - type: redirect
+    source: /share-market/how-to-earn-money-in-share-market-daily-without-investment.html
+    destination: /share-market/how-to-earn-money-in-share-market-daily-without-investment/
+  - type: redirect
+    source: /share-market/how-to-earn-money-in-share-market-daily.html
+    destination: /share-market/how-to-earn-money-in-share-market-daily/
+  - type: redirect
+    source: /share-market/how-to-invest-and-make-money-daily.html
+    destination: /share-market/how-to-earn-money-in-share-market-daily/
+  - type: redirect
+    source: /share-market/how-to-invest-and-make-money-daily/
+    destination: /share-market/how-to-earn-money-in-share-market-daily/
+  - type: redirect
+    source: /share-market/invest-10-and-earn-daily.html
+    destination: /share-market/invest-10-and-earn-daily/
+  - type: redirect
+    source: /share-market/is-it-possible-to-earn-100-daily-from-stock-market-online.html
+    destination: /share-market/is-it-possible-to-make-100-a-day-in-stock-market/
+  - type: redirect
+    source: /share-market/is-it-possible-to-earn-100-daily-from-stock-market-online/
+    destination: /share-market/is-it-possible-to-make-100-a-day-in-stock-market/
+  - type: redirect
+    source: /share-market/is-it-possible-to-make-100-a-day-in-stock-market.html
+    destination: /share-market/is-it-possible-to-make-100-a-day-in-stock-market/
+  - type: redirect
+    source: /share-market/swing-trading-guide-2026.html
+    destination: /share-market/swing-trading-guide-2026/
+  - type: redirect
+    source: /sitemap.html
+    destination: /sitemap/
+  - type: redirect
+    source: /sqlite-for-trading.html
+    destination: /sqlite-for-trading/
+  - type: redirect
+    source: /start-investing-with-100.html
+    destination: /start-investing-with-100/
+  - type: redirect
+    source: /tech.html
+    destination: /tech/
+  - type: redirect
+    source: /tech/ai-agents-office-data-security-risks.html
+    destination: /tech/ai-agents-office-data-security-risks//
+  - type: redirect
+    source: /tech/ai-scams-deepfakes-voice-cloning-safety.html
+    destination: /tech/ai-scams-deepfakes-voice-cloning-safety//
+  - type: redirect
+    source: /tech/ai-search-agents-future-of-search-2026.html
+    destination: /tech/ai-search-agents-future-of-search-2026//
+  - type: redirect
+    source: /tech/ai-text-watermarking-detect-ai-content-2026.html
+    destination: /tech/ai-text-watermarking-detect-ai-content-2026//
+  - type: redirect
+    source: /tech/passkeys-passwordless-security-2026.html
+    destination: /tech/passkeys-passwordless-security-2026//
+  - type: redirect
+    source: /tech/top-10-framework-for-web-development-2026.html
+    destination: /tech/top-10-framework-for-web-development-2026/
+  - type: redirect
+    source: /terms.html
+    destination: /terms/
+  - type: redirect
+    source: /web-stories/gemini-in-chrome-auto-browse-india-2026.html
+    destination: /web-stories/gemini-in-chrome-auto-browse-india-2026/
+  - type: redirect
+    source: /web-stories/google-gemini-4-argon-ai-2026.html
+    destination: /web-stories/google-gemini-4-argon-ai-2026/
+  - type: redirect
+    source: /web-stories/gpt-6-intelligent-ui-chatgpt-2026.html
+    destination: /web-stories/gpt-6-intelligent-ui-chatgpt-2026/
+  - type: redirect
+    source: /web-stories/us-stocks-weekly.html
+    destination: /web-stories/us-stocks-weekly/

@@ -1,0 +1,8 @@
+Historical URL,Current Resolution,Destination,Current Robots Meta if Page
+https://xenors.in/login/,page,/login/,"noindex, follow"
+https://xenors.in/privacy-policy/,page,/privacy-policy/,"index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+https://xenors.in/terms/,page,/terms/,"index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+https://xenors.in/signup,page,/signup/,"noindex, follow"
+https://xenors.in/login.html,redirect,/login/,
+https://xenors.in/signup.html,redirect,/signup/,
+https://xenors.in/login,page,/login/,"noindex, follow"

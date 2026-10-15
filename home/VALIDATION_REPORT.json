@@ -1,0 +1,11 @@
+{
+  "html_pages": 118,
+  "tutorial_pages": 105,
+  "track_hubs": 11,
+  "webp_images": 105,
+  "min_visible_words": 1052,
+  "median_visible_words": 1353,
+  "pages_under_1000": 0,
+  "missing_images": 0,
+  "invalid_jsonld": 0
+}

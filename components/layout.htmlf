@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- COMMON HEAD -->
+    {{HEAD_COMMON}}
+
+    <!-- PAGE SEO -->
+    <title>{{TITLE}}</title>
+    <meta name="description" content="{{DESCRIPTION}}">
+    <meta name="keywords" content="{{KEYWORDS}}">
+
+    {{HEAD_EXTRA}}
+</head>
+<body>
+
+    {{HEADER}}
+
+    {{CONTENT}}
+
+    {{FOOTER}}
+
+</body>
+</html>

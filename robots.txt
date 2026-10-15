@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /dist/
+Disallow: /test/
+Disallow: /try/
+
+Sitemap: https://xenors.in/sitemap.xml
