@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Transfer Learning with PyTorch &amp; Keras</title>
+<meta content="Reuse pre-trained models with transfer learning: freeze layers, replace the classifier, fine-tune safely, with complete PyTorch and Keras code." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/transfer-learning-keras-pytorch/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Transfer Learning with PyTorch &amp; Keras" property="og:title"/>
+<meta content="Reuse pre-trained models with transfer learning: freeze layers, replace the classifier, fine-tune safely, with complete PyTorch and Keras code." property="og:description"/>
+<meta content="https://xenors.in/data-science/transfer-learning-keras-pytorch/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/transfer-learning-keras-pytorch.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Advanced Deep Learning" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Transfer Learning with PyTorch &amp; Keras" name="twitter:title"/>
+<meta content="Reuse pre-trained models with transfer learning: freeze layers, replace the classifier, fine-tune safely, with complete PyTorch and Keras code." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/transfer-learning-keras-pytorch.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/transfer-learning-keras-pytorch.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/transfer-learning-keras-pytorch/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/transfer-learning-keras-pytorch/"},"headline":"Transfer Learning: Pre-trained Models in PyTorch and Keras","description":"Reuse pre-trained models with transfer learning: freeze layers, replace the classifier, fine-tune safely, with complete PyTorch and Keras code.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/transfer-learning-keras-pytorch.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Advanced Deep Learning","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "Transfer Learning: Pre-trained Models in PyTorch and Keras", "item": "https://xenors.in/data-science/transfer-learning-keras-pytorch/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Transfer Learning: Pre-trained Models in PyTorch and Keras</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 9: Advanced Deep Learning</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Transfer Learning: Pre-trained Models in PyTorch and Keras</h1>
+<p class="lead">Training a CNN from scratch needs large data and compute. Transfer learning starts from a model trained on ImageNet and adapts it to your task with far less of both.</p>
+<img alt="Transfer learning diagram showing frozen pre-trained layers and a new trainable classifier head" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/transfer-learning-keras-pytorch.webp" srcset="https://xenors.in/images/data-science/transfer-learning-keras-pytorch-640.webp 640w, https://xenors.in/images/data-science/transfer-learning-keras-pytorch.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Load a pre-trained backbone, freeze its weights, replace the final layer with one sized for your classes, train the new head, then optionally unfreeze the top layers and fine-tune at a much lower learning rate.</div>
+<h2 id="feature-extraction-versus-fine-tuning">Feature extraction versus fine-tuning</h2>
+<p>Feature extraction freezes the whole backbone and trains only a new head. Fine-tuning also updates some or all backbone layers. Use feature extraction first when data is small, and fine-tune when you have more data or your images differ a lot from ImageNet.</p>
+<table><thead><tr><th>Situation</th><th>Strategy</th></tr></thead><tbody><tr><td>Small data, similar domain</td><td>Freeze backbone, train head</td></tr><tr><td>Medium data, similar domain</td><td>Fine-tune top layers</td></tr><tr><td>Large data, different domain</td><td>Fine-tune most or all layers</td></tr></tbody></table><h2 id="transfer-learning-in-pytorch">Transfer learning in PyTorch</h2>
+<p>Replace the classifier, freeze everything else, and give the optimiser only the parameters that train.</p>
+<div class="codebox"><div class="cap">Freeze, replace the head, then unfreeze layer4</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import torch, torch.nn as nn
+from torchvision import models
+
+weights = models.ResNet50_Weights.DEFAULT
+model = models.resnet50(weights=weights)
+for p in model.parameters():
+    p.requires_grad = False
+model.fc = nn.Linear(model.fc.in_features, 5)    # 5 classes
+
+opt = torch.optim.Adam(model.fc.parameters(), lr=1e-3)
+prep = weights.transforms()                      # use these for your data
+
+# Phase 2: unfreeze the last block and lower the learning rate
+for p in model.layer4.parameters():
+    p.requires_grad = True
+opt = torch.optim.Adam([
+    {"params": model.layer4.parameters(), "lr": 1e-5},
+    {"params": model.fc.parameters(), "lr": 1e-4}])</code></pre></div><h2 id="transfer-learning-in-keras">Transfer learning in Keras</h2>
+<p>Keras applications include preprocessing helpers. Keep batch-norm layers in inference mode while the base is frozen.</p>
+<div class="codebox"><div class="cap">Frozen base, new head, then fine-tuning</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import tensorflow as tf
+from tensorflow import keras
+
+base = keras.applications.ResNet50(weights="imagenet", include_top=False,
+                                   input_shape=(224, 224, 3))
+base.trainable = False
+
+inputs = keras.Input((224, 224, 3))
+x = keras.applications.resnet50.preprocess_input(inputs)
+x = base(x, training=False)
+x = keras.layers.GlobalAveragePooling2D()(x)
+x = keras.layers.Dropout(0.2)(x)
+outputs = keras.layers.Dense(5, activation="softmax")(x)
+model = keras.Model(inputs, outputs)
+model.compile("adam", "sparse_categorical_crossentropy", metrics=["accuracy"])
+# model.fit(train_ds, validation_data=val_ds, epochs=5)
+
+# Fine-tune: unfreeze the top of the base with a tiny learning rate
+base.trainable = True
+for layer in base.layers[:-30]:
+    layer.trainable = False
+model.compile(keras.optimizers.Adam(1e-5),
+              "sparse_categorical_crossentropy", metrics=["accuracy"])</code></pre></div><h2 id="avoid-common-mistakes">Avoid common mistakes</h2>
+<p>Do not skip the model's own preprocessing. Do not fine-tune with the same learning rate you used for the head, because large updates destroy useful pre-trained features. Always hold out a validation set and watch for overfitting when the backbone is unfrozen.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/transfer-learning-keras-pytorch.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Freeze a pretrained backbone</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>from torchvision.models import resnet18, ResNet18_Weights
+model=resnet18(weights=ResNet18_Weights.DEFAULT)
+for p in model.parameters(): p.requires_grad=False
+print(sum(p.requires_grad for p in model.parameters()))</code></pre></div><pre class="output">0</pre><p>Start with frozen features on small datasets, then unfreeze gradually if validation improves.</p><h3>Replace the classifier head</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import torch.nn as nn
+model.fc=nn.Linear(model.fc.in_features,3)
+print(model.fc)</code></pre></div><pre class="output">Linear(in_features=512, out_features=3, bias=True)</pre><p>The new head is trainable even when the backbone remains frozen.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this Transfer Learning workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>When should I use transfer learning?</summary><p>Almost always for image tasks with limited data. Starting from pre-trained weights usually beats training from scratch.</p></details><details><summary>Why use a lower learning rate for fine-tuning?</summary><p>Pre-trained weights already encode useful features. A small learning rate adjusts them gently instead of overwriting them.</p></details><details><summary>PyTorch or Keras for transfer learning?</summary><p>Both work well. Keras is faster to prototype, while PyTorch gives finer control of the training loop.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html" rel="noopener noreferrer" target="_blank">PyTorch transfer learning tutorial</a></li><li><a href="https://keras.io/guides/transfer_learning/" rel="noopener noreferrer" target="_blank">Keras transfer learning guide</a></li><li><a href="https://pytorch.org/vision/stable/models.html" rel="noopener noreferrer" target="_blank">torchvision models</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/autoencoders-generative-adversarial-networks-gan/" rel="prev"><small>Previous lesson</small>Autoencoders and GANs: Image Generation with PyTorch</a><a class="r" href="https://xenors.in/data-science/transformers-architecture-attention-mechanism/" rel="next"><small>Next lesson</small>Transformer Architecture and the Self-Attention Mechanism</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#feature-extraction-versus-fine-tuning">Feature extraction versus fine-tuning</a></li><li><a href="#transfer-learning-in-pytorch">Transfer learning in PyTorch</a></li><li><a href="#transfer-learning-in-keras">Transfer learning in Keras</a></li><li><a href="#avoid-common-mistakes">Avoid common mistakes</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Advanced Deep Learning</h2><ul><li><a href="https://xenors.in/data-science/advanced-deep-learning/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/cnn-architecture-resnet-vgg/">CNN Architectures</a></li><li class=""><a href="https://xenors.in/data-science/yolo-object-detection-python/">YOLO Detection</a></li><li class=""><a href="https://xenors.in/data-science/recurrent-neural-networks-lstm/">RNN &amp; LSTM</a></li><li class=""><a href="https://xenors.in/data-science/autoencoders-generative-adversarial-networks-gan/">Autoencoders &amp; GANs</a></li><li class="cur"><a href="https://xenors.in/data-science/transfer-learning-keras-pytorch/">Transfer Learning</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Spark SQL &amp; DataFrames Tutorial for Beginners</title>
+<meta content="Learn PySpark DataFrames and Spark SQL: schemas, select, filter, joins, window functions, temporary views and reading the execution plan." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/spark-sql-dataframes/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Spark SQL &amp; DataFrames Tutorial for Beginners" property="og:title"/>
+<meta content="Learn PySpark DataFrames and Spark SQL: schemas, select, filter, joins, window functions, temporary views and reading the execution plan." property="og:description"/>
+<meta content="https://xenors.in/data-science/spark-sql-dataframes/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/spark-sql-dataframes.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Big Data Analytics for Data Science" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Spark SQL &amp; DataFrames Tutorial for Beginners" name="twitter:title"/>
+<meta content="Learn PySpark DataFrames and Spark SQL: schemas, select, filter, joins, window functions, temporary views and reading the execution plan." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/spark-sql-dataframes.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/spark-sql-dataframes.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/spark-sql-dataframes/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/spark-sql-dataframes/"},"headline":"PySpark DataFrames and Spark SQL for Beginners","description":"Learn PySpark DataFrames and Spark SQL: schemas, select, filter, joins, window functions, temporary views and reading the execution plan.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/spark-sql-dataframes.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Big Data Analytics for Data Science","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "PySpark DataFrames and Spark SQL for Beginners", "item": "https://xenors.in/data-science/spark-sql-dataframes/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › PySpark DataFrames and Spark SQL for Beginners</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 12: Big Data Analytics for Data Science</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>PySpark DataFrames and Spark SQL for Beginners</h1>
+<p class="lead">Spark lets you query the same data with SQL or with the DataFrame API. Both compile to the same optimised plan, so choose whichever reads better for the task.</p>
+<img alt="Spark SQL query and DataFrame API producing the same optimised execution plan" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/spark-sql-dataframes.webp" srcset="https://xenors.in/images/data-science/spark-sql-dataframes-640.webp 640w, https://xenors.in/images/data-science/spark-sql-dataframes.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Create a DataFrame, register it with createOrReplaceTempView, and run spark.sql('SELECT ...'). The DataFrame API and SQL produce the same Catalyst-optimised plan, so use SQL for readability and the API for programmatic pipelines.</div>
+<h2 id="create-dataframes-with-an-explicit-schema">Create DataFrames with an explicit schema</h2>
+<p>Declaring a schema avoids a slow inference pass and prevents wrong types.</p>
+<div class="codebox"><div class="cap">Two small DataFrames</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>from pyspark.sql import SparkSession, functions as F
+from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType
+
+spark = SparkSession.builder.master("local[*]").appName("sql").getOrCreate()
+
+emp_schema = StructType([StructField("id", IntegerType()), StructField("name", StringType()),
+                         StructField("dept_id", IntegerType()), StructField("salary", DoubleType())])
+employees = spark.createDataFrame(
+    [(1, "Asha", 10, 72000.0), (2, "Ravi", 10, 65000.0), (3, "Meera", 20, 88000.0),
+     (4, "Kabir", 20, 91000.0), (5, "Zoya", 30, 54000.0)], emp_schema)
+depts = spark.createDataFrame([(10, "Data"), (20, "Engineering"), (40, "Sales")], ["dept_id", "dept"])</code></pre></div><h2 id="select-filter-and-join">Select, filter and join</h2>
+<p>Join type matters: inner keeps matches only, left keeps all rows from the left side.</p>
+<div class="codebox"><div class="cap">DataFrame API operations</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>(employees.filter(F.col("salary") &gt; 60000)
+           .select("name", (F.col("salary") / 12).alias("monthly"))
+           .show())
+
+employees.join(depts, "dept_id", "left").show()      # Zoya has no dept -&gt; null
+employees.join(depts, "dept_id", "inner").show()</code></pre></div><h2 id="write-the-same-logic-in-spark-sql">Write the same logic in Spark SQL</h2>
+<p>Register a temporary view and use ordinary SQL, including window functions.</p>
+<div class="codebox"><div class="cap">Ranking salaries inside each department</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>employees.createOrReplaceTempView("employees")
+depts.createOrReplaceTempView("depts")
+
+spark.sql('''
+    SELECT d.dept, e.name, e.salary,
+           RANK() OVER (PARTITION BY d.dept ORDER BY e.salary DESC) AS rnk,
+           AVG(e.salary) OVER (PARTITION BY d.dept) AS dept_avg
+    FROM employees e JOIN depts d ON e.dept_id = d.dept_id
+''').show()</code></pre></div><h2 id="read-the-execution-plan">Read the execution plan</h2>
+<p>Use explain() to see whether Spark pushes filters down and which join strategy it picked. Small tables can be broadcast to every executor, which avoids an expensive shuffle.</p>
+<div class="codebox"><div class="cap">Broadcast join and explain</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>from pyspark.sql.functions import broadcast
+employees.join(broadcast(depts), "dept_id").explain()</code></pre></div><h2 id="save-and-reuse">Save and reuse</h2>
+<p>Write results as Parquet, partitioned by a column you often filter on. Spark then reads only the partitions it needs.</p>
+<div class="codebox"><div class="cap">Partitioned Parquet output</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>employees.write.mode("overwrite").partitionBy("dept_id").parquet("out/employees")
+spark.read.parquet("out/employees").filter("dept_id = 20").show()</code></pre></div>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/spark-sql-dataframes.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Verify a join with explicit keys</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>orders = spark.createDataFrame([(1,10),(2,20)], ['customer_id','amount'])
+customers = spark.createDataFrame([(1,'A'),(3,'C')], ['customer_id','name'])
+orders.join(customers,'customer_id','left').show()</code></pre></div><pre class="output">+-----------+------+----+
+|customer_id|amount|name|
++-----------+------+----+
+|1          |10    |A   |
+|2          |20    |NULL|</pre><p>A left join preserves every order even when the customer dimension is incomplete.</p><h3>Read the physical plan</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>q = orders.groupBy('customer_id').sum('amount')
+q.explain(mode='formatted')</code></pre></div><pre class="output">Physical Plan
++- HashAggregate ...</pre><p>Use explain() before guessing about Spark performance.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this Spark SQL &amp; DataFrames workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>DataFrame API or Spark SQL?</summary><p>They are equivalent in performance. Use SQL when analysts will read it and the API when building reusable pipeline code.</p></details><details><summary>What is a temporary view?</summary><p>A name for a DataFrame that lets you query it with SQL inside the current Spark session.</p></details><details><summary>What is a broadcast join?</summary><p>Spark sends a small table to every executor so the large table does not need to be shuffled.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://spark.apache.org/docs/latest/sql-programming-guide.html" rel="noopener noreferrer" target="_blank">Spark SQL, DataFrames and Datasets guide</a></li><li><a href="https://spark.apache.org/docs/latest/api/python/reference/pyspark.sql/functions.html" rel="noopener noreferrer" target="_blank">PySpark SQL functions</a></li><li><a href="https://spark.apache.org/docs/latest/sql-ref.html" rel="noopener noreferrer" target="_blank">Spark SQL reference</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/pyspark-tutorial-data-science/" rel="prev"><small>Previous lesson</small>PySpark Tutorial: Big Data Processing in Python</a><a class="r" href="https://xenors.in/data-science/kafka-streaming-data-pipelines/" rel="next"><small>Next lesson</small>Apache Kafka: Real-Time Data Streaming for Analytics</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#create-dataframes-with-an-explicit-schema">Create DataFrames with an explicit schema</a></li><li><a href="#select-filter-and-join">Select, filter and join</a></li><li><a href="#write-the-same-logic-in-spark-sql">Write the same logic in Spark SQL</a></li><li><a href="#read-the-execution-plan">Read the execution plan</a></li><li><a href="#save-and-reuse">Save and reuse</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Big Data &amp; Engineering</h2><ul><li><a href="https://xenors.in/data-science/big-data-engineering/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/pyspark-tutorial-data-science/">PySpark Fundamentals</a></li><li class="cur"><a href="https://xenors.in/data-science/spark-sql-dataframes/">Spark SQL &amp; DataFrames</a></li><li class=""><a href="https://xenors.in/data-science/kafka-streaming-data-pipelines/">Kafka Streaming</a></li><li class=""><a href="https://xenors.in/data-science/snowflake-data-warehouse-tutorial/">Snowflake Warehouse</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

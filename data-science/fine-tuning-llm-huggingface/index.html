@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Fine-Tune LLMs with Hugging Face</title>
+<meta content="Fine-tune LLaMA or Mistral with Hugging Face using LoRA and QLoRA: dataset format, 4-bit loading, training loop, merging adapters and evaluation." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/fine-tuning-llm-huggingface/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Fine-Tune LLMs with Hugging Face" property="og:title"/>
+<meta content="Fine-tune LLaMA or Mistral with Hugging Face using LoRA and QLoRA: dataset format, 4-bit loading, training loop, merging adapters and evaluation." property="og:description"/>
+<meta content="https://xenors.in/data-science/fine-tuning-llm-huggingface/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/fine-tuning-llm-huggingface.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Generative AI, LLMs &amp; Prompt Engineering" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Fine-Tune LLMs with Hugging Face" name="twitter:title"/>
+<meta content="Fine-tune LLaMA or Mistral with Hugging Face using LoRA and QLoRA: dataset format, 4-bit loading, training loop, merging adapters and evaluation." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/fine-tuning-llm-huggingface.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/fine-tuning-llm-huggingface.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/fine-tuning-llm-huggingface/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/fine-tuning-llm-huggingface/"},"headline":"How to Fine-Tune LLMs with Hugging Face: LLaMA and Mistral","description":"Fine-tune LLaMA or Mistral with Hugging Face using LoRA and QLoRA: dataset format, 4-bit loading, training loop, merging adapters and evaluation.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/fine-tuning-llm-huggingface.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Generative AI, LLMs & Prompt Engineering","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "How to Fine-Tune LLMs with Hugging Face: LLaMA and Mistral", "item": "https://xenors.in/data-science/fine-tuning-llm-huggingface/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › How to Fine-Tune LLMs with Hugging Face: LLaMA and Mistral</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 10: Generative AI, LLMs &amp; Prompt Engineering</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>How to Fine-Tune LLMs with Hugging Face: LLaMA and Mistral</h1>
+<p class="lead">Full fine-tuning of a 7B model needs more memory than most people have. LoRA and QLoRA train a few million extra parameters instead, so one consumer GPU is enough.</p>
+<img alt="LoRA adapter matrices attached to frozen LLM weights during fine-tuning" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/fine-tuning-llm-huggingface.webp" srcset="https://xenors.in/images/data-science/fine-tuning-llm-huggingface-640.webp 640w, https://xenors.in/images/data-science/fine-tuning-llm-huggingface.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Load the base model in 4-bit, attach LoRA adapters with PEFT, train on instruction-formatted examples with TRL's SFTTrainer, then merge or load the adapter for inference. Fine-tune for style and format, and use RAG for fresh knowledge.</div>
+<h2 id="prompting-rag-or-fine-tuning">Prompting, RAG or fine-tuning?</h2>
+<p>Fine-tune when you need consistent format, tone or a narrow skill. Use RAG when answers depend on documents that change. Use prompting first, because it is the cheapest to test.</p>
+<table><thead><tr><th>Need</th><th>Best tool</th></tr></thead><tbody><tr><td>New facts, private documents</td><td>RAG</td></tr><tr><td>Fixed output structure or style</td><td>Fine-tuning</td></tr><tr><td>Quick experiment</td><td>Prompt engineering</td></tr></tbody></table><h2 id="prepare-an-instruction-dataset">Prepare an instruction dataset</h2>
+<p>Use a consistent chat or instruction template. Quality beats quantity: a few thousand clean, varied examples usually outperform a large noisy set.</p>
+<div class="codebox"><div class="cap">Chat-format training examples</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>from datasets import Dataset
+
+rows = [
+ {"messages": [
+   {"role": "user", "content": "Summarise: The server crashed at 2am due to a full disk."},
+   {"role": "assistant", "content": "Incident: disk full caused a server crash at 2am."}]},
+]
+ds = Dataset.from_list(rows)
+print(ds[0])</code></pre></div><h2 id="load-a-4-bit-model-with-lora-adapters">Load a 4-bit model with LoRA adapters</h2>
+<p>QLoRA stores base weights in 4-bit and trains small low-rank matrices on top. Model names change over time, so check the Hugging Face Hub for the current checkpoint and license before you start.</p>
+<div class="codebox"><div class="cap">QLoRA configuration</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import torch
+from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+from peft import LoraConfig
+
+name = "mistralai/Mistral-7B-Instruct-v0.3"     # check licence and access
+bnb = BitsAndBytesConfig(load_in_4bit=True, bnb_4bit_quant_type="nf4",
+                         bnb_4bit_compute_dtype=torch.bfloat16)
+tok = AutoTokenizer.from_pretrained(name)
+model = AutoModelForCausalLM.from_pretrained(name, quantization_config=bnb,
+                                             device_map="auto")
+lora = LoraConfig(r=16, lora_alpha=32, lora_dropout=0.05, task_type="CAUSAL_LM",
+                  target_modules=["q_proj", "k_proj", "v_proj", "o_proj"])</code></pre></div><h2 id="train-with-sfttrainer-and-save-the-adapter">Train with SFTTrainer and save the adapter</h2>
+<p>Keep the learning rate low and watch validation loss. Save only the adapter, which is typically tens of megabytes.</p>
+<div class="codebox"><div class="cap">Supervised fine-tuning run</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>from trl import SFTTrainer, SFTConfig
+
+args = SFTConfig(output_dir="out", num_train_epochs=2, learning_rate=2e-4,
+                 per_device_train_batch_size=2, gradient_accumulation_steps=8,
+                 logging_steps=10, bf16=True)
+trainer = SFTTrainer(model=model, args=args, train_dataset=ds,
+                     peft_config=lora, processing_class=tok)
+trainer.train()
+trainer.model.save_pretrained("my-adapter")</code></pre></div><h2 id="evaluate-before-you-ship">Evaluate before you ship</h2>
+<p>Hold out examples the model never saw and compare base versus fine-tuned answers side by side. Check for regressions on general tasks, since over-training can cause forgetting. Track exact-match or rubric scores for structured outputs, and review samples by hand.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/fine-tuning-llm-huggingface.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Format one instruction example</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>sample={'instruction':'Summarize','input':'RAG retrieves documents.','output':'RAG grounds answers with retrieved context.'}
+text=f"Instruction: {sample['instruction']}\nInput: {sample['input']}\nAnswer: {sample['output']}"
+print(text)</code></pre></div><pre class="output">Instruction: Summarize
+Input: RAG retrieves documents.
+Answer: RAG grounds answers with retrieved context.</pre><p>Consistent formatting matters more than adding decorative prompt text.</p><h3>Estimate trainable LoRA parameters</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>total=7_000_000_000
+trainable=8_000_000
+print(f'{100*trainable/total:.3f}% trainable')</code></pre></div><pre class="output">0.114% trainable</pre><p>PEFT reduces optimizer memory by updating a small fraction of weights.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this LLM Fine-Tuning workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>What is the difference between LoRA and QLoRA?</summary><p>LoRA trains small adapter matrices on top of frozen weights. QLoRA does the same while keeping the frozen base model quantised to 4-bit, which cuts memory sharply.</p></details><details><summary>How much GPU memory do I need?</summary><p>A 7B model with QLoRA typically fits on a single GPU with roughly 16 to 24 GB, depending on sequence length and batch size.</p></details><details><summary>Can fine-tuning teach a model new facts?</summary><p>It is unreliable for facts. Use retrieval-augmented generation for knowledge and fine-tuning for behaviour.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://huggingface.co/docs/peft" rel="noopener noreferrer" target="_blank">Hugging Face PEFT documentation</a></li><li><a href="https://huggingface.co/docs/trl/sft_trainer" rel="noopener noreferrer" target="_blank">TRL SFTTrainer documentation</a></li><li><a href="https://arxiv.org/abs/2305.14314" rel="noopener noreferrer" target="_blank">QLoRA paper</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/transformers-architecture-attention-mechanism/" rel="prev"><small>Previous lesson</small>Transformer Architecture and the Self-Attention Mechanism</a><a class="r" href="https://xenors.in/data-science/langchain-tutorial-python/" rel="next"><small>Next lesson</small>LangChain Tutorial for Beginners: Build LLM Applications</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#prompting-rag-or-fine-tuning">Prompting, RAG or fine-tuning?</a></li><li><a href="#prepare-an-instruction-dataset">Prepare an instruction dataset</a></li><li><a href="#load-a-4-bit-model-with-lora-adapters">Load a 4-bit model with LoRA adapters</a></li><li><a href="#train-with-sfttrainer-and-save-the-adapter">Train with SFTTrainer and save the adapter</a></li><li><a href="#evaluate-before-you-ship">Evaluate before you ship</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Generative AI &amp; LLMs</h2><ul><li><a href="https://xenors.in/data-science/generative-ai-llm/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/transformers-architecture-attention-mechanism/">Transformers &amp; Attention</a></li><li class="cur"><a href="https://xenors.in/data-science/fine-tuning-llm-huggingface/">LLM Fine-Tuning</a></li><li class=""><a href="https://xenors.in/data-science/langchain-tutorial-python/">LangChain Basics</a></li><li class=""><a href="https://xenors.in/data-science/retrieval-augmented-generation-rag/">RAG Architecture</a></li><li class=""><a href="https://xenors.in/data-science/prompt-engineering-techniques/">Prompt Engineering</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

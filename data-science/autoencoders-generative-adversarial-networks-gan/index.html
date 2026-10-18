@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Autoencoders &amp; GANs with PyTorch</title>
+<meta content="Understand autoencoders and GANs: encoder-decoder design, the generator-discriminator game, and working PyTorch code to compress and generate images." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/autoencoders-generative-adversarial-networks-gan/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Autoencoders &amp; GANs with PyTorch" property="og:title"/>
+<meta content="Understand autoencoders and GANs: encoder-decoder design, the generator-discriminator game, and working PyTorch code to compress and generate images." property="og:description"/>
+<meta content="https://xenors.in/data-science/autoencoders-generative-adversarial-networks-gan/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/autoencoders-generative-adversarial-networks-gan.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Advanced Deep Learning" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Autoencoders &amp; GANs with PyTorch" name="twitter:title"/>
+<meta content="Understand autoencoders and GANs: encoder-decoder design, the generator-discriminator game, and working PyTorch code to compress and generate images." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/autoencoders-generative-adversarial-networks-gan.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/autoencoders-generative-adversarial-networks-gan.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/autoencoders-generative-adversarial-networks-gan/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/autoencoders-generative-adversarial-networks-gan/"},"headline":"Autoencoders and GANs: Image Generation with PyTorch","description":"Understand autoencoders and GANs: encoder-decoder design, the generator-discriminator game, and working PyTorch code to compress and generate images.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/autoencoders-generative-adversarial-networks-gan.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Advanced Deep Learning","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "Autoencoders and GANs: Image Generation with PyTorch", "item": "https://xenors.in/data-science/autoencoders-generative-adversarial-networks-gan/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Autoencoders and GANs: Image Generation with PyTorch</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 9: Advanced Deep Learning</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Autoencoders and GANs: Image Generation with PyTorch</h1>
+<p class="lead">Autoencoders learn compact representations by reconstructing their input. GANs learn to generate new samples by pitting two networks against each other. Both start from the idea of a latent space.</p>
+<img alt="Autoencoder encoder-decoder diagram next to a GAN generator and discriminator loop" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/autoencoders-generative-adversarial-networks-gan.webp" srcset="https://xenors.in/images/data-science/autoencoders-generative-adversarial-networks-gan-640.webp 640w, https://xenors.in/images/data-science/autoencoders-generative-adversarial-networks-gan.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> An autoencoder compresses data to a latent vector and reconstructs it, which is useful for denoising and anomaly detection. A GAN trains a generator to fool a discriminator, which produces new realistic samples.</div>
+<h2 id="autoencoder-versus-gan">Autoencoder versus GAN</h2>
+<p>An autoencoder minimises reconstruction error between its input and output. A GAN has no reconstruction target: the generator maps random noise to a sample and the discriminator scores real versus fake. The generator improves only because the discriminator keeps getting better.</p>
+<table><thead><tr><th>Aspect</th><th>Autoencoder</th><th>GAN</th></tr></thead><tbody><tr><td>Goal</td><td>Reconstruct input</td><td>Generate new samples</td></tr><tr><td>Loss</td><td>MSE or BCE</td><td>Adversarial</td></tr><tr><td>Training</td><td>Stable</td><td>Needs careful balancing</td></tr><tr><td>Typical use</td><td>Denoising, anomaly detection</td><td>Image synthesis</td></tr></tbody></table><h2 id="build-a-convolutional-autoencoder">Build a convolutional autoencoder</h2>
+<p>This model compresses 28x28 grayscale images and reconstructs them. After training, large reconstruction errors flag unusual inputs.</p>
+<div class="codebox"><div class="cap">Encoder and decoder with a 16-dimensional latent space</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import torch, torch.nn as nn
+
+class AE(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.enc = nn.Sequential(
+            nn.Conv2d(1, 16, 3, 2, 1), nn.ReLU(),     # 14x14
+            nn.Conv2d(16, 32, 3, 2, 1), nn.ReLU(),    # 7x7
+            nn.Flatten(), nn.Linear(32*7*7, 16))      # latent size 16
+        self.dec = nn.Sequential(
+            nn.Linear(16, 32*7*7), nn.ReLU(),
+            nn.Unflatten(1, (32, 7, 7)),
+            nn.ConvTranspose2d(32, 16, 3, 2, 1, output_padding=1), nn.ReLU(),
+            nn.ConvTranspose2d(16, 1, 3, 2, 1, output_padding=1), nn.Sigmoid())
+    def forward(self, x):
+        return self.dec(self.enc(x))
+
+x = torch.rand(8, 1, 28, 28)
+print(AE()(x).shape)   # torch.Size([8, 1, 28, 28])</code></pre></div><h2 id="build-a-simple-gan">Build a simple GAN</h2>
+<p>The generator turns a 100-dimensional noise vector into an image. The discriminator outputs the probability that an image is real.</p>
+<div class="codebox"><div class="cap">One GAN training step</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>z_dim = 100
+G = nn.Sequential(nn.Linear(z_dim, 256), nn.LeakyReLU(0.2),
+                  nn.Linear(256, 784), nn.Tanh())
+D = nn.Sequential(nn.Linear(784, 256), nn.LeakyReLU(0.2),
+                  nn.Linear(256, 1), nn.Sigmoid())
+optG = torch.optim.Adam(G.parameters(), 2e-4, betas=(0.5, 0.999))
+optD = torch.optim.Adam(D.parameters(), 2e-4, betas=(0.5, 0.999))
+bce = nn.BCELoss()
+
+def train_step(real):                      # real: (B, 784) scaled to [-1, 1]
+    B = real.size(0)
+    ones, zeros = torch.ones(B, 1), torch.zeros(B, 1)
+    # 1) train discriminator
+    fake = G(torch.randn(B, z_dim)).detach()
+    lossD = bce(D(real), ones) + bce(D(fake), zeros)
+    optD.zero_grad(); lossD.backward(); optD.step()
+    # 2) train generator to fool D
+    lossG = bce(D(G(torch.randn(B, z_dim))), ones)
+    optG.zero_grad(); lossG.backward(); optG.step()
+    return lossD.item(), lossG.item()</code></pre></div><h2 id="fix-unstable-gan-training">Fix unstable GAN training</h2>
+<p>If the discriminator wins too easily the generator gets no useful gradient. If the generator produces only a few similar images, that is mode collapse. Common fixes: use convolutional (DCGAN) layers with batch norm, add label smoothing, lower the discriminator learning rate, or switch to a Wasserstein loss.</p>
+<div class="callout"><strong>Practical tip</strong>Judge GANs by looking at generated samples every few epochs. The loss values alone are misleading.</div>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/autoencoders-generative-adversarial-networks-gan.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Measure reconstruction error</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import torch
+x=torch.tensor([[0.,1.],[1.,0.]])
+x_hat=torch.tensor([[.1,.8],[.9,.2]])
+print(torch.mean((x-x_hat)**2).item())</code></pre></div><pre class="output">0.025</pre><p>Reconstruction loss is useful for autoencoders but does not directly measure perceptual quality.</p><h3>Track generator and discriminator losses together</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>history={'g':[1.2,1.0,.9],'d':[.7,.65,.62]}
+print('g_last',history['g'][-1],'d_last',history['d'][-1])</code></pre></div><pre class="output">g_last 0.9 d_last 0.62</pre><p>GAN losses can look stable while samples collapse, so inspect generated outputs too.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this Autoencoders &amp; GANs workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>What is a latent space?</summary><p>A lower-dimensional space where similar inputs sit close together. Autoencoders learn it by compression, and GAN generators sample from it.</p></details><details><summary>What is mode collapse?</summary><p>The generator produces only a narrow set of outputs that fool the discriminator instead of covering the full variety of the data.</p></details><details><summary>Are GANs still used?</summary><p>Yes, especially for fast image synthesis and data augmentation, although diffusion models now lead many image-generation benchmarks.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://pytorch.org/tutorials/beginner/dcgan_faces_tutorial.html" rel="noopener noreferrer" target="_blank">PyTorch DCGAN tutorial</a></li><li><a href="https://arxiv.org/abs/1406.2661" rel="noopener noreferrer" target="_blank">Generative Adversarial Networks (Goodfellow et al.)</a></li><li><a href="https://keras.io/examples/vision/autoencoder/" rel="noopener noreferrer" target="_blank">Keras autoencoder guide</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/recurrent-neural-networks-lstm/" rel="prev"><small>Previous lesson</small>RNN &amp; LSTM Networks: Sequence Modeling and Time Series</a><a class="r" href="https://xenors.in/data-science/transfer-learning-keras-pytorch/" rel="next"><small>Next lesson</small>Transfer Learning: Pre-trained Models in PyTorch and Keras</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#autoencoder-versus-gan">Autoencoder versus GAN</a></li><li><a href="#build-a-convolutional-autoencoder">Build a convolutional autoencoder</a></li><li><a href="#build-a-simple-gan">Build a simple GAN</a></li><li><a href="#fix-unstable-gan-training">Fix unstable GAN training</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Advanced Deep Learning</h2><ul><li><a href="https://xenors.in/data-science/advanced-deep-learning/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/cnn-architecture-resnet-vgg/">CNN Architectures</a></li><li class=""><a href="https://xenors.in/data-science/yolo-object-detection-python/">YOLO Detection</a></li><li class=""><a href="https://xenors.in/data-science/recurrent-neural-networks-lstm/">RNN &amp; LSTM</a></li><li class="cur"><a href="https://xenors.in/data-science/autoencoders-generative-adversarial-networks-gan/">Autoencoders &amp; GANs</a></li><li class=""><a href="https://xenors.in/data-science/transfer-learning-keras-pytorch/">Transfer Learning</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

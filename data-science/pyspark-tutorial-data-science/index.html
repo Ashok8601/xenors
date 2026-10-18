@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>PySpark Tutorial for Data Science Beginners</title>
+<meta content="Learn PySpark: how Spark works, create a SparkSession, transform DataFrames, aggregate big data and train a machine learning model with MLlib." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/pyspark-tutorial-data-science/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="PySpark Tutorial for Data Science Beginners" property="og:title"/>
+<meta content="Learn PySpark: how Spark works, create a SparkSession, transform DataFrames, aggregate big data and train a machine learning model with MLlib." property="og:description"/>
+<meta content="https://xenors.in/data-science/pyspark-tutorial-data-science/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/pyspark-tutorial-data-science.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Big Data Analytics for Data Science" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="PySpark Tutorial for Data Science Beginners" name="twitter:title"/>
+<meta content="Learn PySpark: how Spark works, create a SparkSession, transform DataFrames, aggregate big data and train a machine learning model with MLlib." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/pyspark-tutorial-data-science.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/pyspark-tutorial-data-science.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/pyspark-tutorial-data-science/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/pyspark-tutorial-data-science/"},"headline":"PySpark Tutorial: Big Data Processing in Python","description":"Learn PySpark: how Spark works, create a SparkSession, transform DataFrames, aggregate big data and train a machine learning model with MLlib.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/pyspark-tutorial-data-science.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Big Data Analytics for Data Science","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "PySpark Tutorial: Big Data Processing in Python", "item": "https://xenors.in/data-science/pyspark-tutorial-data-science/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › PySpark Tutorial: Big Data Processing in Python</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 12: Big Data Analytics for Data Science</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>PySpark Tutorial: Big Data Processing in Python</h1>
+<p class="lead">When data no longer fits in one machine's memory, pandas stops being enough. Spark splits data into partitions and processes them in parallel across a cluster, and PySpark is its Python API.</p>
+<img alt="PySpark cluster with driver and executors processing partitioned data in parallel" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/pyspark-tutorial-data-science.webp" srcset="https://xenors.in/images/data-science/pyspark-tutorial-data-science-640.webp 640w, https://xenors.in/images/data-science/pyspark-tutorial-data-science.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Install pyspark, create a SparkSession, read data into a DataFrame, chain transformations such as filter, groupBy and agg, and trigger execution with an action like show() or write. Spark is lazy: nothing runs until an action is called.</div>
+<h2 id="how-spark-works">How Spark works</h2>
+<p>A driver program builds a plan and executors run tasks on partitions of data. Transformations such as select or filter are lazy and only describe the plan. Actions such as count, show or write run it. Wide transformations like groupBy or join require a shuffle, which moves data across the network and is the main cost to watch.</p>
+<table><thead><tr><th>Use pandas when</th><th>Use PySpark when</th></tr></thead><tbody><tr><td>Data fits in memory</td><td>Data is larger than one machine</td></tr><tr><td>Quick exploration</td><td>Distributed ETL and pipelines</td></tr><tr><td>Single machine</td><td>Cluster or cloud (Databricks, EMR)</td></tr></tbody></table><h2 id="start-spark-and-read-data">Start Spark and read data</h2>
+<p>Local mode lets you learn on a laptop with the same API used on a cluster.</p>
+<div class="codebox"><div class="cap">Create a SparkSession and load a CSV</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># pip install pyspark
+from pyspark.sql import SparkSession, functions as F
+
+spark = (SparkSession.builder.appName("demo").master("local[*]")
+         .config("spark.sql.shuffle.partitions", "8").getOrCreate())
+
+df = spark.read.csv("sales.csv", header=True, inferSchema=True)
+df.printSchema()
+df.show(5)
+print("rows:", df.count())</code></pre></div><h2 id="transform-and-aggregate">Transform and aggregate</h2>
+<p>Prefer built-in functions in pyspark.sql.functions over Python UDFs, because they run inside the optimised engine.</p>
+<div class="codebox"><div class="cap">Monthly revenue by region, saved as Parquet</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>result = (df.filter(F.col("amount") &gt; 0)
+             .withColumn("month", F.date_format("order_date", "yyyy-MM"))
+             .groupBy("month", "region")
+             .agg(F.sum("amount").alias("revenue"),
+                  F.countDistinct("customer_id").alias("customers"))
+             .orderBy("month", F.desc("revenue")))
+result.show(10)
+result.write.mode("overwrite").partitionBy("month").parquet("out/revenue")</code></pre></div><h2 id="train-a-model-with-mllib">Train a model with MLlib</h2>
+<p>MLlib models expect one vector column of features.</p>
+<div class="codebox"><div class="cap">Logistic regression on a Spark DataFrame</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>from pyspark.ml.feature import VectorAssembler
+from pyspark.ml.classification import LogisticRegression
+from pyspark.ml.evaluation import BinaryClassificationEvaluator
+
+data = df.select("age", "income", "visits", F.col("churned").cast("int").alias("label"))
+vec = VectorAssembler(inputCols=["age", "income", "visits"], outputCol="features").transform(data)
+train, test = vec.randomSplit([0.8, 0.2], seed=42)
+model = LogisticRegression(featuresCol="features", labelCol="label").fit(train)
+auc = BinaryClassificationEvaluator(labelCol="label").evaluate(model.transform(test))
+print("AUC:", round(auc, 3))</code></pre></div><h2 id="performance-habits">Performance habits</h2>
+<p>Use Parquet instead of CSV for repeated work. Filter early so less data is shuffled. Cache a DataFrame only when you reuse it several times. Avoid collect() on large data, because it pulls everything into the driver. Inspect plans with df.explain() and the Spark UI at port 4040.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/pyspark-tutorial-data-science.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Inspect partitions before tuning</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>from pyspark.sql import SparkSession
+spark = SparkSession.builder.getOrCreate()
+df = spark.range(0, 1_000_000).repartition(8)
+print(df.rdd.getNumPartitions())
+print(df.groupBy().count().collect()[0][0])</code></pre></div><pre class="output">8
+1000000</pre><p>Partition count affects parallelism; tune it after measuring stage time and shuffle size.</p><h3>Compare cached and uncached actions</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>df2 = df.withColumn('bucket', (df.id % 10))
+df2.cache()
+df2.count()
+print(df2.groupBy('bucket').count().orderBy('bucket').show(3))</code></pre></div><pre class="output">bucket | count
+0      | 100000
+1      | 100000
+2      | 100000</pre><p>Cache only reused data; caching everything can waste executor memory.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this PySpark Fundamentals workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Is PySpark faster than pandas?</summary><p>On small data pandas is usually faster because Spark has startup overhead. PySpark wins when data or computation must be distributed.</p></details><details><summary>What is lazy evaluation?</summary><p>Spark records transformations as a plan and only executes when an action is called, which lets it optimise the whole plan.</p></details><details><summary>Do I need a cluster to learn PySpark?</summary><p>No. Local mode runs the full API on your laptop.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://spark.apache.org/docs/latest/api/python/" rel="noopener noreferrer" target="_blank">PySpark documentation</a></li><li><a href="https://spark.apache.org/docs/latest/sql-programming-guide.html" rel="noopener noreferrer" target="_blank">Spark SQL programming guide</a></li><li><a href="https://spark.apache.org/docs/latest/ml-guide.html" rel="noopener noreferrer" target="_blank">Spark MLlib guide</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/vector-databases-chromadb-pinecone/" rel="prev"><small>Previous lesson</small>Vector Databases: ChromaDB, Pinecone and FAISS</a><a class="r" href="https://xenors.in/data-science/spark-sql-dataframes/" rel="next"><small>Next lesson</small>PySpark DataFrames and Spark SQL for Beginners</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#how-spark-works">How Spark works</a></li><li><a href="#start-spark-and-read-data">Start Spark and read data</a></li><li><a href="#transform-and-aggregate">Transform and aggregate</a></li><li><a href="#train-a-model-with-mllib">Train a model with MLlib</a></li><li><a href="#performance-habits">Performance habits</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Big Data &amp; Engineering</h2><ul><li><a href="https://xenors.in/data-science/big-data-engineering/">Module overview</a></li><li class="cur"><a href="https://xenors.in/data-science/pyspark-tutorial-data-science/">PySpark Fundamentals</a></li><li class=""><a href="https://xenors.in/data-science/spark-sql-dataframes/">Spark SQL &amp; DataFrames</a></li><li class=""><a href="https://xenors.in/data-science/kafka-streaming-data-pipelines/">Kafka Streaming</a></li><li class=""><a href="https://xenors.in/data-science/snowflake-data-warehouse-tutorial/">Snowflake Warehouse</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Time-Series Forecasting with LSTM &amp; Prophet</title>
+<meta content="Forecast stock prices in Python with Prophet and an LSTM, compare against a naive baseline using walk-forward validation, and understand the limits." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/financial-time-series-forecasting/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Time-Series Forecasting with LSTM &amp; Prophet" property="og:title"/>
+<meta content="Forecast stock prices in Python with Prophet and an LSTM, compare against a naive baseline using walk-forward validation, and understand the limits." property="og:description"/>
+<meta content="https://xenors.in/data-science/financial-time-series-forecasting/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/financial-time-series-forecasting.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Advanced Real-World Projects &amp; Capstone" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Time-Series Forecasting with LSTM &amp; Prophet" name="twitter:title"/>
+<meta content="Forecast stock prices in Python with Prophet and an LSTM, compare against a naive baseline using walk-forward validation, and understand the limits." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/financial-time-series-forecasting.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/financial-time-series-forecasting.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/financial-time-series-forecasting/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/financial-time-series-forecasting/"},"headline":"Project: Stock Price Forecasting with LSTM and Prophet","description":"Forecast stock prices in Python with Prophet and an LSTM, compare against a naive baseline using walk-forward validation, and understand the limits.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/financial-time-series-forecasting.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Advanced Real-World Projects & Capstone","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "Project: Stock Price Forecasting with LSTM and Prophet", "item": "https://xenors.in/data-science/financial-time-series-forecasting/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Project: Stock Price Forecasting with LSTM and Prophet</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 13: Advanced Real-World Projects &amp; Capstone</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Project: Stock Price Forecasting with LSTM and Prophet</h1>
+<p class="lead">Forecasting prices is a good way to practise time series modelling, and an honest way to learn how hard markets are to predict. Treat this as a modelling exercise, not trading advice.</p>
+<img alt="Stock price chart with Prophet forecast band and LSTM predictions compared with actual prices" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/financial-time-series-forecasting.webp" srcset="https://xenors.in/images/data-science/financial-time-series-forecasting-640.webp 640w, https://xenors.in/images/data-science/financial-time-series-forecasting.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Download prices with yfinance, forecast with Prophet and an LSTM, then compare both against a naive last-value baseline using walk-forward validation. Markets are noisy, so a model that cannot beat the naive baseline has no predictive value.</div>
+<h2 id="disclaimer-and-setup">Disclaimer and setup</h2>
+<p>This project is educational. Forecasts of prices are uncertain and are not financial advice. Past performance does not predict future returns.</p>
+<div class="codebox"><div class="cap">Download daily prices</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># pip install yfinance prophet scikit-learn torch pandas
+import yfinance as yf, pandas as pd
+
+raw = yf.download("RELIANCE.NS", start="2018-01-01", progress=False, auto_adjust=True)
+close = raw["Close"].squeeze().dropna()
+df = close.reset_index()
+df.columns = ["ds", "y"]
+print(df.tail())</code></pre></div><h2 id="baseline-first">Baseline first</h2>
+<p>On daily prices, 'tomorrow equals today' is surprisingly hard to beat. Any model must clear this bar.</p>
+<div class="codebox"><div class="cap">Naive last-value forecast</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import numpy as np
+split = int(len(df) * 0.85)
+train, test = df.iloc[:split], df.iloc[split:]
+naive = test["y"].shift(1).fillna(train["y"].iloc[-1])
+mae = lambda a, b: float(np.mean(np.abs(a - b)))
+print("naive MAE:", round(mae(test["y"], naive), 2))</code></pre></div><h2 id="forecast-with-prophet">Forecast with Prophet</h2>
+<p>Prophet fits trend and seasonality and gives uncertainty intervals. It suits business time series better than efficient financial prices, which makes it a useful comparison.</p>
+<div class="codebox"><div class="cap">Prophet fit and evaluation</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>from prophet import Prophet
+
+m = Prophet(daily_seasonality=False, weekly_seasonality=True, yearly_seasonality=True)
+m.fit(train)
+future = m.make_future_dataframe(periods=len(test), freq="B")
+fc = m.predict(future)
+pred = fc.set_index("ds").loc[test["ds"], "yhat"].values
+print("Prophet MAE:", round(mae(test["y"].values, pred), 2))</code></pre></div><h2 id="forecast-with-an-lstm">Forecast with an LSTM</h2>
+<p>Predict the next day's return from the previous 30 returns. Modelling returns instead of raw prices makes the series closer to stationary.</p>
+<div class="codebox"><div class="cap">LSTM on normalised log returns</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import torch, torch.nn as nn
+ret = np.log(df["y"]).diff().dropna().values.astype("float32")
+mu, sd = ret[:split].mean(), ret[:split].std()
+r = (ret - mu) / sd
+W = 30
+X = np.stack([r[i:i+W] for i in range(len(r) - W)])[..., None]
+y = r[W:]
+Xt, yt = torch.tensor(X[:split-W]), torch.tensor(y[:split-W])
+Xv, yv = torch.tensor(X[split-W:]), torch.tensor(y[split-W:])
+
+class Net(nn.Module):
+    def __init__(s):
+        super().__init__(); s.l = nn.LSTM(1, 32, batch_first=True); s.o = nn.Linear(32, 1)
+    def forward(s, x): return s.o(s.l(x)[0][:, -1]).squeeze(-1)
+
+net = Net(); opt = torch.optim.Adam(net.parameters(), 1e-3)
+for ep in range(10):
+    for i in range(0, len(Xt), 64):
+        opt.zero_grad()
+        loss = nn.functional.mse_loss(net(Xt[i:i+64]), yt[i:i+64]); loss.backward(); opt.step()
+with torch.no_grad():
+    print("LSTM val MSE:", float(nn.functional.mse_loss(net(Xv), yv)),
+          "| zero-return baseline:", float((yv ** 2).mean()))</code></pre></div><h2 id="interpret-results-honestly">Interpret results honestly</h2>
+<p>If the LSTM error is not lower than the zero-return baseline on unseen data, it has learned nothing useful. Use walk-forward validation, include transaction costs before drawing conclusions about strategies, and be cautious about backtests that look too good, since overfitting is the usual cause.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/financial-time-series-forecasting.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Use walk-forward splits</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>series=list(range(12))
+for cut in [6,8,10]:
+    train=series[:cut]; test=series[cut:cut+2]
+    print(len(train),test)</code></pre></div><pre class="output">6 [6, 7]
+8 [8, 9]
+10 [10, 11]</pre><p>Time-series validation must preserve chronology.</p><h3>Compare against a naive baseline</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>y=[101,103,102,106]
+pred=[100,101,103,102]
+mae=sum(abs(a-b) for a,b in zip(y,pred))/len(y)
+print('MAE',mae)</code></pre></div><pre class="output">MAE 2.0</pre><p>Complex models should beat simple persistence or seasonal baselines.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this Forecasting Project workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Can LSTM predict stock prices accurately?</summary><p>Not reliably. Prices are noisy and efficient markets leave little predictable signal, so always compare with a naive baseline.</p></details><details><summary>Prophet or LSTM?</summary><p>Prophet is quick and interpretable for trend and seasonality. LSTMs can model more complex patterns but need more data and careful validation.</p></details><details><summary>Is this financial advice?</summary><p>No. It is an educational modelling exercise only.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://facebook.github.io/prophet/docs/quick_start.html" rel="noopener noreferrer" target="_blank">Prophet documentation</a></li><li><a href="https://github.com/ranaroussi/yfinance" rel="noopener noreferrer" target="_blank">yfinance on GitHub</a></li><li><a href="https://otexts.com/fpp3/" rel="noopener noreferrer" target="_blank">Forecasting: Principles and Practice</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/computer-vision-mask-detection-project/" rel="prev"><small>Previous lesson</small>Project: Real-Time Face Mask Detection with OpenCV and PyTorch</a><a class="r" href="https://xenors.in/data-science/data-science-resume-portfolio-guide/" rel="next"><small>Next lesson</small>How to Build an Industry-Ready Data Science Resume and Portfolio</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#disclaimer-and-setup">Disclaimer and setup</a></li><li><a href="#baseline-first">Baseline first</a></li><li><a href="#forecast-with-prophet">Forecast with Prophet</a></li><li><a href="#forecast-with-an-lstm">Forecast with an LSTM</a></li><li><a href="#interpret-results-honestly">Interpret results honestly</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Projects &amp; Career</h2><ul><li><a href="https://xenors.in/data-science/real-world-projects-career/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/end-to-end-llm-rag-project/">RAG Project</a></li><li class=""><a href="https://xenors.in/data-science/predictive-maintenance-iot-ml/">Predictive Maintenance</a></li><li class=""><a href="https://xenors.in/data-science/customer-churn-prediction-deployment/">Churn Project</a></li><li class=""><a href="https://xenors.in/data-science/computer-vision-mask-detection-project/">Mask Detection Project</a></li><li class="cur"><a href="https://xenors.in/data-science/financial-time-series-forecasting/">Forecasting Project</a></li><li class=""><a href="https://xenors.in/data-science/data-science-resume-portfolio-guide/">Resume &amp; Portfolio</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

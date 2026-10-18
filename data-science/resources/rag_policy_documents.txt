@@ -1,0 +1,8 @@
+[refund-policy]
+Customers may request a refund within 30 calendar days of purchase for unopened physical goods. Digital downloads are non-refundable after access.
+
+[support-policy]
+Priority support is available Monday to Friday, 09:00-18:00 IST. Critical incidents are acknowledged within two business hours.
+
+[shipping-policy]
+Standard shipping is estimated at 3-7 business days within India. International delivery varies by destination.

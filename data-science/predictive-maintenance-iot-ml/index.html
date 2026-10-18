@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Predictive Maintenance with IoT Sensor Data</title>
+<meta content="Build a predictive maintenance model from sensor data: rolling features, time-based split, failure classification and a real-time scoring loop in Python." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/predictive-maintenance-iot-ml/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Predictive Maintenance with IoT Sensor Data" property="og:title"/>
+<meta content="Build a predictive maintenance model from sensor data: rolling features, time-based split, failure classification and a real-time scoring loop in Python." property="og:description"/>
+<meta content="https://xenors.in/data-science/predictive-maintenance-iot-ml/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/predictive-maintenance-iot-ml.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Advanced Real-World Projects &amp; Capstone" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Predictive Maintenance with IoT Sensor Data" name="twitter:title"/>
+<meta content="Build a predictive maintenance model from sensor data: rolling features, time-based split, failure classification and a real-time scoring loop in Python." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/predictive-maintenance-iot-ml.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/predictive-maintenance-iot-ml.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/predictive-maintenance-iot-ml/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/predictive-maintenance-iot-ml/"},"headline":"Project: Predictive Maintenance with IoT Sensor Data","description":"Build a predictive maintenance model from sensor data: rolling features, time-based split, failure classification and a real-time scoring loop in Python.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/predictive-maintenance-iot-ml.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Advanced Real-World Projects & Capstone","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "Project: Predictive Maintenance with IoT Sensor Data", "item": "https://xenors.in/data-science/predictive-maintenance-iot-ml/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Project: Predictive Maintenance with IoT Sensor Data</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 13: Advanced Real-World Projects &amp; Capstone</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Project: Predictive Maintenance with IoT Sensor Data</h1>
+<p class="lead">Unplanned downtime is expensive. This project predicts whether a machine will fail within the next 24 hours from vibration, temperature and pressure readings.</p>
+<img alt="Industrial sensor stream feeding a machine learning model that predicts equipment failure" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/predictive-maintenance-iot-ml.webp" srcset="https://xenors.in/images/data-science/predictive-maintenance-iot-ml-640.webp 640w, https://xenors.in/images/data-science/predictive-maintenance-iot-ml.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Create rolling-window features from sensor readings, label each row by whether a failure occurs in the next 24 hours, split the data by time, train a gradient boosting classifier, evaluate recall and precision, and score new readings in a streaming loop.</div>
+<h2 id="frame-the-problem">Frame the problem</h2>
+<p>Predictive maintenance is usually a rare-event classification. Missing a failure costs far more than a false alarm, so recall at an acceptable precision matters more than accuracy. Never split randomly: use earlier data for training and later data for testing, or the model sees the future.</p><h2 id="create-a-sample-dataset">Create a sample dataset</h2>
+<p>A synthetic dataset lets you run the whole pipeline. Replace it with a public dataset such as NASA C-MAPSS when you build the portfolio version.</p>
+<div class="codebox"><div class="cap">Synthetic sensor stream with three failures</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import numpy as np, pandas as pd
+
+rng = np.random.default_rng(1)
+n = 6000
+t = pd.date_range("2026-01-01", periods=n, freq="h")
+vib = rng.normal(1.0, 0.1, n); temp = rng.normal(70, 3, n); pres = rng.normal(30, 1, n)
+fail_at = [1500, 3200, 5000]
+for f in fail_at:                      # readings degrade before each failure
+    ramp = np.linspace(0, 1, 48)
+    vib[f-48:f] += ramp * 0.8; temp[f-48:f] += ramp * 9
+df = pd.DataFrame({"ts": t, "vib": vib, "temp": temp, "pres": pres})
+df["fail_next_24h"] = 0
+for f in fail_at:
+    df.loc[f-24:f, "fail_next_24h"] = 1
+print(df["fail_next_24h"].mean())</code></pre></div><h2 id="feature-engineering">Feature engineering</h2>
+<p>Rolling statistics expose slow degradation that a single reading hides. Use only past values.</p>
+<div class="codebox"><div class="cap">Rolling mean, spread and trend</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>for c in ["vib", "temp", "pres"]:
+    r = df[c].rolling(12)
+    df[f"{c}_mean12"] = r.mean()
+    df[f"{c}_std12"] = r.std()
+    df[f"{c}_delta"] = df[c] - df[c].shift(6)
+df = df.dropna().reset_index(drop=True)
+FEATS = [c for c in df.columns if c not in ("ts", "fail_next_24h")]</code></pre></div><h2 id="train-and-evaluate">Train and evaluate</h2>
+<p>Handle class imbalance with a weight and judge by the precision-recall trade-off.</p>
+<div class="codebox"><div class="cap">Time-based split and weighted training</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>from sklearn.ensemble import HistGradientBoostingClassifier
+from sklearn.metrics import classification_report
+
+cut = int(len(df) * 0.7)
+train, test = df.iloc[:cut], df.iloc[cut:]
+w = (train.fail_next_24h == 0).sum() / max((train.fail_next_24h == 1).sum(), 1)
+model = HistGradientBoostingClassifier(max_depth=4, random_state=0)
+model.fit(train[FEATS], train.fail_next_24h,
+          sample_weight=train.fail_next_24h.map({0: 1, 1: w}))
+pred = model.predict_proba(test[FEATS])[:, 1] &gt; 0.5
+print(classification_report(test.fail_next_24h, pred, zero_division=0))</code></pre></div><h2 id="real-time-scoring-loop">Real-time scoring loop</h2>
+<p>In production, readings arrive from MQTT or Kafka. The loop keeps a rolling buffer, builds the same features and raises an alert above a threshold.</p>
+<div class="codebox"><div class="cap">Streaming score function with alerting</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>from collections import deque
+
+buf = {c: deque(maxlen=12) for c in ["vib", "temp", "pres"]}
+def score(reading):
+    for c in buf: buf[c].append(reading[c])
+    if len(buf["vib"]) &lt; 12: return None
+    row = {}
+    for c in buf:
+        s = pd.Series(buf[c])
+        row[f"{c}"] = s.iloc[-1]; row[f"{c}_mean12"] = s.mean(); row[f"{c}_std12"] = s.std()
+        row[f"{c}_delta"] = s.iloc[-1] - s.iloc[-6]
+    return float(model.predict_proba(pd.DataFrame([row])[FEATS])[0, 1])
+
+for _, r in test.head(30).iterrows():
+    p = score(r)
+    if p and p &gt; 0.7: print("ALERT", r.ts, round(p, 2))</code></pre></div>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/predictive-maintenance-iot-ml.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Create rolling sensor features</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import pandas as pd
+s=pd.Series([40,42,41,50,55])
+print(pd.DataFrame({'temp':s,'roll3':s.rolling(3).mean()}))</code></pre></div><pre class="output">temp roll3
+40 NaN
+42 NaN
+41 41.0
+50 44.3
+55 48.7</pre><p>Rolling features capture trend but must use only past data at prediction time.</p><h3>Translate probabilities into maintenance priorities</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>assets=[('A',.12),('B',.81),('C',.46)]
+print(sorted(assets,key=lambda x:x[1],reverse=True))</code></pre></div><pre class="output">[('B', 0.81), ('C', 0.46), ('A', 0.12)]</pre><p>Ranking risk can be more useful operationally than a hard binary prediction.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this Predictive Maintenance workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Which metric matters most in predictive maintenance?</summary><p>Recall for failures at an acceptable precision, because missed failures are costly while false alarms waste inspections.</p></details><details><summary>Why not split data randomly?</summary><p>Random splits leak future information into training and give unrealistically good scores for time-ordered data.</p></details><details><summary>Which public dataset can I use?</summary><p>NASA C-MAPSS turbofan data and the AI4I 2020 predictive maintenance dataset are commonly used.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://www.nasa.gov/intelligent-systems-division/discovery-and-systems-health/pcoe/pcoe-data-set-repository/" rel="noopener noreferrer" target="_blank">NASA Prognostics Data Repository</a></li><li><a href="https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.HistGradientBoostingClassifier.html" rel="noopener noreferrer" target="_blank">scikit-learn HistGradientBoostingClassifier</a></li><li><a href="https://pandas.pydata.org/docs/user_guide/window.html" rel="noopener noreferrer" target="_blank">pandas rolling windows</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/end-to-end-llm-rag-project/" rel="prev"><small>Previous lesson</small>Project: Document Q&amp;A Bot with RAG, LangChain and Streamlit</a><a class="r" href="https://xenors.in/data-science/customer-churn-prediction-deployment/" rel="next"><small>Next lesson</small>Project: End-to-End Customer Churn Prediction</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#frame-the-problem">Frame the problem</a></li><li><a href="#create-a-sample-dataset">Create a sample dataset</a></li><li><a href="#feature-engineering">Feature engineering</a></li><li><a href="#train-and-evaluate">Train and evaluate</a></li><li><a href="#real-time-scoring-loop">Real-time scoring loop</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Projects &amp; Career</h2><ul><li><a href="https://xenors.in/data-science/real-world-projects-career/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/end-to-end-llm-rag-project/">RAG Project</a></li><li class="cur"><a href="https://xenors.in/data-science/predictive-maintenance-iot-ml/">Predictive Maintenance</a></li><li class=""><a href="https://xenors.in/data-science/customer-churn-prediction-deployment/">Churn Project</a></li><li class=""><a href="https://xenors.in/data-science/computer-vision-mask-detection-project/">Mask Detection Project</a></li><li class=""><a href="https://xenors.in/data-science/financial-time-series-forecasting/">Forecasting Project</a></li><li class=""><a href="https://xenors.in/data-science/data-science-resume-portfolio-guide/">Resume &amp; Portfolio</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

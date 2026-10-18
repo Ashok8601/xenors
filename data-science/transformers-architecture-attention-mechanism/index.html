@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Transformer Architecture &amp; Self-Attention</title>
+<meta content="Understand the Transformer: self-attention, queries, keys, values, multi-head attention and positional encoding, with a from-scratch PyTorch implementation." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/transformers-architecture-attention-mechanism/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Transformer Architecture &amp; Self-Attention" property="og:title"/>
+<meta content="Understand the Transformer: self-attention, queries, keys, values, multi-head attention and positional encoding, with a from-scratch PyTorch implementation." property="og:description"/>
+<meta content="https://xenors.in/data-science/transformers-architecture-attention-mechanism/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/transformers-architecture-attention-mechanism.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Generative AI, LLMs &amp; Prompt Engineering" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Transformer Architecture &amp; Self-Attention" name="twitter:title"/>
+<meta content="Understand the Transformer: self-attention, queries, keys, values, multi-head attention and positional encoding, with a from-scratch PyTorch implementation." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/transformers-architecture-attention-mechanism.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/transformers-architecture-attention-mechanism.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/transformers-architecture-attention-mechanism/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/transformers-architecture-attention-mechanism/"},"headline":"Transformer Architecture and the Self-Attention Mechanism","description":"Understand the Transformer: self-attention, queries, keys, values, multi-head attention and positional encoding, with a from-scratch PyTorch implementation.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/transformers-architecture-attention-mechanism.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Generative AI, LLMs & Prompt Engineering","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "Transformer Architecture and the Self-Attention Mechanism", "item": "https://xenors.in/data-science/transformers-architecture-attention-mechanism/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Transformer Architecture and the Self-Attention Mechanism</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 10: Generative AI, LLMs &amp; Prompt Engineering</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Transformer Architecture and the Self-Attention Mechanism</h1>
+<p class="lead">Every modern large language model is built from the Transformer. Its core idea is simple: let every token look at every other token and decide how much each one matters.</p>
+<img alt="Transformer encoder and decoder diagram with self-attention heads and positional encoding" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/transformers-architecture-attention-mechanism.webp" srcset="https://xenors.in/images/data-science/transformers-architecture-attention-mechanism-640.webp 640w, https://xenors.in/images/data-science/transformers-architecture-attention-mechanism.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Self-attention computes softmax(QK^T / sqrt(d_k)) V. Each token produces a query, key and value, scores its query against all keys, and takes a weighted sum of values. Multi-head attention runs this several times in parallel.</div>
+<h2 id="what-problem-transformers-solved">What problem Transformers solved</h2>
+<p>RNNs read tokens one at a time, which is slow to train and forgets distant context. Transformers process the whole sequence in parallel and connect any two positions with one attention step, so training scales on GPUs and long-range relationships are easy to learn.</p>
+<table><thead><tr><th>Component</th><th>Role</th></tr></thead><tbody><tr><td>Token embedding</td><td>Turns ids into vectors</td></tr><tr><td>Positional encoding</td><td>Injects word order</td></tr><tr><td>Self-attention</td><td>Mixes information across tokens</td></tr><tr><td>Feed-forward layer</td><td>Transforms each token independently</td></tr><tr><td>Residual + LayerNorm</td><td>Keeps training stable</td></tr></tbody></table><h2 id="self-attention-from-scratch">Self-attention from scratch</h2>
+<p>Queries ask what to look for, keys advertise what each token contains, and values carry the information. Dividing by the square root of the key size keeps the softmax from saturating.</p>
+<div class="codebox"><div class="cap">Scaled dot-product attention</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import torch, math
+import torch.nn.functional as F
+
+def attention(q, k, v, mask=None):
+    scores = q @ k.transpose(-2, -1) / math.sqrt(q.size(-1))
+    if mask is not None:
+        scores = scores.masked_fill(mask == 0, float("-inf"))
+    weights = F.softmax(scores, dim=-1)
+    return weights @ v, weights
+
+x = torch.randn(1, 4, 8)                  # batch=1, 4 tokens, dim 8
+Wq, Wk, Wv = (torch.randn(8, 8) for _ in range(3))
+out, w = attention(x @ Wq, x @ Wk, x @ Wv)
+print(out.shape, w.sum(-1))               # each row of weights sums to 1</code></pre></div><h2 id="multi-head-attention">Multi-head attention</h2>
+<p>Several smaller attention heads let the model track different relationships at once, such as syntax in one head and coreference in another. Outputs are concatenated and projected.</p>
+<div class="codebox"><div class="cap">Causal multi-head self-attention</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import torch.nn as nn
+
+class MultiHead(nn.Module):
+    def __init__(self, d=64, heads=4):
+        super().__init__()
+        assert d % heads == 0
+        self.h, self.dk = heads, d // heads
+        self.qkv = nn.Linear(d, 3 * d)
+        self.out = nn.Linear(d, d)
+    def forward(self, x, causal=False):
+        B, T, D = x.shape
+        q, k, v = self.qkv(x).chunk(3, dim=-1)
+        q, k, v = (t.view(B, T, self.h, self.dk).transpose(1, 2) for t in (q, k, v))
+        mask = torch.tril(torch.ones(T, T)) if causal else None
+        y, _ = attention(q, k, v, mask)
+        return self.out(y.transpose(1, 2).reshape(B, T, D))
+
+print(MultiHead()(torch.randn(2, 10, 64), causal=True).shape)</code></pre></div><h2 id="positional-encoding-and-the-full-block">Positional encoding and the full block</h2>
+<p>Attention alone ignores order, so a position signal is added to the embeddings. The original paper used fixed sine and cosine waves, and many modern models learn positions or use rotary embeddings. A Transformer block wraps attention and a feed-forward network with residual connections and layer normalisation.</p>
+<div class="callout"><strong>Practical tip</strong>Encoder-only models such as BERT suit understanding tasks, decoder-only models such as GPT suit generation, and encoder-decoder models suit translation and summarisation.</div>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/transformers-architecture-attention-mechanism.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Calculate scaled dot-product attention</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import torch, math
+Q=torch.tensor([[1.,0.],[0.,1.]])
+K=Q.clone(); V=torch.tensor([[10.,0.],[0.,20.]])
+W=torch.softmax(Q@K.T/math.sqrt(2),dim=-1)
+print(W.round(decimals=3)); print((W@V).round(decimals=2))</code></pre></div><pre class="output">tensor([[0.670, 0.330], [0.330, 0.670]])
+...</pre><p>Scaling prevents dot products from growing too large as key dimension increases.</p><h3>Verify causal masking</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>scores=torch.zeros(4,4)
+mask=torch.triu(torch.ones(4,4),diagonal=1).bool()
+scores=scores.masked_fill(mask,float('-inf'))
+print(scores)</code></pre></div><pre class="output">upper triangle becomes -inf</pre><p>A causal mask prevents a decoder token from reading future tokens.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this Transformers &amp; Attention workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>What is self-attention in simple words?</summary><p>Each word compares itself with every other word in the sentence and builds a new representation as a weighted mix of them.</p></details><details><summary>Why divide by the square root of d_k?</summary><p>Large dot products push softmax into regions with tiny gradients. Scaling keeps the values in a healthy range.</p></details><details><summary>Why do Transformers need positional encoding?</summary><p>Attention treats tokens as an unordered set, so position information must be added explicitly.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://arxiv.org/abs/1706.03762" rel="noopener noreferrer" target="_blank">Attention Is All You Need</a></li><li><a href="https://nlp.seas.harvard.edu/annotated-transformer/" rel="noopener noreferrer" target="_blank">The Annotated Transformer</a></li><li><a href="https://pytorch.org/docs/stable/generated/torch.nn.MultiheadAttention.html" rel="noopener noreferrer" target="_blank">PyTorch nn.MultiheadAttention</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/transfer-learning-keras-pytorch/" rel="prev"><small>Previous lesson</small>Transfer Learning: Pre-trained Models in PyTorch and Keras</a><a class="r" href="https://xenors.in/data-science/fine-tuning-llm-huggingface/" rel="next"><small>Next lesson</small>How to Fine-Tune LLMs with Hugging Face: LLaMA and Mistral</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#what-problem-transformers-solved">What problem Transformers solved</a></li><li><a href="#self-attention-from-scratch">Self-attention from scratch</a></li><li><a href="#multi-head-attention">Multi-head attention</a></li><li><a href="#positional-encoding-and-the-full-block">Positional encoding and the full block</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Generative AI &amp; LLMs</h2><ul><li><a href="https://xenors.in/data-science/generative-ai-llm/">Module overview</a></li><li class="cur"><a href="https://xenors.in/data-science/transformers-architecture-attention-mechanism/">Transformers &amp; Attention</a></li><li class=""><a href="https://xenors.in/data-science/fine-tuning-llm-huggingface/">LLM Fine-Tuning</a></li><li class=""><a href="https://xenors.in/data-science/langchain-tutorial-python/">LangChain Basics</a></li><li class=""><a href="https://xenors.in/data-science/retrieval-augmented-generation-rag/">RAG Architecture</a></li><li class=""><a href="https://xenors.in/data-science/prompt-engineering-techniques/">Prompt Engineering</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

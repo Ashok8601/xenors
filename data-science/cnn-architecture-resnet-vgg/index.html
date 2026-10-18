@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>CNN Architectures: VGG, ResNet &amp; Inception</title>
+<meta content="Compare AlexNet, VGG16, Inception and ResNet: how each design works, why skip connections help, and how to load them in PyTorch with runnable code." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/cnn-architecture-resnet-vgg/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="CNN Architectures: VGG, ResNet &amp; Inception" property="og:title"/>
+<meta content="Compare AlexNet, VGG16, Inception and ResNet: how each design works, why skip connections help, and how to load them in PyTorch with runnable code." property="og:description"/>
+<meta content="https://xenors.in/data-science/cnn-architecture-resnet-vgg/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/cnn-architecture-resnet-vgg.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Advanced Deep Learning" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="CNN Architectures: VGG, ResNet &amp; Inception" name="twitter:title"/>
+<meta content="Compare AlexNet, VGG16, Inception and ResNet: how each design works, why skip connections help, and how to load them in PyTorch with runnable code." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/cnn-architecture-resnet-vgg.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/cnn-architecture-resnet-vgg.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/cnn-architecture-resnet-vgg/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/cnn-architecture-resnet-vgg/"},"headline":"CNN Architectures: AlexNet, VGG16, ResNet & Inception","description":"Compare AlexNet, VGG16, Inception and ResNet: how each design works, why skip connections help, and how to load them in PyTorch with runnable code.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/cnn-architecture-resnet-vgg.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Advanced Deep Learning","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "CNN Architectures: AlexNet, VGG16, ResNet & Inception", "item": "https://xenors.in/data-science/cnn-architecture-resnet-vgg/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › CNN Architectures: AlexNet, VGG16, ResNet &amp; Inception</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 9: Advanced Deep Learning</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>CNN Architectures: AlexNet, VGG16, ResNet &amp; Inception</h1>
+<p class="lead">Four architectures shaped modern computer vision. This lesson explains what each one changed, how to read their layer structure, and how to load and inspect them in PyTorch.</p>
+<img alt="Diagram comparing AlexNet, VGG16, Inception and ResNet convolutional neural network architectures" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/cnn-architecture-resnet-vgg.webp" srcset="https://xenors.in/images/data-science/cnn-architecture-resnet-vgg-640.webp 640w, https://xenors.in/images/data-science/cnn-architecture-resnet-vgg.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> AlexNet proved deep CNNs work on GPUs, VGG16 showed that stacks of small 3x3 filters scale well, Inception ran several filter sizes in parallel, and ResNet added skip connections so networks with 50 to 150 layers train reliably.</div>
+<h2 id="how-cnn-architectures-evolved">How CNN architectures evolved</h2>
+<p>AlexNet (2012) won ImageNet with 8 layers, ReLU activations and dropout. VGG16 (2014) replaced large filters with repeated 3x3 convolutions and reached 16 weight layers. GoogLeNet/Inception (2014) used parallel branches to capture patterns at several scales. ResNet (2015) introduced residual learning and made very deep networks trainable.</p>
+<table><thead><tr><th>Model</th><th>Year</th><th>Depth</th><th>Key idea</th></tr></thead><tbody><tr><td>AlexNet</td><td>2012</td><td>8</td><td>ReLU, dropout, GPU training</td></tr><tr><td>VGG16</td><td>2014</td><td>16</td><td>Stacked 3x3 convolutions</td></tr><tr><td>Inception v1</td><td>2014</td><td>22</td><td>Parallel 1x1, 3x3, 5x5 branches</td></tr><tr><td>ResNet-50</td><td>2015</td><td>50</td><td>Skip (residual) connections</td></tr></tbody></table><h2 id="load-pretrained-models-in-pytorch">Load pretrained models in PyTorch</h2>
+<p>torchvision ships all four families with ImageNet weights. Count parameters first so you understand the cost of each choice before training or fine-tuning anything.</p>
+<div class="codebox"><div class="cap">Compare parameter counts of the four architectures</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import torch
+from torchvision import models
+
+nets = {
+    "alexnet": models.alexnet(weights=models.AlexNet_Weights.DEFAULT),
+    "vgg16": models.vgg16(weights=models.VGG16_Weights.DEFAULT),
+    "resnet50": models.resnet50(weights=models.ResNet50_Weights.DEFAULT),
+    "googlenet": models.googlenet(weights=models.GoogLeNet_Weights.DEFAULT),
+}
+for name, m in nets.items():
+    n = sum(p.numel() for p in m.parameters())
+    print(f"{name:10s} {n/1e6:6.1f}M parameters")</code></pre></div><h2 id="why-resnet-skip-connections-work">Why ResNet skip connections work</h2>
+<p>A residual block learns a correction F(x) and outputs F(x) + x. If the best transformation is close to identity, the block only has to push F(x) toward zero. Gradients also flow through the shortcut unchanged, which reduces the vanishing-gradient problem in deep stacks.</p>
+<div class="callout"><strong>Practical tip</strong>When the input and output shapes differ, use a 1x1 convolution on the shortcut so the two tensors can be added.</div>
+<div class="codebox"><div class="cap">A minimal residual block</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import torch.nn as nn
+
+class BasicBlock(nn.Module):
+    def __init__(self, c_in, c_out, stride=1):
+        super().__init__()
+        self.conv1 = nn.Conv2d(c_in, c_out, 3, stride, 1, bias=False)
+        self.bn1 = nn.BatchNorm2d(c_out)
+        self.conv2 = nn.Conv2d(c_out, c_out, 3, 1, 1, bias=False)
+        self.bn2 = nn.BatchNorm2d(c_out)
+        self.relu = nn.ReLU(inplace=True)
+        self.short = nn.Identity()
+        if stride != 1 or c_in != c_out:
+            self.short = nn.Sequential(
+                nn.Conv2d(c_in, c_out, 1, stride, bias=False),
+                nn.BatchNorm2d(c_out))
+
+    def forward(self, x):
+        out = self.relu(self.bn1(self.conv1(x)))
+        out = self.bn2(self.conv2(out))
+        return self.relu(out + self.short(x))</code></pre></div><h2 id="run-inference-with-resnet-50">Run inference with ResNet-50</h2>
+<p>Always use the preprocessing that ships with the weights, otherwise accuracy drops silently.</p>
+<div class="codebox"><div class="cap">Classify one image with top-3 predictions</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import torch
+from torchvision import models
+from PIL import Image
+
+weights = models.ResNet50_Weights.DEFAULT
+model = models.resnet50(weights=weights).eval()
+prep = weights.transforms()
+
+img = Image.open("photo.jpg").convert("RGB")
+with torch.no_grad():
+    probs = model(prep(img).unsqueeze(0)).softmax(1)[0]
+top = probs.topk(3)
+for p, i in zip(top.values, top.indices):
+    print(weights.meta["categories"][i], round(p.item(), 3))</code></pre></div><h2 id="which-architecture-should-you-choose">Which architecture should you choose?</h2>
+<p>Pick ResNet-50 as a strong default for transfer learning. Choose VGG16 only when you need simple, easy-to-visualise features, since it has about 138 million parameters. Use Inception-style models when multi-scale detail matters, and lighter networks such as MobileNet or EfficientNet when latency or memory is limited.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/cnn-architecture-resnet-vgg.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Compare parameter counts</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>from torchvision.models import resnet18, vgg16
+for m in [resnet18(),vgg16()]:
+    print(type(m).__name__, sum(p.numel() for p in m.parameters()))</code></pre></div><pre class="output">ResNet ... ~11.7M
+VGG ... ~138M</pre><p>Parameter count affects memory and deployment cost, not just accuracy.</p><h3>Check tensor shape through a residual block</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import torch
+x=torch.randn(1,64,56,56)
+print(x.shape)</code></pre></div><pre class="output">torch.Size([1, 64, 56, 56])</pre><p>Residual addition requires compatible tensor shapes.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this CNN Architectures workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Why is ResNet better than VGG16?</summary><p>ResNet uses skip connections that let gradients flow through deep networks, so it reaches higher accuracy with far fewer parameters than VGG16.</p></details><details><summary>What is the vanishing gradient problem?</summary><p>In very deep networks the gradient can shrink as it is back-propagated through many layers, so early layers learn slowly. Residual connections give gradients a short path to those layers.</p></details><details><summary>Can I use these CNNs for my own dataset?</summary><p>Yes. Load pretrained weights, replace the final classifier layer with one sized for your classes, and fine-tune. See the transfer learning lesson for the full workflow.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://pytorch.org/vision/stable/models.html" rel="noopener noreferrer" target="_blank">torchvision models documentation</a></li><li><a href="https://arxiv.org/abs/1512.03385" rel="noopener noreferrer" target="_blank">Deep Residual Learning for Image Recognition (He et al.)</a></li><li><a href="https://arxiv.org/abs/1409.1556" rel="noopener noreferrer" target="_blank">Very Deep Convolutional Networks (Simonyan &amp; Zisserman)</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><span></span><a class="r" href="https://xenors.in/data-science/yolo-object-detection-python/" rel="next"><small>Next lesson</small>YOLO Object Detection Tutorial in Python</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#how-cnn-architectures-evolved">How CNN architectures evolved</a></li><li><a href="#load-pretrained-models-in-pytorch">Load pretrained models in PyTorch</a></li><li><a href="#why-resnet-skip-connections-work">Why ResNet skip connections work</a></li><li><a href="#run-inference-with-resnet-50">Run inference with ResNet-50</a></li><li><a href="#which-architecture-should-you-choose">Which architecture should you choose?</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Advanced Deep Learning</h2><ul><li><a href="https://xenors.in/data-science/advanced-deep-learning/">Module overview</a></li><li class="cur"><a href="https://xenors.in/data-science/cnn-architecture-resnet-vgg/">CNN Architectures</a></li><li class=""><a href="https://xenors.in/data-science/yolo-object-detection-python/">YOLO Detection</a></li><li class=""><a href="https://xenors.in/data-science/recurrent-neural-networks-lstm/">RNN &amp; LSTM</a></li><li class=""><a href="https://xenors.in/data-science/autoencoders-generative-adversarial-networks-gan/">Autoencoders &amp; GANs</a></li><li class=""><a href="https://xenors.in/data-science/transfer-learning-keras-pytorch/">Transfer Learning</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

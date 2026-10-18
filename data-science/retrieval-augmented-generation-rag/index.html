@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>RAG Tutorial: Architecture, Retrieval &amp; Evaluation</title>
+<meta content="Build a RAG pipeline: chunking, embeddings, vector search, prompt assembly and evaluation, with Python code you can run locally with ChromaDB." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/retrieval-augmented-generation-rag/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="RAG Tutorial: Architecture, Retrieval &amp; Evaluation" property="og:title"/>
+<meta content="Build a RAG pipeline: chunking, embeddings, vector search, prompt assembly and evaluation, with Python code you can run locally with ChromaDB." property="og:description"/>
+<meta content="https://xenors.in/data-science/retrieval-augmented-generation-rag/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/retrieval-augmented-generation-rag.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Generative AI, LLMs &amp; Prompt Engineering" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="RAG Tutorial: Architecture, Retrieval &amp; Evaluation" name="twitter:title"/>
+<meta content="Build a RAG pipeline: chunking, embeddings, vector search, prompt assembly and evaluation, with Python code you can run locally with ChromaDB." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/retrieval-augmented-generation-rag.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/retrieval-augmented-generation-rag.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/retrieval-augmented-generation-rag/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/retrieval-augmented-generation-rag/"},"headline":"Retrieval-Augmented Generation (RAG): Architecture and Setup","description":"Build a RAG pipeline: chunking, embeddings, vector search, prompt assembly and evaluation, with Python code you can run locally with ChromaDB.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/retrieval-augmented-generation-rag.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Generative AI, LLMs & Prompt Engineering","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "Retrieval-Augmented Generation (RAG): Architecture and Setup", "item": "https://xenors.in/data-science/retrieval-augmented-generation-rag/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Retrieval-Augmented Generation (RAG): Architecture and Setup</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 10: Generative AI, LLMs &amp; Prompt Engineering</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Retrieval-Augmented Generation (RAG): Architecture and Setup</h1>
+<p class="lead">LLMs do not know your private documents and can invent answers. RAG retrieves relevant passages at question time and puts them in the prompt, so answers are grounded in your data.</p>
+<img alt="RAG architecture: documents chunked, embedded, stored in a vector database and retrieved for an LLM prompt" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/retrieval-augmented-generation-rag.webp" srcset="https://xenors.in/images/data-science/retrieval-augmented-generation-rag-640.webp 640w, https://xenors.in/images/data-science/retrieval-augmented-generation-rag.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> RAG has two stages. Index: split documents into chunks, embed them and store vectors. Query: embed the question, retrieve the nearest chunks, add them to the prompt and let the LLM answer only from that context.</div>
+<h2 id="the-rag-pipeline">The RAG pipeline</h2>
+<p>Indexing happens once, or whenever documents change. Query time runs for every question.</p>
+<table><thead><tr><th>Step</th><th>What happens</th></tr></thead><tbody><tr><td>Load</td><td>Read PDFs, pages or databases</td></tr><tr><td>Chunk</td><td>Split into 200 to 500 word passages with overlap</td></tr><tr><td>Embed</td><td>Convert each chunk to a vector</td></tr><tr><td>Store</td><td>Save vectors and metadata in a vector database</td></tr><tr><td>Retrieve</td><td>Find the top-k chunks for a question</td></tr><tr><td>Generate</td><td>Answer using only the retrieved context</td></tr></tbody></table><h2 id="chunk-and-index-documents">Chunk and index documents</h2>
+<p>Chunk size is a trade-off: small chunks are precise but lose context, large chunks add noise. Overlap prevents answers from being cut in half.</p>
+<div class="codebox"><div class="cap">Chunk, embed and store with ChromaDB</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># pip install chromadb sentence-transformers
+import chromadb
+from sentence_transformers import SentenceTransformer
+
+def chunk(text, size=120, overlap=30):
+    words = text.split()
+    step = size - overlap
+    return [" ".join(words[i:i+size]) for i in range(0, max(len(words) - overlap, 1), step)]
+
+docs = {"policy.txt": open("policy.txt").read()}
+model = SentenceTransformer("all-MiniLM-L6-v2")
+db = chromadb.PersistentClient(path="rag_db")
+col = db.get_or_create_collection("docs")
+
+for name, text in docs.items():
+    parts = chunk(text)
+    col.add(ids=[f"{name}-{i}" for i in range(len(parts))],
+            documents=parts,
+            embeddings=model.encode(parts).tolist(),
+            metadatas=[{"source": name}] * len(parts))
+print("chunks stored:", col.count())</code></pre></div><h2 id="retrieve-and-generate">Retrieve and generate</h2>
+<p>Tell the model to answer only from the context and to say so when the answer is missing. That instruction reduces hallucination more than any other single change.</p>
+<div class="codebox"><div class="cap">Retrieval and prompt assembly</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>def retrieve(q, k=4):
+    r = col.query(query_embeddings=model.encode([q]).tolist(), n_results=k)
+    return list(zip(r["documents"][0], [m["source"] for m in r["metadatas"][0]]))
+
+def build_prompt(q):
+    ctx = "\n\n".join(f"[{s}] {t}" for t, s in retrieve(q))
+    return ("Answer using only the context. If it is not there, say you don't know. "
+            "Cite sources in brackets.\n\nContext:\n" + ctx + "\n\nQuestion: " + q)
+
+print(build_prompt("What is the refund window?"))   # send this to your LLM</code></pre></div><h2 id="evaluate-and-improve-retrieval">Evaluate and improve retrieval</h2>
+<p>Most RAG failures are retrieval failures. Build a small test set of questions with known source passages and measure hit rate at k. Improve by tuning chunk size, adding metadata filters, using hybrid keyword plus vector search, or adding a reranker. Evaluate answers for faithfulness (supported by context) and relevance separately.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/retrieval-augmented-generation-rag.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Measure retrieval hit rate</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>tests=[('q1','docA',['docA','docC']),('q2','docB',['docD','docB'])]
+hits=sum(expected in retrieved for _,expected,retrieved in tests)
+print('hit_rate@2 =',hits/len(tests))</code></pre></div><pre class="output">hit_rate@2 = 1.0</pre><p>Evaluate retrieval separately from answer generation so you know where failures originate.</p><h3>Add citations to the assembled prompt</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>chunks=[('policy.pdf','Refunds are allowed within 30 days.'),('faq.md','Digital goods are final sale.')]
+ctx='\n'.join(f'[{s}] {t}' for s,t in chunks)
+print(ctx)</code></pre></div><pre class="output">[policy.pdf] Refunds are allowed within 30 days.
+[faq.md] Digital goods are final sale.</pre><p>Preserving source IDs makes citations possible downstream.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this RAG Architecture workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>RAG or fine-tuning?</summary><p>Use RAG for changing or private knowledge and citations. Use fine-tuning for style and format. Many systems use both.</p></details><details><summary>What is a good chunk size?</summary><p>Start around 200 to 400 words with 10 to 20 percent overlap, then tune using your own retrieval test set.</p></details><details><summary>Does RAG stop hallucinations completely?</summary><p>No. It reduces them by grounding answers, but you still need prompt rules, citations and evaluation.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://arxiv.org/abs/2005.11401" rel="noopener noreferrer" target="_blank">Retrieval-Augmented Generation (Lewis et al.)</a></li><li><a href="https://docs.trychroma.com/" rel="noopener noreferrer" target="_blank">ChromaDB documentation</a></li><li><a href="https://www.sbert.net/" rel="noopener noreferrer" target="_blank">Sentence-Transformers documentation</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/langchain-tutorial-python/" rel="prev"><small>Previous lesson</small>LangChain Tutorial for Beginners: Build LLM Applications</a><a class="r" href="https://xenors.in/data-science/prompt-engineering-techniques/" rel="next"><small>Next lesson</small>Advanced Prompt Engineering Techniques for Developers</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#the-rag-pipeline">The RAG pipeline</a></li><li><a href="#chunk-and-index-documents">Chunk and index documents</a></li><li><a href="#retrieve-and-generate">Retrieve and generate</a></li><li><a href="#evaluate-and-improve-retrieval">Evaluate and improve retrieval</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Generative AI &amp; LLMs</h2><ul><li><a href="https://xenors.in/data-science/generative-ai-llm/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/transformers-architecture-attention-mechanism/">Transformers &amp; Attention</a></li><li class=""><a href="https://xenors.in/data-science/fine-tuning-llm-huggingface/">LLM Fine-Tuning</a></li><li class=""><a href="https://xenors.in/data-science/langchain-tutorial-python/">LangChain Basics</a></li><li class="cur"><a href="https://xenors.in/data-science/retrieval-augmented-generation-rag/">RAG Architecture</a></li><li class=""><a href="https://xenors.in/data-science/prompt-engineering-techniques/">Prompt Engineering</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

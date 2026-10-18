@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Deploy ML Models on AWS SageMaker</title>
+<meta content="Deploy a scikit-learn model to a real-time AWS SageMaker endpoint: training job, endpoint, invoke, autoscaling and cost control, with Python SDK code." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Deploy ML Models on AWS SageMaker" property="og:title"/>
+<meta content="Deploy a scikit-learn model to a real-time AWS SageMaker endpoint: training job, endpoint, invoke, autoscaling and cost control, with Python SDK code." property="og:description"/>
+<meta content="https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/deploy-ml-models-aws-sagemaker.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="MLOps &amp; Model Deployment" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Deploy ML Models on AWS SageMaker" name="twitter:title"/>
+<meta content="Deploy a scikit-learn model to a real-time AWS SageMaker endpoint: training job, endpoint, invoke, autoscaling and cost control, with Python SDK code." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/deploy-ml-models-aws-sagemaker.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/deploy-ml-models-aws-sagemaker.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/"},"headline":"Deploying ML Models on AWS SageMaker","description":"Deploy a scikit-learn model to a real-time AWS SageMaker endpoint: training job, endpoint, invoke, autoscaling and cost control, with Python SDK code.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/deploy-ml-models-aws-sagemaker.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"MLOps & Model Deployment","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "Deploying ML Models on AWS SageMaker", "item": "https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Deploying ML Models on AWS SageMaker</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 11: MLOps &amp; Model Deployment</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Deploying ML Models on AWS SageMaker</h1>
+<p class="lead">SageMaker manages training machines, model hosting and scaling so you do not run servers yourself. You pay for what runs, so cleaning up matters as much as deploying.</p>
+<img alt="AWS SageMaker workflow from training job to real-time inference endpoint" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/deploy-ml-models-aws-sagemaker.webp" srcset="https://xenors.in/images/data-science/deploy-ml-models-aws-sagemaker-640.webp 640w, https://xenors.in/images/data-science/deploy-ml-models-aws-sagemaker.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Write a training script, run it as a SageMaker training job with the SKLearn estimator, call estimator.deploy() to create a real-time endpoint, invoke it with predict(), and delete the endpoint when finished to stop charges.</div>
+<h2 id="sagemaker-building-blocks">SageMaker building blocks</h2>
+<p>A training job runs your script on managed instances and writes model.tar.gz to S3. A model points to that artifact and a container. An endpoint hosts the model behind an HTTPS API. Alternatives include batch transform for offline scoring, serverless inference for spiky traffic and asynchronous inference for long requests.</p>
+<table><thead><tr><th>Need</th><th>Option</th></tr></thead><tbody><tr><td>Low latency, steady traffic</td><td>Real-time endpoint</td></tr><tr><td>Spiky or rare traffic</td><td>Serverless inference</td></tr><tr><td>Large offline scoring</td><td>Batch transform</td></tr></tbody></table><h2 id="training-script">Training script</h2>
+<p>SageMaker passes data and output locations through environment variables.</p>
+<div class="codebox"><div class="cap">Training and model_fn in one file</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># train.py
+import argparse, os, joblib, pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+
+if __name__ == "__main__":
+    p = argparse.ArgumentParser()
+    p.add_argument("--n-estimators", type=int, default=100)
+    a = p.parse_args()
+    df = pd.read_csv(os.path.join(os.environ["SM_CHANNEL_TRAIN"], "train.csv"))
+    X, y = df.drop(columns="target"), df["target"]
+    model = RandomForestClassifier(n_estimators=a.n_estimators, random_state=0).fit(X, y)
+    joblib.dump(model, os.path.join(os.environ["SM_MODEL_DIR"], "model.joblib"))
+
+def model_fn(model_dir):                       # used at inference time
+    return joblib.load(os.path.join(model_dir, "model.joblib"))</code></pre></div><h2 id="train-and-deploy-with-the-python-sdk">Train and deploy with the Python SDK</h2>
+<p>Run this from a SageMaker notebook or any machine with AWS credentials and an execution role. Check current framework versions in the AWS documentation.</p>
+<div class="codebox"><div class="cap">Training job and real-time endpoint</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import sagemaker
+from sagemaker.sklearn.estimator import SKLearn
+
+session = sagemaker.Session()
+role = sagemaker.get_execution_role()          # or an IAM role ARN
+train_uri = session.upload_data("train.csv", key_prefix="demo/train")
+
+est = SKLearn(entry_point="train.py", role=role, instance_type="ml.m5.large",
+              framework_version="1.2-1", hyperparameters={"n-estimators": 200})
+est.fit({"train": train_uri})
+
+predictor = est.deploy(initial_instance_count=1, instance_type="ml.m5.large")
+print(predictor.predict([[5.1, 3.5, 1.4, 0.2]]))</code></pre></div><h2 id="invoke-from-an-application">Invoke from an application</h2>
+<p>Applications call the endpoint through the runtime API, never the training SDK.</p>
+<div class="codebox"><div class="cap">Call the endpoint with boto3</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import boto3, json
+
+rt = boto3.client("sagemaker-runtime")
+resp = rt.invoke_endpoint(EndpointName=predictor.endpoint_name,
+                          ContentType="application/json",
+                          Body=json.dumps([[5.1, 3.5, 1.4, 0.2]]))
+print(json.loads(resp["Body"].read()))</code></pre></div><h2 id="control-cost-and-security">Control cost and security</h2>
+<p>Endpoints bill while they run, so delete them when you finish a lab.</p>
+<div class="callout"><strong>Practical tip</strong>Use least-privilege IAM roles, keep data in encrypted S3 buckets, set CloudWatch alarms on latency and errors, and add autoscaling policies for production endpoints.</div>
+<div class="codebox"><div class="cap">Clean up to stop charges</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>predictor.delete_endpoint()
+predictor.delete_model()</code></pre></div>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/deploy-ml-models-aws-sagemaker.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Keep inference payloads small</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import json
+payload = json.dumps({'features':[0.2,1.4,3.1]})
+print(len(payload.encode()), payload)</code></pre></div><pre class="output">31 {"features": [0.2, 1.4, 3.1]}</pre><p>Large payloads raise latency and can hit endpoint limits.</p><h3>Delete test endpoints after validation</h3><div class="codebox"><div class="cap">Practice example</div><pre><code># boto3 example
+import boto3
+sm=boto3.client('sagemaker')
+# sm.delete_endpoint(EndpointName='demo-endpoint')
+print('cleanup command prepared')</code></pre></div><pre class="output">cleanup command prepared</pre><p>Cloud tutorial resources should have an explicit cleanup step to prevent idle cost.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this AWS SageMaker workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Is SageMaker free?</summary><p>There is a limited free tier for new accounts, but real-time endpoints and training instances are billed by usage. Check current AWS pricing.</p></details><details><summary>Real-time endpoint or serverless inference?</summary><p>Use real-time for steady low-latency traffic and serverless for infrequent or spiky requests where cold starts are acceptable.</p></details><details><summary>How do I update a deployed model?</summary><p>Create a new model version and update the endpoint configuration, ideally with a canary or blue-green rollout.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://docs.aws.amazon.com/sagemaker/" rel="noopener noreferrer" target="_blank">Amazon SageMaker documentation</a></li><li><a href="https://sagemaker.readthedocs.io/" rel="noopener noreferrer" target="_blank">SageMaker Python SDK</a></li><li><a href="https://aws.amazon.com/sagemaker/pricing/" rel="noopener noreferrer" target="_blank">SageMaker pricing</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/deploy-machine-learning-fastapi-docker/" rel="prev"><small>Previous lesson</small>Deploy Machine Learning Models with FastAPI and Docker</a><a class="r" href="https://xenors.in/data-science/model-monitoring-drift-detection/" rel="next"><small>Next lesson</small>ML Model Monitoring and Data Drift Detection</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#sagemaker-building-blocks">SageMaker building blocks</a></li><li><a href="#training-script">Training script</a></li><li><a href="#train-and-deploy-with-the-python-sdk">Train and deploy with the Python SDK</a></li><li><a href="#invoke-from-an-application">Invoke from an application</a></li><li><a href="#control-cost-and-security">Control cost and security</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>MLOps &amp; Deployment</h2><ul><li><a href="https://xenors.in/data-science/mlops-deployment/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/mlflow-model-tracking/">MLflow Tracking</a></li><li class=""><a href="https://xenors.in/data-science/deploy-machine-learning-fastapi-docker/">FastAPI + Docker</a></li><li class="cur"><a href="https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/">AWS SageMaker</a></li><li class=""><a href="https://xenors.in/data-science/model-monitoring-drift-detection/">Model Monitoring</a></li><li class=""><a href="https://xenors.in/data-science/vector-databases-chromadb-pinecone/">Vector Databases</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

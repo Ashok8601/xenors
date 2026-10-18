@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Face Mask Detection Project with OpenCV</title>
+<meta content="Build a real-time face mask detector: face detection with OpenCV, a MobileNetV2 classifier fine-tuned in PyTorch, and a live webcam inference loop." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/computer-vision-mask-detection-project/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Face Mask Detection Project with OpenCV" property="og:title"/>
+<meta content="Build a real-time face mask detector: face detection with OpenCV, a MobileNetV2 classifier fine-tuned in PyTorch, and a live webcam inference loop." property="og:description"/>
+<meta content="https://xenors.in/data-science/computer-vision-mask-detection-project/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/computer-vision-mask-detection-project.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Advanced Real-World Projects &amp; Capstone" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Face Mask Detection Project with OpenCV" name="twitter:title"/>
+<meta content="Build a real-time face mask detector: face detection with OpenCV, a MobileNetV2 classifier fine-tuned in PyTorch, and a live webcam inference loop." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/computer-vision-mask-detection-project.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/computer-vision-mask-detection-project.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/computer-vision-mask-detection-project/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/computer-vision-mask-detection-project/"},"headline":"Project: Real-Time Face Mask Detection with OpenCV and PyTorch","description":"Build a real-time face mask detector: face detection with OpenCV, a MobileNetV2 classifier fine-tuned in PyTorch, and a live webcam inference loop.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/computer-vision-mask-detection-project.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Advanced Real-World Projects & Capstone","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "Project: Real-Time Face Mask Detection with OpenCV and PyTorch", "item": "https://xenors.in/data-science/computer-vision-mask-detection-project/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Project: Real-Time Face Mask Detection with OpenCV and PyTorch</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 13: Advanced Real-World Projects &amp; Capstone</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Project: Real-Time Face Mask Detection with OpenCV and PyTorch</h1>
+<p class="lead">This project chains two models: a fast face detector finds faces, and a small fine-tuned CNN labels each crop as mask or no mask, frame by frame.</p>
+<img alt="Webcam frame with face boxes labelled mask and no mask by a PyTorch classifier" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/computer-vision-mask-detection-project.webp" srcset="https://xenors.in/images/data-science/computer-vision-mask-detection-project-640.webp 640w, https://xenors.in/images/data-science/computer-vision-mask-detection-project.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Detect faces with OpenCV, crop each face, classify it with a MobileNetV2 fine-tuned on a mask dataset in PyTorch, then draw a green or red box with the label on every webcam frame.</div>
+<h2 id="system-design">System design</h2>
+<p>Two stages keep each model simple. Stage one finds face boxes. Stage two classifies each cropped face. MobileNetV2 is light enough for CPU real-time use. Use a public dataset such as the Kaggle Face Mask Detection set, and check the licence before publishing.</p><h2 id="dataset-and-model">Dataset and model</h2>
+<p>Arrange images in folders named with_mask and without_mask so ImageFolder can read labels.</p>
+<div class="codebox"><div class="cap">Data pipeline and MobileNetV2 with a new head</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import torch, torch.nn as nn
+from torchvision import datasets, models, transforms
+
+tf = transforms.Compose([
+    transforms.Resize((224, 224)),
+    transforms.RandomHorizontalFlip(),
+    transforms.ColorJitter(0.2, 0.2, 0.2),
+    transforms.ToTensor(),
+    transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])])
+train_ds = datasets.ImageFolder("data/train", tf)
+loader = torch.utils.data.DataLoader(train_ds, batch_size=32, shuffle=True)
+print(train_ds.classes)              # ['with_mask', 'without_mask']
+
+model = models.mobilenet_v2(weights=models.MobileNet_V2_Weights.DEFAULT)
+for p in model.features.parameters():
+    p.requires_grad = False
+model.classifier[1] = nn.Linear(model.last_channel, 2)</code></pre></div><h2 id="train-and-save">Train and save</h2>
+<p>A few epochs on the new head is enough to reach a strong baseline.</p>
+<div class="codebox"><div class="cap">Training loop</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>opt = torch.optim.Adam(model.classifier.parameters(), lr=1e-3)
+loss_fn = nn.CrossEntropyLoss()
+for epoch in range(5):
+    model.train(); total = correct = 0
+    for x, y in loader:
+        opt.zero_grad()
+        out = model(x); loss = loss_fn(out, y)
+        loss.backward(); opt.step()
+        correct += (out.argmax(1) == y).sum().item(); total += len(y)
+    print(f"epoch {epoch+1}: train acc {correct/total:.3f}")
+torch.save({"state": model.state_dict(), "classes": train_ds.classes}, "mask.pt")</code></pre></div><h2 id="real-time-inference">Real-time inference</h2>
+<p>OpenCV's built-in Haar cascade is fast and needs no extra download, though a DNN face detector is more accurate.</p>
+<div class="codebox"><div class="cap">Webcam loop with face detection and classification</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import cv2
+from PIL import Image
+
+ck = torch.load("mask.pt"); model.load_state_dict(ck["state"]); model.eval()
+face_net = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
+cap = cv2.VideoCapture(0)
+while True:
+    ok, frame = cap.read()
+    if not ok: break
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    for (x, y, w, h) in face_net.detectMultiScale(gray, 1.1, 5, minSize=(60, 60)):
+        crop = Image.fromarray(cv2.cvtColor(frame[y:y+h, x:x+w], cv2.COLOR_BGR2RGB))
+        with torch.no_grad():
+            p = model(tf(crop).unsqueeze(0)).softmax(1)[0]
+        label = ck["classes"][int(p.argmax())]
+        color = (0, 200, 0) if label == "with_mask" else (0, 0, 255)
+        cv2.rectangle(frame, (x, y), (x+w, y+h), color, 2)
+        cv2.putText(frame, f"{label} {p.max():.2f}", (x, y-8),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
+    cv2.imshow("Mask detector", frame)
+    if cv2.waitKey(1) &amp; 0xFF == ord("q"): break
+cap.release(); cv2.destroyAllWindows()</code></pre></div><h2 id="improve-it-responsibly">Improve it responsibly</h2>
+<p>Test on faces with varied lighting, skin tones, glasses and angles, and report per-condition accuracy. Do not store or share webcam footage without consent, and be clear about privacy in your README.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/computer-vision-mask-detection-project.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Check class balance before training</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>from collections import Counter
+labels=['mask']*80+['no_mask']*20
+print(Counter(labels))</code></pre></div><pre class="output">Counter({'mask': 80, 'no_mask': 20})</pre><p>Class imbalance can make headline accuracy misleading.</p><h3>Measure per-class recall</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>from sklearn.metrics import classification_report
+y_true=[0,0,0,1,1]; y_pred=[0,0,1,1,0]
+print(classification_report(y_true,y_pred,digits=2))</code></pre></div><pre class="output">precision recall f1-score ...</pre><p>For safety-related detection, inspect the class whose misses matter most.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this Mask Detection Project workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Why use two models?</summary><p>A face detector is optimised for finding faces, and a small classifier then only has to decide mask or no mask on a tight crop.</p></details><details><summary>Can I use YOLO instead?</summary><p>Yes. A single YOLO model can detect faces with and without masks directly if you train it on labelled boxes.</p></details><details><summary>How do I run it faster?</summary><p>Lower the frame size, skip frames, export to ONNX or use a lighter detector.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://docs.opencv.org/4.x/db/d28/tutorial_cascade_classifier.html" rel="noopener noreferrer" target="_blank">OpenCV Haar cascade tutorial</a></li><li><a href="https://pytorch.org/vision/stable/models/mobilenetv2.html" rel="noopener noreferrer" target="_blank">torchvision MobileNetV2</a></li><li><a href="https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html" rel="noopener noreferrer" target="_blank">PyTorch transfer learning tutorial</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/customer-churn-prediction-deployment/" rel="prev"><small>Previous lesson</small>Project: End-to-End Customer Churn Prediction</a><a class="r" href="https://xenors.in/data-science/financial-time-series-forecasting/" rel="next"><small>Next lesson</small>Project: Stock Price Forecasting with LSTM and Prophet</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#system-design">System design</a></li><li><a href="#dataset-and-model">Dataset and model</a></li><li><a href="#train-and-save">Train and save</a></li><li><a href="#real-time-inference">Real-time inference</a></li><li><a href="#improve-it-responsibly">Improve it responsibly</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Advanced Deep Learning</h2><ul><li><a href="https://xenors.in/data-science/advanced-deep-learning/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/end-to-end-llm-rag-project/">RAG Project</a></li><li class=""><a href="https://xenors.in/data-science/predictive-maintenance-iot-ml/">Predictive Maintenance</a></li><li class=""><a href="https://xenors.in/data-science/customer-churn-prediction-deployment/">Churn Project</a></li><li class="cur"><a href="https://xenors.in/data-science/computer-vision-mask-detection-project/">Mask Detection Project</a></li><li class=""><a href="https://xenors.in/data-science/financial-time-series-forecasting/">Forecasting Project</a></li><li class=""><a href="https://xenors.in/data-science/data-science-resume-portfolio-guide/">Resume &amp; Portfolio</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

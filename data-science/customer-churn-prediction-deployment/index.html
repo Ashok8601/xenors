@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Customer Churn Prediction: End-to-End Project</title>
+<meta content="Build a customer churn model end to end: preprocessing pipeline, model comparison, threshold tuning, saving the pipeline and serving it with FastAPI in Docker." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/customer-churn-prediction-deployment/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Customer Churn Prediction: End-to-End Project" property="og:title"/>
+<meta content="Build a customer churn model end to end: preprocessing pipeline, model comparison, threshold tuning, saving the pipeline and serving it with FastAPI in Docker." property="og:description"/>
+<meta content="https://xenors.in/data-science/customer-churn-prediction-deployment/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/customer-churn-prediction-deployment.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Advanced Real-World Projects &amp; Capstone" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Customer Churn Prediction: End-to-End Project" name="twitter:title"/>
+<meta content="Build a customer churn model end to end: preprocessing pipeline, model comparison, threshold tuning, saving the pipeline and serving it with FastAPI in Docker." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/customer-churn-prediction-deployment.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/customer-churn-prediction-deployment.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/customer-churn-prediction-deployment/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/customer-churn-prediction-deployment/"},"headline":"Project: End-to-End Customer Churn Prediction","description":"Build a customer churn model end to end: preprocessing pipeline, model comparison, threshold tuning, saving the pipeline and serving it with FastAPI in Docker.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/customer-churn-prediction-deployment.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Advanced Real-World Projects & Capstone","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "Project: End-to-End Customer Churn Prediction", "item": "https://xenors.in/data-science/customer-churn-prediction-deployment/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Project: End-to-End Customer Churn Prediction</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 13: Advanced Real-World Projects &amp; Capstone</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Project: End-to-End Customer Churn Prediction</h1>
+<p class="lead">Churn prediction is a classic business problem and a strong portfolio project because it covers the full path from messy data to a deployed service.</p>
+<img alt="Customer churn project flow from raw data to trained pipeline and Dockerised prediction API" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/customer-churn-prediction-deployment.webp" srcset="https://xenors.in/images/data-science/customer-churn-prediction-deployment-640.webp 640w, https://xenors.in/images/data-science/customer-churn-prediction-deployment.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Split data first, build a scikit-learn pipeline with imputation, scaling and one-hot encoding, compare models using cross-validated ROC AUC, tune the decision threshold for business cost, save the whole pipeline with joblib and serve it with FastAPI in Docker.</div>
+<h2 id="project-workflow">Project workflow</h2>
+<p>Define the target (churned in the next 30 days), choose the metric (recall and precision at a business-driven threshold, plus ROC AUC), split train and test, then build features only from information available before the churn date.</p><h2 id="build-the-preprocessing-and-model-pipeline">Build the preprocessing and model pipeline</h2>
+<p>Putting preprocessing inside the pipeline prevents leakage during cross-validation and keeps serving identical to training. The Telco churn dataset from Kaggle or IBM works well for practice.</p>
+<div class="codebox"><div class="cap">Compare two models with cross-validation</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import pandas as pd
+from sklearn.compose import ColumnTransformer
+from sklearn.ensemble import HistGradientBoostingClassifier
+from sklearn.impute import SimpleImputer
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import OneHotEncoder, StandardScaler
+
+df = pd.read_csv("churn.csv")                       # target column: Churn (Yes/No)
+y = (df.pop("Churn") == "Yes").astype(int)
+num = df.select_dtypes("number").columns.tolist()
+cat = df.select_dtypes("object").columns.tolist()
+Xtr, Xte, ytr, yte = train_test_split(df, y, test_size=0.2, stratify=y, random_state=42)
+
+pre = ColumnTransformer([
+    ("num", Pipeline([("imp", SimpleImputer(strategy="median")), ("sc", StandardScaler())]), num),
+    ("cat", OneHotEncoder(handle_unknown="ignore"), cat)])
+
+for name, clf in {"logreg": LogisticRegression(max_iter=1000),
+                  "hgb": HistGradientBoostingClassifier(random_state=0)}.items():
+    pipe = Pipeline([("pre", pre), ("clf", clf)])
+    auc = cross_val_score(pipe, Xtr, ytr, cv=5, scoring="roc_auc").mean()
+    print(f"{name:7s} CV AUC = {auc:.3f}")</code></pre></div><h2 id="tune-the-decision-threshold">Tune the decision threshold</h2>
+<p>The default 0.5 cutoff rarely matches business cost. If a retention offer costs 10 and a lost customer costs 100, flag more customers.</p>
+<div class="codebox"><div class="cap">Choose a threshold with an F2 score</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import numpy as np
+from sklearn.metrics import precision_recall_curve
+
+best = Pipeline([("pre", pre), ("clf", LogisticRegression(max_iter=1000))]).fit(Xtr, ytr)
+proba = best.predict_proba(Xte)[:, 1]
+prec, rec, thr = precision_recall_curve(yte, proba)
+f2 = 5 * prec * rec / np.maximum(4 * prec + rec, 1e-9)       # favours recall
+t = thr[np.argmax(f2[:-1])]
+print("chosen threshold:", round(float(t), 3))</code></pre></div><h2 id="save-the-pipeline-and-serve-it">Save the pipeline and serve it</h2>
+<p>Save the single fitted pipeline object, then reuse the FastAPI and Docker pattern from the deployment lesson.</p>
+<div class="codebox"><div class="cap">Persist model and threshold together</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import joblib
+joblib.dump({"pipeline": best, "threshold": float(t), "columns": list(df.columns)}, "churn.joblib")
+
+# app.py (FastAPI)
+# from fastapi import FastAPI
+# import joblib, pandas as pd
+# art = joblib.load("churn.joblib"); app = FastAPI()
+# @app.post("/predict")
+# def predict(record: dict):
+#     row = pd.DataFrame([record])[art["columns"]]
+#     p = float(art["pipeline"].predict_proba(row)[0, 1])
+#     return {"churn_probability": round(p, 4), "will_churn": p &gt;= art["threshold"]}</code></pre></div><h2 id="make-it-portfolio-ready">Make it portfolio-ready</h2>
+<p>Add a README with the business problem, metric table, confusion matrix and a short note on limitations. Include a Dockerfile, a requirements file with pinned versions and a few automated tests for the API.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/customer-churn-prediction-deployment.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Use a stratified split</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>from sklearn.model_selection import train_test_split
+X=list(range(100)); y=[0]*80+[1]*20
+Xtr,Xte,ytr,yte=train_test_split(X,y,test_size=.2,stratify=y,random_state=42)
+print(sum(ytr),sum(yte))</code></pre></div><pre class="output">16 4</pre><p>Stratification preserves class ratios in small imbalanced datasets.</p><h3>Tune the probability threshold</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import numpy as np
+p=np.array([.2,.4,.6,.8]); y=np.array([0,1,1,1])
+for t in [.3,.5,.7]:
+    pred=(p&gt;=t).astype(int); print(t,(pred==y).mean())</code></pre></div><pre class="output">0.3 0.75
+0.5 0.75
+0.7 0.50</pre><p>Choose thresholds from business cost and validation metrics, not 0.5 by habit.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this Churn Project workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Which model is best for churn prediction?</summary><p>Gradient boosting often leads on tabular data, but logistic regression is a strong, explainable baseline. Compare both.</p></details><details><summary>How do I handle class imbalance?</summary><p>Use stratified splits, class weights or resampling inside cross-validation, and evaluate with precision-recall metrics rather than accuracy.</p></details><details><summary>Why save the threshold with the model?</summary><p>The decision cutoff is part of the model's behaviour. Saving it keeps the API consistent with your evaluation.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://scikit-learn.org/stable/modules/compose.html" rel="noopener noreferrer" target="_blank">scikit-learn Pipeline guide</a></li><li><a href="https://www.kaggle.com/datasets/blastchar/telco-customer-churn" rel="noopener noreferrer" target="_blank">IBM Telco customer churn dataset</a></li><li><a href="https://fastapi.tiangolo.com/" rel="noopener noreferrer" target="_blank">FastAPI documentation</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/predictive-maintenance-iot-ml/" rel="prev"><small>Previous lesson</small>Project: Predictive Maintenance with IoT Sensor Data</a><a class="r" href="https://xenors.in/data-science/computer-vision-mask-detection-project/" rel="next"><small>Next lesson</small>Project: Real-Time Face Mask Detection with OpenCV and PyTorch</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#project-workflow">Project workflow</a></li><li><a href="#build-the-preprocessing-and-model-pipeline">Build the preprocessing and model pipeline</a></li><li><a href="#tune-the-decision-threshold">Tune the decision threshold</a></li><li><a href="#save-the-pipeline-and-serve-it">Save the pipeline and serve it</a></li><li><a href="#make-it-portfolio-ready">Make it portfolio-ready</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Projects &amp; Career</h2><ul><li><a href="https://xenors.in/data-science/real-world-projects-career/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/end-to-end-llm-rag-project/">RAG Project</a></li><li class=""><a href="https://xenors.in/data-science/predictive-maintenance-iot-ml/">Predictive Maintenance</a></li><li class="cur"><a href="https://xenors.in/data-science/customer-churn-prediction-deployment/">Churn Project</a></li><li class=""><a href="https://xenors.in/data-science/computer-vision-mask-detection-project/">Mask Detection Project</a></li><li class=""><a href="https://xenors.in/data-science/financial-time-series-forecasting/">Forecasting Project</a></li><li class=""><a href="https://xenors.in/data-science/data-science-resume-portfolio-guide/">Resume &amp; Portfolio</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

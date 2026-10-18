@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>YOLO Object Detection Tutorial in Python</title>
+<meta content="Run real-time YOLO object detection in Python with Ultralytics: install, detect on images and webcam, train on a custom dataset and read mAP results." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/yolo-object-detection-python/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="YOLO Object Detection Tutorial in Python" property="og:title"/>
+<meta content="Run real-time YOLO object detection in Python with Ultralytics: install, detect on images and webcam, train on a custom dataset and read mAP results." property="og:description"/>
+<meta content="https://xenors.in/data-science/yolo-object-detection-python/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/yolo-object-detection-python.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Advanced Deep Learning" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="YOLO Object Detection Tutorial in Python" name="twitter:title"/>
+<meta content="Run real-time YOLO object detection in Python with Ultralytics: install, detect on images and webcam, train on a custom dataset and read mAP results." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/yolo-object-detection-python.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/yolo-object-detection-python.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/yolo-object-detection-python/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/yolo-object-detection-python/"},"headline":"YOLO Object Detection Tutorial in Python","description":"Run real-time YOLO object detection in Python with Ultralytics: install, detect on images and webcam, train on a custom dataset and read mAP results.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/yolo-object-detection-python.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Advanced Deep Learning","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "YOLO Object Detection Tutorial in Python", "item": "https://xenors.in/data-science/yolo-object-detection-python/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › YOLO Object Detection Tutorial in Python</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 9: Advanced Deep Learning</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>YOLO Object Detection Tutorial in Python</h1>
+<p class="lead">YOLO (You Only Look Once) predicts boxes and classes in a single forward pass, which is why it is the default choice for real-time detection. You will install it, run detection, and train on your own labels.</p>
+<img alt="YOLO object detection drawing bounding boxes with labels on a street scene" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/yolo-object-detection-python.webp" srcset="https://xenors.in/images/data-science/yolo-object-detection-python-640.webp 640w, https://xenors.in/images/data-science/yolo-object-detection-python.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Install the ultralytics package, load a pretrained YOLO model with YOLO('yolov8n.pt'), call model('image.jpg') for detection, and fine-tune with model.train(data='data.yaml') on your own labelled dataset.</div>
+<h2 id="how-yolo-detects-objects">How YOLO detects objects</h2>
+<p>Older detectors proposed regions first and classified them second. YOLO treats detection as one regression problem: the network outputs bounding boxes, confidence and class scores directly. Non-maximum suppression then removes overlapping duplicates, so only the best box per object remains.</p>
+<table><thead><tr><th>Term</th><th>Meaning</th></tr></thead><tbody><tr><td>IoU</td><td>Overlap between predicted and true box</td></tr><tr><td>Confidence</td><td>Probability that a box contains an object</td></tr><tr><td>NMS</td><td>Removes duplicate overlapping boxes</td></tr><tr><td>mAP50-95</td><td>Mean average precision across IoU thresholds</td></tr></tbody></table><h2 id="install-and-run-detection">Install and run detection</h2>
+<p>The Ultralytics package bundles models, training and export. The nano model is small enough for CPUs and a good first test.</p>
+<div class="codebox"><div class="cap">Detect objects in one image</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># pip install ultralytics
+from ultralytics import YOLO
+
+model = YOLO("yolov8n.pt")          # downloads weights on first run
+results = model("street.jpg")       # list of Results objects
+r = results[0]
+for box in r.boxes:
+    cls = r.names[int(box.cls)]
+    print(cls, round(float(box.conf), 2), box.xyxy[0].tolist())
+r.save("street_detected.jpg")</code></pre></div><h2 id="real-time-detection-from-a-webcam">Real-time detection from a webcam</h2>
+<p>Stream frames with OpenCV and let YOLO draw the boxes. Press q to quit.</p>
+<div class="codebox"><div class="cap">Webcam detection loop</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import cv2
+from ultralytics import YOLO
+
+model = YOLO("yolov8n.pt")
+cap = cv2.VideoCapture(0)
+while cap.isOpened():
+    ok, frame = cap.read()
+    if not ok:
+        break
+    annotated = model(frame, conf=0.4, verbose=False)[0].plot()
+    cv2.imshow("YOLO", annotated)
+    if cv2.waitKey(1) &amp; 0xFF == ord("q"):
+        break
+cap.release()
+cv2.destroyAllWindows()</code></pre></div><h2 id="train-yolo-on-a-custom-dataset">Train YOLO on a custom dataset</h2>
+<p>Label images in YOLO format (one .txt file per image with class x_center y_center width height, all normalised). Then describe the dataset in a YAML file and fine-tune from pretrained weights.</p>
+<div class="codebox"><div class="cap">Fine-tune, validate and export</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># data.yaml
+# path: datasets/helmets
+# train: images/train
+# val: images/val
+# names:
+#   0: helmet
+#   1: no_helmet
+
+from ultralytics import YOLO
+
+model = YOLO("yolov8n.pt")
+model.train(data="data.yaml", epochs=50, imgsz=640, batch=16)
+metrics = model.val()
+print("mAP50-95:", metrics.box.map)
+model.export(format="onnx")</code></pre></div><h2 id="fixing-common-problems">Fixing common problems</h2>
+<p>Low recall usually means too few labelled examples or a confidence threshold that is too high. Many false positives suggest background images are missing from training. Always compare train and validation loss: if validation worsens while training improves, add data or augmentation instead of training longer.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/yolo-object-detection-python.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Run inference and inspect detections</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>from ultralytics import YOLO
+model=YOLO('yolo11n.pt')
+r=model('image.jpg',verbose=False)[0]
+print(len(r.boxes))
+print(r.boxes.conf[:3].cpu().numpy())</code></pre></div><pre class="output">&lt;number of detections&gt;
+[confidence values]</pre><p>Inspect confidence and class distribution before changing thresholds.</p><h3>Compute IoU for two boxes</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>def iou(a,b):
+    x1,y1=max(a[0],b[0]),max(a[1],b[1]); x2,y2=min(a[2],b[2]),min(a[3],b[3])
+    inter=max(0,x2-x1)*max(0,y2-y1)
+    aa=(a[2]-a[0])*(a[3]-a[1]); bb=(b[2]-b[0])*(b[3]-b[1])
+    return inter/(aa+bb-inter)
+print(round(iou([0,0,10,10],[5,5,15,15]),3))</code></pre></div><pre class="output">0.143</pre><p>IoU is the basis of matching predictions to ground-truth boxes during evaluation.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this YOLO Detection workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Is YOLO good for real-time detection?</summary><p>Yes. Small YOLO models run at real-time speeds on a modern GPU and often on a CPU at reduced resolution.</p></details><details><summary>How many images do I need for a custom YOLO model?</summary><p>A few hundred well-labelled images per class can give a usable baseline when fine-tuning pretrained weights. More varied data improves results.</p></details><details><summary>What does mAP mean?</summary><p>Mean average precision summarises detection quality across classes and IoU thresholds. Higher is better.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://docs.ultralytics.com/" rel="noopener noreferrer" target="_blank">Ultralytics YOLO documentation</a></li><li><a href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html" rel="noopener noreferrer" target="_blank">OpenCV Python tutorials</a></li><li><a href="https://arxiv.org/abs/1506.02640" rel="noopener noreferrer" target="_blank">You Only Look Once (Redmon et al.)</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/cnn-architecture-resnet-vgg/" rel="prev"><small>Previous lesson</small>CNN Architectures: AlexNet, VGG16, ResNet &amp; Inception</a><a class="r" href="https://xenors.in/data-science/recurrent-neural-networks-lstm/" rel="next"><small>Next lesson</small>RNN &amp; LSTM Networks: Sequence Modeling and Time Series</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#how-yolo-detects-objects">How YOLO detects objects</a></li><li><a href="#install-and-run-detection">Install and run detection</a></li><li><a href="#real-time-detection-from-a-webcam">Real-time detection from a webcam</a></li><li><a href="#train-yolo-on-a-custom-dataset">Train YOLO on a custom dataset</a></li><li><a href="#fixing-common-problems">Fixing common problems</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Advanced Deep Learning</h2><ul><li><a href="https://xenors.in/data-science/advanced-deep-learning/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/cnn-architecture-resnet-vgg/">CNN Architectures</a></li><li class="cur"><a href="https://xenors.in/data-science/yolo-object-detection-python/">YOLO Detection</a></li><li class=""><a href="https://xenors.in/data-science/recurrent-neural-networks-lstm/">RNN &amp; LSTM</a></li><li class=""><a href="https://xenors.in/data-science/autoencoders-generative-adversarial-networks-gan/">Autoencoders &amp; GANs</a></li><li class=""><a href="https://xenors.in/data-science/transfer-learning-keras-pytorch/">Transfer Learning</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

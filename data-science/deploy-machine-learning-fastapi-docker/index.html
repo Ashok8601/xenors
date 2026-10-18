@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Deploy ML Models with FastAPI &amp; Docker</title>
+<meta content="Serve a scikit-learn model as a REST API with FastAPI, validate input with Pydantic, containerise it with Docker and test it end to end." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/deploy-machine-learning-fastapi-docker/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Deploy ML Models with FastAPI &amp; Docker" property="og:title"/>
+<meta content="Serve a scikit-learn model as a REST API with FastAPI, validate input with Pydantic, containerise it with Docker and test it end to end." property="og:description"/>
+<meta content="https://xenors.in/data-science/deploy-machine-learning-fastapi-docker/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/deploy-machine-learning-fastapi-docker.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="MLOps &amp; Model Deployment" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Deploy ML Models with FastAPI &amp; Docker" name="twitter:title"/>
+<meta content="Serve a scikit-learn model as a REST API with FastAPI, validate input with Pydantic, containerise it with Docker and test it end to end." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/deploy-machine-learning-fastapi-docker.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/deploy-machine-learning-fastapi-docker.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/deploy-machine-learning-fastapi-docker/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/deploy-machine-learning-fastapi-docker/"},"headline":"Deploy Machine Learning Models with FastAPI and Docker","description":"Serve a scikit-learn model as a REST API with FastAPI, validate input with Pydantic, containerise it with Docker and test it end to end.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/deploy-machine-learning-fastapi-docker.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"MLOps & Model Deployment","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "Deploy Machine Learning Models with FastAPI and Docker", "item": "https://xenors.in/data-science/deploy-machine-learning-fastapi-docker/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Deploy Machine Learning Models with FastAPI and Docker</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 11: MLOps &amp; Model Deployment</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Deploy Machine Learning Models with FastAPI and Docker</h1>
+<p class="lead">A model in a notebook helps nobody. Wrap it in a small web API, package it in a container, and any service can request predictions over HTTP.</p>
+<img alt="FastAPI service inside a Docker container serving a machine learning model prediction endpoint" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/deploy-machine-learning-fastapi-docker.webp" srcset="https://xenors.in/images/data-science/deploy-machine-learning-fastapi-docker-640.webp 640w, https://xenors.in/images/data-science/deploy-machine-learning-fastapi-docker.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Save the trained model with joblib, load it once at FastAPI startup, expose a /predict endpoint with a Pydantic input schema, then build a Docker image that runs uvicorn and publish port 8000.</div>
+<h2 id="train-and-save-the-model">Train and save the model</h2>
+<p>Save the whole preprocessing and model pipeline together so training and serving cannot drift apart.</p>
+<div class="codebox"><div class="cap">Create model.joblib</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># train.py
+import joblib
+from sklearn.datasets import load_iris
+from sklearn.pipeline import make_pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+
+X, y = load_iris(return_X_y=True)
+pipe = make_pipeline(StandardScaler(), LogisticRegression(max_iter=500)).fit(X, y)
+joblib.dump(pipe, "model.joblib")
+print("saved, train accuracy:", round(pipe.score(X, y), 3))</code></pre></div><h2 id="build-the-fastapi-service">Build the FastAPI service</h2>
+<p>Load the model once at startup, not on every request. Pydantic rejects invalid input automatically with a clear error.</p>
+<div class="codebox"><div class="cap">FastAPI app with health check and prediction</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># app.py
+from contextlib import asynccontextmanager
+import joblib
+from fastapi import FastAPI
+from pydantic import BaseModel, Field
+
+state = {}
+
+@asynccontextmanager
+async def lifespan(app):
+    state["model"] = joblib.load("model.joblib")
+    yield
+    state.clear()
+
+app = FastAPI(title="Iris API", lifespan=lifespan)
+NAMES = ["setosa", "versicolor", "virginica"]
+
+class Flower(BaseModel):
+    sepal_length: float = Field(gt=0, lt=20)
+    sepal_width: float = Field(gt=0, lt=20)
+    petal_length: float = Field(gt=0, lt=20)
+    petal_width: float = Field(gt=0, lt=20)
+
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
+@app.post("/predict")
+def predict(f: Flower):
+    x = [[f.sepal_length, f.sepal_width, f.petal_length, f.petal_width]]
+    proba = state["model"].predict_proba(x)[0]
+    i = int(proba.argmax())
+    return {"class": NAMES[i], "probability": round(float(proba[i]), 4)}</code></pre></div><h2 id="containerise-with-docker">Containerise with Docker</h2>
+<p>Pin dependency versions and run as a non-root user.</p>
+<div class="codebox"><div class="cap">requirements.txt and Dockerfile</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># requirements.txt
+fastapi
+uvicorn[standard]
+scikit-learn
+joblib
+pydantic
+
+# Dockerfile
+FROM python:3.12-slim
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY app.py model.joblib ./
+RUN useradd -m appuser
+USER appuser
+EXPOSE 8000
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]</code></pre></div><h2 id="build-run-and-test">Build, run and test</h2>
+<p>Use the same scikit-learn version for training and serving, otherwise a saved model may fail to load or behave differently.</p>
+<div class="codebox"><div class="cap">Run the container and send a request</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>docker build -t iris-api .
+docker run -p 8000:8000 iris-api
+
+curl -X POST http://localhost:8000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"sepal_length":5.1,"sepal_width":3.5,"petal_length":1.4,"petal_width":0.2}'
+# {"class":"setosa","probability":0.9...}</code></pre></div><h2 id="production-checklist">Production checklist</h2>
+<p>Add request logging, a /health endpoint for orchestrators, input limits, automated tests, and model version in every response. Run several workers behind a load balancer for traffic, and keep secrets in environment variables, not in the image.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/deploy-machine-learning-fastapi-docker.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Validate request data with Pydantic</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>from pydantic import BaseModel, Field
+class ChurnRequest(BaseModel):
+    tenure: int = Field(ge=0)
+    monthly_charges: float = Field(gt=0)
+print(ChurnRequest(tenure=12, monthly_charges=79.5).model_dump())</code></pre></div><pre class="output">{'tenure': 12, 'monthly_charges': 79.5}</pre><p>Schema validation prevents malformed requests reaching the model.</p><h3>Smoke-test a prediction endpoint</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import requests
+r = requests.post('http://localhost:8000/predict', json={'tenure':12,'monthly_charges':79.5})
+print(r.status_code)
+print(r.json())</code></pre></div><pre class="output">200
+{"prediction": 0, "probability": 0.18}</pre><p>A deployment is not done until an external client can call it successfully.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this FastAPI + Docker workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Why FastAPI for ML serving?</summary><p>It is fast, validates input with type hints and generates interactive API docs at /docs automatically.</p></details><details><summary>Why use Docker for a model?</summary><p>A container bundles the exact Python version and libraries, so the model behaves the same on your laptop and on a server.</p></details><details><summary>Should I load the model on every request?</summary><p>No. Load it once at startup. Loading per request is slow and wastes memory.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://fastapi.tiangolo.com/" rel="noopener noreferrer" target="_blank">FastAPI documentation</a></li><li><a href="https://docs.docker.com/get-started/" rel="noopener noreferrer" target="_blank">Docker getting started</a></li><li><a href="https://scikit-learn.org/stable/model_persistence.html" rel="noopener noreferrer" target="_blank">scikit-learn model persistence</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/mlflow-model-tracking/" rel="prev"><small>Previous lesson</small>MLflow Tutorial: Experiment Tracking and Model Registry</a><a class="r" href="https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/" rel="next"><small>Next lesson</small>Deploying ML Models on AWS SageMaker</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#train-and-save-the-model">Train and save the model</a></li><li><a href="#build-the-fastapi-service">Build the FastAPI service</a></li><li><a href="#containerise-with-docker">Containerise with Docker</a></li><li><a href="#build-run-and-test">Build, run and test</a></li><li><a href="#production-checklist">Production checklist</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>MLOps &amp; Deployment</h2><ul><li><a href="https://xenors.in/data-science/mlops-deployment/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/mlflow-model-tracking/">MLflow Tracking</a></li><li class="cur"><a href="https://xenors.in/data-science/deploy-machine-learning-fastapi-docker/">FastAPI + Docker</a></li><li class=""><a href="https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/">AWS SageMaker</a></li><li class=""><a href="https://xenors.in/data-science/model-monitoring-drift-detection/">Model Monitoring</a></li><li class=""><a href="https://xenors.in/data-science/vector-databases-chromadb-pinecone/">Vector Databases</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

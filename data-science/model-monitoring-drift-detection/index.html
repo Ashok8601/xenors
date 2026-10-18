@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>ML Model Monitoring &amp; Drift Detection</title>
+<meta content="Monitor ML models in production: track data drift with PSI and KS tests, watch prediction quality and latency, and set alert thresholds with Python." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/model-monitoring-drift-detection/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="ML Model Monitoring &amp; Drift Detection" property="og:title"/>
+<meta content="Monitor ML models in production: track data drift with PSI and KS tests, watch prediction quality and latency, and set alert thresholds with Python." property="og:description"/>
+<meta content="https://xenors.in/data-science/model-monitoring-drift-detection/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/model-monitoring-drift-detection.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="MLOps &amp; Model Deployment" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="ML Model Monitoring &amp; Drift Detection" name="twitter:title"/>
+<meta content="Monitor ML models in production: track data drift with PSI and KS tests, watch prediction quality and latency, and set alert thresholds with Python." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/model-monitoring-drift-detection.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/model-monitoring-drift-detection.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/model-monitoring-drift-detection/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/model-monitoring-drift-detection/"},"headline":"ML Model Monitoring and Data Drift Detection","description":"Monitor ML models in production: track data drift with PSI and KS tests, watch prediction quality and latency, and set alert thresholds with Python.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/model-monitoring-drift-detection.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"MLOps & Model Deployment","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "ML Model Monitoring and Data Drift Detection", "item": "https://xenors.in/data-science/model-monitoring-drift-detection/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › ML Model Monitoring and Data Drift Detection</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 11: MLOps &amp; Model Deployment</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>ML Model Monitoring and Data Drift Detection</h1>
+<p class="lead">Models degrade quietly. Customer behaviour changes, a sensor is recalibrated, an upstream field changes meaning, and accuracy falls with no error message.</p>
+<img alt="Dashboard comparing training and production feature distributions to detect data drift" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/model-monitoring-drift-detection.webp" srcset="https://xenors.in/images/data-science/model-monitoring-drift-detection-640.webp 640w, https://xenors.in/images/data-science/model-monitoring-drift-detection.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Compare production feature distributions with the training baseline using PSI or the KS test, track prediction distribution and latency continuously, measure real accuracy when labels arrive, and alert on thresholds that trigger retraining.</div>
+<h2 id="types-of-drift">Types of drift</h2>
+<p>Data drift means input distributions changed. Concept drift means the relationship between inputs and the target changed. Label drift means class frequencies changed. Data drift is detectable immediately; concept drift needs ground-truth labels, which often arrive late.</p><h2 id="detect-drift-with-the-ks-test-and-psi">Detect drift with the KS test and PSI</h2>
+<p>The two-sample KS test checks whether two samples plausibly come from one distribution. PSI summarises how far binned distributions moved.</p>
+<div class="codebox"><div class="cap">Compare a production sample with training data</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import numpy as np
+from scipy.stats import ks_2samp
+
+def psi(expected, actual, bins=10):
+    edges = np.percentile(expected, np.linspace(0, 100, bins + 1))
+    edges[0], edges[-1] = -np.inf, np.inf
+    e = np.histogram(expected, edges)[0] / len(expected)
+    a = np.histogram(actual, edges)[0] / len(actual)
+    e, a = np.clip(e, 1e-6, None), np.clip(a, 1e-6, None)
+    return float(np.sum((a - e) * np.log(a / e)))
+
+rng = np.random.default_rng(0)
+train = rng.normal(50, 10, 5000)
+prod_ok = rng.normal(50, 10, 2000)
+prod_bad = rng.normal(58, 12, 2000)
+
+for name, prod in [("stable", prod_ok), ("shifted", prod_bad)]:
+    stat, p = ks_2samp(train, prod)
+    print(f"{name:8s} PSI={psi(train, prod):.3f}  KS p={p:.4g}")</code></pre></div><h2 id="alert-thresholds">Alert thresholds</h2>
+<p>A common rule of thumb for PSI: below 0.1 is stable, 0.1 to 0.25 is a moderate shift worth watching, and above 0.25 is a major shift. Treat these as starting points and tune them on your own data, since very large samples make statistical tests flag tiny harmless differences.</p>
+<div class="codebox"><div class="cap">Per-feature drift report</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>def drift_report(train_df, prod_df, threshold=0.25):
+    out = {}
+    for col in train_df.select_dtypes("number"):
+        v = psi(train_df[col].dropna().values, prod_df[col].dropna().values)
+        out[col] = {"psi": round(v, 3), "alert": v &gt; threshold}
+    return out</code></pre></div><h2 id="what-else-to-monitor">What else to monitor</h2>
+<p>Track more than drift: input data quality (nulls, ranges, schema changes), prediction distribution, latency and error rate, throughput, and business outcomes. When labels arrive, compute accuracy or F1 on a rolling window and compare with the offline baseline.</p>
+<ul><li>Log every request with model version and a request id</li><li>Store features and predictions for later analysis</li><li>Automate retraining only after a human-reviewed evaluation gate</li></ul><h2 id="open-source-tools">Open-source tools</h2>
+<p>Evidently, WhyLogs and Great Expectations provide ready-made drift reports and data validation. Prometheus and Grafana handle operational metrics such as latency.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/model-monitoring-drift-detection.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Calculate population stability index</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import numpy as np
+def psi(expected, actual, bins=10):
+    q=np.quantile(expected,np.linspace(0,1,bins+1)); q[0]-=1e-9; q[-1]+=1e-9
+    e=np.histogram(expected,q)[0]/len(expected); a=np.histogram(actual,q)[0]/len(actual)
+    e=np.clip(e,1e-6,None); a=np.clip(a,1e-6,None)
+    return np.sum((a-e)*np.log(a/e))
+print(round(psi(np.random.normal(0,1,5000), np.random.normal(.4,1,5000)),3))</code></pre></div><pre class="output">~0.15 to 0.25 depending on sample</pre><p>PSI is a monitoring signal, not a universal retraining rule.</p><h3>Separate feature drift from performance drift</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>signals={'age_psi':0.18,'auc_baseline':0.84,'auc_current':0.81}
+print('feature_drift',signals['age_psi']&gt;0.1)
+print('performance_drop',signals['auc_baseline']-signals['auc_current']&gt;0.02)</code></pre></div><pre class="output">feature_drift True
+performance_drop True</pre><p>Monitor both data and outcome quality when labels become available.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this Model Monitoring workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>What is the difference between data drift and concept drift?</summary><p>Data drift is a change in the inputs. Concept drift is a change in how inputs relate to the correct output.</p></details><details><summary>How often should I retrain a model?</summary><p>Retrain based on measured drift or performance decline, or on a schedule that fits how fast your domain changes.</p></details><details><summary>What PSI value indicates drift?</summary><p>Many teams treat values above 0.25 as significant, but you should calibrate thresholds on your own data.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://docs.evidentlyai.com/" rel="noopener noreferrer" target="_blank">Evidently AI documentation</a></li><li><a href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ks_2samp.html" rel="noopener noreferrer" target="_blank">SciPy ks_2samp</a></li><li><a href="https://docs.greatexpectations.io/" rel="noopener noreferrer" target="_blank">Great Expectations documentation</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/" rel="prev"><small>Previous lesson</small>Deploying ML Models on AWS SageMaker</a><a class="r" href="https://xenors.in/data-science/vector-databases-chromadb-pinecone/" rel="next"><small>Next lesson</small>Vector Databases: ChromaDB, Pinecone and FAISS</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#types-of-drift">Types of drift</a></li><li><a href="#detect-drift-with-the-ks-test-and-psi">Detect drift with the KS test and PSI</a></li><li><a href="#alert-thresholds">Alert thresholds</a></li><li><a href="#what-else-to-monitor">What else to monitor</a></li><li><a href="#open-source-tools">Open-source tools</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>MLOps &amp; Deployment</h2><ul><li><a href="https://xenors.in/data-science/mlops-deployment/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/mlflow-model-tracking/">MLflow Tracking</a></li><li class=""><a href="https://xenors.in/data-science/deploy-machine-learning-fastapi-docker/">FastAPI + Docker</a></li><li class=""><a href="https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/">AWS SageMaker</a></li><li class="cur"><a href="https://xenors.in/data-science/model-monitoring-drift-detection/">Model Monitoring</a></li><li class=""><a href="https://xenors.in/data-science/vector-databases-chromadb-pinecone/">Vector Databases</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

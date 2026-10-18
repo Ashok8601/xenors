@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Build a RAG Q&amp;A App with LangChain</title>
+<meta content="Build a document question-answering app: upload PDFs, chunk and embed with LangChain, retrieve with FAISS and answer in a Streamlit chat interface." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/end-to-end-llm-rag-project/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Build a RAG Q&amp;A App with LangChain" property="og:title"/>
+<meta content="Build a document question-answering app: upload PDFs, chunk and embed with LangChain, retrieve with FAISS and answer in a Streamlit chat interface." property="og:description"/>
+<meta content="https://xenors.in/data-science/end-to-end-llm-rag-project/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/end-to-end-llm-rag-project.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Advanced Real-World Projects &amp; Capstone" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Build a RAG Q&amp;A App with LangChain" name="twitter:title"/>
+<meta content="Build a document question-answering app: upload PDFs, chunk and embed with LangChain, retrieve with FAISS and answer in a Streamlit chat interface." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/end-to-end-llm-rag-project.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/end-to-end-llm-rag-project.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/end-to-end-llm-rag-project/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/end-to-end-llm-rag-project/"},"headline":"Project: Document Q&A Bot with RAG, LangChain and Streamlit","description":"Build a document question-answering app: upload PDFs, chunk and embed with LangChain, retrieve with FAISS and answer in a Streamlit chat interface.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/end-to-end-llm-rag-project.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Advanced Real-World Projects & Capstone","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "Project: Document Q&A Bot with RAG, LangChain and Streamlit", "item": "https://xenors.in/data-science/end-to-end-llm-rag-project/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Project: Document Q&amp;A Bot with RAG, LangChain and Streamlit</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 13: Advanced Real-World Projects &amp; Capstone</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Project: Document Q&amp;A Bot with RAG, LangChain and Streamlit</h1>
+<p class="lead">This capstone combines three earlier lessons into one portfolio app: upload a PDF, ask questions, and get answers with the source pages cited.</p>
+<img alt="Streamlit chat app answering questions from uploaded PDF documents using RAG" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/end-to-end-llm-rag-project.webp" srcset="https://xenors.in/images/data-science/end-to-end-llm-rag-project-640.webp 640w, https://xenors.in/images/data-science/end-to-end-llm-rag-project.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Load the PDF with PyPDFLoader, split it with RecursiveCharacterTextSplitter, embed chunks into a FAISS store, build a retriever, and answer in Streamlit with a prompt that restricts the model to the retrieved context and shows sources.</div>
+<h2 id="project-plan-and-structure">Project plan and structure</h2>
+<p>Keep the project small and testable: ingestion, retrieval, generation and UI as separate functions.</p>
+<ul><li>app.py: Streamlit interface</li><li>rag.py: loading, chunking, embedding, retrieval, answering</li><li>requirements.txt: pinned dependencies</li><li>README.md: screenshots, setup, evaluation results</li></ul>
+<div class="codebox"><div class="cap">Install dependencies</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># pip install streamlit langchain langchain-community langchain-openai langchain-text-splitters faiss-cpu pypdf</code></pre></div><h2 id="ingestion-and-retrieval-rag-py">Ingestion and retrieval (rag.py)</h2>
+<p>Page numbers are kept in metadata so the answer can cite them. LangChain package paths change between versions, so confirm imports in the current documentation.</p>
+<div class="codebox"><div class="cap">Index a PDF and answer from retrieved chunks</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># rag.py
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_community.vectorstores import FAISS
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_core.prompts import ChatPromptTemplate
+
+def build_index(pdf_path):
+    pages = PyPDFLoader(pdf_path).load()
+    chunks = RecursiveCharacterTextSplitter(chunk_size=900, chunk_overlap=150).split_documents(pages)
+    return FAISS.from_documents(chunks, OpenAIEmbeddings())
+
+PROMPT = ChatPromptTemplate.from_messages([
+    ("system", "Answer only from the context. If the answer is not in it, say you don't know. "
+               "Be concise and mention page numbers."),
+    ("human", "Context:\n{context}\n\nQuestion: {question}")])
+
+def answer(index, question, k=4):
+    docs = index.similarity_search(question, k=k)
+    ctx = "\n\n".join(f"(page {d.metadata.get('page', 0) + 1}) {d.page_content}" for d in docs)
+    reply = (PROMPT | ChatOpenAI(model="gpt-4o-mini", temperature=0)).invoke(
+        {"context": ctx, "question": question})
+    return reply.content, docs</code></pre></div><h2 id="streamlit-interface-app-py">Streamlit interface (app.py)</h2>
+<p>Cache the index in session state so the PDF is embedded once per upload.</p>
+<div class="codebox"><div class="cap">Chat UI with source expander</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># app.py   -&gt;  streamlit run app.py
+import tempfile, streamlit as st
+from rag import build_index, answer
+
+st.title("Ask your document")
+up = st.file_uploader("Upload a PDF", type="pdf")
+if up and st.session_state.get("name") != up.name:
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as f:
+        f.write(up.read())
+    with st.spinner("Indexing..."):
+        st.session_state.index = build_index(f.name)
+    st.session_state.name = up.name
+
+q = st.chat_input("Ask a question about the document")
+if q and "index" in st.session_state:
+    st.chat_message("user").write(q)
+    text, docs = answer(st.session_state.index, q)
+    st.chat_message("assistant").write(text)
+    with st.expander("Sources"):
+        for d in docs:
+            st.caption(f"Page {d.metadata.get('page', 0) + 1}")
+            st.write(d.page_content[:300] + "...")</code></pre></div><h2 id="evaluate-it-like-a-real-project">Evaluate it like a real project</h2>
+<p>Write 15 questions with known answers and page numbers. Measure how often the right page appears in the top 4 results, and review answers manually for faithfulness. Put those numbers in your README, since measured results make a portfolio project convincing.</p><h2 id="deploy-and-extend">Deploy and extend</h2>
+<p>Deploy on Streamlit Community Cloud or in Docker, with the API key in secrets. Extensions to try: multiple documents, hybrid keyword search, a reranker, conversation memory and an upload size limit.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/end-to-end-llm-rag-project.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Define a project evaluation record</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>record={'question':'refund window?','expected_source':'policy.pdf','retrieved':['policy.pdf'],'answer_supported':True}
+print(record)</code></pre></div><pre class="output">{'question': 'refund window?', ... 'answer_supported': True}</pre><p>Store evaluation evidence with the project so improvements are measurable.</p><h3>Cache document fingerprints</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import hashlib
+text='example policy text'
+print(hashlib.sha256(text.encode()).hexdigest()[:12])</code></pre></div><pre class="output">&lt;12-char fingerprint&gt;</pre><p>Fingerprints help avoid re-embedding unchanged documents.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this RAG Project workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Do I need a paid API for this project?</summary><p>The example uses OpenAI. You can replace it with a local model through Ollama or Hugging Face to avoid API charges.</p></details><details><summary>How do I stop the bot from making things up?</summary><p>Restrict answers to the context in the prompt, show sources, and return 'I don't know' when retrieval finds nothing relevant.</p></details><details><summary>Can this handle large PDFs?</summary><p>Yes, but embed once and persist the index to disk so you do not pay to re-embed on every run.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://python.langchain.com/docs/tutorials/rag/" rel="noopener noreferrer" target="_blank">LangChain RAG tutorial</a></li><li><a href="https://docs.streamlit.io/" rel="noopener noreferrer" target="_blank">Streamlit documentation</a></li><li><a href="https://faiss.ai/" rel="noopener noreferrer" target="_blank">FAISS documentation</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/snowflake-data-warehouse-tutorial/" rel="prev"><small>Previous lesson</small>Snowflake Data Warehouse Tutorial for Data Science Teams</a><a class="r" href="https://xenors.in/data-science/predictive-maintenance-iot-ml/" rel="next"><small>Next lesson</small>Project: Predictive Maintenance with IoT Sensor Data</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#project-plan-and-structure">Project plan and structure</a></li><li><a href="#ingestion-and-retrieval-rag-py">Ingestion and retrieval (rag.py)</a></li><li><a href="#streamlit-interface-app-py">Streamlit interface (app.py)</a></li><li><a href="#evaluate-it-like-a-real-project">Evaluate it like a real project</a></li><li><a href="#deploy-and-extend">Deploy and extend</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Generative AI &amp; LLMs</h2><ul><li><a href="https://xenors.in/data-science/generative-ai-llm/">Module overview</a></li><li class="cur"><a href="https://xenors.in/data-science/end-to-end-llm-rag-project/">RAG Project</a></li><li class=""><a href="https://xenors.in/data-science/predictive-maintenance-iot-ml/">Predictive Maintenance</a></li><li class=""><a href="https://xenors.in/data-science/customer-churn-prediction-deployment/">Churn Project</a></li><li class=""><a href="https://xenors.in/data-science/computer-vision-mask-detection-project/">Mask Detection Project</a></li><li class=""><a href="https://xenors.in/data-science/financial-time-series-forecasting/">Forecasting Project</a></li><li class=""><a href="https://xenors.in/data-science/data-science-resume-portfolio-guide/">Resume &amp; Portfolio</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

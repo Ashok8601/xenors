@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>LangChain Tutorial for Python Beginners</title>
+<meta content="Learn LangChain in Python: prompts, chat models, output parsers, LCEL chains and tools, with working code to build your first LLM application." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/langchain-tutorial-python/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="LangChain Tutorial for Python Beginners" property="og:title"/>
+<meta content="Learn LangChain in Python: prompts, chat models, output parsers, LCEL chains and tools, with working code to build your first LLM application." property="og:description"/>
+<meta content="https://xenors.in/data-science/langchain-tutorial-python/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/langchain-tutorial-python.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Generative AI, LLMs &amp; Prompt Engineering" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="LangChain Tutorial for Python Beginners" name="twitter:title"/>
+<meta content="Learn LangChain in Python: prompts, chat models, output parsers, LCEL chains and tools, with working code to build your first LLM application." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/langchain-tutorial-python.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/langchain-tutorial-python.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/langchain-tutorial-python/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/langchain-tutorial-python/"},"headline":"LangChain Tutorial for Beginners: Build LLM Applications","description":"Learn LangChain in Python: prompts, chat models, output parsers, LCEL chains and tools, with working code to build your first LLM application.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/langchain-tutorial-python.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Generative AI, LLMs & Prompt Engineering","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "LangChain Tutorial for Beginners: Build LLM Applications", "item": "https://xenors.in/data-science/langchain-tutorial-python/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › LangChain Tutorial for Beginners: Build LLM Applications</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 10: Generative AI, LLMs &amp; Prompt Engineering</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>LangChain Tutorial for Beginners: Build LLM Applications</h1>
+<p class="lead">LangChain gives you building blocks for LLM apps: prompt templates, model wrappers, parsers, retrievers and tools. You compose them into a pipeline with a short expression syntax.</p>
+<img alt="LangChain pipeline connecting prompt template, chat model and output parser" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/langchain-tutorial-python.webp" srcset="https://xenors.in/images/data-science/langchain-tutorial-python-640.webp 640w, https://xenors.in/images/data-science/langchain-tutorial-python.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Install langchain and a provider package, create a ChatPromptTemplate, pipe it into a chat model and a StrOutputParser with the | operator, then call chain.invoke(). That pipeline style is called LCEL.</div>
+<h2 id="core-concepts">Core concepts</h2>
+<p>A prompt template fills variables into messages. A chat model wrapper calls the provider API. An output parser converts raw text into strings or structured objects. A chain connects them. Tools let a model call your functions, and retrievers fetch documents.</p>
+<div class="callout"><strong>Practical tip</strong>LangChain's API changes between releases. Check the official documentation for current import paths before copying older tutorials.</div><h2 id="your-first-chain">Your first chain</h2>
+<p>Set an API key as an environment variable, never in source code. The model name is an example; use any chat model your provider offers.</p>
+<div class="codebox"><div class="cap">Prompt, model and parser as one chain</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># pip install langchain langchain-openai
+import os
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_core.output_parsers import StrOutputParser
+from langchain_openai import ChatOpenAI
+
+assert os.getenv("OPENAI_API_KEY"), "set OPENAI_API_KEY first"
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are a concise data science tutor."),
+    ("human", "Explain {topic} in {n} sentences."),
+])
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
+chain = prompt | llm | StrOutputParser()
+print(chain.invoke({"topic": "overfitting", "n": 2}))</code></pre></div><h2 id="structured-output">Structured output</h2>
+<p>Ask for a typed result instead of parsing free text yourself.</p>
+<div class="codebox"><div class="cap">Pydantic structured output</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>from pydantic import BaseModel, Field
+
+class Review(BaseModel):
+    sentiment: str = Field(description="positive, negative or neutral")
+    score: int = Field(description="1 to 5")
+
+structured = llm.with_structured_output(Review)
+print(structured.invoke("The course was clear and the code ran first try."))</code></pre></div><h2 id="give-the-model-tools">Give the model tools</h2>
+<p>A tool is a plain Python function with a docstring. The model decides when to call it and you execute it.</p>
+<div class="codebox"><div class="cap">Tool calling</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>from langchain_core.tools import tool
+
+@tool
+def mean(numbers: list[float]) -&gt; float:
+    """Return the arithmetic mean of a list of numbers."""
+    return sum(numbers) / len(numbers)
+
+llm_tools = llm.bind_tools([mean])
+msg = llm_tools.invoke("What is the mean of 4, 8 and 15?")
+for call in msg.tool_calls:
+    print(call["name"], call["args"], "-&gt;", mean.invoke(call["args"]))</code></pre></div><h2 id="where-to-go-next">Where to go next</h2>
+<p>Combine chains with a retriever to build document question answering, covered in the RAG lesson. Add conversation memory, tracing and evaluation before you deploy anything to users.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/langchain-tutorial-python.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Compose a small runnable chain</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>from langchain_core.runnables import RunnableLambda
+clean=RunnableLambda(lambda x:x.strip().lower())
+length=RunnableLambda(lambda x:{'text':x,'chars':len(x)})
+print((clean|length).invoke('  Hello LangChain  '))</code></pre></div><pre class="output">{'text': 'hello langchain', 'chars': 15}</pre><p>Use small composable steps so you can test each stage independently.</p><h3>Return structured data</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>from pydantic import BaseModel
+class Answer(BaseModel):
+    label:str
+    confidence:float
+print(Answer(label='positive',confidence=.91).model_dump())</code></pre></div><pre class="output">{'label': 'positive', 'confidence': 0.91}</pre><p>Structured output is easier to validate than free-form text.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this LangChain Basics workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Is LangChain free?</summary><p>The library is open source. You pay the model provider for API usage unless you run an open model locally.</p></details><details><summary>What is LCEL?</summary><p>LangChain Expression Language. It composes components with the | operator into runnable chains that support streaming and batching.</p></details><details><summary>Do I need LangChain to build an LLM app?</summary><p>No. Small apps can call a provider SDK directly. LangChain helps when you combine retrieval, tools and several steps.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://python.langchain.com/docs/" rel="noopener noreferrer" target="_blank">LangChain Python documentation</a></li><li><a href="https://github.com/langchain-ai/langchain" rel="noopener noreferrer" target="_blank">LangChain GitHub</a></li><li><a href="https://docs.pydantic.dev/" rel="noopener noreferrer" target="_blank">Pydantic documentation</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/fine-tuning-llm-huggingface/" rel="prev"><small>Previous lesson</small>How to Fine-Tune LLMs with Hugging Face: LLaMA and Mistral</a><a class="r" href="https://xenors.in/data-science/retrieval-augmented-generation-rag/" rel="next"><small>Next lesson</small>Retrieval-Augmented Generation (RAG): Architecture and Setup</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#core-concepts">Core concepts</a></li><li><a href="#your-first-chain">Your first chain</a></li><li><a href="#structured-output">Structured output</a></li><li><a href="#give-the-model-tools">Give the model tools</a></li><li><a href="#where-to-go-next">Where to go next</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Generative AI &amp; LLMs</h2><ul><li><a href="https://xenors.in/data-science/generative-ai-llm/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/transformers-architecture-attention-mechanism/">Transformers &amp; Attention</a></li><li class=""><a href="https://xenors.in/data-science/fine-tuning-llm-huggingface/">LLM Fine-Tuning</a></li><li class="cur"><a href="https://xenors.in/data-science/langchain-tutorial-python/">LangChain Basics</a></li><li class=""><a href="https://xenors.in/data-science/retrieval-augmented-generation-rag/">RAG Architecture</a></li><li class=""><a href="https://xenors.in/data-science/prompt-engineering-techniques/">Prompt Engineering</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

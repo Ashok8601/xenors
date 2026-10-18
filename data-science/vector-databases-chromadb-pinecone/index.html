@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Vector Databases: Chroma, Pinecone &amp; FAISS</title>
+<meta content="Learn how vector databases work: embeddings, similarity metrics, approximate nearest neighbour search, and code for FAISS, ChromaDB and Pinecone." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/vector-databases-chromadb-pinecone/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Vector Databases: Chroma, Pinecone &amp; FAISS" property="og:title"/>
+<meta content="Learn how vector databases work: embeddings, similarity metrics, approximate nearest neighbour search, and code for FAISS, ChromaDB and Pinecone." property="og:description"/>
+<meta content="https://xenors.in/data-science/vector-databases-chromadb-pinecone/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/vector-databases-chromadb-pinecone.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="MLOps &amp; Model Deployment" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Vector Databases: Chroma, Pinecone &amp; FAISS" name="twitter:title"/>
+<meta content="Learn how vector databases work: embeddings, similarity metrics, approximate nearest neighbour search, and code for FAISS, ChromaDB and Pinecone." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/vector-databases-chromadb-pinecone.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/vector-databases-chromadb-pinecone.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/vector-databases-chromadb-pinecone/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/vector-databases-chromadb-pinecone/"},"headline":"Vector Databases: ChromaDB, Pinecone and FAISS","description":"Learn how vector databases work: embeddings, similarity metrics, approximate nearest neighbour search, and code for FAISS, ChromaDB and Pinecone.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/vector-databases-chromadb-pinecone.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"MLOps & Model Deployment","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "Vector Databases: ChromaDB, Pinecone and FAISS", "item": "https://xenors.in/data-science/vector-databases-chromadb-pinecone/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Vector Databases: ChromaDB, Pinecone and FAISS</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 11: MLOps &amp; Model Deployment</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Vector Databases: ChromaDB, Pinecone and FAISS</h1>
+<p class="lead">Keyword search misses meaning. Vector databases store embeddings, numeric fingerprints of text or images, and find the closest ones to a query in milliseconds.</p>
+<img alt="Vector database storing text embeddings and returning nearest neighbours for a query" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/vector-databases-chromadb-pinecone.webp" srcset="https://xenors.in/images/data-science/vector-databases-chromadb-pinecone-640.webp 640w, https://xenors.in/images/data-science/vector-databases-chromadb-pinecone.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> A vector database stores embedding vectors with metadata and finds nearest neighbours using cosine, dot product or Euclidean distance, usually through approximate indexes such as HNSW. FAISS is a library, ChromaDB is an embedded database, and Pinecone is a managed service.</div>
+<h2 id="how-vector-search-works">How vector search works</h2>
+<p>An embedding model maps text to a vector so that similar meanings sit close together. At query time the question is embedded and compared against stored vectors. Exact search compares every vector. Approximate nearest neighbour (ANN) indexes such as HNSW or IVF trade a little accuracy for large speed gains.</p>
+<table><thead><tr><th>Tool</th><th>Type</th><th>Best for</th></tr></thead><tbody><tr><td>FAISS</td><td>Library</td><td>Fast local search, research</td></tr><tr><td>ChromaDB</td><td>Embedded database</td><td>Prototypes and small apps</td></tr><tr><td>Pinecone</td><td>Managed cloud service</td><td>Production without operating infrastructure</td></tr></tbody></table><h2 id="semantic-search-with-faiss">Semantic search with FAISS</h2>
+<p>Normalise vectors and use inner product to get cosine similarity.</p>
+<div class="codebox"><div class="cap">Exact cosine search with FAISS</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># pip install faiss-cpu sentence-transformers
+import faiss, numpy as np
+from sentence_transformers import SentenceTransformer
+
+docs = ["How to reset my password", "Refund policy for annual plans",
+        "Train a random forest in Python", "Fix a CUDA out of memory error"]
+model = SentenceTransformer("all-MiniLM-L6-v2")
+vecs = model.encode(docs, normalize_embeddings=True).astype("float32")
+
+index = faiss.IndexFlatIP(vecs.shape[1])
+index.add(vecs)
+q = model.encode(["GPU memory error when training"], normalize_embeddings=True).astype("float32")
+scores, ids = index.search(q, 2)
+for s, i in zip(scores[0], ids[0]):
+    print(round(float(s), 3), docs[i])</code></pre></div><h2 id="store-and-filter-with-chromadb">Store and filter with ChromaDB</h2>
+<p>Metadata filters combine semantic matching with structured conditions.</p>
+<div class="codebox"><div class="cap">Add vectors and query with a metadata filter</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import chromadb
+
+client = chromadb.PersistentClient(path="chroma_data")
+col = client.get_or_create_collection("faq", metadata={"hnsw:space": "cosine"})
+col.add(ids=["1", "2", "3"],
+        documents=docs[:3],
+        embeddings=vecs[:3].tolist(),
+        metadatas=[{"topic": "account"}, {"topic": "billing"}, {"topic": "ml"}])
+res = col.query(query_embeddings=q.tolist(), n_results=2, where={"topic": "ml"})
+print(res["documents"])</code></pre></div><h2 id="use-pinecone-as-a-managed-service">Use Pinecone as a managed service</h2>
+<p>The index must be created with the same dimension as your embedding model. Check the Pinecone documentation for current index options and regions.</p>
+<div class="codebox"><div class="cap">Upsert and query a Pinecone index</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># pip install pinecone
+import os
+from pinecone import Pinecone, ServerlessSpec
+
+pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])
+if "faq" not in pc.list_indexes().names():
+    pc.create_index("faq", dimension=384, metric="cosine",
+                    spec=ServerlessSpec(cloud="aws", region="us-east-1"))
+idx = pc.Index("faq")
+idx.upsert([(str(i), vecs[i].tolist(), {"text": docs[i]}) for i in range(len(docs))])
+print(idx.query(vector=q[0].tolist(), top_k=2, include_metadata=True))</code></pre></div><h2 id="choosing-and-tuning">Choosing and tuning</h2>
+<p>Start with ChromaDB or FAISS locally. Move to a managed or server-based database when you need replication, access control or very large collections. Use the same embedding model for indexing and querying, and re-embed everything if you change it.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/vector-databases-chromadb-pinecone.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Compare cosine similarity</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import numpy as np
+a=np.array([1.,0.,1.]); b=np.array([.8,.1,.9])
+cos=a@b/(np.linalg.norm(a)*np.linalg.norm(b))
+print(round(cos,3))</code></pre></div><pre class="output">~0.994</pre><p>High cosine similarity means similar direction, not necessarily identical semantics.</p><h3>Apply metadata filtering</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>records=[('doc1','policy'),('doc2','manual'),('doc3','policy')]
+print([r for r in records if r[1]=='policy'])</code></pre></div><pre class="output">[('doc1', 'policy'), ('doc3', 'policy')]</pre><p>Metadata filters can improve relevance before vector ranking.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this Vector Databases workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>What is an embedding?</summary><p>A list of numbers produced by a model that represents the meaning of text, an image or other data.</p></details><details><summary>Cosine similarity or Euclidean distance?</summary><p>For normalised text embeddings they rank results identically. Use the metric your embedding model recommends.</p></details><details><summary>Do I need a vector database for RAG?</summary><p>Small projects can use FAISS or an in-memory index. A vector database helps with persistence, filtering and scale.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://github.com/facebookresearch/faiss/wiki" rel="noopener noreferrer" target="_blank">FAISS wiki</a></li><li><a href="https://docs.trychroma.com/" rel="noopener noreferrer" target="_blank">ChromaDB documentation</a></li><li><a href="https://docs.pinecone.io/" rel="noopener noreferrer" target="_blank">Pinecone documentation</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/model-monitoring-drift-detection/" rel="prev"><small>Previous lesson</small>ML Model Monitoring and Data Drift Detection</a><a class="r" href="https://xenors.in/data-science/pyspark-tutorial-data-science/" rel="next"><small>Next lesson</small>PySpark Tutorial: Big Data Processing in Python</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#how-vector-search-works">How vector search works</a></li><li><a href="#semantic-search-with-faiss">Semantic search with FAISS</a></li><li><a href="#store-and-filter-with-chromadb">Store and filter with ChromaDB</a></li><li><a href="#use-pinecone-as-a-managed-service">Use Pinecone as a managed service</a></li><li><a href="#choosing-and-tuning">Choosing and tuning</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Generative AI &amp; LLMs</h2><ul><li><a href="https://xenors.in/data-science/generative-ai-llm/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/mlflow-model-tracking/">MLflow Tracking</a></li><li class=""><a href="https://xenors.in/data-science/deploy-machine-learning-fastapi-docker/">FastAPI + Docker</a></li><li class=""><a href="https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/">AWS SageMaker</a></li><li class=""><a href="https://xenors.in/data-science/model-monitoring-drift-detection/">Model Monitoring</a></li><li class="cur"><a href="https://xenors.in/data-science/vector-databases-chromadb-pinecone/">Vector Databases</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>

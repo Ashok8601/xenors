@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en-IN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>RNN &amp; LSTM Tutorial for Sequence Models</title>
+<meta content="Learn how RNNs and LSTMs model sequences, why gates fix vanishing gradients, and build an LSTM time series forecaster in PyTorch step by step." name="description"/>
+
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/recurrent-neural-networks-lstm/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="RNN &amp; LSTM Tutorial for Sequence Models" property="og:title"/>
+<meta content="Learn how RNNs and LSTMs model sequences, why gates fix vanishing gradients, and build an LSTM time series forecaster in PyTorch step by step." property="og:description"/>
+<meta content="https://xenors.in/data-science/recurrent-neural-networks-lstm/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/recurrent-neural-networks-lstm.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Advanced Deep Learning" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="RNN &amp; LSTM Tutorial for Sequence Models" name="twitter:title"/>
+<meta content="Learn how RNNs and LSTMs model sequences, why gates fix vanishing gradients, and build an LSTM time series forecaster in PyTorch step by step." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/recurrent-neural-networks-lstm.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/recurrent-neural-networks-lstm.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/recurrent-neural-networks-lstm/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/recurrent-neural-networks-lstm/"},"headline":"RNN & LSTM Networks: Sequence Modeling and Time Series","description":"Learn how RNNs and LSTMs model sequences, why gates fix vanishing gradients, and build an LSTM time series forecaster in PyTorch step by step.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/recurrent-neural-networks-lstm.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Advanced Deep Learning","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://xenors.in/"}, {"@type": "ListItem", "position": 2, "name": "Data Science", "item": "https://xenors.in/data-science/"}, {"@type": "ListItem", "position": 3, "name": "RNN & LSTM Networks: Sequence Modeling and Time Series", "item": "https://xenors.in/data-science/recurrent-neural-networks-lstm/"}]}</script>
+
+</head>
+<body>
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" height="28" src="https://xenors.in/images/xenors.png" width="28"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › RNN &amp; LSTM Networks: Sequence Modeling and Time Series</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 9: Advanced Deep Learning</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>RNN &amp; LSTM Networks: Sequence Modeling and Time Series</h1>
+<p class="lead">Text, sensor streams and prices are ordered data: what came before matters. RNNs carry a hidden state through time, and LSTMs add gates that decide what to remember.</p>
+<img alt="Unrolled recurrent neural network and LSTM cell with input, forget and output gates" class="hero" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/recurrent-neural-networks-lstm.webp" srcset="https://xenors.in/images/data-science/recurrent-neural-networks-lstm-640.webp 640w, https://xenors.in/images/data-science/recurrent-neural-networks-lstm.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> An RNN reuses the same weights at every time step and passes a hidden state forward. An LSTM adds input, forget and output gates plus a cell state, which lets it learn long-range dependencies that plain RNNs lose to vanishing gradients.</div>
+<h2 id="rnn-lstm-and-gru-compared">RNN, LSTM and GRU compared</h2>
+<p>A plain RNN updates its hidden state as h_t = tanh(W x_t + U h_(t-1)). Gradients are multiplied through every step, so they shrink or explode over long sequences. LSTM adds a cell state with gates to control what is written, kept or exposed. GRU merges some gates and has fewer parameters.</p>
+<table><thead><tr><th>Model</th><th>Gates</th><th>Strength</th></tr></thead><tbody><tr><td>RNN</td><td>None</td><td>Simple, short sequences</td></tr><tr><td>LSTM</td><td>Input, forget, output</td><td>Long dependencies</td></tr><tr><td>GRU</td><td>Update, reset</td><td>Faster, fewer parameters</td></tr></tbody></table><h2 id="prepare-sequences-for-a-forecaster">Prepare sequences for a forecaster</h2>
+<p>Slide a window over the series: the previous 30 values are the input and the next value is the target. Scale using statistics from the training portion only to avoid leakage.</p>
+<div class="codebox"><div class="cap">Create sliding windows without data leakage</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import numpy as np, torch
+
+def make_windows(series, window=30):
+    X, y = [], []
+    for i in range(len(series) - window):
+        X.append(series[i:i+window])
+        y.append(series[i+window])
+    X = torch.tensor(np.array(X), dtype=torch.float32).unsqueeze(-1)
+    y = torch.tensor(np.array(y), dtype=torch.float32).unsqueeze(-1)
+    return X, y
+
+t = np.arange(0, 400, 0.1)
+series = np.sin(t) + 0.1 * np.random.randn(len(t))
+split = int(len(series) * 0.8)
+mu, sd = series[:split].mean(), series[:split].std()
+scaled = (series - mu) / sd
+Xtr, ytr = make_windows(scaled[:split])
+Xte, yte = make_windows(scaled[split:])
+print(Xtr.shape, Xte.shape)</code></pre></div><h2 id="build-and-train-an-lstm-in-pytorch">Build and train an LSTM in PyTorch</h2>
+<p>The model reads the window and predicts the next value from the last hidden state.</p>
+<div class="codebox"><div class="cap">Training loop with gradient clipping</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>import torch.nn as nn
+
+class Forecaster(nn.Module):
+    def __init__(self, hidden=64, layers=2):
+        super().__init__()
+        self.lstm = nn.LSTM(1, hidden, layers, batch_first=True, dropout=0.1)
+        self.head = nn.Linear(hidden, 1)
+    def forward(self, x):
+        out, _ = self.lstm(x)
+        return self.head(out[:, -1])
+
+model = Forecaster()
+opt = torch.optim.Adam(model.parameters(), lr=1e-3)
+loss_fn = nn.MSELoss()
+for epoch in range(15):
+    model.train()
+    perm = torch.randperm(len(Xtr))
+    for i in range(0, len(perm), 64):
+        idx = perm[i:i+64]
+        opt.zero_grad()
+        loss = loss_fn(model(Xtr[idx]), ytr[idx])
+        loss.backward()
+        nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+        opt.step()
+    model.eval()
+    with torch.no_grad():
+        val = loss_fn(model(Xte), yte).item()
+    print(f"epoch {epoch+1:2d}  val MSE {val:.4f}")</code></pre></div><h2 id="evaluate-honestly">Evaluate honestly</h2>
+<p>Compare the LSTM against a naive baseline that predicts the previous value. If the LSTM does not beat it on held-out data, the extra complexity is not helping. Use walk-forward validation for real time series so each fold only trains on the past.</p>
+<div class="callout"><strong>Practical tip</strong>Gradient clipping (shown above) stops exploding gradients, which are common in recurrent models.</div>
+<div class="codebox"><div class="cap">Baseline to beat</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>naive = Xte[:, -1]                       # predict last observed value
+print("naive MSE:", nn.functional.mse_loss(naive, yte).item())</code></pre></div>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/recurrent-neural-networks-lstm.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Build sliding windows without leakage</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import numpy as np
+s=np.arange(10)
+X=np.array([s[i:i+3] for i in range(len(s)-3)])
+y=np.array([s[i+3] for i in range(len(s)-3)])
+print(X[:2]); print(y[:2])</code></pre></div><pre class="output">[[0 1 2]
+ [1 2 3]]
+[3 4]</pre><p>Create train/validation splits by time before fitting scalers.</p><h3>Inspect LSTM output shapes</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>import torch, torch.nn as nn
+lstm=nn.LSTM(input_size=1,hidden_size=8,batch_first=True)
+out,(h,c)=lstm(torch.randn(4,12,1))
+print(out.shape,h.shape)</code></pre></div><pre class="output">torch.Size([4, 12, 8]) torch.Size([1, 4, 8])</pre><p>Shape checks catch many sequence-model bugs early.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this RNN &amp; LSTM workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Why does LSTM solve the vanishing gradient problem?</summary><p>The cell state is updated additively and controlled by gates, so gradients can flow across many steps without shrinking repeatedly.</p></details><details><summary>LSTM or Transformer for time series?</summary><p>LSTMs are a solid choice for small and medium datasets. Transformers can win on large datasets and long contexts, but always compare both against a simple baseline.</p></details><details><summary>What is the difference between LSTM and GRU?</summary><p>GRU uses two gates and no separate cell state, so it is lighter and often trains faster with similar accuracy.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://pytorch.org/docs/stable/generated/torch.nn.LSTM.html" rel="noopener noreferrer" target="_blank">PyTorch nn.LSTM documentation</a></li><li><a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/" rel="noopener noreferrer" target="_blank">Understanding LSTM Networks (Colah)</a></li><li><a href="https://www.bioinf.jku.at/publications/older/2604.pdf" rel="noopener noreferrer" target="_blank">Long Short-Term Memory (Hochreiter &amp; Schmidhuber)</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/yolo-object-detection-python/" rel="prev"><small>Previous lesson</small>YOLO Object Detection Tutorial in Python</a><a class="r" href="https://xenors.in/data-science/autoencoders-generative-adversarial-networks-gan/" rel="next"><small>Next lesson</small>Autoencoders and GANs: Image Generation with PyTorch</a></nav>
+</article></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#rnn-lstm-and-gru-compared">RNN, LSTM and GRU compared</a></li><li><a href="#prepare-sequences-for-a-forecaster">Prepare sequences for a forecaster</a></li><li><a href="#build-and-train-an-lstm-in-pytorch">Build and train an LSTM in PyTorch</a></li><li><a href="#evaluate-honestly">Evaluate honestly</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Advanced Deep Learning</h2><ul><li><a href="https://xenors.in/data-science/advanced-deep-learning/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/cnn-architecture-resnet-vgg/">CNN Architectures</a></li><li class=""><a href="https://xenors.in/data-science/yolo-object-detection-python/">YOLO Detection</a></li><li class="cur"><a href="https://xenors.in/data-science/recurrent-neural-networks-lstm/">RNN &amp; LSTM</a></li><li class=""><a href="https://xenors.in/data-science/autoencoders-generative-adversarial-networks-gan/">Autoencoders &amp; GANs</a></li><li class=""><a href="https://xenors.in/data-science/transfer-learning-keras-pytorch/">Transfer Learning</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+<script defer="" src="https://xenors.in/data-science/assets/ds.js"></script>
+</body>
+</html>
