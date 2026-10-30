@@ -1,0 +1,1 @@
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(document.querySelector(b.dataset.copy).innerText);b.textContent='Copied!'}catch(e){b.textContent='Select and copy the code'}}));
