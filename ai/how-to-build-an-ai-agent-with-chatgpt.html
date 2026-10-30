@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How to Build an AI Agent with ChatGPT (Free & Step-by-Step)</title>
+<meta name="description" content="Learn how to build an AI agent with ChatGPT: free options, no-code setup, a working Python example, safety tips and a printable checklist. Updated Oct 2026.">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<link rel="canonical" href="https://xenors.in/ai/how-to-build-an-ai-agent-with-chatgpt/">
+<meta name="theme-color" content="#0b5fff">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Xenors">
+<meta property="og:title" content="How to Build an AI Agent with ChatGPT (Free & Step-by-Step)">
+<meta property="og:description" content="Build your first AI agent: free options, no-code setup, Python code, real examples and safety checklist.">
+<meta property="og:url" content="https://xenors.in/ai/how-to-build-an-ai-agent-with-chatgpt/">
+<meta property="og:image" content="https://xenors.in/assets/images/agent-workflow.webp">
+<meta property="article:published_time" content="2026-10-30T00:00:00+05:30">
+<meta property="article:modified_time" content="2026-10-30T00:00:00+05:30">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Build an AI Agent with ChatGPT (Free & Step-by-Step)">
+<meta name="twitter:description" content="A practical beginner guide: free vs paid options, no-code setup, Python SDK example and safety.">
+<meta name="twitter:image" content="https://xenors.in/assets/images/agent-workflow.webp">
+
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"Article","@id":"https://xenors.in/ai/how-to-build-an-ai-agent-with-chatgpt/#article","headline":"How to Build an AI Agent with ChatGPT (Free & Step-by-Step)","description":"A practical guide to building an AI agent with ChatGPT and the OpenAI Agents SDK: free options, no-code setup, Python example, safety and FAQs.","image":["https://xenors.in/assets/images/agent-workflow.webp"],"datePublished":"2026-10-30","dateModified":"2026-10-30","inLanguage":"en","author":{"@type":"Person","name":"Ashok Kumar Yadav"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/"},"mainEntityOfPage":"https://xenors.in/ai/how-to-build-an-ai-agent-with-chatgpt/"},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://xenors.in/"},{"@type":"ListItem","position":2,"name":"AI","item":"https://xenors.in/ai/"},{"@type":"ListItem","position":3,"name":"How to Build an AI Agent with ChatGPT","item":"https://xenors.in/ai/how-to-build-an-ai-agent-with-chatgpt/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"How do I build an AI agent with ChatGPT?","acceptedAnswer":{"@type":"Answer","text":"Pick one narrow task, write clear instructions, decide which tools the agent may use, test it on real examples and add human approval for risky actions. For a no-code start, use a ChatGPT conversation or ChatGPT agent mode (paid plans). For a deployable agent, use the OpenAI Agents SDK or Agent Builder."}},
+{"@type":"Question","name":"Can I build an AI agent with ChatGPT for free?","acceptedAnswer":{"@type":"Answer","text":"You can design and test agent-style instructions in a free ChatGPT chat. ChatGPT agent mode is not available on the Free plan, and API-based agents are billed by usage, so a deployed agent usually has a small cost."}},
+{"@type":"Question","name":"How do I set up an AI agent in ChatGPT?","acceptedAnswer":{"@type":"Answer","text":"Define the role, goal, constraints, output format and approval points in your prompt. On eligible paid plans you can open Agent mode from the Tools menu or type /agent. Always review actions before it sends, buys or publishes anything."}},
+{"@type":"Question","name":"How do I make an AI agent using Python?","acceptedAnswer":{"@type":"Answer","text":"Install the openai-agents package, set OPENAI_API_KEY as an environment variable, create an Agent with instructions and run it with Runner.run_sync. Add function tools only for actions the agent truly needs."}},
+{"@type":"Question","name":"How do I build an AI agent like ChatGPT?","acceptedAnswer":{"@type":"Answer","text":"You need a chat interface, a secure backend that holds your API key, a model, conversation state, optional retrieval over your documents, tool execution, rate limits, logging and moderation."}},
+{"@type":"Question","name":"Is an AI agent the same as ChatGPT?","acceptedAnswer":{"@type":"Answer","text":"No. ChatGPT is a product you chat with. An agent is a system that uses a model, instructions and tools to work toward a goal across several steps."}},
+{"@type":"Question","name":"Can I make an AI agent without coding?","acceptedAnswer":{"@type":"Answer","text":"Yes, to a degree. You can use detailed prompts, ChatGPT agent mode on paid plans, or OpenAI's visual Agent Builder. Reliable production agents still need testing and monitoring."}},
+{"@type":"Question","name":"How long does it take to build a first AI agent?","acceptedAnswer":{"@type":"Answer","text":"A simple prototype can take an afternoon. A dependable production agent usually takes weeks because of testing, monitoring and security review."}},
+{"@type":"Question","name":"Do I need an API key?","acceptedAnswer":{"@type":"Answer","text":"Not to experiment in the ChatGPT app. You need an API key to build a programmatic agent with the Agents SDK."}},
+{"@type":"Question","name":"How do I stop an AI agent from making mistakes?","acceptedAnswer":{"@type":"Answer","text":"Give it a narrow goal, limit its tool permissions, validate inputs and outputs, require approval for consequential actions and evaluate it on a fixed test set."}}
+]}
+]}
+</script>
+
+<style>
+:root{--bg:#ffffff;--fg:#14171f;--muted:#5a6272;--brand:#0b5fff;--brand-dk:#0847c4;--soft:#f3f6fc;--line:#e3e8f1;--code-bg:#0f172a;--code-fg:#e6edf7;--warn:#fff7e6;--warn-line:#f2c46b;--ok:#eefaf2;--ok-line:#7fd39a}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1118;--fg:#e9edf5;--muted:#9aa4b8;--brand:#6ea0ff;--brand-dk:#9bbcff;--soft:#161b26;--line:#262d3c;--code-bg:#0a0d14;--code-fg:#e6edf7;--warn:#2a2210;--warn-line:#8a6a1f;--ok:#0f2417;--ok-line:#2c6b43}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif}
+a{color:var(--brand);text-underline-offset:2px}
+a:hover{color:var(--brand-dk)}
+img{max-width:100%;height:auto;display:block}
+header.site{border-bottom:1px solid var(--line);padding:14px 16px}
+header.site a{font-weight:800;letter-spacing:.12em;text-decoration:none;color:var(--fg)}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+.crumbs{font-size:14px;color:var(--muted);margin:18px 0 0}
+.crumbs a{color:var(--muted)}
+.eyebrow{display:inline-block;margin-top:14px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--brand)}
+h1{font-size:clamp(1.9rem,5.5vw,2.8rem);line-height:1.15;margin:.35em 0 .4em;letter-spacing:-.02em}
+h2{font-size:clamp(1.4rem,3.8vw,1.9rem);line-height:1.25;margin:2.2em 0 .6em;letter-spacing:-.01em;scroll-margin-top:16px}
+h3{font-size:1.2rem;margin:1.6em 0 .4em;scroll-margin-top:16px}
+p{margin:0 0 1.05em}
+.lede{font-size:1.15rem;color:var(--muted)}
+.meta{font-size:14px;color:var(--muted)}
+.hero img{border-radius:12px;margin:18px 0 8px;border:1px solid var(--line)}
+.fig{margin:1.4em 0}
+.fig img{border-radius:12px;border:1px solid var(--line)}
+.fig figcaption{font-size:14px;color:var(--muted);margin-top:6px}
+.box{border:1px solid var(--line);background:var(--soft);border-radius:12px;padding:16px 18px;margin:1.4em 0}
+.box.warn{background:var(--warn);border-color:var(--warn-line)}
+.box.ok{background:var(--ok);border-color:var(--ok-line)}
+.box p:last-child,.box ul:last-child{margin-bottom:0}
+.toc{border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:1.6em 0;background:var(--soft)}
+.toc summary{cursor:pointer;font-weight:700}
+.toc ol{margin:.7em 0 0;padding-left:1.2em;columns:1}
+.toc li{margin:.25em 0}
+@media(min-width:720px){.toc ol{columns:2;column-gap:2em}}
+ul,ol{padding-left:1.3em;margin:0 0 1.1em}
+li{margin:.3em 0}
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:1.2em 0;border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:15px}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+th{background:var(--soft);font-weight:700}
+tr:last-child td{border-bottom:0}
+.codewrap{position:relative;margin:1.2em 0}
+pre{background:var(--code-bg);color:var(--code-fg);border-radius:12px;padding:16px;overflow-x:auto;font:14px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;margin:0;-webkit-overflow-scrolling:touch}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em}
+p code,li code,td code{background:var(--soft);border:1px solid var(--line);padding:1px 6px;border-radius:6px}
+.copy{position:absolute;top:8px;right:8px;background:#ffffff1f;color:#fff;border:1px solid #ffffff40;border-radius:8px;padding:4px 10px;font-size:13px;cursor:pointer}
+.copy:hover{background:#ffffff33}
+.steps{counter-reset:s;list-style:none;padding:0}
+.steps>li{counter-increment:s;position:relative;padding:14px 16px 14px 56px;border:1px solid var(--line);border-radius:12px;margin:12px 0;background:var(--bg)}
+.steps>li::before{content:counter(s);position:absolute;left:14px;top:14px;width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center}
+.steps>li strong:first-child{display:block;margin-bottom:2px}
+details{border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:10px 0;background:var(--bg)}
+summary{cursor:pointer;font-weight:650}
+details[open] summary{margin-bottom:8px}
+.btn{display:inline-block;background:var(--brand);color:#fff;border:0;border-radius:10px;padding:10px 16px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none}
+.btn:hover{background:var(--brand-dk);color:#fff}
+.checklist{list-style:none;padding:0}
+.checklist li{padding-left:30px;position:relative}
+.checklist li::before{content:"☐";position:absolute;left:0;top:0;font-size:1.1em}
+footer{border-top:1px solid var(--line);margin-top:3em;padding:22px 16px;font-size:14px;color:var(--muted);text-align:center}
+@media print{header.site,.toc,.copy,.btn,footer nav{display:none}body{font-size:12pt}pre{white-space:pre-wrap;background:#f4f4f4;color:#000}a{color:#000}}
+</style>
+</head>
+<body>
+<header class="site"><div class="wrap"><a href="https://xenors.in/">XENORS</a></div></header>
+
+<div class="wrap">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/ai/">AI</a> › How to Build an AI Agent with ChatGPT</nav>
+
+<div class="hero">
+<span class="eyebrow">AI · Step-by-step tutorial</span>
+<h1>How to Build an AI Agent with ChatGPT: Free Options, Setup and Python Example</h1>
+<p class="lede">A practical, beginner-friendly guide to building your first AI agent: what an agent really is, what you can do for free, how to set one up inside ChatGPT, how to make one in Python, and how to keep it safe.</p>
+<p class="meta">By <strong>Ashok Kumar Yadav</strong> · Published and updated <time datetime="2026-10-30">October 30, 2026</time> · About 15 minutes to read</p>
+<img src="/assets/images/agent-workflow.webp" width="1280" height="670" fetchpriority="high" alt="AI agent workflow showing a goal, a model, tools and a human review step">
+</div>
+
+<main>
+<details class="toc" open>
+<summary>On this page</summary>
+<ol>
+<li><a href="#quick-answer">Quick answer</a></li>
+<li><a href="#what-is-an-ai-agent">What is an AI agent?</a></li>
+<li><a href="#which-route">Which route should you choose?</a></li>
+<li><a href="#free">Can you build an AI agent with ChatGPT for free?</a></li>
+<li><a href="#step-by-step">How to build your first AI agent: step by step</a></li>
+<li><a href="#setup-in-chatgpt">How to set up an AI agent in ChatGPT</a></li>
+<li><a href="#python">How to make an AI agent using Python</a></li>
+<li><a href="#like-chatgpt">How to build an AI agent like ChatGPT</a></li>
+<li><a href="#comparison">AI agent vs chatbot vs workflow automation</a></li>
+<li><a href="#example">Real-world example: a research assistant</a></li>
+<li><a href="#safety">Safety and security basics</a></li>
+<li><a href="#costs">Costs and limits to expect</a></li>
+<li><a href="#mistakes">Common mistakes and how to avoid them</a></li>
+<li><a href="#checklist">Printable checklist (save as PDF)</a></li>
+<li><a href="#next">What should you build next?</a></li>
+<li><a href="#faq">Frequently asked questions</a></li>
+<li><a href="#sources">Official sources</a></li>
+</ol>
+</details>
+
+<section id="quick-answer">
+<div class="box ok">
+<p><strong>Quick answer:</strong> To build an AI agent with ChatGPT, (1) pick one narrow, measurable task, (2) write precise instructions, (3) decide which tools the agent may use, (4) test it on realistic examples, and (5) require human approval for anything risky. If you want no code, start with a detailed ChatGPT conversation, or ChatGPT agent mode on a paid plan. If you want something you can deploy, use the OpenAI Agents SDK in Python or TypeScript, or OpenAI's visual Agent Builder.</p>
+</div>
+<p>Most tutorials on this topic either stay at the level of "write a good prompt" or jump straight into complicated multi-agent frameworks. This guide sits in the middle. You will learn the concepts, try a no-code version, then build a small but real Python agent, and finish with the safety and evaluation habits that separate a toy from something you can trust.</p>
+<p>One note before we start: AI products change quickly. Where this article mentions plans, limits or features, we point to the official OpenAI documentation so you can confirm the current state before you rely on it.</p>
+</section>
+
+<section id="what-is-an-ai-agent">
+<h2>What is an AI agent?</h2>
+<p>An AI agent is software that uses a language model, a set of instructions and a set of tools to pursue a goal over several steps. A normal chatbot answers a message and stops. An agent can look at the situation, decide what to do next, call a tool (such as a search, a calculator, a database or an API), read the result, and then decide whether to continue or finish.</p>
+<p>OpenAI's own Agents SDK describes agents in simple terms: <strong>an agent is a model equipped with instructions and tools</strong>, and larger systems are built by letting agents hand work to other agents and by adding guardrails that validate inputs and outputs.</p>
+<h3>The four parts of every agent</h3>
+<ul>
+<li><strong>Goal and instructions:</strong> what the agent is for, what it must never do, and what a good answer looks like.</li>
+<li><strong>Model:</strong> the reasoning engine that reads the situation and chooses the next step.</li>
+<li><strong>Tools:</strong> the actions the agent is allowed to take, such as searching approved sources, reading a file or creating a draft.</li>
+<li><strong>Memory and state:</strong> what the agent remembers within a task, and sometimes across tasks.</li>
+</ul>
+<h3>The agent loop</h3>
+<p>Behind the scenes, nearly every agent runs the same loop: <em>observe</em> the task and any previous results, <em>decide</em> the next action, <em>act</em> by calling a tool or writing an answer, then <em>check</em> the result. The loop repeats until the goal is met, a limit is reached, or a human needs to step in. Understanding this loop makes every framework easier to learn, because they are all variations of it.</p>
+<figure class="fig">
+<img src="/assets/images/agent-architecture.webp" width="1280" height="670" loading="lazy" alt="AI agent architecture showing the user, the model, the tools and the results flowing back to the model">
+<figcaption>A simple agent architecture: the user gives a goal, the model chooses tools, results return to the model, and a human reviews important actions.</figcaption>
+</figure>
+</section>
+
+<section id="which-route">
+<h2>Which route should you choose?</h2>
+<p>"Build an AI agent with ChatGPT" can mean several different things. People use the phrase for everything from a clever prompt to a deployed application. Choosing the right route first saves a lot of time.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Route</th><th>Coding needed</th><th>Best for</th><th>Main limitation</th></tr></thead>
+<tbody>
+<tr><td><strong>Prompt-based agent in a ChatGPT chat</strong></td><td>No</td><td>Designing and testing your agent's logic, learning, personal workflows</td><td>Not autonomous; you stay in the loop</td></tr>
+<tr><td><strong>ChatGPT agent mode</strong></td><td>No</td><td>Multi-step tasks using a browser, files and connected apps</td><td>Paid plans only, with monthly usage limits</td></tr>
+<tr><td><strong>Custom GPTs / plug-ins</strong></td><td>No</td><td>Reusable assistants inside ChatGPT</td><td>Creation options are changing; check your account</td></tr>
+<tr><td><strong>Agent Builder (visual)</strong></td><td>Little or none</td><td>Drag-and-drop workflows with guardrails and evaluation</td><td>API-based; usage is billed at API rates</td></tr>
+<tr><td><strong>OpenAI Agents SDK</strong></td><td>Yes (Python or TypeScript)</td><td>Custom, deployable agents with your own tools</td><td>You manage hosting, security and monitoring</td></tr>
+</tbody>
+</table>
+</div>
+<p>If you are brand new, a good path is: prototype in a normal chat, then try agent mode or Agent Builder if you want to see actions happen, then move to the SDK when you need full control.</p>
+</section>
+
+<section id="free">
+<h2>Can you build an AI agent with ChatGPT for free?</h2>
+<p>Partly, yes. Here is an honest breakdown of what "free" really covers.</p>
+<h3>What you can do for free</h3>
+<ul>
+<li><strong>Design and test the agent's logic.</strong> In a free ChatGPT conversation you can write the role, rules, steps and output format, and test them on real examples. This is the most valuable step, and it costs nothing.</li>
+<li><strong>Use search, file uploads and data analysis within the limits of your plan.</strong> These let you simulate parts of an agent workflow manually.</li>
+<li><strong>Use existing GPTs that others have shared</strong>, subject to the limits of the Free plan.</li>
+<li><strong>Install and read the open-source SDK.</strong> The <code>openai-agents</code> package itself is free to install and study.</li>
+</ul>
+<h3>What is not free</h3>
+<ul>
+<li><strong>ChatGPT agent mode.</strong> OpenAI's Help Center lists it for Plus, Pro, Business, Enterprise and Edu plans, not the Free plan, with monthly message limits that depend on the plan.</li>
+<li><strong>Running an agent through the API.</strong> Programmatic agents call the OpenAI API, which is billed by usage. A small learning project is usually cheap, but it is not zero.</li>
+<li><strong>Creating custom GPTs.</strong> Creating GPTs has been limited to paid or workspace accounts, and OpenAI has signalled a move toward plug-ins. Do not build your plan around outdated GPT Builder tutorials; check what your own account offers.</li>
+</ul>
+<div class="box warn">
+<p><strong>Be careful with "free AI agent" claims.</strong> Any page that promises a fully autonomous, free, unlimited agent is overselling. Free tools are excellent for learning and prototyping. Reliable automation that acts on your behalf nearly always involves paid compute somewhere.</p>
+</div>
+</section>
+
+<section id="step-by-step">
+<h2>How to build your first AI agent with ChatGPT: step by step</h2>
+<p>These eight steps work whichever route you choose. Do them in order. Most failed agents skip steps 1, 2 and 7.</p>
+<ol class="steps">
+<li><strong>Choose one narrow, measurable task.</strong> "Turn raw meeting notes into a clean action list with owners and deadlines" is a good first agent. "Run my business" is not. A narrow task is easier to test, cheaper to run and safer to trust.</li>
+<li><strong>Define success before you build.</strong> Write down what a correct result looks like. For the meeting-notes agent: every action has an owner, no action is invented, and dates are copied exactly. You will use this definition to judge the agent later.</li>
+<li><strong>Write the instructions.</strong> State the agent's role, the steps it should follow, what it must never do, and the exact output format. Be specific. Vague instructions create vague agents.</li>
+<li><strong>List the inputs and outputs.</strong> What does the agent receive (text, a file, a URL)? What must it return (a table, JSON, a short email draft)? Fixed formats make results easier to check automatically.</li>
+<li><strong>Choose the minimum set of tools.</strong> Start with none. Add a tool only when the task cannot be done without it. Every tool is a new way for things to go wrong.</li>
+<li><strong>Add approval points.</strong> Anything that sends, publishes, pays, deletes or changes data should pause for a human yes or no. Drafting is safe; sending is not.</li>
+<li><strong>Test with realistic examples.</strong> Collect at least 10 to 20 real inputs, including messy and tricky ones. Run the agent on all of them and compare results with your success definition from step 2.</li>
+<li><strong>Improve, then automate.</strong> Fix the most common failures by tightening instructions or adding a tool. Only after the manual workflow is reliable should you consider scheduling it or deploying it.</li>
+</ol>
+</section>
+
+<section id="setup-in-chatgpt">
+<h2>How to set up an AI agent in ChatGPT</h2>
+<p>This is the no-code route. It is perfect for learning how an agent should behave before you write any code.</p>
+<h3>Option A: A prompt-based agent in a normal chat</h3>
+<p>Open a new ChatGPT conversation and paste a structured prompt like the one below. Replace the bracketed parts with your own details.</p>
+<div class="codewrap">
+<button class="copy" type="button" data-copy="#prompt-template" aria-label="Copy prompt template">Copy</button>
+<pre id="prompt-template"><code>ROLE
+You are a meeting-notes agent for a small product team.
+
+GOAL
+Turn the raw notes I paste into a clear action list.
+
+RULES
+- Use only information that appears in the notes. Never invent owners or dates.
+- If an owner or deadline is missing, write "Unassigned" or "No date".
+- Do not send, publish or share anything. Draft only.
+
+STEPS
+1. Read the notes and list every decision and every action.
+2. For each action, identify owner, deadline and priority.
+3. Flag anything ambiguous and ask me one question about it.
+
+OUTPUT FORMAT
+A table with columns: Action | Owner | Deadline | Priority | Source line.
+Then a short "Questions for you" list.
+
+APPROVAL
+Before you produce a final version, show me the draft and wait for my OK.</code></pre>
+</div>
+<p>Now paste in some real notes and watch how it behaves. Where it makes mistakes, edit the rules. Each fix teaches you something about instruction design that carries over to any agent you build later.</p>
+<h3>Option B: ChatGPT agent mode (paid plans)</h3>
+<p>On eligible paid plans, ChatGPT offers an agent mode that can reason through a task and use tools such as a browser, files and connected apps. You can open it from the Tools menu or by typing <code>/agent</code> in the message box, according to OpenAI's help documentation. It can pause to ask permission before consequential actions, and you can interrupt it or take over the browser.</p>
+<p>Tips for good results in agent mode:</p>
+<ul>
+<li>Give a specific outcome, for example "Compare these three tools on price, features and support, and give me a table with source links," rather than "research tools."</li>
+<li>State what it should not do, such as "Do not log in to anything" or "Do not make purchases."</li>
+<li>Do not share passwords or highly sensitive data. Review what it did before you act on the result.</li>
+<li>Check your plan's monthly agent limits in the official help article before you plan heavy use.</li>
+</ul>
+<h3>Option C: Reusable assistants inside ChatGPT</h3>
+<p>Custom GPTs let people save instructions and knowledge files as a reusable assistant. However, creation options have been changing, and OpenAI has said it plans to steer workflows toward plug-ins. If you see an old tutorial that tells you to click "Create a GPT," confirm that the option exists in your account first. If it does not, keep your tested prompt from Option A in a Project or a notes file, and move to the SDK when you need a persistent, deployable agent.</p>
+<h3>Option D: Agent Builder (visual, API-based)</h3>
+<p>OpenAI's AgentKit includes Agent Builder, a visual canvas for designing multi-step agent workflows with nodes, logic, guardrails and evaluation tools. It launched in beta, so features and availability may change. It is a good bridge between no-code experimentation and full code, and its usage is billed through the standard API pricing rather than a separate subscription.</p>
+</section>
+
+<section id="python">
+<h2>How to make an AI agent using Python</h2>
+<p>This is the route that gives you a real, deployable agent. You will use the OpenAI Agents SDK, a lightweight library whose core ideas are agents, tools, handoffs and guardrails. The examples below follow the official quickstart pattern.</p>
+<h3>Step 1: Set up your environment</h3>
+<p>You need Python installed. Create a project folder and a virtual environment so your packages stay tidy.</p>
+<div class="codewrap">
+<button class="copy" type="button" data-copy="#code-setup" aria-label="Copy setup commands">Copy</button>
+<pre id="code-setup"><code>mkdir my_first_agent
+cd my_first_agent
+python -m venv .venv
+
+# macOS / Linux
+source .venv/bin/activate
+# Windows (PowerShell)
+# .venv\Scripts\Activate.ps1
+
+pip install openai-agents
+
+# Set your key as an environment variable (never paste it into code)
+export OPENAI_API_KEY="your-key-here"</code></pre>
+</div>
+<div class="box warn"><p><strong>Protect your API key.</strong> Never put it in browser JavaScript, a public repository or a screenshot. Run agents on your own computer or on a server you control. If a key leaks, revoke it immediately in your OpenAI dashboard.</p></div>
+
+<h3>Step 2: Create and run a minimal agent</h3>
+<div class="codewrap">
+<button class="copy" type="button" data-copy="#code-basic" aria-label="Copy basic agent code">Copy</button>
+<pre id="code-basic"><code># agent_basic.py
+from agents import Agent, Runner
+
+agent = Agent(
+    name="Study Planner",
+    instructions=(
+        "Create a practical study plan. "
+        "Ask for missing details. "
+        "Do not claim to perform external actions."
+    ),
+)
+
+result = Runner.run_sync(agent, "Create a 7-day Python beginner study plan")
+print(result.final_output)</code></pre>
+</div>
+<p>Run it with <code>python agent_basic.py</code>. This agent has no tools, so it can only think and write. That is intentional. It proves your setup works and shows you how instructions shape behaviour.</p>
+
+<h3>Step 3: Give the agent a tool</h3>
+<p>A function tool is just a Python function the agent is allowed to call. Add a clear docstring, because the model uses it to decide when the tool is useful.</p>
+<div class="codewrap">
+<button class="copy" type="button" data-copy="#code-tool" aria-label="Copy tool example">Copy</button>
+<pre id="code-tool"><code># agent_tool.py
+from agents import Agent, Runner, function_tool
+
+@function_tool
+def days_until(target_date: str) -> str:
+    """Return how many days remain until a date in YYYY-MM-DD format."""
+    from datetime import date
+    y, m, d = map(int, target_date.split("-"))
+    delta = (date(y, m, d) - date.today()).days
+    return f"{delta} days"
+
+agent = Agent(
+    name="Deadline Helper",
+    instructions=(
+        "Help the user plan around deadlines. "
+        "Use the days_until tool for date maths instead of guessing."
+    ),
+    tools=[days_until],
+)
+
+result = Runner.run_sync(agent, "My exam is on 2026-12-15. How long do I have?")
+print(result.final_output)</code></pre>
+</div>
+<p>Notice the design choice: the tool does exactly one safe, read-only thing. Start with tools like this. Tools that write, send or delete should come later and should require approval.</p>
+
+<h3>Step 4: Split work between specialist agents</h3>
+<p>When one agent handles too many jobs, quality drops. The SDK supports handoffs, where a router agent passes the request to a specialist.</p>
+<div class="codewrap">
+<button class="copy" type="button" data-copy="#code-handoff" aria-label="Copy handoff example">Copy</button>
+<pre id="code-handoff"><code># agent_handoff.py
+from agents import Agent, Runner
+
+python_tutor = Agent(
+    name="Python Tutor",
+    instructions="Explain Python concepts simply with a short example.",
+)
+
+career_coach = Agent(
+    name="Career Coach",
+    instructions="Give practical, honest advice on learning paths and job skills.",
+)
+
+router = Agent(
+    name="Router",
+    instructions="Decide whether the question is about coding or careers, then hand off.",
+    handoffs=[python_tutor, career_coach],
+)
+
+result = Runner.run_sync(router, "What is a list comprehension?")
+print(result.final_output)</code></pre>
+</div>
+<p>Only move to multiple agents after a single agent works well. Extra agents add cost, delay and new ways to fail.</p>
+
+<h3>Step 5: Look at the traces</h3>
+<p>The SDK includes tracing for the normal server-side path. After your first successful run, open the Traces dashboard in the OpenAI platform to see each model call, tool call and handoff. Reading traces is the fastest way to understand why an agent made a strange decision, and it should be your first debugging step before you rewrite any prompts.</p>
+<div class="box"><p><strong>Tip:</strong> Package names, function signatures and features can change between SDK versions. If a snippet fails, check the official quickstart linked in the sources section for the current syntax.</p></div>
+</section>
+
+<section id="like-chatgpt">
+<h2>How to build an AI agent like ChatGPT</h2>
+<p>Many people searching this phrase actually want to build a chat product of their own, with a web interface, conversation history and the ability to use tools. That needs more than a prompt. A typical architecture has these layers:</p>
+<ul>
+<li><strong>Front end:</strong> a chat interface that sends the user's message to your server and streams the reply back.</li>
+<li><strong>Back end:</strong> your server holds the API key, applies authentication and rate limits, and calls the model. Never call the model directly from browser code.</li>
+<li><strong>Agent layer:</strong> the instructions, tools and handoffs described above.</li>
+<li><strong>State and memory:</strong> conversation history stored per user, either by passing earlier messages back in, using SDK sessions, or using server-managed conversation state.</li>
+<li><strong>Retrieval:</strong> optional search over your own documents so answers are grounded in your content.</li>
+<li><strong>Safety layer:</strong> input and output checks, moderation, logging and spending limits.</li>
+<li><strong>Observability:</strong> traces, error tracking and a feedback button so you learn from real use.</li>
+</ul>
+<p>Build it in this order: one agent, one simple chat page, then history, then retrieval, then more tools. Resist the urge to add multi-agent orchestration on day one. If you want a ready-made chat front end, OpenAI's ChatKit is designed for embedding agent chat experiences, though you should confirm its current status in the docs.</p>
+</section>
+
+<section id="comparison">
+<h2>AI agent vs chatbot vs workflow automation</h2>
+<p>Not every problem needs an agent. Choosing the simplest tool that works will save you money and headaches.</p>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Type</th><th>How it works</th><th>Best when</th><th>Watch out for</th></tr></thead>
+<tbody>
+<tr><td><strong>Chatbot</strong></td><td>Replies to messages, no actions</td><td>Q&amp;A, drafting, explaining</td><td>Cannot complete multi-step jobs by itself</td></tr>
+<tr><td><strong>Workflow automation</strong></td><td>Fixed steps triggered by events</td><td>Predictable, repetitive processes</td><td>Breaks when input varies a lot</td></tr>
+<tr><td><strong>AI agent</strong></td><td>Chooses among tools and adapts to results</td><td>Variable tasks where the path is not known in advance</td><td>More cost, more testing, less predictability</td></tr>
+</tbody>
+</table>
+</div>
+<p>A useful rule of thumb: if you can draw the whole process as a fixed flowchart, use a normal workflow, maybe with a model call in one step. If the right next step depends on what the previous step found, an agent is worth considering.</p>
+</section>
+
+<section id="example">
+<h2>Real-world example: a research assistant</h2>
+<p>Let us design a research assistant from start to finish, using the steps from earlier.</p>
+<h3>The spec</h3>
+<ul>
+<li><strong>Task:</strong> take a question, search approved sources, and produce a short summary with links.</li>
+<li><strong>Tools:</strong> web search (read-only) and a note-taking function that stores URLs and key facts.</li>
+<li><strong>Rules:</strong> every factual claim needs a source link; if sources disagree, say so; if evidence is weak, say that instead of guessing.</li>
+<li><strong>Approval:</strong> the agent drafts a summary, and a human reviews it before it is emailed or published.</li>
+</ul>
+<h3>How you would test it</h3>
+<p>Prepare at least 20 test questions across easy, medium and tricky topics. For each answer, check three things: Are the cited sources real and relevant? Does each claim match its source? Did the agent admit uncertainty when evidence was thin? Record a simple score for each, plus completion time and cost. This small evaluation set will tell you more than any amount of impressions.</p>
+<h3>What usually goes wrong</h3>
+<ul>
+<li>It cites a source that does not actually support the claim. Fix: require a short supporting quote or a section reference for each claim, and spot-check.</li>
+<li>It trusts instructions hidden inside a web page. Fix: treat retrieved content as data, never as commands (see the safety section).</li>
+<li>It loops on searches. Fix: set a maximum number of steps and a time limit.</li>
+</ul>
+</section>
+
+<section id="safety">
+<h2>Safety and security basics</h2>
+<p>An agent that can act is more useful and more risky than a chatbot that only talks. These habits matter from your very first prototype.</p>
+<ul>
+<li><strong>Least privilege.</strong> Give the agent only the tools and data access the task requires. A research agent does not need to send email.</li>
+<li><strong>Human approval for consequential actions.</strong> Sending messages, spending money, deleting files and publishing content should always need a person's confirmation.</li>
+<li><strong>Defend against prompt injection.</strong> Web pages, emails and documents can contain hidden text that tries to give the agent new instructions. Tell the agent in its instructions that retrieved content is untrusted information, not commands, and keep high-risk tools away from agents that read untrusted content.</li>
+<li><strong>Use guardrails.</strong> Validate inputs and outputs, for example blocking personal data from leaving your system or rejecting malformed results.</li>
+<li><strong>Protect secrets.</strong> Keep API keys in environment variables or a secrets manager, rotate them, and never expose them to the browser.</li>
+<li><strong>Log and monitor.</strong> Keep traces and logs so you can see what the agent did and why.</li>
+<li><strong>Set budgets and stop switches.</strong> Cap steps, time and spending per task, and give yourself a simple way to halt the agent.</li>
+<li><strong>Respect privacy and policy.</strong> Do not feed an agent other people's sensitive data without a lawful reason, and follow OpenAI's usage policies and the laws that apply to you.</li>
+</ul>
+</section>
+
+<section id="costs">
+<h2>Costs and limits to expect</h2>
+<p>Costs depend on the route you choose, so here is how to think about each one rather than quoting numbers that may change.</p>
+<ul>
+<li><strong>Prompt-based agent in ChatGPT:</strong> covered by your normal plan and its usage limits.</li>
+<li><strong>Agent mode:</strong> requires an eligible paid plan and has monthly message limits that vary by plan. Check OpenAI's help article for the current figures.</li>
+<li><strong>Agent Builder and the Agents SDK:</strong> billed by API usage, mainly the amount of text the model reads and writes plus any hosted tools you use. Longer instructions, more tool calls and more handoffs mean more cost.</li>
+<li><strong>Hosting:</strong> if you deploy your own application, add the cost of your server or cloud service.</li>
+</ul>
+<p>To keep spending predictable, set a monthly budget in your API dashboard, keep instructions concise, limit the number of steps per run, and test with small inputs first. Always confirm current pricing on OpenAI's official pricing pages.</p>
+</section>
+
+<section id="mistakes">
+<h2>Common mistakes and how to avoid them</h2>
+<div class="tablewrap">
+<table>
+<thead><tr><th>Mistake</th><th>Why it hurts</th><th>Fix</th></tr></thead>
+<tbody>
+<tr><td>A goal that is too broad</td><td>The agent wanders and results are unpredictable</td><td>Pick one narrow task with a clear success test</td></tr>
+<tr><td>Too many tools at once</td><td>More ways to fail and more security risk</td><td>Start with zero tools and add one at a time</td></tr>
+<tr><td>No evaluation set</td><td>You cannot tell whether changes help</td><td>Keep 20+ realistic test cases and rerun after every change</td></tr>
+<tr><td>Hardcoded secrets</td><td>Leaked keys lead to abuse and bills</td><td>Use environment variables and rotate keys</td></tr>
+<tr><td>No logging or traces</td><td>Failures are impossible to diagnose</td><td>Use tracing and keep logs</td></tr>
+<tr><td>No step or time limits</td><td>Runaway loops and surprise costs</td><td>Set maximum steps, timeouts and budgets</td></tr>
+<tr><td>Trusting retrieved content</td><td>Prompt injection can hijack the agent</td><td>Treat external text as data; restrict risky tools</td></tr>
+<tr><td>Skipping human review</td><td>Mistakes reach real people</td><td>Require approval before any external action</td></tr>
+<tr><td>Following outdated tutorials</td><td>Features and menus change quickly</td><td>Verify against the official docs before you start</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="checklist">
+<h2>Printable checklist (save as PDF)</h2>
+<p>Use this checklist before you trust any agent with real work. Click the button, then choose "Save as PDF" in your browser's print dialog to keep a copy.</p>
+<button class="btn" type="button" id="print-btn">Print or save as PDF</button>
+<ul class="checklist">
+<li>The task is narrow and I wrote down what success looks like.</li>
+<li>Instructions cover role, steps, rules and output format.</li>
+<li>The agent has only the tools it truly needs.</li>
+<li>Risky actions need my approval.</li>
+<li>Retrieved content is treated as untrusted data.</li>
+<li>API keys are stored securely and never exposed in the browser.</li>
+<li>I tested at least 20 realistic examples and recorded the results.</li>
+<li>Step, time and budget limits are set, and I can stop the agent.</li>
+<li>Traces or logs are on so I can review what happened.</li>
+<li>I checked the official docs for current features, plans and pricing.</li>
+</ul>
+</section>
+
+<section id="next">
+<h2>What should you build next?</h2>
+<p>After your first working prototype, improve it in this order:</p>
+<ol>
+<li><strong>Add retrieval</strong> over trusted documents so answers are grounded in your own material.</li>
+<li><strong>Use structured outputs</strong> so results are easy to validate and pass to other systems.</li>
+<li><strong>Build an evaluation routine</strong> that scores success rate, quality, speed and cost every time you change something.</li>
+<li><strong>Add guardrails</strong> for inputs and outputs.</li>
+<li><strong>Then consider multiple agents,</strong> only if one agent is clearly overloaded.</li>
+</ol>
+<p>Keep learning with more tutorials in <a href="https://xenors.in/ai/">Xenors AI</a> and <a href="https://xenors.in/tech/">Tech</a>, and recheck the official documentation regularly, because ChatGPT features and developer APIs change often.</p>
+</section>
+
+<section id="faq">
+<h2>Frequently asked questions about building AI agents</h2>
+<details><summary>How do I build an AI agent with ChatGPT?</summary><p>Choose one narrow task, write clear instructions, decide which tools the agent may use, test on realistic examples and add human approval for risky actions. Use a ChatGPT conversation or agent mode for no-code experiments, and the OpenAI Agents SDK or Agent Builder for something you can deploy.</p></details>
+<details><summary>Can I build an AI agent with ChatGPT for free?</summary><p>You can design and test the agent's logic in a free chat. ChatGPT agent mode is not on the Free plan, and API-based agents are billed by usage, so a deployed agent usually has a small cost.</p></details>
+<details><summary>How do I set up an AI agent in ChatGPT?</summary><p>Write a structured prompt with role, goal, rules, steps, output format and approval points. On eligible paid plans you can also open Agent mode from the Tools menu or type /agent. Review its actions before it sends or publishes anything.</p></details>
+<details><summary>How do I make an AI agent using Python?</summary><p>Install <code>openai-agents</code>, set <code>OPENAI_API_KEY</code> securely, create an <code>Agent</code> with instructions and run it with <code>Runner.run_sync</code>. Add function tools only when the task requires them.</p></details>
+<details><summary>How do I build an AI agent like ChatGPT?</summary><p>You need a chat interface, a secure back end that holds your key, a model, conversation state, optional retrieval, tool execution, rate limits, logging and moderation. Start with a single agent and a simple page.</p></details>
+<details><summary>Is an AI agent the same as ChatGPT?</summary><p>No. ChatGPT is a conversational product. An agent is a system that uses a model, instructions and tools to work toward a goal across several steps.</p></details>
+<details><summary>Can I make an AI agent without coding?</summary><p>To a degree. You can use detailed prompts, agent mode on paid plans or the visual Agent Builder. For reliable production use, you still need testing, monitoring and security review.</p></details>
+<details><summary>How long does it take to build a first AI agent?</summary><p>A simple prototype can take an afternoon. A dependable production agent usually takes weeks because of evaluation, monitoring and security work.</p></details>
+<details><summary>Do I need an API key?</summary><p>Not to experiment in the ChatGPT app. You need an API key to build a programmatic agent with the Agents SDK.</p></details>
+<details><summary>How do I stop an AI agent from making mistakes?</summary><p>Narrow its goal, limit its tools, validate inputs and outputs, require approval for consequential actions and test it on a fixed set of examples. You cannot remove mistakes completely, so design for review.</p></details>
+</section>
+
+<section id="sources">
+<h2>Official sources and further reading</h2>
+<p>Verify plans, limits and API details against these resources before you build:</p>
+<ul>
+<li><a href="https://developers.openai.com/tracks/building-agents" rel="noopener">OpenAI: Building agents</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/agents/sdk" rel="noopener">OpenAI: Agents SDK guide</a></li>
+<li><a href="https://developers.openai.com/api/docs/guides/agents/quickstart" rel="noopener">OpenAI: Agents quickstart</a></li>
+<li><a href="https://openai.github.io/openai-agents-python/" rel="noopener">OpenAI Agents SDK for Python: documentation</a></li>
+<li><a href="https://help.openai.com/en/articles/11752874-chatgpt-agent" rel="noopener">OpenAI Help Center: ChatGPT agent</a></li>
+<li><a href="https://help.openai.com/en/articles/8554397-creating-and-editing-gpts" rel="noopener">OpenAI Help Center: Creating and editing GPTs</a></li>
+</ul>
+<p class="meta">Disclaimer: This is an educational tutorial. Product features, plans and prices are set by OpenAI and may change. Always confirm current details in the official documentation.</p>
+</section>
+</main>
+</div>
+
+<footer><nav>© 2026 Xenors · Educational tutorial · <a href="https://xenors.in/">Home</a> · <a href="https://xenors.in/ai/">AI</a></nav></footer>
+
+<script>
+(function(){
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.querySelector(btn.getAttribute('data-copy'));
+      if(!el)return;
+      var text=el.innerText;
+      var done=function(){var o=btn.textContent;btn.textContent='Copied';setTimeout(function(){btn.textContent=o},1500)};
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done)}
+      else{var t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();try{document.execCommand('copy');done()}catch(e){}document.body.removeChild(t)}
+    });
+  });
+  var p=document.getElementById('print-btn');
+  if(p){p.addEventListener('click',function(){window.print()})}
+})();
+</script>
+</body>
+</html>
