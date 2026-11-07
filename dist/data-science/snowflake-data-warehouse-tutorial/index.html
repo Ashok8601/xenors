@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Snowflake Tutorial for Data Science Teams</title>
+<meta content="Learn Snowflake for data science: virtual warehouses, loading data, SQL analytics, Python connector and Snowpark, plus cost control tips." name="description"/>
+<meta content="Ashok Kumar Yadav" name="author"/>
+<meta content="Xenors" name="publisher"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<meta content="#0f172a" name="theme-color"/>
+<link href="https://xenors.in/data-science/snowflake-data-warehouse-tutorial/" rel="canonical"/>
+<link href="https://xenors.in/images/xenors.png" rel="icon"/>
+<meta content="article" property="og:type"/>
+<meta content="Xenors" property="og:site_name"/>
+<meta content="Snowflake Data Warehouse Tutorial for Data Science Teams" property="og:title"/>
+<meta content="Learn Snowflake for data science: virtual warehouses, loading data, SQL analytics, Python connector and Snowpark, plus cost control tips." property="og:description"/>
+<meta content="https://xenors.in/data-science/snowflake-data-warehouse-tutorial/" property="og:url"/>
+<meta content="https://xenors.in/images/data-science/snowflake-data-warehouse-tutorial.webp" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="en_IN" property="og:locale"/>
+<meta content="https://xenors.in/ashok-kumar-yadav-biography/" property="article:author"/>
+<meta content="Big Data Analytics for Data Science" property="article:section"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="@xenors77" name="twitter:site"/>
+<meta content="Snowflake Data Warehouse Tutorial for Data Science Teams" name="twitter:title"/>
+<meta content="Learn Snowflake for data science: virtual warehouses, loading data, SQL analytics, Python connector and Snowpark, plus cost control tips." name="twitter:description"/>
+<meta content="https://xenors.in/images/data-science/snowflake-data-warehouse-tutorial.webp" name="twitter:image"/>
+<link as="image" href="https://xenors.in/images/data-science/snowflake-data-warehouse-tutorial.webp" rel="preload" type="image/webp"/>
+<link href="https://xenors.in/data-science/assets/ds.css" rel="stylesheet"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","@id":"https://xenors.in/data-science/snowflake-data-warehouse-tutorial/#article","mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/data-science/snowflake-data-warehouse-tutorial/"},"headline":"Snowflake Data Warehouse Tutorial for Data Science Teams","description":"Learn Snowflake for data science: virtual warehouses, loading data, SQL analytics, Python connector and Snowpark, plus cost control tips.","image":{"@type":"ImageObject","url":"https://xenors.in/images/data-science/snowflake-data-warehouse-tutorial.webp","width":1200,"height":630},"author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/","logo":{"@type":"ImageObject","url":"https://xenors.in/images/xenors.png"}},"inLanguage":"en-IN","articleSection":"Big Data Analytics for Data Science","proficiencyLevel":"Beginner","isPartOf":{"@type":"WebSite","name":"Xenors","url":"https://xenors.in/"},"dateModified":"2026-10-18"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://xenors.in/"},{"@type":"ListItem","position":2,"name":"Data Science","item":"https://xenors.in/data-science/"},{"@type":"ListItem","position":3,"name":"Snowflake Data Warehouse Tutorial for Data Science Teams","item":"https://xenors.in/data-science/snowflake-data-warehouse-tutorial/"}]}</script>
+<link href="/feed.xml" rel="alternate" title="Xenors latest posts" type="application/atom+xml"/><link href="/assets/xenors-core.css" rel="stylesheet"/><link href="/components/consent-subscribe.css" rel="stylesheet"/></head>
+<body><a class="xenors-skip-link" href="#xenors-main-content">Skip to main content</a><header class="xenors-site-header" data-xenors-build="header">
+<div class="xenors-header-inner">
+<a aria-label="Xenors home" class="xenors-brand" href="/">
+<img alt="Xenors" decoding="async" height="1024" loading="lazy" src="/images/xenors.webp" width="1024"/>
+<span>Xenors</span>
+</a>
+<button aria-controls="xenors-primary-nav" aria-expanded="false" aria-label="Open navigation" class="xenors-menu-toggle" type="button">
+<span aria-hidden="true" class="xenors-menu-icon"></span>
+<span class="xenors-menu-label">Menu</span>
+</button>
+<nav aria-label="Primary navigation" class="xenors-primary-nav" id="xenors-primary-nav">
+<a href="/">Home</a>
+<a href="/ai/">AI</a>
+<a href="/tech/">Tech</a>
+<a href="/coding/">Coding</a>
+<a href="/plc/">PLC</a>
+<a href="/finance/">Finance</a>
+<a href="/share-market/">Markets</a>
+<a href="/blog/">Blog</a>
+<a href="/about/">About</a>
+</nav>
+</div>
+</header>
+
+<div class="bar" id="bar"></div>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="top"><div class="in">
+<a class="logo" href="https://xenors.in/"><img alt="Xenors" decoding="async" height="1024" loading="lazy" src="/images/xenors.webp" width="1024"/> Xenors</a>
+<nav aria-label="Main"><a href="https://xenors.in/data-science/">Data Science</a><a href="https://xenors.in/home/code-lab/">Code Lab</a><a href="https://xenors.in/interview-preparation/">Interview Prep</a><a href="https://xenors.in/ai/">AI</a><a href="https://xenors.in/about/">About</a></nav>
+</div></header>
+<div class="crumb"><a href="https://xenors.in/">Home</a> › <a href="https://xenors.in/data-science/">Data Science</a> › Snowflake Data Warehouse Tutorial for Data Science Teams</div>
+<div class="wrap">
+<main id="main"><article>
+<p class="meta"><span>Module 12: Big Data Analytics for Data Science</span><span>By <b><a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></b></span><span>4 min read</span></p>
+<h1>Snowflake Data Warehouse Tutorial for Data Science Teams</h1><aside class="x-author-box"><strong>Written by Ashok Kumar Yadav</strong><p>Xenors founder and technical writer. <a href="/founder/ashok-kumar-yadav-application-engineer/">View author profile</a> · <a href="/editorial-policy/">Editorial policy</a> · <a href="/how-we-test/">How we verify</a></p></aside>
+<p class="lead">Snowflake separates storage from compute, so analysts, pipelines and model training can each use their own compute without slowing each other down.</p>
+<img alt="Snowflake architecture separating storage, compute virtual warehouses and cloud services" class="hero" decoding="async" fetchpriority="high" height="630" sizes="(max-width: 720px) 100vw, 1200px" src="https://xenors.in/images/data-science/snowflake-data-warehouse-tutorial.webp" srcset="https://xenors.in/images/data-science/snowflake-data-warehouse-tutorial-640.webp 640w, https://xenors.in/images/data-science/snowflake-data-warehouse-tutorial.webp 1200w" width="1200"/>
+<div class="answer"><strong>Quick answer:</strong> Create a virtual warehouse for compute, load files into a table with COPY INTO from a stage, query with standard SQL, and pull results into pandas through the Python connector or process them inside Snowflake with Snowpark. Suspend warehouses when idle to control cost.</div>
+<h2 id="snowflake-architecture">Snowflake architecture</h2>
+<p>Storage holds compressed data in cloud object storage. Virtual warehouses are independent compute clusters that you start, resize and suspend. A cloud services layer handles security, metadata and query optimisation.</p>
+<table><thead><tr><th>Layer</th><th>Role</th></tr></thead><tbody><tr><td>Storage</td><td>Central database storage</td></tr><tr><td>Virtual warehouse</td><td>Query compute, billed while running</td></tr><tr><td>Cloud services</td><td>Authentication, metadata, optimiser</td></tr></tbody></table><h2 id="create-objects-and-load-data">Create objects and load data</h2>
+<p>Auto-suspend stops billing when nobody is querying.</p>
+<div class="codebox"><div class="cap">Warehouse, table, stage and COPY INTO</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>CREATE WAREHOUSE IF NOT EXISTS analytics_wh
+  WAREHOUSE_SIZE = 'XSMALL' AUTO_SUSPEND = 60 AUTO_RESUME = TRUE;
+
+CREATE DATABASE IF NOT EXISTS shop;
+CREATE OR REPLACE TABLE shop.public.orders (
+  order_id INT, customer_id INT, order_date DATE, amount NUMBER(10,2));
+
+CREATE OR REPLACE STAGE shop.public.raw_stage;
+-- upload with SnowSQL: PUT file://orders.csv @shop.public.raw_stage;
+
+COPY INTO shop.public.orders
+FROM @shop.public.raw_stage/orders.csv
+FILE_FORMAT = (TYPE = CSV SKIP_HEADER = 1);</code></pre></div><h2 id="analyse-with-sql">Analyse with SQL</h2>
+<p>Window functions and QUALIFY keep analysis queries short.</p>
+<div class="codebox"><div class="cap">Top 10 customers by lifetime value</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code>SELECT customer_id,
+       SUM(amount) AS lifetime_value,
+       COUNT(*)    AS orders,
+       DATEDIFF('day', MIN(order_date), MAX(order_date)) AS active_days
+FROM shop.public.orders
+GROUP BY customer_id
+QUALIFY RANK() OVER (ORDER BY SUM(amount) DESC) &lt;= 10;</code></pre></div><h2 id="query-from-python">Query from Python</h2>
+<p>Keep credentials in environment variables or a secrets manager.</p>
+<div class="codebox"><div class="cap">Fetch results as a pandas DataFrame</div><button aria-label="Copy code" class="copy" type="button">Copy</button><pre><code># pip install "snowflake-connector-python[pandas]"
+import os, snowflake.connector
+
+conn = snowflake.connector.connect(
+    account=os.environ["SF_ACCOUNT"], user=os.environ["SF_USER"],
+    password=os.environ["SF_PASSWORD"], warehouse="analytics_wh",
+    database="shop", schema="public")
+df = conn.cursor().execute(
+    "SELECT order_date, SUM(amount) AS revenue FROM orders GROUP BY 1 ORDER BY 1"
+).fetch_pandas_all()
+print(df.head())
+conn.close()</code></pre></div><h2 id="snowpark-and-cost-control">Snowpark and cost control</h2>
+<p>Snowpark lets you write DataFrame code in Python that runs inside Snowflake, so large data does not have to leave the warehouse. To control cost: use the smallest warehouse that meets your latency, set AUTO_SUSPEND to a low value, add resource monitors with credit limits, and avoid SELECT * on wide tables.</p>
+<section class="practice"><h2>Hands-on practice</h2><p>Run the examples in the downloadable <a download="" href="/data-science/notebooks/snowflake-data-warehouse-tutorial.ipynb">Jupyter notebook</a>. The extra checks below focus on mistakes that appear in real projects, not just syntax.</p><h3>Create a small warehouse and table</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>CREATE WAREHOUSE IF NOT EXISTS ds_wh WAREHOUSE_SIZE='XSMALL' AUTO_SUSPEND=60;
+CREATE TABLE IF NOT EXISTS sales(order_id INT, amount NUMBER(10,2));
+INSERT INTO sales VALUES (1,120.50),(2,75.00);
+SELECT COUNT(*) AS rows, SUM(amount) AS revenue FROM sales;</code></pre></div><pre class="output">ROWS | REVENUE
+2    | 195.50</pre><p>Auto-suspend is an easy first control for warehouse cost.</p><h3>Check pruning-friendly filters</h3><div class="codebox"><div class="cap">Practice example</div><pre><code>SELECT *
+FROM events
+WHERE event_date BETWEEN '2026-10-01' AND '2026-10-07';</code></pre></div><pre class="output">Query profile should show reduced partitions scanned.</pre><p>Use the query profile to verify pruning instead of assuming a filter is cheap.</p><h3>Self-check</h3><ul><li>Can you explain why the first practice result is trustworthy rather than just plausible?</li><li>What would you monitor or test before using this Snowflake Warehouse workflow in production?</li><li>Which assumption in the example would break first on a larger or messier dataset?</li></ul></section><h2 id="faq">Frequently asked questions</h2>
+<details><summary>Is Snowflake a database or a data warehouse?</summary><p>It is a cloud data platform used mainly as a data warehouse, with support for semi-structured data and data science workloads.</p></details><details><summary>What is a virtual warehouse?</summary><p>A named compute cluster that runs queries and loads. You can resize it or suspend it independently of stored data.</p></details><details><summary>Can I use Snowflake for machine learning?</summary><p>Yes. You can pull features into Python, or use Snowpark and Snowflake's ML features to work inside the platform.</p></details>
+<h2 id="refs">Primary references</h2>
+<p>Use these official sources when exact syntax, defaults or definitions matter beyond the examples here.</p>
+<ul><li><a href="https://docs.snowflake.com/" rel="noopener noreferrer" target="_blank">Snowflake documentation</a></li><li><a href="https://docs.snowflake.com/en/developer-guide/python-connector/python-connector" rel="noopener noreferrer" target="_blank">Snowflake Python connector</a></li><li><a href="https://docs.snowflake.com/en/developer-guide/snowpark/python/index" rel="noopener noreferrer" target="_blank">Snowpark Python developer guide</a></li></ul>
+<div class="author"><div aria-hidden="true" class="av">AK</div><div><strong>Written by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a></strong><br/>Ashok Kumar Yadav writes Xenors tutorials on applied AI, programming and data workflows. Every lesson is built around code you can run and check yourself.<br/><a href="https://github.com/Ashok8601" rel="noopener">GitHub</a> · <a href="https://www.linkedin.com/in/ashok-kumar-9a3ba5228" rel="noopener">LinkedIn</a></div></div>
+<nav aria-label="Previous and next lesson" class="pn"><a href="https://xenors.in/data-science/kafka-streaming-data-pipelines/" rel="prev"><small>Previous lesson</small>Apache Kafka: Real-Time Data Streaming for Analytics</a><a class="r" href="https://xenors.in/data-science/end-to-end-llm-rag-project/" rel="next"><small>Next lesson</small>Project: Document Q&amp;A Bot with RAG, LangChain and Streamlit</a></nav>
+</article><aside class="x-cluster-links"><h2>Continue in this topic</h2><ul><li><a href="/ai/">Ai</a></li><li><a href="/data-science/">Data Science</a></li><li><a href="/data-science/advanced-deep-learning/">Advanced Deep Learning</a></li></ul></aside><section class="xenors-related-wrap"><h2>Related reading</h2><ul><li><a href="/data-science/">Data Science</a></li><li><a href="/data-science/advanced-deep-learning/">Advanced Deep Learning</a></li><li><a href="/data-science/artificial-neural-networks-ann/">Artificial Neural Networks Ann</a></li></ul></section></main>
+<aside class="side"><div class="sticky">
+<div class="card toc"><h2>On this page</h2><ul><li><a href="#snowflake-architecture">Snowflake architecture</a></li><li><a href="#create-objects-and-load-data">Create objects and load data</a></li><li><a href="#analyse-with-sql">Analyse with SQL</a></li><li><a href="#query-from-python">Query from Python</a></li><li><a href="#snowpark-and-cost-control">Snowpark and cost control</a></li><li><a href="#faq">FAQ</a></li></ul></div>
+<div class="card"><h2>Big Data &amp; Engineering</h2><ul><li><a href="https://xenors.in/data-science/big-data-engineering/">Module overview</a></li><li class=""><a href="https://xenors.in/data-science/pyspark-tutorial-data-science/">PySpark Fundamentals</a></li><li class=""><a href="https://xenors.in/data-science/spark-sql-dataframes/">Spark SQL &amp; DataFrames</a></li><li class=""><a href="https://xenors.in/data-science/kafka-streaming-data-pipelines/">Kafka Streaming</a></li><li class="cur"><a href="https://xenors.in/data-science/snowflake-data-warehouse-tutorial/">Snowflake Warehouse</a></li></ul></div>
+<div class="card"><h2>Keep learning</h2><ul><li><a href="https://xenors.in/data-science/">Full data science curriculum</a></li><li><a href="https://xenors.in/data-science/machine-learning-tutorial/">Machine learning tutorial</a></li><li><a href="https://xenors.in/data-science/deep-learning-ai-tutorial/">Deep learning &amp; AI</a></li><li><a href="https://xenors.in/data-science/data-science-interview-questions/">Interview questions</a></li></ul></div>
+</div></aside>
+</div>
+<footer><div class="in"><p><a href="https://xenors.in/">Xenors</a> · <a href="https://xenors.in/data-science/">Data Science</a> · <a href="https://xenors.in/about/">About</a> · <a href="https://xenors.in/contact/">Contact</a> · <a href="https://xenors.in/privacy-policy/">Privacy</a> · <a href="https://xenors.in/terms/">Terms</a> · <a href="https://xenors.in/sitemap/">HTML Sitemap</a></p><p>Educational content only. Articles and guides by <a href="https://xenors.in/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow. © 2026 Xenors. All rights reserved.</p></div></footer>
+
+
+
+<footer class="xenors-site-footer" data-xenors-build="footer">
+<div class="xenors-footer-grid">
+<section>
+<a class="xenors-footer-brand" href="/">Xenors</a>
+<p>Practical, reader-first guides covering artificial intelligence, technology, software development, industrial automation, finance and emerging digital trends for a global audience.</p>
+</section>
+<section>
+<h2>Explore</h2>
+<ul>
+<li><a href="/ai/">Artificial Intelligence</a></li>
+<li><a href="/tech/">Technology</a></li>
+<li><a href="/coding/">Coding</a></li>
+<li><a href="/plc/">PLC &amp; Automation</a></li>
+<li><a href="/finance/">Finance</a></li>
+<li><a href="/share-market/">Markets</a></li>
+<li><a href="/home/">Learning Hub</a></li><li><a href="/home/code-lab/">Code Lab</a></li><li><a href="/sitemap/">HTML Sitemap</a></li></ul>
+</section>
+<section>
+<h2>About Xenors</h2>
+<ul>
+<li><a href="/about/">About</a></li>
+<li><a href="/mission/">Mission</a></li>
+<li><a href="/ashok-kumar-yadav-biography/">Author</a></li>
+<li><a href="/contact/">Contact</a></li>
+<li><a href="/careers/">Careers</a></li>
+</ul>
+</section>
+<section>
+<h2>Policies</h2>
+<ul>
+<li><a href="/privacy-policy/">Privacy Policy</a></li>
+<li><a href="/terms/">Terms of Use</a></li>
+<li><a href="/cookie-policy/">Cookie Policy</a></li>
+<li><a data-cookie-settings="" href="#">Cookie settings</a></li>
+<li><a href="/feed.xml">RSS / Atom</a></li>
+</ul>
+<p class="xenors-editorial-note">Educational content only. Finance pages are not personalized financial, tax or legal advice.</p>
+</section>
+</div>
+<div class="xenors-footer-bottom">
+<p>Articles and guides by <a href="/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow.</p>
+<p>© 2026 Xenors. All rights reserved.</p>
+</div>
+</footer><section aria-label="Follow Xenors" class="x-follow" hidden=""><h2>Get new Xenors posts</h2><p>Choose a channel after you have accepted site consent. Push is optional and email uses the hosted newsletter provider configured by the site owner.</p><p><button class="x-btn" data-push-follow="" type="button">Enable web push</button> <a class="x-btn" href="/feed.xml">RSS / Atom</a></p><form data-email-subscribe="" method="post"><label for="x-email">Email</label><input autocomplete="email" id="x-email" name="email" required="" type="email"/><button class="x-btn x-btn-primary" type="submit">Get new posts</button></form><p><small>By subscribing you agree to the <a href="/privacy-policy/">Privacy Policy</a>. Use the confirmation email to complete double opt-in when the configured provider supports it.</small></p></section><section aria-label="Cookie choices" class="x-consent" hidden=""><strong>Privacy choices</strong><p>Xenors uses essential browser storage. Analytics and subscription services stay off until you choose.</p><div class="x-consent-actions"><button class="x-btn x-btn-primary" data-consent-accept="">Accept analytics</button><button class="x-btn" data-consent-reject="">Reject optional</button><button class="x-btn" data-cookie-settings="">Manage</button></div><div class="x-manage" hidden=""><label><input id="x-analytics" type="checkbox"/> Allow Google Analytics</label><p>Advertising storage remains denied; the removed ad-network scripts are not used.</p><button class="x-btn x-btn-primary" data-consent-save="">Save choices</button></div></section><script defer="" src="/config/public-subscriptions.js"></script><script defer="" src="/components/site-shell.js"></script><script defer="" src="/components/consent-subscribe.js"></script></body>
+</html>

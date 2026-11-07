@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Search Xenors Guides, Tutorials &amp; Articles</title>
+<meta content="Search Xenors coding tutorials, AI guides, technology articles, PLC lessons and finance education from one fast, browser-based search page." name="description"/>
+<meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
+<link href="https://xenors.in/search/" rel="canonical"/>
+<style>.xs{max-width:1000px;margin:auto;padding:48px 20px 80px;font-family:Inter,system-ui,Arial,sans-serif}.xs h1{font-size:clamp(2rem,5vw,4rem)}.xs input{width:100%;padding:15px;border:1px solid #ccd5e0;border-radius:12px;font-size:1rem}.xs-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:24px}.xs a{display:block;padding:16px;border:1px solid #e4e8ef;border-radius:12px;text-decoration:none;color:#1d2939}.xs p{line-height:1.75;color:#526071}@media(max-width:700px){.xs-grid{grid-template-columns:1fr}}</style>
+<meta content="Ashok Kumar Yadav" name="author"/><meta content="Xenors" name="publisher"/><meta content="#0f172a" name="theme-color"/><meta content="strict-origin-when-cross-origin" name="referrer"/><meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="googlebot"/><meta content="Xenors" property="og:site_name"/><meta content="https://xenors.in/search/" property="og:url"/><meta content="Search Xenors" property="og:title"/><meta content="Search Xenors coding tutorials, AI guides, technology articles, PLC lessons and finance education from one fast, browser-based search page." property="og:description"/><meta content="https://xenors.in/images/xenors.png" property="og:image"/><meta content="article" property="og:type"/><meta content="summary_large_image" name="twitter:card"/><meta content="@xenors77" name="twitter:site"/><meta content="Search Xenors" name="twitter:title"/><meta content="Search Xenors coding tutorials, AI guides, technology articles, PLC lessons and finance education from one fast, browser-based search page." name="twitter:description"/><meta content="https://xenors.in/images/xenors.png" name="twitter:image"/><link href="/feed.xml" rel="alternate" title="Xenors latest posts" type="application/atom+xml"/><link href="/assets/xenors-core.css" rel="stylesheet"/><link href="/components/consent-subscribe.css" rel="stylesheet"/></head><body><a class="xenors-skip-link" href="#xenors-main-content">Skip to main content</a><header class="xenors-site-header" data-xenors-build="header">
+<div class="xenors-header-inner">
+<a aria-label="Xenors home" class="xenors-brand" href="/">
+<img alt="Xenors" decoding="async" height="1024" loading="lazy" src="/images/xenors.webp" width="1024"/>
+<span>Xenors</span>
+</a>
+<button aria-controls="xenors-primary-nav" aria-expanded="false" aria-label="Open navigation" class="xenors-menu-toggle" type="button">
+<span aria-hidden="true" class="xenors-menu-icon"></span>
+<span class="xenors-menu-label">Menu</span>
+</button>
+<nav aria-label="Primary navigation" class="xenors-primary-nav" id="xenors-primary-nav">
+<a href="/">Home</a>
+<a href="/ai/">AI</a>
+<a href="/tech/">Tech</a>
+<a href="/coding/">Coding</a>
+<a href="/plc/">PLC</a>
+<a href="/finance/">Finance</a>
+<a href="/share-market/">Markets</a>
+<a href="/blog/">Blog</a>
+<a href="/about/">About</a>
+</nav>
+</div>
+</header>
+
+<main class="xs" id="xenors-main-content"><nav><a href="/">Home</a> / Search</nav><h1>Search Xenors</h1>
+<p>Find coding tutorials, AI explainers, technology guides, PLC lessons and finance education. Type a topic such as “Python functions”, “AI agents”, “CSS grid” or “PLC ladder logic”.</p>
+<input aria-label="Search Xenors" id="q" placeholder="Search Xenors…" type="search"/>
+<div aria-live="polite" class="xs-grid" id="r"></div>
+<section><h2>Browse without searching</h2><div class="xs-grid">
+<a href="/home/code-lab/">Code Lab</a><a href="/ai/">Artificial Intelligence</a><a href="/tech/">Technology</a><a href="/coding/">Coding</a><a href="/plc/">PLC &amp; Automation</a><a href="/finance/">Finance</a>
+</div></section>
+<section><h2>How search works</h2><p>This page uses a small local index of Xenors content. It does not need a separate search server. The query in the address bar is used only to filter the local list, while the canonical URL remains the clean search page. This means older search URLs can land on a real page instead of a 404.</p></section>
+<script>
+const pages=[
+["Code Lab","/home/code-lab/","coding html css javascript python sql git linux react node dsa ai"],
+["Artificial Intelligence","/ai/","ai agents models tools artificial intelligence"],
+["Technology","/tech/","technology web development security search"],
+["Coding","/coding/","coding programming python flask django"],
+["PLC & Automation","/plc/","plc ladder logic automation industrial"],
+["Finance","/finance/","finance investing stocks trading budgeting"],
+["How to Make Money With AI","/blog/how-to-make-money-with-ai-2026","make money ai beginners"],
+["Gen AI vs AI Agents vs Agentic AI","/ai/gen-ai-vs-ai-agents-vs-agentic-ai","generative ai agents agentic ai"]
+];
+const q=document.getElementById("q"),r=document.getElementById("r");
+const initial=new URLSearchParams(location.search).get("q")||"";q.value=initial;
+function draw(){const s=q.value.toLowerCase().trim();const rows=pages.filter(x=>!s||x.join(" ").toLowerCase().includes(s));r.innerHTML=rows.map(x=>`<a href="${x[1]}"><strong>${x[0]}</strong><br><small>${x[2]}</small></a>`).join("")||"<p>No direct match. Try a broader topic or browse the categories below.</p>"}q.addEventListener("input",draw);draw();
+</script><section data-search-help="1"><h2>Search tips for technical questions</h2><p>Use the smallest useful phrase first. A query such as “Python functions” or “CSS grid” usually finds a better tutorial match than a long sentence. Once you open a page, use its table of contents to jump to examples, common mistakes or exercises.</p><p>If you are learning a subject from the beginning, search can get you to an answer quickly but a structured track is usually faster overall. The Code Lab tracks are ordered so later lessons can reuse concepts introduced earlier.</p><p>When your query is an error message, remove machine-specific paths, tokens and IDs before searching. Keep the important exception name and the part of the message that describes the failure. Then compare the result with the smallest reproducible example in your own code.</p><p>For current AI or technology features, include the product name and year only when freshness matters. For stable programming concepts, the underlying topic matters more than the year in the query.</p></section></main>
+
+
+<footer class="xenors-site-footer" data-xenors-build="footer">
+<div class="xenors-footer-grid">
+<section>
+<a class="xenors-footer-brand" href="/">Xenors</a>
+<p>Practical, reader-first guides covering artificial intelligence, technology, software development, industrial automation, finance and emerging digital trends for a global audience.</p>
+</section>
+<section>
+<h2>Explore</h2>
+<ul>
+<li><a href="/ai/">Artificial Intelligence</a></li>
+<li><a href="/tech/">Technology</a></li>
+<li><a href="/coding/">Coding</a></li>
+<li><a href="/plc/">PLC &amp; Automation</a></li>
+<li><a href="/finance/">Finance</a></li>
+<li><a href="/share-market/">Markets</a></li>
+<li><a href="/home/">Learning Hub</a></li><li><a href="/home/code-lab/">Code Lab</a></li><li><a href="/sitemap/">HTML Sitemap</a></li></ul>
+</section>
+<section>
+<h2>About Xenors</h2>
+<ul>
+<li><a href="/about/">About</a></li>
+<li><a href="/mission/">Mission</a></li>
+<li><a href="/ashok-kumar-yadav-biography/">Author</a></li>
+<li><a href="/contact/">Contact</a></li>
+<li><a href="/careers/">Careers</a></li>
+</ul>
+</section>
+<section>
+<h2>Policies</h2>
+<ul>
+<li><a href="/privacy-policy/">Privacy Policy</a></li>
+<li><a href="/terms/">Terms of Use</a></li>
+<li><a href="/cookie-policy/">Cookie Policy</a></li>
+<li><a data-cookie-settings="" href="#">Cookie settings</a></li>
+<li><a href="/feed.xml">RSS / Atom</a></li>
+</ul>
+<p class="xenors-editorial-note">Educational content only. Finance pages are not personalized financial, tax or legal advice.</p>
+</section>
+</div>
+<div class="xenors-footer-bottom">
+<p>Articles and guides by <a href="/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> and the Xenors editorial workflow.</p>
+<p>© 2026 Xenors. All rights reserved.</p>
+</div>
+</footer><section aria-label="Follow Xenors" class="x-follow" hidden=""><h2>Get new Xenors posts</h2><p>Choose a channel after you have accepted site consent. Push is optional and email uses the hosted newsletter provider configured by the site owner.</p><p><button class="x-btn" data-push-follow="" type="button">Enable web push</button> <a class="x-btn" href="/feed.xml">RSS / Atom</a></p><form data-email-subscribe="" method="post"><label for="x-email">Email</label><input autocomplete="email" id="x-email" name="email" required="" type="email"/><button class="x-btn x-btn-primary" type="submit">Get new posts</button></form><p><small>By subscribing you agree to the <a href="/privacy-policy/">Privacy Policy</a>. Use the confirmation email to complete double opt-in when the configured provider supports it.</small></p></section><section aria-label="Cookie choices" class="x-consent" hidden=""><strong>Privacy choices</strong><p>Xenors uses essential browser storage. Analytics and subscription services stay off until you choose.</p><div class="x-consent-actions"><button class="x-btn x-btn-primary" data-consent-accept="">Accept analytics</button><button class="x-btn" data-consent-reject="">Reject optional</button><button class="x-btn" data-cookie-settings="">Manage</button></div><div class="x-manage" hidden=""><label><input id="x-analytics" type="checkbox"/> Allow Google Analytics</label><p>Advertising storage remains denied; the removed ad-network scripts are not used.</p><button class="x-btn x-btn-primary" data-consent-save="">Save choices</button></div></section><script defer="" src="/config/public-subscriptions.js"></script><script defer="" src="/components/site-shell.js"></script><script defer="" src="/components/consent-subscribe.js"></script></body></html>

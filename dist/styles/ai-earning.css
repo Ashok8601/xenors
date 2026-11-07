@@ -1,0 +1,353 @@
+        /* Common CSS for all Blogs */
+        :root {
+            --primary-color: #2563eb;
+            --text-dark: #1f2937;
+            --text-light: #4b5563;
+            --bg-gray: #f9fafb;
+            --border-color: #e5e7eb;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: #fff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 40px;
+            padding: 20px;
+        }
+
+        /* Sidebar / TOC Style */
+        .sidebar {
+            flex: 0 0 280px;
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+            display: none; /* Hidden by default for mobile */
+        }
+
+        @media (min-width: 1024px) {
+            .sidebar {
+                display: block; /* Shown only on PC */
+            }
+        }
+
+        .toc {
+            background: var(--bg-gray);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        .toc h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc ul li {
+            margin-bottom: 10px;
+        }
+
+        .toc ul li a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.95rem;
+            transition: 0.3s;
+            display: block;
+        }
+
+        .toc ul li a:hover, .toc ul li a.active {
+            color: var(--primary-color);
+            font-weight: bold;
+            padding-left: 5px;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            flex: 1;
+            max-width: 800px;
+        }
+
+        article h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        article h2 {
+            font-size: 1.8rem;
+            margin: 2rem 0 1rem;
+            scroll-margin-top: 30px; /* For smooth scrolling focus */
+        }
+
+        article p {
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+            color: var(--text-light);
+        }
+
+        .intro-box {
+            background: #eff6ff;
+            padding: 20px;
+            border-left: 5px solid var(--primary-color);
+            margin-bottom: 2rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1023px) {
+            .container {
+                flex-direction: column;
+            }
+            article h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Ye common CSS me add kar lo */
+.feature-box {
+    background: #f3f4f6; 
+    padding: 20px; 
+    border-radius: 10px; 
+    margin: 20px 0; 
+    border: 1px dashed var(--primary-color);
+}
+
+.prompt-text {
+    font-style: italic; 
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+
+.label {
+    margin-bottom: 5px; 
+    font-weight: bold; 
+    color: var(--primary-color);
+    display: block;
+}
+/* Common CSS for Lists */
+.content-list {
+    margin: 15px 0 20px 25px;
+}
+
+.content-list li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: var(--text-light);
+}
+
+.content-list li strong {
+    color: var(--text-dark);
+}
+/* Common CSS for Benefits/Features List */
+.benefits-list {
+    list-style: none;
+    margin: 20px 0;
+}
+
+.benefits-list li {
+    background: #f0fdf4; /* Light green tint */
+    border-left: 4px solid #22c55e; /* Success green */
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border-radius: 0 8px 8px 0;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.benefits-list li::before {
+    content: "✅";
+    margin-right: 12px;
+}
+/* Card Layout for 20 Tools */
+.tools-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+    margin: 30px 0;
+}
+
+.tool-card {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 25px;
+    background: #fff;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    border-color: var(--primary-color);
+}
+
+.tool-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 2px solid var(--bg-gray);
+    padding-bottom: 10px;
+}
+
+.tool-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.tool-tag {
+    background: #dcfce7;
+    color: #166534;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.tool-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.detail-item strong {
+    display: block;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.detail-item span {
+    color: var(--text-light);
+}
+
+.tool-desc {
+    margin-top: 15px;
+    font-size: 1rem;
+    border-top: 1px solid var(--bg-gray);
+    padding-top: 15px;
+}
+/* Table & Comparison Styles */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 25px 0;
+    overflow-x: auto;
+    display: block; /* For mobile scroll */
+}
+
+.comparison-table th, .comparison-table td {
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+.comparison-table th {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.comparison-table tr:nth-child(even) {
+    background-color: var(--bg-gray);
+}
+
+/* Tips Section Styling */
+.tips-container {
+    background: #fffbeb; /* Light yellow for highlights */
+    border: 2px solid #fbbf24;
+    padding: 25px;
+    border-radius: 12px;
+    margin: 30px 0;
+}
+
+.tip-item {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.tip-icon {
+    font-size: 1.5rem;
+}
+
+/* FAQ & Conclusion Styling */
+.faq-container {
+    margin: 30px 0;
+}
+
+.faq-item {
+    background: var(--bg-gray);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.faq-item h3 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+.faq-item p {
+    font-size: 1rem;
+    margin-bottom: 0;
+    color: var(--text-light);
+}
+
+.conclusion-box {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+    color: white;
+    padding: 35px;
+    border-radius: 15px;
+    margin: 40px 0;
+    text-align: center;
+}
+
+.conclusion-box h2 {
+    color: white;
+    margin-top: 0;
+}
+
+.conclusion-box p {
+    color: #dbeafe;
+    font-size: 1.2rem;
+}
+
+.cta-button {
+    display: inline-block;
+    background: #fff;
+    color: var(--primary-color);
+    padding: 12px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.cta-button:hover {
+    background: #f3f4f6;
+    transform: scale(1.05);
+}
+

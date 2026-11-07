@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>Xenors — latest posts</title>
+<id>https://xenors.in/feed.xml</id>
+<updated>2026-11-07T00:00:00Z</updated>
+<link href="https://xenors.in/feed.xml" rel="self"/>
+<link href="https://xenors.in/"/>
+<entry>
+<title>Can Trading Make You a Billionaire? Risks &amp; Reality</title>
+<id>https://xenors.in/share-market/can-trading-make-you-a-billionaire/</id>
+<link href="https://xenors.in/share-market/can-trading-make-you-a-billionaire/"/>
+<updated>2026-11-07T00:00:00Z</updated>
+<summary>Can trading make you a billionaire? See what would have to go right, why the odds are extreme, and how risk changes the answer.</summary>
+</entry>
+<entry>
+<title>How to Build an AI Agent with ChatGPT (Free &amp; Step-by-Step)</title>
+<id>https://xenors.in/ai/how-to-build-an-ai-agent-with-chatgpt/</id>
+<link href="https://xenors.in/ai/how-to-build-an-ai-agent-with-chatgpt/"/>
+<updated>2026-10-30T00:00:00Z</updated>
+<summary>Learn how to build an AI agent with ChatGPT: free options, no-code setup, a working Python example, safety tips and a printable checklist. Updated Oct 2026.</summary>
+</entry>
+<entry>
+<title>Forklift Safety Lights: Blue Spot vs Red Zone, Types &amp; Price</title>
+<id>https://xenors.in/tech/forklift-safety-light/</id>
+<link href="https://xenors.in/tech/forklift-safety-light/"/>
+<updated>2026-10-29T00:00:00Z</updated>
+<summary>Compare forklift safety lights: blue spot, red zone, arc, arrow and strobe. See warehouse use cases, installation checks, visibility, price factors and…</summary>
+</entry>
+<entry>
+<title>Forklift AI Camera: Pedestrian Detection &amp; Auto Stop Guide</title>
+<id>https://xenors.in/tech/forklift-ai-camera/</id>
+<link href="https://xenors.in/tech/forklift-ai-camera/"/>
+<updated>2026-10-29T00:00:00Z</updated>
+<summary>Forklift AI camera guide: pedestrian detection, collision warnings, human detection AI, auto stop integration, prices and installation in India.</summary>
+</entry>
+<entry>
+<title>AI Pedestrian Detection System: Camera, ROI, PLC &amp; Auto Stop</title>
+<id>https://xenors.in/ai/ai-pedestrian-detection-system/</id>
+<link href="https://xenors.in/ai/ai-pedestrian-detection-system/"/>
+<updated>2026-10-25T00:00:00Z</updated>
+<summary>AI pedestrian detection system for factories and forklifts: camera detection, human ROI zones, PLC output, alerts, event video and auto-stop workflow explained.</summary>
+</entry>
+<entry>
+<title>OpenAI Dots: Features, Use Cases &amp; How It Works</title>
+<id>https://xenors.in/ai/openai-dots/</id>
+<link href="https://xenors.in/ai/openai-dots/"/>
+<updated>2026-10-23T00:00:00Z</updated>
+<summary>OpenAI Dots are always-on AI agents powered by GPT-6 Astra. Learn how Dots work, key features, use cases, privacy controls and availability.</summary>
+</entry>
+<entry>
+<title>YOLO Object Detection Tutorial in Python</title>
+<id>https://xenors.in/data-science/yolo-object-detection-python/</id>
+<link href="https://xenors.in/data-science/yolo-object-detection-python/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Run real-time YOLO object detection in Python with Ultralytics: install, detect on images and webcam, train on a custom dataset and read mAP results.</summary>
+</entry>
+<entry>
+<title>Vector Databases: Chroma, Pinecone &amp; FAISS</title>
+<id>https://xenors.in/data-science/vector-databases-chromadb-pinecone/</id>
+<link href="https://xenors.in/data-science/vector-databases-chromadb-pinecone/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Learn how vector databases work: embeddings, similarity metrics, approximate nearest neighbour search, and code for FAISS, ChromaDB and Pinecone.</summary>
+</entry>
+<entry>
+<title>Transformer Architecture &amp; Self-Attention</title>
+<id>https://xenors.in/data-science/transformers-architecture-attention-mechanism/</id>
+<link href="https://xenors.in/data-science/transformers-architecture-attention-mechanism/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Understand the Transformer: self-attention, queries, keys, values, multi-head attention and positional encoding, with a from-scratch PyTorch implementation.</summary>
+</entry>
+<entry>
+<title>Transfer Learning in Keras &amp; PyTorch: Practical Guide</title>
+<id>https://xenors.in/data-science/transfer-learning-keras-pytorch/</id>
+<link href="https://xenors.in/data-science/transfer-learning-keras-pytorch/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Transfer learning in Keras and PyTorch: compare the workflow, freezing layers, fine-tuning and evaluation steps for real projects.</summary>
+</entry>
+<entry>
+<title>Spark SQL &amp; DataFrames Tutorial for Beginners</title>
+<id>https://xenors.in/data-science/spark-sql-dataframes/</id>
+<link href="https://xenors.in/data-science/spark-sql-dataframes/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Learn PySpark DataFrames and Spark SQL: schemas, select, filter, joins, window functions, temporary views and reading the execution plan.</summary>
+</entry>
+<entry>
+<title>Snowflake Tutorial for Data Science Teams</title>
+<id>https://xenors.in/data-science/snowflake-data-warehouse-tutorial/</id>
+<link href="https://xenors.in/data-science/snowflake-data-warehouse-tutorial/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Learn Snowflake for data science: virtual warehouses, loading data, SQL analytics, Python connector and Snowpark, plus cost control tips.</summary>
+</entry>
+<entry>
+<title>RAG Tutorial: Architecture, Retrieval &amp; Evaluation</title>
+<id>https://xenors.in/data-science/retrieval-augmented-generation-rag/</id>
+<link href="https://xenors.in/data-science/retrieval-augmented-generation-rag/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Build a RAG pipeline: chunking, embeddings, vector search, prompt assembly and evaluation, with Python code you can run locally with ChromaDB.</summary>
+</entry>
+<entry>
+<title>RNN &amp; LSTM Tutorial for Sequence Models</title>
+<id>https://xenors.in/data-science/recurrent-neural-networks-lstm/</id>
+<link href="https://xenors.in/data-science/recurrent-neural-networks-lstm/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Learn how RNNs and LSTMs model sequences, why gates fix vanishing gradients, and build an LSTM time series forecaster in PyTorch step by step.</summary>
+</entry>
+<entry>
+<title>Projects &amp; Career | Xenors Data Science</title>
+<id>https://xenors.in/data-science/real-world-projects-career/</id>
+<link href="https://xenors.in/data-science/real-world-projects-career/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Build portfolio projects in churn, forecasting and predictive maintenance, then present them effectively on your resume and GitHub.</summary>
+</entry>
+<entry>
+<title>PySpark Tutorial for Data Science Beginners</title>
+<id>https://xenors.in/data-science/pyspark-tutorial-data-science/</id>
+<link href="https://xenors.in/data-science/pyspark-tutorial-data-science/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Learn PySpark: how Spark works, create a SparkSession, transform DataFrames, aggregate big data and train a machine learning model with MLlib.</summary>
+</entry>
+<entry>
+<title>Prompt Engineering Techniques for Developers</title>
+<id>https://xenors.in/data-science/prompt-engineering-techniques/</id>
+<link href="https://xenors.in/data-science/prompt-engineering-techniques/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Practical prompt engineering for developers: roles, few-shot examples, chain-of-thought, structured JSON output, delimiters and a testing workflow.</summary>
+</entry>
+<entry>
+<title>Predictive Maintenance with IoT Sensor Data</title>
+<id>https://xenors.in/data-science/predictive-maintenance-iot-ml/</id>
+<link href="https://xenors.in/data-science/predictive-maintenance-iot-ml/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Build a predictive maintenance model from sensor data: rolling features, time-based split, failure classification and a real-time scoring loop in Python.</summary>
+</entry>
+<entry>
+<title>ML Model Monitoring &amp; Drift Detection</title>
+<id>https://xenors.in/data-science/model-monitoring-drift-detection/</id>
+<link href="https://xenors.in/data-science/model-monitoring-drift-detection/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Monitor ML models in production: track data drift with PSI and KS tests, watch prediction quality and latency, and set alert thresholds with Python.</summary>
+</entry>
+<entry>
+<title>MLOps &amp; Deployment | Xenors Data Science</title>
+<id>https://xenors.in/data-science/mlops-deployment/</id>
+<link href="https://xenors.in/data-science/mlops-deployment/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Track, deploy and monitor machine-learning systems with MLflow, FastAPI, Docker and SageMaker.</summary>
+</entry>
+<entry>
+<title>MLflow Tutorial: Tracking &amp; Model Registry</title>
+<id>https://xenors.in/data-science/mlflow-model-tracking/</id>
+<link href="https://xenors.in/data-science/mlflow-model-tracking/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Track ML experiments with MLflow: log parameters, metrics and artifacts, compare runs in the UI, and register and load models with working Python code.</summary>
+</entry>
+<entry>
+<title>LangChain Tutorial for Python Beginners</title>
+<id>https://xenors.in/data-science/langchain-tutorial-python/</id>
+<link href="https://xenors.in/data-science/langchain-tutorial-python/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Learn LangChain in Python: prompts, chat models, output parsers, LCEL chains and tools, with working code to build your first LLM application.</summary>
+</entry>
+<entry>
+<title>Kafka Streaming Tutorial for Data Pipelines</title>
+<id>https://xenors.in/data-science/kafka-streaming-data-pipelines/</id>
+<link href="https://xenors.in/data-science/kafka-streaming-data-pipelines/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Learn Apache Kafka for streaming analytics: topics, partitions, producers, consumer groups, offsets and Python examples with confluent-kafka.</summary>
+</entry>
+<entry>
+<title>Generative AI &amp; LLMs | Xenors Data Science</title>
+<id>https://xenors.in/data-science/generative-ai-llm/</id>
+<link href="https://xenors.in/data-science/generative-ai-llm/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Understand Transformers, fine-tuning, vector databases, LangChain, RAG, prompt engineering and an end-to-end document Q&amp;A project.</summary>
+</entry>
+<entry>
+<title>Fine-Tune LLMs with Hugging Face</title>
+<id>https://xenors.in/data-science/fine-tuning-llm-huggingface/</id>
+<link href="https://xenors.in/data-science/fine-tuning-llm-huggingface/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Fine-tune LLaMA or Mistral with Hugging Face using LoRA and QLoRA: dataset format, 4-bit loading, training loop, merging adapters and evaluation.</summary>
+</entry>
+<entry>
+<title>Time-Series Forecasting with LSTM &amp; Prophet</title>
+<id>https://xenors.in/data-science/financial-time-series-forecasting/</id>
+<link href="https://xenors.in/data-science/financial-time-series-forecasting/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Forecast stock prices in Python with Prophet and an LSTM, compare against a naive baseline using walk-forward validation, and understand the limits.</summary>
+</entry>
+<entry>
+<title>Build a RAG Q&amp;A App with LangChain</title>
+<id>https://xenors.in/data-science/end-to-end-llm-rag-project/</id>
+<link href="https://xenors.in/data-science/end-to-end-llm-rag-project/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Build a document question-answering app: upload PDFs, chunk and embed with LangChain, retrieve with FAISS and answer in a Streamlit chat interface.</summary>
+</entry>
+<entry>
+<title>Deploy ML Models on AWS SageMaker</title>
+<id>https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/</id>
+<link href="https://xenors.in/data-science/deploy-ml-models-aws-sagemaker/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Deploy a scikit-learn model to a real-time AWS SageMaker endpoint: training job, endpoint, invoke, autoscaling and cost control, with Python SDK code.</summary>
+</entry>
+<entry>
+<title>Deploy ML Models with FastAPI &amp; Docker</title>
+<id>https://xenors.in/data-science/deploy-machine-learning-fastapi-docker/</id>
+<link href="https://xenors.in/data-science/deploy-machine-learning-fastapi-docker/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Serve a scikit-learn model as a REST API with FastAPI, validate input with Pydantic, containerise it with Docker and test it end to end.</summary>
+</entry>
+<entry>
+<title>Data Science Resume &amp; Portfolio Guide</title>
+<id>https://xenors.in/data-science/data-science-resume-portfolio-guide/</id>
+<link href="https://xenors.in/data-science/data-science-resume-portfolio-guide/"/>
+<updated>2026-10-18T00:00:00Z</updated>
+<summary>Build a data science resume and portfolio that gets interviews: project selection, resume bullets with metrics, GitHub README template and ATS tips.</summary>
+</entry>
+</feed>

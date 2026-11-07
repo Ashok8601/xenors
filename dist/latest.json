@@ -1,0 +1,242 @@
+[
+  {
+    "url": "/share-market/can-trading-make-you-a-billionaire/",
+    "title": "Can Trading Make You a Billionaire? Risks & Reality",
+    "description": "Can trading make you a billionaire? See what would have to go right, why the odds are extreme, and how risk changes the answer.",
+    "dateModified": "2026-11-07",
+    "noindex": false,
+    "words": 1030
+  },
+  {
+    "url": "/ai/how-to-build-an-ai-agent-with-chatgpt/",
+    "title": "How to Build an AI Agent with ChatGPT (Free & Step-by-Step)",
+    "description": "Learn how to build an AI agent with ChatGPT: free options, no-code setup, a working Python example, safety tips and a printable checklist. Updated Oct 2026.",
+    "dateModified": "2026-10-30",
+    "noindex": false,
+    "words": 4320
+  },
+  {
+    "url": "/tech/forklift-safety-light/",
+    "title": "Forklift Safety Lights: Blue Spot vs Red Zone, Types & Price",
+    "description": "Compare forklift safety lights: blue spot, red zone, arc, arrow and strobe. See warehouse use cases, installation checks, visibility, price factors and…",
+    "dateModified": "2026-10-29",
+    "noindex": false,
+    "words": 7064
+  },
+  {
+    "url": "/tech/forklift-ai-camera/",
+    "title": "Forklift AI Camera: Pedestrian Detection & Auto Stop Guide",
+    "description": "Forklift AI camera guide: pedestrian detection, collision warnings, human detection AI, auto stop integration, prices and installation in India.",
+    "dateModified": "2026-10-29",
+    "noindex": false,
+    "words": 3132
+  },
+  {
+    "url": "/ai/ai-pedestrian-detection-system/",
+    "title": "AI Pedestrian Detection System: Camera, ROI, PLC & Auto Stop",
+    "description": "AI pedestrian detection system for factories and forklifts: camera detection, human ROI zones, PLC output, alerts, event video and auto-stop workflow explained.",
+    "dateModified": "2026-10-25",
+    "noindex": false,
+    "words": 5235
+  },
+  {
+    "url": "/ai/openai-dots/",
+    "title": "OpenAI Dots: Features, Use Cases & How It Works",
+    "description": "OpenAI Dots are always-on AI agents powered by GPT-6 Astra. Learn how Dots work, key features, use cases, privacy controls and availability.",
+    "dateModified": "2026-10-23",
+    "noindex": false,
+    "words": 3031
+  },
+  {
+    "url": "/data-science/yolo-object-detection-python/",
+    "title": "YOLO Object Detection Tutorial in Python",
+    "description": "Run real-time YOLO object detection in Python with Ultralytics: install, detect on images and webcam, train on a custom dataset and read mAP results.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 861
+  },
+  {
+    "url": "/data-science/vector-databases-chromadb-pinecone/",
+    "title": "Vector Databases: Chroma, Pinecone & FAISS",
+    "description": "Learn how vector databases work: embeddings, similarity metrics, approximate nearest neighbour search, and code for FAISS, ChromaDB and Pinecone.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 826
+  },
+  {
+    "url": "/data-science/transformers-architecture-attention-mechanism/",
+    "title": "Transformer Architecture & Self-Attention",
+    "description": "Understand the Transformer: self-attention, queries, keys, values, multi-head attention and positional encoding, with a from-scratch PyTorch implementation.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 910
+  },
+  {
+    "url": "/data-science/transfer-learning-keras-pytorch/",
+    "title": "Transfer Learning in Keras & PyTorch: Practical Guide",
+    "description": "Transfer learning in Keras and PyTorch: compare the workflow, freezing layers, fine-tuning and evaluation steps for real projects.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 824
+  },
+  {
+    "url": "/data-science/spark-sql-dataframes/",
+    "title": "Spark SQL & DataFrames Tutorial for Beginners",
+    "description": "Learn PySpark DataFrames and Spark SQL: schemas, select, filter, joins, window functions, temporary views and reading the execution plan.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 752
+  },
+  {
+    "url": "/data-science/snowflake-data-warehouse-tutorial/",
+    "title": "Snowflake Tutorial for Data Science Teams",
+    "description": "Learn Snowflake for data science: virtual warehouses, loading data, SQL analytics, Python connector and Snowpark, plus cost control tips.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 776
+  },
+  {
+    "url": "/data-science/retrieval-augmented-generation-rag/",
+    "title": "RAG Tutorial: Architecture, Retrieval & Evaluation",
+    "description": "Build a RAG pipeline: chunking, embeddings, vector search, prompt assembly and evaluation, with Python code you can run locally with ChromaDB.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 823
+  },
+  {
+    "url": "/data-science/recurrent-neural-networks-lstm/",
+    "title": "RNN & LSTM Tutorial for Sequence Models",
+    "description": "Learn how RNNs and LSTMs model sequences, why gates fix vanishing gradients, and build an LSTM time series forecaster in PyTorch step by step.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 950
+  },
+  {
+    "url": "/data-science/real-world-projects-career/",
+    "title": "Projects & Career | Xenors Data Science",
+    "description": "Build portfolio projects in churn, forecasting and predictive maintenance, then present them effectively on your resume and GitHub.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 656
+  },
+  {
+    "url": "/data-science/pyspark-tutorial-data-science/",
+    "title": "PySpark Tutorial for Data Science Beginners",
+    "description": "Learn PySpark: how Spark works, create a SparkSession, transform DataFrames, aggregate big data and train a machine learning model with MLlib.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 820
+  },
+  {
+    "url": "/data-science/prompt-engineering-techniques/",
+    "title": "Prompt Engineering Techniques for Developers",
+    "description": "Practical prompt engineering for developers: roles, few-shot examples, chain-of-thought, structured JSON output, delimiters and a testing workflow.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 822
+  },
+  {
+    "url": "/data-science/predictive-maintenance-iot-ml/",
+    "title": "Predictive Maintenance with IoT Sensor Data",
+    "description": "Build a predictive maintenance model from sensor data: rolling features, time-based split, failure classification and a real-time scoring loop in Python.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 929
+  },
+  {
+    "url": "/data-science/model-monitoring-drift-detection/",
+    "title": "ML Model Monitoring & Drift Detection",
+    "description": "Monitor ML models in production: track data drift with PSI and KS tests, watch prediction quality and latency, and set alert thresholds with Python.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 869
+  },
+  {
+    "url": "/data-science/mlops-deployment/",
+    "title": "MLOps & Deployment | Xenors Data Science",
+    "description": "Track, deploy and monitor machine-learning systems with MLflow, FastAPI, Docker and SageMaker.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 651
+  },
+  {
+    "url": "/data-science/mlflow-model-tracking/",
+    "title": "MLflow Tutorial: Tracking & Model Registry",
+    "description": "Track ML experiments with MLflow: log parameters, metrics and artifacts, compare runs in the UI, and register and load models with working Python code.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 752
+  },
+  {
+    "url": "/data-science/langchain-tutorial-python/",
+    "title": "LangChain Tutorial for Python Beginners",
+    "description": "Learn LangChain in Python: prompts, chat models, output parsers, LCEL chains and tools, with working code to build your first LLM application.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 757
+  },
+  {
+    "url": "/data-science/kafka-streaming-data-pipelines/",
+    "title": "Kafka Streaming Tutorial for Data Pipelines",
+    "description": "Learn Apache Kafka for streaming analytics: topics, partitions, producers, consumer groups, offsets and Python examples with confluent-kafka.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 796
+  },
+  {
+    "url": "/data-science/generative-ai-llm/",
+    "title": "Generative AI & LLMs | Xenors Data Science",
+    "description": "Understand Transformers, fine-tuning, vector databases, LangChain, RAG, prompt engineering and an end-to-end document Q&A project.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 677
+  },
+  {
+    "url": "/data-science/fine-tuning-llm-huggingface/",
+    "title": "Fine-Tune LLMs with Hugging Face",
+    "description": "Fine-tune LLaMA or Mistral with Hugging Face using LoRA and QLoRA: dataset format, 4-bit loading, training loop, merging adapters and evaluation.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 785
+  },
+  {
+    "url": "/data-science/financial-time-series-forecasting/",
+    "title": "Time-Series Forecasting with LSTM & Prophet",
+    "description": "Forecast stock prices in Python with Prophet and an LSTM, compare against a naive baseline using walk-forward validation, and understand the limits.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 896
+  },
+  {
+    "url": "/data-science/end-to-end-llm-rag-project/",
+    "title": "Build a RAG Q&A App with LangChain",
+    "description": "Build a document question-answering app: upload PDFs, chunk and embed with LangChain, retrieve with FAISS and answer in a Streamlit chat interface.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 859
+  },
+  {
+    "url": "/data-science/deploy-ml-models-aws-sagemaker/",
+    "title": "Deploy ML Models on AWS SageMaker",
+    "description": "Deploy a scikit-learn model to a real-time AWS SageMaker endpoint: training job, endpoint, invoke, autoscaling and cost control, with Python SDK code.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 814
+  },
+  {
+    "url": "/data-science/deploy-machine-learning-fastapi-docker/",
+    "title": "Deploy ML Models with FastAPI & Docker",
+    "description": "Serve a scikit-learn model as a REST API with FastAPI, validate input with Pydantic, containerise it with Docker and test it end to end.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 832
+  },
+  {
+    "url": "/data-science/data-science-resume-portfolio-guide/",
+    "title": "Data Science Resume & Portfolio Guide",
+    "description": "Build a data science resume and portfolio that gets interviews: project selection, resume bullets with metrics, GitHub README template and ATS tips.",
+    "dateModified": "2026-10-18",
+    "noindex": false,
+    "words": 817
+  }
+]
