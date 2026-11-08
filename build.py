@@ -8,7 +8,7 @@ import csv, hashlib, html, json, os, re, shutil, subprocess, sys, xml.etree.Elem
 ROOT=Path(__file__).resolve().parent
 DIST=ROOT/'dist'
 SITE='https://xenors.in'
-TODAY='2026-11-07'
+TODAY='2026-11-08'
 NOINDEX={'/404.html','/login/','/signup/'}
 PRIVATE_DIRS={'.git','dist','__pycache__'}
 PRIVATE_EXT={'.py','.md','.csv','.xlsx','.zip','.yaml','.yml'}
@@ -143,6 +143,23 @@ def remove_old_shell(s):
         if l['href'] in ['/components/header.css','/components/footer.css','/components/read-also.css','/styles/seo-global.css','/components/consent-subscribe.css']:
             l.decompose()
 
+def remove_legacy_page_shell(s,url):
+    # Some older Data Science templates include their own second site header.
+    # Keep the article body but remove only the known duplicate legacy shell.
+    if url.startswith('/data-science/'):
+        for sel in ['header.top','a.skip','#bar']:
+            for n in s.select(sel):
+                n.decompose()
+
+def add_ga4(s):
+    if not s.head:
+        return
+    ga=s.new_tag('script',src='https://www.googletagmanager.com/gtag/js?id=G-ZRZ11QPD5B')
+    ga['async']=''; ga['data-xenors-ga']='gtag-js'; s.head.append(ga)
+    cfg=s.new_tag('script'); cfg['data-xenors-ga']='gtag-config'
+    cfg.string="window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZRZ11QPD5B');"
+    s.head.append(cfg)
+
 def add_jsonld_modified(s,mod,url,title,desc):
     found_article=False
     for sc in s.find_all('script',attrs={'type':'application/ld+json'}):
@@ -236,15 +253,32 @@ def add_author_box(s,url):
 
 def add_cluster_links(s,url,pages):
     if is_utility(url) or url.startswith('/web-stories/') or s.find(class_='x-cluster-links'): return
+    stop={'index','html','2026','2027','guide','tutorial','best','top','free','what','how','with','for','and','the','in','to','of'}
+    def tokens(u):
+        return {x for x in re.split(r'[^a-z0-9]+',u.lower()) if len(x)>2 and x not in stop}
+    base=tokens(url)
     top=url.strip('/').split('/')[0] if url.strip('/') else ''
-    c=[x for x in pages if x!=url and x.strip('/').split('/')[0]==top][:3]
-    hubs={'ai':'/ai/','tech':'/forklift-safety-solutions-guide/','share-market':'/share-market/','finance':'/share-market/','stock-market':'/share-market/','data-science':'/ai/','machine-learning':'/ai/'}
-    if top in hubs and hubs[top] not in c and hubs[top]!=url: c.insert(0,hubs[top])
-    c=c[:3]
-    if not c: return
-    sec=s.new_tag('aside'); sec['class']='x-cluster-links'; h=s.new_tag('h2'); h.string='Continue in this topic'; sec.append(h); ul=s.new_tag('ul')
-    for x in c:
-        li=s.new_tag('li'); a=s.new_tag('a',href=x); a.string=x.strip('/').split('/')[-1].replace('-',' ').title(); li.append(a); ul.append(li)
+    hubs={'ai':'/ai/','tech':'/tech/','plc':'/plc/','coding':'/coding/','data-science':'/data-science/','machine-learning':'/machine-learning/','share-market':'/share-market/','finance':'/finance/'}
+    scored=[]
+    for x in pages:
+        if x==url or is_utility(x) or x.startswith('/web-stories/'): continue
+        xt=tokens(x); score=len(base & xt)*4
+        if x.strip('/').split('/')[0]==top: score+=2
+        if score>0: scored.append((score,x))
+    scored.sort(key=lambda z:(-z[0],z[1]))
+    cands=[]
+    hub=hubs.get(top)
+    if hub and hub!=url and hub in pages: cands.append(hub)
+    for _,x in scored:
+        if x not in cands: cands.append(x)
+        if len(cands)>=3: break
+    if not cands: return
+    sec=s.new_tag('aside'); sec['class']='x-cluster-links'; h=s.new_tag('h2'); h.string='Continue with related guides'; sec.append(h); ul=s.new_tag('ul')
+    for x in cands[:3]:
+        li=s.new_tag('li'); a=s.new_tag('a',href=x)
+        label=x.strip('/').split('/')[-1].replace('-',' ').strip()
+        a.string=(label[:1].upper()+label[1:]) if label else 'Related guide'
+        li.append(a); ul.append(li)
     sec.append(ul); (s.find('main') or s.body).append(sec)
 
 def ensure_single_h1(s,url,title):
@@ -287,7 +321,7 @@ def add_complete_sitemap(s,urls):
 
 
 def subscription_markup():
-    return BeautifulSoup('''<section class="x-follow" hidden aria-label="Follow Xenors"><h2>Get new Xenors posts</h2><p>Choose a channel after you have accepted site consent. Push is optional and email uses the hosted newsletter provider configured by the site owner.</p><p><button class="x-btn" type="button" data-push-follow>Enable web push</button> <a class="x-btn" href="/feed.xml">RSS / Atom</a></p><form method="post" data-email-subscribe><label for="x-email">Email</label><input id="x-email" name="email" type="email" autocomplete="email" required><button class="x-btn x-btn-primary" type="submit">Get new posts</button></form><p><small>By subscribing you agree to the <a href="/privacy-policy/">Privacy Policy</a>. Use the confirmation email to complete double opt-in when the configured provider supports it.</small></p></section><section class="x-consent" hidden aria-label="Cookie choices"><strong>Privacy choices</strong><p>Xenors uses essential browser storage. Analytics and subscription services stay off until you choose.</p><div class="x-consent-actions"><button class="x-btn x-btn-primary" data-consent-accept>Accept analytics</button><button class="x-btn" data-consent-reject>Reject optional</button><button class="x-btn" data-cookie-settings>Manage</button></div><div class="x-manage" hidden><label><input id="x-analytics" type="checkbox"> Allow Google Analytics</label><p>Advertising storage remains denied; the removed ad-network scripts are not used.</p><button class="x-btn x-btn-primary" data-consent-save>Save choices</button></div></section>''','html.parser')
+    return BeautifulSoup('''<section class="x-follow" hidden aria-label="Follow Xenors"><h2>Get new Xenors posts</h2><p>Found this useful? Follow Xenors for practical AI, industrial technology and automation guides.</p><p><button class="x-btn" type="button" data-push-follow>Enable web push</button> <a class="x-btn" href="/feed.xml">RSS / Atom</a></p><form method="post" data-email-subscribe><label for="x-email">Email</label><input id="x-email" name="email" type="email" autocomplete="email" required><button class="x-btn x-btn-primary" type="submit">Get new posts</button></form><p><small>By subscribing you agree to the <a href="/privacy-policy/">Privacy Policy</a>.</small></p></section>''','html.parser')
 
 def compress_image(p):
     if p.stat().st_size<=200*1024: return
@@ -362,6 +396,7 @@ def main():
             raise SystemExit(f'Malformed HTML: {p}')
         s.html['lang']='en'
         remove_old_shell(s)
+        remove_legacy_page_shell(s,url)
         ensure_meta(s,'viewport','width=device-width, initial-scale=1')
         noindex=url in NOINDEX
         ensure_meta(s,'robots','noindex, follow' if noindex else 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')
@@ -385,14 +420,14 @@ def main():
         if not atom:
             atom=s.new_tag('link',rel='alternate',type='application/atom+xml',href='/feed.xml'); atom['title']='Xenors latest posts'; s.head.append(atom)
         # Common merged core CSS + consent
-        for href in ['/assets/xenors-core.css','/components/consent-subscribe.css']:
+        for href in ['/assets/xenors-core.css']:
             if not s.find('link',href=href): s.head.append(s.new_tag('link',rel='stylesheet',href=href))
         mod=git_date(p)
         if not mod:
             raise SystemExit(f'Missing real source date for {p.relative_to(ROOT)}; add it to config/source_dates.json')
+        add_ga4(s)
         add_jsonld_modified(s,mod,url,title,desc)
         ensure_single_h1(s,url,title)
-        add_substantive_extension(s,url,title)
         # Standard shell (not AMP web stories)
         if not url.startswith('/web-stories/'):
             mainnode=s.find('main') or s.body
@@ -400,17 +435,9 @@ def main():
             shell=BeautifulSoup('<a class="xenors-skip-link" href="#xenors-main-content">Skip to main content</a>'+HEADER,'html.parser')
             for n in reversed(list(shell.contents)): s.body.insert(0,n)
             add_finance_notice(s,url); add_author_box(s,url); add_cluster_links(s,url,urls)
-            # lightweight related section from same top folder
-            if not is_utility(url):
-                top=url.strip('/').split('/')[0] if url.strip('/') else ''
-                rel=[x for x in urls if x!=url and x.strip('/').split('/')[0]==top][:3]
-                if rel:
-                    cards=''.join(f'<li><a href="{html.escape(x)}">{html.escape(x.strip("/").split("/")[-1].replace("-"," ").title())}</a></li>' for x in rel)
-                    wrap=BeautifulSoup(f'<section class="xenors-related-wrap"><h2>Related reading</h2><ul>{cards}</ul></section>','html.parser')
-                    (s.find('main') or s.body).append(wrap)
             for n in BeautifulSoup(FOOTER,'html.parser').contents: s.body.append(n)
             for n in list(subscription_markup().contents): s.body.append(n)
-            for src in ['/config/public-subscriptions.js','/components/site-shell.js','/components/consent-subscribe.js']:
+            for src in ['/config/public-subscriptions.js','/components/site-shell.js','/components/engagement.js','/components/subscribe.js']:
                 sc=s.new_tag('script',src=src); sc['defer']=''; s.body.append(sc)
         if url=='/sitemap/': add_complete_sitemap(s,urls)
         fix_images(s)
