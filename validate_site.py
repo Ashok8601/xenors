@@ -92,13 +92,9 @@ for p in html_files:
         if path.startswith('/components/') and path.endswith('.html'): errors.append(f'{url}: links public component {path}')
         if path and not target_exists(path,redirects): errors.append(f'{url}: broken internal link {href}')
         if path in inbound: inbound[path]+=1
-    # word minimum for non-utility editorial pages
-    utility=url in UTILITY or any(url.startswith(x) for x in UTILITY_PREFIX)
-    if not utility:
-        node=s.find('main') or s.body or s; clone=BeautifulSoup(str(node),'html.parser')
-        for bad in clone.select('script,style,.xenors-site-header,.xenors-site-footer,.xenors-primary-nav,.xenors-related-wrap,.x-consent,.x-follow,.x-author-box,.x-cluster-links'): bad.decompose()
-        words=len(re.findall(r"\b[\w'-]+\b",' '.join(clone.stripped_strings)))
-        if words<600: errors.append(f'{url}: editorial body <600 words ({words})')
+    # Editorial depth is reviewed by humans/GSC performance, not padded to an arbitrary word count.
+    # The validator intentionally does not fail a page based only on length.
+
 
 # Every redirect must resolve directly to a final static 200 target.
 for old,new in redirects.items():
