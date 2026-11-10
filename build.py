@@ -157,7 +157,43 @@ def add_ga4(s):
     ga=s.new_tag('script',src='https://www.googletagmanager.com/gtag/js?id=G-ZRZ11QPD5B')
     ga['async']=''; ga['data-xenors-ga']='gtag-js'; s.head.append(ga)
     cfg=s.new_tag('script'); cfg['data-xenors-ga']='gtag-config'
-    cfg.string="window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZRZ11QPD5B');"
+    cfg.string="""window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());
+gtag('config','G-ZRZ11QPD5B',{'send_page_view':false});
+(function(){
+  let sent=false, validated=false, timer=null;
+  const looksHumanBrowser=()=>!navigator.webdriver &&
+    typeof screen!=='undefined' && screen.width>0 && screen.height>0 &&
+    Array.isArray(navigator.languages) && navigator.languages.length>0 &&
+    document.visibilityState==='visible';
+  const sendValidated=()=>{
+    if(validated||!looksHumanBrowser()) return;
+    validated=true;
+    gtag('event','xenors_validated_human',{
+      page_path:location.pathname,
+      engagement_time_msec:1000
+    });
+  };
+  const sendPage=()=>{
+    if(sent||!looksHumanBrowser()) return;
+    sent=true;
+    gtag('event','page_view',{
+      page_title:document.title,
+      page_location:location.href,
+      page_path:location.pathname
+    });
+    sendValidated();
+  };
+  const onInteraction=()=>sendPage();
+  ['pointerdown','touchstart','keydown','scroll'].forEach(ev=>
+    addEventListener(ev,onInteraction,{once:true,passive:true})
+  );
+  const arm=()=>{
+    if(timer) clearTimeout(timer);
+    if(document.visibilityState==='visible') timer=setTimeout(sendPage,2500);
+  };
+  document.addEventListener('visibilitychange',arm,{passive:true});
+  arm();
+})();"""
     s.head.append(cfg)
 
 def add_jsonld_modified(s,mod,url,title,desc):
@@ -198,6 +234,19 @@ def image_dimensions(src):
         IMAGE_DIM_CACHE[key]=dims; return dims
     except Exception:
         IMAGE_DIM_CACHE[key]=None; return None
+
+def normalize_internal_urls(s):
+    # Collapse accidental repeated slashes in internal URLs without touching
+    # protocol separators such as https://. This prevents duplicate crawl
+    # paths like /ai/example// from being emitted by legacy content.
+    for tag in s.find_all(href=True):
+        href=tag.get('href','')
+        if href.startswith('/') and not href.startswith('//'):
+            tag['href']=re.sub(r'/+', '/', href)
+    for tag in s.find_all(src=True):
+        src=tag.get('src','')
+        if src.startswith('/') and not src.startswith('//'):
+            tag['src']=re.sub(r'/+', '/', src)
 
 def fix_images(s):
     imgs=s.find_all('img',src=True)
@@ -440,6 +489,7 @@ def main():
             for src in ['/config/public-subscriptions.js','/components/site-shell.js','/components/engagement.js','/components/subscribe.js']:
                 sc=s.new_tag('script',src=src); sc['defer']=''; s.body.append(sc)
         if url=='/sitemap/': add_complete_sitemap(s,urls)
+        normalize_internal_urls(s)
         fix_images(s)
         # Add a query-first quick answer to selected low-CTR pages without unsupported metrics.
         if url in CTR_META and not s.find(class_='x-quick-answer'):
