@@ -199,6 +199,19 @@ def image_dimensions(src):
     except Exception:
         IMAGE_DIM_CACHE[key]=None; return None
 
+def normalize_internal_urls(s):
+    # Collapse accidental repeated slashes in internal URLs without touching
+    # protocol separators such as https://. This prevents duplicate crawl
+    # paths like /ai/example// from being emitted by legacy content.
+    for tag in s.find_all(href=True):
+        href=tag.get('href','')
+        if href.startswith('/') and not href.startswith('//'):
+            tag['href']=re.sub(r'/+', '/', href)
+    for tag in s.find_all(src=True):
+        src=tag.get('src','')
+        if src.startswith('/') and not src.startswith('//'):
+            tag['src']=re.sub(r'/+', '/', src)
+
 def fix_images(s):
     imgs=s.find_all('img',src=True)
     hero=None
@@ -440,6 +453,7 @@ def main():
             for src in ['/config/public-subscriptions.js','/components/site-shell.js','/components/engagement.js','/components/subscribe.js']:
                 sc=s.new_tag('script',src=src); sc['defer']=''; s.body.append(sc)
         if url=='/sitemap/': add_complete_sitemap(s,urls)
+        normalize_internal_urls(s)
         fix_images(s)
         # Add a query-first quick answer to selected low-CTR pages without unsupported metrics.
         if url in CTR_META and not s.find(class_='x-quick-answer'):
