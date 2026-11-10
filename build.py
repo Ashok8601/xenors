@@ -157,7 +157,43 @@ def add_ga4(s):
     ga=s.new_tag('script',src='https://www.googletagmanager.com/gtag/js?id=G-ZRZ11QPD5B')
     ga['async']=''; ga['data-xenors-ga']='gtag-js'; s.head.append(ga)
     cfg=s.new_tag('script'); cfg['data-xenors-ga']='gtag-config'
-    cfg.string="window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-ZRZ11QPD5B');"
+    cfg.string="""window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());
+gtag('config','G-ZRZ11QPD5B',{'send_page_view':false});
+(function(){
+  let sent=false, validated=false, timer=null;
+  const looksHumanBrowser=()=>!navigator.webdriver &&
+    typeof screen!=='undefined' && screen.width>0 && screen.height>0 &&
+    Array.isArray(navigator.languages) && navigator.languages.length>0 &&
+    document.visibilityState==='visible';
+  const sendValidated=()=>{
+    if(validated||!looksHumanBrowser()) return;
+    validated=true;
+    gtag('event','xenors_validated_human',{
+      page_path:location.pathname,
+      engagement_time_msec:1000
+    });
+  };
+  const sendPage=()=>{
+    if(sent||!looksHumanBrowser()) return;
+    sent=true;
+    gtag('event','page_view',{
+      page_title:document.title,
+      page_location:location.href,
+      page_path:location.pathname
+    });
+    sendValidated();
+  };
+  const onInteraction=()=>sendPage();
+  ['pointerdown','touchstart','keydown','scroll'].forEach(ev=>
+    addEventListener(ev,onInteraction,{once:true,passive:true})
+  );
+  const arm=()=>{
+    if(timer) clearTimeout(timer);
+    if(document.visibilityState==='visible') timer=setTimeout(sendPage,2500);
+  };
+  document.addEventListener('visibilitychange',arm,{passive:true});
+  arm();
+})();"""
     s.head.append(cfg)
 
 def add_jsonld_modified(s,mod,url,title,desc):
