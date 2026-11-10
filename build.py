@@ -8,7 +8,7 @@ import csv, hashlib, html, json, os, re, shutil, subprocess, sys, xml.etree.Elem
 ROOT=Path(__file__).resolve().parent
 DIST=ROOT/'dist'
 SITE='https://xenors.in'
-TODAY='2026-11-08'
+TODAY=date.today().isoformat()
 NOINDEX={'/404.html','/login/','/signup/'}
 PRIVATE_DIRS={'.git','dist','__pycache__'}
 PRIVATE_EXT={'.py','.md','.csv','.xlsx','.zip','.yaml','.yml'}
