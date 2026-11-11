@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Pedestrian Detection False Alarms: Causes & Fixes</title>
+<meta name="description" content="Troubleshoot AI pedestrian detection false alarms and missed detections: camera placement, lighting, ROI, confidence, tracking, confirmation timers and PLC testing.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Ashok Kumar Yadav">
+<link rel="canonical" href="https://xenors.in/ai/ai-pedestrian-detection-false-alarms-fixes/">
+<link rel="stylesheet" href="/assets/ai-pedestrian-detection.css">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Xenors">
+<meta property="og:title" content="AI Pedestrian Detection False Alarms: Causes, Testing & Fixes">
+<meta property="og:description" content="A practical industrial troubleshooting guide for AI camera false positives, missed people, unstable boxes, ROI errors and PLC alarm chatter.">
+<meta property="og:url" content="https://xenors.in/ai/ai-pedestrian-detection-false-alarms-fixes/">
+<meta property="og:image" content="https://xenors.in/images/ai-pedestrian-detection-hero.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Pedestrian Detection False Alarms: Causes & Fixes">
+<meta name="twitter:description" content="Fix false alarms and missed detections in industrial human-detection camera systems using a structured camera-to-PLC test workflow.">
+<meta name="twitter:image" content="https://xenors.in/images/ai-pedestrian-detection-hero.webp">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"TechArticle","headline":"AI Pedestrian Detection False Alarms: Causes, Testing & Fixes","description":"Troubleshoot AI pedestrian detection false alarms and missed detections: camera placement, lighting, ROI, confidence, tracking, confirmation timers and PLC testing.","mainEntityOfPage":"https://xenors.in/ai/ai-pedestrian-detection-false-alarms-fixes/","author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/"},"datePublished":"2026-11-11","dateModified":"2026-11-11","image":"https://xenors.in/images/ai-pedestrian-detection-hero.webp","inLanguage":"en","keywords":["AI pedestrian detection false alarms","AI camera false positive","human detection camera troubleshooting","pedestrian detection accuracy","industrial AI camera testing","AI camera missed detection"]},
+{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://xenors.in/"},{"@type":"ListItem","position":2,"name":"AI","item":"https://xenors.in/ai/"},{"@type":"ListItem","position":3,"name":"Pedestrian Detection False Alarms","item":"https://xenors.in/ai/ai-pedestrian-detection-false-alarms-fixes/"}]},
+{"@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Why does an AI pedestrian detection camera give false alarms?","acceptedAnswer":{"@type":"Answer","text":"Common causes include shadows, glare, insects near IR illumination, rain, partial occlusion, human-sized objects, poor camera angle, weak image contrast, overly low confidence thresholds and ROI boundaries that include irrelevant motion."}},
+{"@type":"Question","name":"How do you reduce false positives without missing real people?","acceptedAnswer":{"@type":"Answer","text":"Change one variable at a time. Start with scene quality and ROI, then tune confidence, tracking and confirmation timing while validating against recorded true-positive and false-positive test clips."}},
+{"@type":"Question","name":"Can a confirmation timer reduce AI camera false alarms?","acceptedAnswer":{"@type":"Answer","text":"Yes. A short confirmation period can reject one-frame or very brief detections, but it also adds response delay. The delay must be measured and checked against the system's risk and operational requirements."}},
+{"@type":"Question","name":"Should an AI camera directly replace certified machine safety devices?","acceptedAnswer":{"@type":"Answer","text":"Not by default. Industrial danger zones require an appropriate risk assessment and safety architecture. AI vision may support detection and automation, but a general AI camera should not be assumed to be a certified safety function."}}
+]}
+]}</script>
+</head>
+<body>
+<main class="article-wrap">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/ai/">AI</a> / Pedestrian Detection False Alarms</nav>
+<article>
+<header class="hero">
+<p class="eyebrow">INDUSTRIAL AI · TROUBLESHOOTING · COMPUTER VISION</p>
+<h1>AI Pedestrian Detection False Alarms: Causes, Testing & Fixes</h1>
+<p class="lead">An industrial human-detection system can look accurate in a demo and still produce nuisance alarms on a real factory floor. This guide shows how to diagnose false positives, missed people, unstable boxes and PLC alarm chatter systematically instead of changing random AI settings.</p>
+<p class="meta">By <a href="/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> · Published November 11, 2026 · Updated November 11, 2026</p>
+<figure>
+<img src="/images/ai-pedestrian-detection-hero.webp" alt="Industrial AI pedestrian detection camera monitoring a restricted factory area" width="1280" height="720" fetchpriority="high" decoding="async">
+<figcaption>Reliable pedestrian detection starts with the scene, camera and validation process—not only the neural-network confidence threshold.</figcaption>
+</figure>
+</header>
+
+<section class="quick-answer">
+<h2>Quick answer</h2>
+<p>If an AI pedestrian detection camera produces too many false alarms, do not start by blindly increasing the confidence threshold. First separate the problem into five layers: <strong>scene quality, camera geometry, detection model, temporal logic and control integration</strong>. A shadow or insect problem needs a different fix from duplicate tracking, an ROI mistake or a PLC output that remains latched too long.</p>
+<p>A practical sequence is: record the failure → identify what the model actually saw → check camera image quality → check ROI boundaries → check confidence and tracking → check confirmation/cooldown logic → validate the PLC output independently. This keeps tuning measurable and prevents one fix from creating another failure.</p>
+</section>
+
+<section>
+<h2>False positive vs false alarm: they are not always the same problem</h2>
+<p>In industrial vision, a <strong>false positive</strong> means the detector classified something as a person when no relevant person was present. A <strong>false alarm</strong> is broader: the final system generated an alarm, stop request or event when it should not have.</p>
+<p>That distinction matters. The AI model may correctly detect a worker outside the danger zone, but if the ROI is configured incorrectly the system can still create a false alarm. Likewise, the AI can produce a one-frame false person box that never becomes an alarm if the confirmation logic is designed well.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Symptom</th><th>Likely layer</th><th>First check</th></tr></thead>
+<tbody>
+<tr><td>Person box appears on a shadow or object</td><td>Image/model</td><td>Lighting, contrast, confidence and training examples</td></tr>
+<tr><td>Real person detected but should not alarm</td><td>ROI/logic</td><td>Zone geometry and foot-point logic</td></tr>
+<tr><td>Box flickers on and off</td><td>Detection/tracking</td><td>Occlusion, frame quality, tracker configuration</td></tr>
+<tr><td>Alarm stays ON after person leaves</td><td>Application/PLC</td><td>Release timer, state reset and communication logic</td></tr>
+<tr><td>Correct detection but delayed output</td><td>Pipeline/confirmation</td><td>Inference latency, buffering and confirmation timer</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<section>
+<h2>1. Shadows, glare and changing illumination</h2>
+<p>Lighting changes are one of the most common reasons an AI camera behaves differently in production than during commissioning. Strong shadows can form human-like vertical shapes. Headlights, welding flashes, reflective floors and direct sunlight can temporarily destroy contrast or create bright edges.</p>
+<p>Axis documents that inadequate light, direct light and noisy images can delay or reduce object detection, and it also lists strong-light shadows as a possible false-alarm source. The practical lesson is simple: evaluate the <em>analytics image</em>, not only whether the video looks acceptable to a human operator.</p>
+<h3>What to do</h3>
+<ul>
+<li>Record the same ROI in morning, afternoon and night conditions.</li>
+<li>Check backlight and glare at the exact moment false alarms occur.</li>
+<li>Reduce extreme exposure swings where possible.</li>
+<li>Use stable scene illumination rather than relying only on light close to the camera.</li>
+<li>Create test clips that include the worst lighting condition and use them for every future model/configuration update.</li>
+</ul>
+</section>
+
+<section>
+<h2>2. Insects, rain, dust and objects close to the lens</h2>
+<p>A tiny object close to a camera can occupy a large percentage of the image. Insects around infrared illumination, water drops, spider webs, dust and debris can therefore create shapes or motion that are disproportionately large compared with the real scene.</p>
+<p>Axis specifically warns that insects or spiders near IR-equipped cameras and combinations such as headlights plus heavy rain can trigger false alarms in object analytics. In a factory, welding smoke, oil mist or moving hanging material can create a similar challenge.</p>
+<h3>Fix strategy</h3>
+<ul>
+<li>Inspect the physical lens and housing before changing AI thresholds.</li>
+<li>Compare daytime and IR/night behavior separately.</li>
+<li>Mask areas that contain unavoidable moving chains, cables, fans or curtains.</li>
+<li>Use a short temporal confirmation rule so a single unstable frame does not immediately trigger the control output.</li>
+</ul>
+</section>
+
+<section>
+<h2>3. Camera angle makes the person too small or too distorted</h2>
+<p>Mounting geometry can make a good detector look bad. A very steep overhead view reduces visible body shape. Extreme perspective can make far-away people only a few pixels tall. Strong lens distortion near the image edge can also change the apparent proportions of the person.</p>
+<p>Axis recommends mounting with the analytics scene in mind and notes that an excessively top-down view can make classification difficult. It also points out that detection distance depends on the lens, light, environment and object size.</p>
+<figure>
+<img src="/images/ai-pedestrian-detection-overview.webp" alt="Pedestrian detection camera overview showing monitored area and human detection zones" width="1280" height="720" loading="lazy" decoding="async">
+<figcaption>Judge camera placement by the smallest person size at the far end of the required detection area, not only by how much floor the camera can see.</figcaption>
+</figure>
+<h3>Commissioning check</h3>
+<p>Walk a person through the nearest, center and farthest points of the ROI. Repeat near edges and behind typical obstacles. If the farthest target is unstable, increasing the confidence threshold will usually make the missed-detection problem worse.</p>
+</section>
+
+<section>
+<h2>4. Partial occlusion creates unstable or incorrect classifications</h2>
+<p>People working behind machines, pillars, racks, vehicles or welding fixtures may be visible only as a head, torso or narrow body segment. Partial objects can also resemble another class. This is especially difficult when the detector sees only a thin vertical region emerging from behind equipment.</p>
+<p>Instead of treating every occlusion issue as a model failure, first ask whether another camera angle can provide a clearer view. Multi-camera coverage is often more robust than expecting one camera to see through a complex industrial scene.</p>
+<p>For system-level architecture, see the <a href="/ai/ai-pedestrian-detection-system/">AI pedestrian detection system guide</a>, which explains ROI, multi-camera monitoring, event recording and PLC integration.</p>
+</section>
+
+<section>
+<h2>5. ROI boundaries include irrelevant motion</h2>
+<p>A detector can be perfectly correct and still create nuisance alarms if the configured detection polygon includes a public walkway, door, reflection, monitor, moving machine part or adjacent lane.</p>
+<p>The most robust industrial approach is to define the ROI around the actual hazard decision area, not the entire camera image. If your application uses a foot-point rule, the person's feet or bottom-center point should be evaluated against the polygon rather than simply asking whether any part of the bounding box overlaps it.</p>
+<h3>ROI test cases</h3>
+<ul>
+<li>Walk directly through the middle of the zone.</li>
+<li>Walk exactly along each polygon edge.</li>
+<li>Stand just outside the zone.</li>
+<li>Move behind a machine while still partly visible.</li>
+<li>Test two people simultaneously, one inside and one outside.</li>
+<li>Test a person crossing quickly through a narrow corner of the ROI.</li>
+</ul>
+</section>
+
+<section>
+<h2>6. Confidence threshold is too low—or too high</h2>
+<p>Confidence is one of the first settings engineers change, but it should be treated as a measured trade-off. A threshold that is too low can allow weak false detections. A threshold that is too high can suppress difficult but genuine people, especially small, partially hidden or poorly illuminated targets.</p>
+<p>NVIDIA's DeepStream accuracy guidance describes minimum detector confidence as one way to filter lower-confidence false detections, while also emphasizing that tracking and other parameters affect the overall accuracy-performance balance.</p>
+<h3>A better threshold tuning method</h3>
+<ol>
+<li>Collect true-positive clips from easy and difficult positions.</li>
+<li>Collect false-positive clips from the actual site.</li>
+<li>Log detector confidence for both groups.</li>
+<li>Plot or compare the overlap between true and false confidence values.</li>
+<li>Choose the lowest threshold that removes a useful fraction of false detections without creating unacceptable misses.</li>
+<li>Retest after every model update.</li>
+</ol>
+<p>Never tune only on one clean test video. Factory lighting, clothing, occlusion and motion change throughout the shift.</p>
+</section>
+
+<section>
+<h2>7. One-frame detections are reaching the alarm output</h2>
+<p>A single frame should rarely be enough to make a high-consequence industrial decision. Compression artifacts, brief occlusion, reflections or a transient model error can create a box for just one or two frames.</p>
+<p>A confirmation timer or multi-frame rule can suppress these events. For example, instead of triggering the alarm immediately, require a valid person in the ROI for a short continuous period or for a defined number of recent frames.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Rule</th><th>Benefit</th><th>Risk</th></tr></thead>
+<tbody>
+<tr><td>Immediate trigger</td><td>Lowest latency</td><td>Most sensitive to one-frame false positives</td></tr>
+<tr><td>Consecutive-frame confirmation</td><td>Rejects brief detection noise</td><td>Latency depends on FPS and frame processing</td></tr>
+<tr><td>Time-based confirmation</td><td>Easy to understand in milliseconds/seconds</td><td>Must account for stream/inference delay</td></tr>
+<tr><td>Tracker-confirmed object</td><td>Uses temporal consistency</td><td>Tracker parameters can introduce their own failure modes</td></tr>
+</tbody>
+</table></div>
+<p>Do not pick a confirmation delay just because it “feels stable.” Measure total camera-to-output latency after the timer is added.</p>
+</section>
+
+<section>
+<h2>8. Duplicate boxes and tracker instability</h2>
+<p>When detector boxes vary rapidly, a tracker may create duplicate identities or repeatedly activate and terminate a target. That can cause repeated alarms even though one person is standing in one place.</p>
+<p>NVIDIA's tracker documentation describes controls such as minimum detector confidence, target candidacy and probation/early-termination behavior that can suppress spurious targets. The exact parameters depend on the tracker you use, but the engineering principle is universal: <strong>do not treat every new rectangle as a new person event</strong>.</p>
+<h3>Useful logs</h3>
+<ul>
+<li>track ID</li>
+<li>class</li>
+<li>detector confidence</li>
+<li>tracker confidence if available</li>
+<li>ROI state</li>
+<li>first seen time</li>
+<li>confirmation time</li>
+<li>alarm ON time</li>
+<li>alarm OFF time</li>
+</ul>
+<p>These fields make it much easier to distinguish “AI detected twice” from “PLC output toggled twice.”</p>
+</section>
+
+<section>
+<h2>9. Stream buffering creates delayed detections and stale alarms</h2>
+<p>An RTSP stream can continue delivering old buffered frames after network jitter or processing slowdown. The operator may see a person has already left while the AI pipeline is still processing earlier frames.</p>
+<p>A robust system should track frame age or timestamps and reject stale frames rather than treating them as current reality. Camera reconnect logic should also clear stale detection state when a stream is lost.</p>
+<h3>Check these timestamps separately</h3>
+<ul>
+<li>camera frame timestamp</li>
+<li>frame received time</li>
+<li>inference completion time</li>
+<li>detection confirmed time</li>
+<li>PLC command time</li>
+</ul>
+<p>The difference between them reveals whether the delay comes from the camera, network, inference queue, confirmation logic or PLC communication.</p>
+</section>
+
+<section>
+<h2>10. Alarm cooldown and release logic are wrong</h2>
+<p>A cooldown prevents repeated voice alarms or event snapshots, but it should not be confused with the actual safety/detection state. If cooldown logic is mixed with detection logic, the system may fail to re-alarm when a new person enters or may keep an output ON longer than intended.</p>
+<p>Use separate states for:</p>
+<ul>
+<li><strong>person currently present</strong></li>
+<li><strong>alarm/event already announced</strong></li>
+<li><strong>snapshot cooldown</strong></li>
+<li><strong>voice repeat timer</strong></li>
+<li><strong>PLC output state</strong></li>
+</ul>
+<p>This state separation is especially important in multi-camera systems where one camera can clear while another still sees a person.</p>
+</section>
+
+<section>
+<h2>11. PLC output chatter is being blamed on the AI</h2>
+<p>Sometimes the vision application is stable but the PLC sees rapid ON/OFF transitions because the output is tied directly to raw detection state. A stable application should define clear set/reset behavior and communication health independently.</p>
+<figure>
+<img src="/images/industrial-automation-plc-integration.webp" alt="Industrial AI camera to PLC integration architecture for human detection alarm output" width="1200" height="675" loading="lazy" decoding="async">
+<figcaption>Troubleshoot the vision decision and PLC interface separately before combining them into the final machine response.</figcaption>
+</figure>
+<h3>Recommended commissioning order</h3>
+<ol>
+<li>Validate AI detection with PLC output disabled.</li>
+<li>Validate software output state using a test indicator.</li>
+<li>Validate PLC input using a controlled manual test signal.</li>
+<li>Connect AI output to PLC and confirm normal state, detected state and fault state.</li>
+<li>Test camera loss, PC restart, network loss and recovery.</li>
+<li>Only then validate the downstream machine response according to the site's safety design.</li>
+</ol>
+</section>
+
+<section>
+<h2>12. The model was trained on the wrong data distribution</h2>
+<p>If the same false alarm appears repeatedly after scene and logic checks, the dataset may not represent the actual site. A generic person detector can perform well overall while struggling with a specific factory condition such as welding sparks, reflective PPE, unusual uniforms, partially visible workers, forklifts, mirrors or overhead camera views.</p>
+<p>The best negative examples are often collected from the deployment site itself. If a particular machine structure repeatedly looks like a person, capture that scene under different shifts and lighting conditions and use it as a hard negative during fine-tuning.</p>
+<p>Likewise, difficult true positives should be intentionally added: small people, partial people, workers near machinery, different PPE colors, crouching poses where relevant, and realistic motion blur.</p>
+</section>
+
+<section>
+<h2>A practical false-alarm troubleshooting workflow</h2>
+<figure>
+<img src="/images/ai-pedestrian-detection-workflow.webp" alt="AI pedestrian detection workflow from camera stream through detection ROI confirmation and PLC output" width="1280" height="720" loading="lazy" decoding="async">
+<figcaption>Debug from camera to model to ROI to temporal logic to PLC; changing several layers at once makes root-cause analysis much harder.</figcaption>
+</figure>
+<ol>
+<li><strong>Freeze the configuration.</strong> Save current model, thresholds, ROI, camera settings and software version.</li>
+<li><strong>Capture evidence.</strong> Keep the false-alarm video with several seconds before and after the event.</li>
+<li><strong>Classify the failure.</strong> Was it a false person box, correct person in wrong zone, unstable tracking, stale frame or control-state problem?</li>
+<li><strong>Change one variable.</strong> Camera exposure, ROI, confidence, tracking or timer—not all at once.</li>
+<li><strong>Replay the same test set.</strong> Compare before/after results on identical clips.</li>
+<li><strong>Run live site tests.</strong> Validate the fix across normal production conditions.</li>
+<li><strong>Measure latency.</strong> Record detection-to-output delay after every temporal-filter change.</li>
+<li><strong>Document the release.</strong> Save the new configuration, reason for change and test outcome.</li>
+</ol>
+</section>
+
+<section>
+<h2>False-alarm test matrix for a factory AI camera</h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Test</th><th>Expected result</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr><td>No person, normal lighting</td><td>No alarm</td><td>Baseline false-positive check</td></tr>
+<tr><td>No person, lights switching</td><td>No alarm</td><td>Tests exposure/shadow robustness</td></tr>
+<tr><td>Person center of ROI</td><td>Reliable detection/alarm</td><td>Basic true-positive check</td></tr>
+<tr><td>Person at farthest point</td><td>Reliable detection</td><td>Tests minimum target size</td></tr>
+<tr><td>Person at ROI edge</td><td>Consistent configured behavior</td><td>Tests polygon boundary logic</td></tr>
+<tr><td>Partial occlusion</td><td>Behavior matches requirement</td><td>Tests real machine obstruction</td></tr>
+<tr><td>Two people</td><td>Both handled correctly</td><td>Tests multi-object logic</td></tr>
+<tr><td>Camera disconnected</td><td>Fault state, no stale person state</td><td>Tests fail-state behavior</td></tr>
+<tr><td>Network restored</td><td>Clean recovery</td><td>Tests auto-reconnect and stale frames</td></tr>
+<tr><td>Repeated entry/exit</td><td>No stuck or duplicated alarms</td><td>Tests reset/cooldown logic</td></tr>
+</tbody>
+</table></div>
+</section>
+
+<section>
+<h2>How to tune for fewer false alarms without hiding real people</h2>
+<p>The safest tuning mindset is not “reduce alarms.” It is “increase useful separation between true and false events.” Every change should be judged on both sides.</p>
+<p>For example, raising confidence from 0.35 to 0.60 might remove 80% of false boxes but also remove distant workers. Adding a 400 ms confirmation rule might suppress brief noise while keeping all real entries. A slightly better camera angle may improve both false-positive and false-negative performance without touching the model.</p>
+<p>That is why the best order is usually:</p>
+<ol>
+<li>scene and lens cleanliness</li>
+<li>camera placement and image quality</li>
+<li>ROI and ignore zones</li>
+<li>model confidence</li>
+<li>tracking</li>
+<li>confirmation timing</li>
+<li>cooldown/event logic</li>
+<li>PLC integration</li>
+<li>site-specific fine-tuning</li>
+</ol>
+</section>
+
+<section>
+<h2>When should you retrain the model?</h2>
+<p>Retraining is useful when failures remain systematic after the scene and application logic are correct. Good retraining candidates include a recurring machine shape that is misclassified, a unique overhead viewpoint, unusual PPE, difficult partial occlusion, a consistent background pattern or a target size that differs substantially from the original training data.</p>
+<p>Do not retrain to compensate for a dirty lens, broken ROI, stale RTSP buffering or incorrect PLC logic. Those are engineering problems outside the model.</p>
+<p>For a broader design view, see the <a href="/ai-camera-based-human-detection-system/">AI camera human detection system design guide</a>.</p>
+</section>
+
+<section>
+<h2>Forklift and warehouse false alarms need additional tests</h2>
+<p>Forklift environments add headlights, rotating beacons, moving forks, pallets, narrow aisles and constant occlusion. A pedestrian detector also has to distinguish between a worker actually entering the collision zone and a person visible in a neighboring aisle.</p>
+<figure>
+<img src="/images/forklift-collision-warning-zones.webp" alt="Forklift AI camera collision warning zones for pedestrian detection" width="1200" height="675" loading="lazy" decoding="async">
+<figcaption>Zone logic matters as much as person detection in forklift applications because a correctly detected pedestrian may still be outside the actionable collision zone.</figcaption>
+</figure>
+<p>See the <a href="/tech/forklift-ai-camera/">forklift AI camera guide</a> for pedestrian detection, warning and auto-stop integration concepts.</p>
+</section>
+
+<section>
+<h2>Safety note: AI detection is not automatically a certified safety function</h2>
+<p>Industrial machine danger zones require appropriate guarding and safety engineering. OSHA's machine-guarding requirements describe guarding methods and require danger zones to be guarded. A general-purpose AI camera or software detector should therefore not automatically be treated as a certified replacement for safety-rated devices or controls.</p>
+<p>If AI detection is connected to a stop or slow command, the complete architecture should be reviewed against the site's risk assessment, required safety performance and applicable standards. Validate fail states such as camera loss, network loss, software crash and output failure—not only successful person detection.</p>
+</section>
+
+<section class="faq">
+<h2>Frequently asked questions</h2>
+<h3>Why does an AI pedestrian detection camera give false alarms?</h3>
+<p>Common causes include shadows, glare, insects near IR illumination, rain, partial occlusion, human-sized objects, poor camera angle, weak contrast, overly low confidence thresholds and ROI boundaries that include irrelevant motion.</p>
+<h3>How do I reduce false positives without missing real people?</h3>
+<p>Change one variable at a time. Start with scene quality and ROI, then tune confidence, tracking and confirmation timing while validating against recorded true-positive and false-positive clips.</p>
+<h3>Can a confirmation timer reduce AI camera false alarms?</h3>
+<p>Yes. A short confirmation period can reject one-frame detections, but it also adds response delay. Measure total camera-to-output latency and validate it against the system requirement.</p>
+<h3>Should I simply increase the confidence threshold?</h3>
+<p>No. It may reduce low-confidence false positives but can also suppress difficult real people. Use site recordings to find a threshold that improves separation between true and false detections.</p>
+<h3>When is model retraining necessary?</h3>
+<p>Retraining is justified when site-specific false positives or misses remain systematic after camera, image, ROI, stream and application logic have been corrected.</p>
+</section>
+
+<section>
+<h2>Primary technical sources</h2>
+<ul>
+<li><a href="https://help.axis.com/en-us/axis-object-analytics" rel="noopener" target="_blank">AXIS Object Analytics — mounting, lighting, detection conditions and false-alarm considerations</a></li>
+<li><a href="https://docs.nvidia.com/deepstream/text/DS_Accuracy" rel="noopener" target="_blank">NVIDIA DeepStream — accuracy tuning, detector confidence and tracker robustness</a></li>
+<li><a href="https://www.osha.gov/laws-regs/regulations/standardnumber/1917/1917.151" rel="noopener" target="_blank">OSHA 1917.151 — machine guarding requirements</a></li>
+</ul>
+</section>
+
+<section>
+<h2>Bottom line</h2>
+<p>False alarms are rarely solved by one magic confidence value. Reliable pedestrian detection comes from treating the system as a complete chain: <strong>camera → image → detector → tracker → ROI → confirmation → event logic → PLC</strong>. Find which layer produced the wrong decision, change one thing, replay the same test set and measure the result.</p>
+<p>If you are building the complete architecture rather than troubleshooting an existing deployment, start with the <a href="/ai/ai-pedestrian-detection-system/">AI pedestrian detection system guide</a> and then use this page as the commissioning and false-alarm checklist.</p>
+</section>
+</article>
+</main>
+</body>
+</html>
