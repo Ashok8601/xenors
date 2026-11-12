@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      OPENAI_API_KEYs: ${{ secrets.OPENAI_API_KEYs }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-6-luna' }}
       XENORS_DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
     steps:
@@ -62,8 +62,8 @@ jobs:
         if: steps.window.outputs.enabled == 'true'
         shell: bash
         run: |
-          if [ -z "$OPENAI_API_KEYs" ]; then
-            echo "::error::Missing repository secret OPENAI_API_KEYs"
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "::error::Missing repository secret OPENAI_API_KEY"
             exit 1
           fi
 
