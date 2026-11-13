@@ -6,6 +6,8 @@ on:
     - cron: "30 4 * * *"
     - cron: "30 8 * * *"
     - cron: "30 12 * * *"
+    # One-time extra post: 2026-11-13 22:00 IST (16:30 UTC).
+    - cron: "30 16 13 11 *"
   workflow_dispatch:
     inputs:
       dry_run:
@@ -40,7 +42,10 @@ jobs:
         shell: bash
         run: |
           today="$(date -u +%F)"
-          if [[ "$today" > "2027-05-13" ]]; then
+          if [[ "${{ github.event.schedule }}" == "30 16 13 11 *" && "$today" != "2026-11-13" ]]; then
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "One-time extra publishing slot is only enabled for 2026-11-13."
+          elif [[ "$today" > "2027-05-13" ]]; then
             echo "enabled=false" >> "$GITHUB_OUTPUT"
             echo "Publishing window ended on 2027-05-13."
           else
