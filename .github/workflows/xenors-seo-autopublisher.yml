@@ -24,8 +24,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-      OPENAI_MODEL: ${{ vars.OPENAI_MODEL || 'gpt-6-luna' }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.8-flash' }}
       XENORS_DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
     steps:
       - name: Checkout main
@@ -56,14 +56,14 @@ jobs:
         if: steps.window.outputs.enabled == 'true'
         run: |
           python -m pip install --upgrade pip
-          pip install "openai>=2,<4" "Pillow>=10.4,<13" beautifulsoup4==4.12.3 soupsieve==2.6
+          pip install "Pillow>=10.4,<13" beautifulsoup4==4.12.3 soupsieve==2.6
 
-      - name: Require OpenAI API key
+      - name: Require Gemini API key
         if: steps.window.outputs.enabled == 'true'
         shell: bash
         run: |
-          if [ -z "$OPENAI_API_KEY" ]; then
-            echo "::error::Missing repository secret OPENAI_API_KEY"
+          if [ -z "$GEMINI_API_KEY" ]; then
+            echo "::error::Missing repository secret GEMINI_API_KEY"
             exit 1
           fi
 
