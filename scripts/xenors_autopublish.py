@@ -14,6 +14,8 @@ IST = timezone(timedelta(hours=5, minutes=30))
 NOW = datetime.now(IST)
 SITE = "https://xenors.in"
 MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
+FORCE_PUBLISH = os.getenv("XENORS_FORCE_PUBLISH", "false").lower() == "true"
+TOPIC_HINT = os.getenv("XENORS_TOPIC_HINT", "").strip()
 ALLOWED_SECTIONS = {"ai", "tech", "plc", "coding", "data-science", "machine-learning"}
 PRIORITIES = [
     "AI agents and current AI",
@@ -32,8 +34,11 @@ def read_state():
     return {}
 
 def slot_name():
-    # Three publishing windows in IST: 10:00, 14:00, 18:00.
-    # Manual runs are assigned to the nearest forward daily slot bucket.
+    # Three scheduled publishing windows in IST: 10:00, 14:00, 18:00.
+    # Forced manual runs get a unique slot so they can publish an extra post
+    # without being blocked by an already-used AM/MID/PM slot.
+    if FORCE_PUBLISH:
+        return f"{NOW.date().isoformat()}-MANUAL-{NOW.strftime('%H%M%S')}"
     if NOW.hour < 12:
         slot="AM"
     elif NOW.hour < 16:
