@@ -2,8 +2,9 @@ name: Xenors SEO Autopublisher
 
 on:
   schedule:
-    # GitHub cron is UTC. 04:30 UTC = 10:00 IST, 12:30 UTC = 18:00 IST.
+    # GitHub cron is UTC. 04:30 = 10:00 IST, 08:30 = 14:00 IST, 12:30 = 18:00 IST.
     - cron: "30 4 * * *"
+    - cron: "30 8 * * *"
     - cron: "30 12 * * *"
   workflow_dispatch:
     inputs:
@@ -39,9 +40,9 @@ jobs:
         shell: bash
         run: |
           today="$(date -u +%F)"
-          if [[ "$today" > "2027-05-12" ]]; then
+          if [[ "$today" > "2027-05-13" ]]; then
             echo "enabled=false" >> "$GITHUB_OUTPUT"
-            echo "Publishing window ended on 2027-05-12."
+            echo "Publishing window ended on 2027-05-13."
           else
             echo "enabled=true" >> "$GITHUB_OUTPUT"
           fi
