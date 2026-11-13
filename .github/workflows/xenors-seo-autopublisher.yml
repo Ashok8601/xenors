@@ -16,6 +16,14 @@ on:
         description: "Generate and validate without committing"
         required: false
         default: "false"
+      force_publish:
+        description: "Force one extra publish now, even if the current daily slot already published"
+        required: false
+        default: "true"
+      topic_hint:
+        description: "Optional topic/keyword hint for this extra post"
+        required: false
+        default: ""
 
 permissions:
   contents: write
@@ -32,6 +40,8 @@ jobs:
       GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
       GEMINI_MODEL: ${{ vars.GEMINI_MODEL || 'gemini-3.8-flash' }}
       XENORS_DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+      XENORS_FORCE_PUBLISH: ${{ github.event.inputs.force_publish || 'false' }}
+      XENORS_TOPIC_HINT: ${{ github.event.inputs.topic_hint || '' }}
     steps:
       - name: Checkout main
         uses: actions/checkout@v4
