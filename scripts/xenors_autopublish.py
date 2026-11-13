@@ -126,8 +126,10 @@ Return ONLY valid JSON with these keys:
         }
     }
 
+    # Prefer the configured model, then current free-tier models that are
+    # available to new Gemini projects. Gemini 2.5 may return 404 for new users.
     models=[]
-    for m in [MODEL, "gemini-2.5-flash"]:
+    for m in [MODEL, "gemini-3.5-flash-lite", "gemini-3.6-flash", "gemini-3.1-flash-lite"]:
         if m and m not in models:
             models.append(m)
 
