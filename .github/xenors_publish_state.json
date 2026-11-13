@@ -1,8 +1,8 @@
 {
-  "last_slot": "2026-11-13-MANUAL-221419",
-  "last_published_at": "2026-11-13T22:14:19.024904+05:30",
-  "last_title": "Connecting Edge AI Vision to PLCs: Modbus TCP Architecture, Handshakes & Ladder Logic",
-  "last_url": "https://xenors.in/plc/edge-ai-vision-plc-modbus-integration/",
+  "last_slot": "2026-11-14-AM",
+  "last_published_at": "2026-11-14T03:34:27.209061+05:30",
+  "last_title": "AI Agent Token Costs and Latency Optimization in 2026: Practical Engineering",
+  "last_url": "https://xenors.in/ai/ai-agent-token-costs-latency-optimization-2026/",
   "history": [
     {
       "slot": "2026-11-13-PM",
@@ -13,20 +13,23 @@
       "slot": "2026-11-13-MANUAL-221419",
       "url": "https://xenors.in/plc/edge-ai-vision-plc-modbus-integration/",
       "title": "Connecting Edge AI Vision to PLCs: Modbus TCP Architecture, Handshakes & Ladder Logic"
+    },
+    {
+      "slot": "2026-11-14-AM",
+      "url": "https://xenors.in/ai/ai-agent-token-costs-latency-optimization-2026/",
+      "title": "AI Agent Token Costs and Latency Optimization in 2026: Practical Engineering"
     }
   ],
   "last_model": "gemini-3.8-flash",
   "last_internal_links": [
-    "plc/plc-basics-inputs-outputs-ladder-logic/index.html",
-    "ai/ai-pedestrian-detection-system/index.html",
-    "data-science/yolo-object-detection-python/index.html",
+    "ai/ai-agent-memory-explained-2026/index.html",
+    "ai/gpt-6-1-sol-ultrafast-explained/index.html",
     "ai/ai-agent-guardrails-safety-2026/index.html"
   ],
   "last_keyword_cluster": [
-    "edge ai vision plc integration",
-    "modbus tcp edge ai",
-    "plc vision system handshake",
-    "industrial computer vision plc trigger",
-    "pymodbus plc machine vision"
+    "AI agent token optimization",
+    "reduce LLM latency 2026",
+    "agentic cost reduction",
+    "LLM API token reduction techniques"
   ]
 }
