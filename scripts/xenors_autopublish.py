@@ -76,7 +76,31 @@ def parse_json(text):
     start=text.find("{"); end=text.rfind("}")
     if start<0 or end<start:
         raise ValueError("Model did not return JSON")
-    return json.loads(text[start:end+1])
+    candidate=text[start:end+1]
+    return json.loads(candidate)
+
+def gemini_request(prompt, model_name, api_key, temperature=0.4):
+    endpoint=f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent"
+    payload={
+        "contents":[{"role":"user","parts":[{"text":prompt}]}],
+        "generationConfig":{
+            "responseMimeType":"application/json",
+            "temperature":temperature
+        }
+    }
+    req=urllib.request.Request(
+        endpoint,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type":"application/json","x-goog-api-key":api_key},
+        method="POST"
+    )
+    with urllib.request.urlopen(req,timeout=180) as resp:
+        data=json.loads(resp.read().decode("utf-8"))
+    parts=(data.get("candidates") or [{}])[0].get("content",{}).get("parts",[])
+    output="".join(p.get("text","") for p in parts if isinstance(p,dict))
+    if not output.strip():
+        raise RuntimeError(f"Gemini returned no text: {json.dumps(data)[:1500]}")
+    return output
 
 def model_generate(pages):
     compact=pages[-220:]
@@ -118,16 +142,7 @@ Return ONLY valid JSON with these keys:
 }}
 """
     api_key=os.environ["GEMINI_API_KEY"]
-    payload={
-        "contents":[{"role":"user","parts":[{"text":prompt}]}],
-        "generationConfig":{
-            "responseMimeType":"application/json",
-            "temperature":0.6
-        }
-    }
 
-    # Prefer the configured model, then current free-tier models that are
-    # available to new Gemini projects. Gemini 2.5 may return 404 for new users.
     models=[]
     for m in [MODEL, "gemini-3.5-flash-lite", "gemini-3.6-flash", "gemini-3.1-flash-lite"]:
         if m and m not in models:
@@ -135,26 +150,23 @@ Return ONLY valid JSON with these keys:
 
     last_error=None
     for model_name in models:
-        endpoint=f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent"
         for attempt in range(1,4):
-            req=urllib.request.Request(
-                endpoint,
-                data=json.dumps(payload).encode("utf-8"),
-                headers={
-                    "Content-Type":"application/json",
-                    "x-goog-api-key":api_key
-                },
-                method="POST"
-            )
             try:
-                with urllib.request.urlopen(req,timeout=180) as resp:
-                    data=json.loads(resp.read().decode("utf-8"))
-                parts=(data.get("candidates") or [{}])[0].get("content",{}).get("parts",[])
-                output="".join(p.get("text","") for p in parts if isinstance(p,dict))
-                if not output.strip():
-                    raise RuntimeError(f"Gemini returned no text: {json.dumps(data)[:1500]}")
+                output=gemini_request(prompt,model_name,api_key,temperature=0.35)
                 print(f"Gemini generation succeeded with {model_name} on attempt {attempt}")
-                return parse_json(output)
+                try:
+                    return parse_json(output)
+                except json.JSONDecodeError as je:
+                    repair_prompt=f"""The following content was intended to be valid JSON but is malformed.
+Repair it into STRICT valid JSON only. Do not add commentary, markdown fences, or new facts.
+Preserve all fields and HTML content as closely as possible.
+
+Malformed JSON:
+{output}
+"""
+                    print(f"Malformed JSON from {model_name}; attempting one JSON repair...")
+                    repaired=gemini_request(repair_prompt,model_name,api_key,temperature=0.0)
+                    return parse_json(repaired)
             except urllib.error.HTTPError as e:
                 body=e.read().decode("utf-8",errors="replace")
                 last_error=RuntimeError(f"Gemini API HTTP {e.code} on {model_name}: {body}")
@@ -174,6 +186,10 @@ Return ONLY valid JSON with these keys:
                     print(f"Transient Gemini network error; retrying in {delay}s...")
                     time.sleep(delay)
                     continue
+                break
+            except json.JSONDecodeError as e:
+                last_error=RuntimeError(f"Gemini returned malformed JSON even after repair on {model_name}: {e}")
+                print(str(last_error))
                 break
 
     raise last_error or RuntimeError("Gemini generation failed after retries and fallback")
