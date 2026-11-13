@@ -1,7 +1,26 @@
 {
-  "last_slot": null,
-  "last_published_at": null,
-  "last_title": null,
-  "last_url": null,
-  "history": []
+  "last_slot": "2026-11-13-PM",
+  "last_published_at": "2026-11-13T21:19:21.452476+05:30",
+  "last_title": "AI Agent State Persistence and Recovery: How to Handle Crashes, Retries and",
+  "last_url": "https://xenors.in/ai/ai-agent-state-persistence-recovery-2026/",
+  "history": [
+    {
+      "slot": "2026-11-13-PM",
+      "url": "https://xenors.in/ai/ai-agent-state-persistence-recovery-2026/",
+      "title": "AI Agent State Persistence and Recovery: How to Handle Crashes, Retries and"
+    }
+  ],
+  "last_model": "gemini-3.8-flash",
+  "last_internal_links": [
+    "ai/ai-agents-for-developers-2026/index.html",
+    "ai/ai-agent-human-in-the-loop-approvals-2026/index.html",
+    "ai/agentic-ai-vs-generative-ai-2026/index.html"
+  ],
+  "last_keyword_cluster": [
+    "AI agent state persistence",
+    "agent checkpointing",
+    "durable agent workflows",
+    "LLM agent error recovery",
+    "idempotent tool execution"
+  ]
 }
