@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Connecting Edge AI Vision to PLCs: Modbus TCP Architecture, Handshakes &amp; Ladder Logic</title>
+<meta name="description" content="Learn how to connect edge AI computer vision systems to industrial PLCs over Modbus TCP: register mapping, deterministic handshaking, heartbeat watchdogs, and ladder logic.">
+<meta name="author" content="Ashok Kumar Yadav">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<link rel="canonical" href="https://xenors.in/plc/edge-ai-vision-plc-modbus-integration/">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Xenors">
+<meta property="og:title" content="Connecting Edge AI Vision to PLCs: Modbus TCP Architecture, Handshakes &amp; Ladder Logic">
+<meta property="og:description" content="Learn how to connect edge AI computer vision systems to industrial PLCs over Modbus TCP: register mapping, deterministic handshaking, heartbeat watchdogs, and ladder logic.">
+<meta property="og:url" content="https://xenors.in/plc/edge-ai-vision-plc-modbus-integration/">
+<meta property="og:image" content="https://xenors.in/images/edge-ai-vision-plc-modbus-integration-hero.webp">
+<meta name="twitter:card" content="summary_large_image">
+<link href="/components/header.css" rel="stylesheet">
+<link href="/components/footer.css" rel="stylesheet">
+<link href="/components/read-also.css" rel="stylesheet">
+<link href="/styles/seo-global.css" rel="stylesheet">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "headline": "Connecting Edge AI Vision to PLCs: Modbus TCP Architecture, Handshakes & Ladder Logic", "description": "Learn how to connect edge AI computer vision systems to industrial PLCs over Modbus TCP: register mapping, deterministic handshaking, heartbeat watchdogs, and ladder logic.", "mainEntityOfPage": "https://xenors.in/plc/edge-ai-vision-plc-modbus-integration/", "datePublished": "2026-11-13", "dateModified": "2026-11-13", "author": {"@type": "Person", "name": "Ashok Kumar Yadav", "url": "https://xenors.in/ashok-kumar-yadav-biography/"}, "publisher": {"@type": "Organization", "name": "Xenors", "url": "https://xenors.in"}, "image": "https://xenors.in/images/edge-ai-vision-plc-modbus-integration-hero.webp", "keywords": ["edge ai vision plc integration", "modbus tcp edge ai", "plc vision system handshake", "industrial computer vision plc trigger", "pymodbus plc machine vision"], "inLanguage": "en"}</script>
+<style>
+body{margin:0;background:#f6f8fc;color:#101828;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.72}
+.xa{width:min(1040px,calc(100% - 28px));margin:auto;padding:28px 0 72px} .hero{background:#fff;border:1px solid #e4e8f0;border-radius:24px;overflow:hidden;box-shadow:0 16px 48px rgba(15,23,42,.07)}
+.hero-copy{padding:38px} h1{font-size:clamp(2.2rem,5vw,4rem);line-height:1.05;letter-spacing:-.045em;margin:.2em 0}
+.lede{font-size:1.08rem;color:#526074;max-width:850px} .hero img{width:100%;aspect-ratio:1200/630;object-fit:cover}
+.content{max-width:780px;margin:42px auto} .content h2{font-size:clamp(1.6rem,3vw,2.25rem);line-height:1.2;margin-top:2em} .content h3{margin-top:1.6em}
+.content p,.content li{color:#344054} .content table{width:100%;border-collapse:collapse;display:block;overflow-x:auto} .content th,.content td{border:1px solid #e4e8f0;padding:10px;text-align:left}
+.content pre{overflow:auto;background:#111827;color:#f8fafc;padding:16px;border-radius:12px} .meta{font-size:.9rem;color:#667085} .crumbs{font-size:.9rem;color:#667085;margin-bottom:16px}
+@media(max-width:620px){.xa{width:min(100% - 18px,1040px)}.hero-copy{padding:24px}}
+</style>
+</head>
+<body>
+<main class="xa">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/plc/">Plc</a> / Connecting Edge AI Vision to PLCs: Modbus TCP Architecture, Handshakes &amp; Ladder Logic</nav>
+<article>
+<header class="hero">
+<div class="hero-copy"><p class="meta">Xenors · Provide an end-to-end engineering guide for integrating edge AI vision inference systems with industrial PLCs using Modbus TCP, covering network topologies, register maps, Python driver code, ladder logic state machines, and fail-safe latency budgets.</p><h1>Connecting Edge AI Vision to PLCs: Modbus TCP Architecture, Handshakes &amp; Ladder Logic</h1><p class="lede">A field-tested guide to deterministic handshakes, heartbeat watchdogs, register mapping, and fail-safe state machines between AI inference boxes and industrial controllers.</p><p class="meta">By Ashok Kumar Yadav · November 13, 2026</p></div>
+<img src="/images/edge-ai-vision-plc-modbus-integration-hero.webp" width="1200" height="630" alt="Connecting Edge AI Vision to PLCs: Modbus TCP Architecture, Handshakes &amp; Ladder Logic" fetchpriority="high" decoding="async">
+</header>
+<div class="content"><h2>The IT/OT Disconnect in Industrial Edge AI</h2>
+<p>Deploying deep learning models like YOLO or custom segmentation networks on industrial edge devices (such as NVIDIA Jetson Orin modules, Siemens IPCs, or Advantech industrial computers) is only half the battle in factory automation. The point of failure in computer vision deployments is rarely model accuracy in isolation; it is almost always the communication interface between the edge inference engine and the programmable logic controller (PLC).</p>
+<p>While computer vision engineers think in terms of frames per second, asynchronously scheduled inferencing, and dynamic JSON payloads, automation engineers think in deterministic scan cycles (typically 2&nbsp;ms to 20&nbsp;ms), strict register offsets, and fail-safe hardware interlocks. If an edge computer crashes, drops a packet, or takes 150&nbsp;ms longer than expected because of memory throttling, an unguided conveyor can jam, a sorting diverter can fire late, or an uninspected defective assembly can reach downstream operations.</p>
+<p>This implementation guide walks through the complete architecture required to connect an edge AI vision pipeline to a PLC using Modbus TCP—the most accessible and vendor-agnostic industrial protocol. We examine deterministic handshaking, register layout design, bidirectional heartbeat watchdogs, production-grade Python edge code, and corresponding PLC ladder logic state machines.</p>
+
+<h2>System Architecture and Physical Topology</h2>
+<p>In a standard quality inspection or parts sorting line, the edge AI computer operates alongside the PLC on an isolated Operational Technology (OT) machine network. High-speed cameras trigger on physical proximity sensors, the edge AI classifies or segments the part, and the discrete outcome (Pass/Fail, Defect Class ID, X/Y offset coordinates) must reach the PLC before the part hits the physical reject gate.</p>
+
+<table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
+  <thead>
+    <tr style="background-color:#f2f4f8; text-align:left;">
+      <th>Architecture Layer</th>
+      <th>Hardware / Software Components</th>
+      <th>Role & Responsibility</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Sensing Layer</strong></td>
+      <td>Through-beam photo eye, 24V PNP inductive sensor, GigE/USB3 Vision camera</td>
+      <td>Detects raw physical part arrival; triggers camera shutter hardware directly or via PLC digital output.</td>
+    </tr>
+    <tr>
+      <td><strong>Inference Layer</strong></td>
+      <td>Industrial PC / Edge Box (NVIDIA Jetson, Intel Core i7 IPC), TensorRT runtime</td>
+      <td>Acquires frame, runs pre-processing, performs tensor inference, formats verdict, updates Modbus registers.</td>
+    </tr>
+    <tr>
+      <td><strong>Communications Layer</strong></td>
+      <td>Modbus TCP over unmanaged/managed industrial Ethernet switch (Port 502)</td>
+      <td>Provides structured, cyclic data exchange (holding registers, input coils) between Edge AI and PLC.</td>
+    </tr>
+    <tr>
+      <td><strong>Control Layer</strong></td>
+      <td>PLC (Siemens S7-1200/1500, Allen-Bradley Micro800/CompactLogix, Schneider Modicon)</td>
+      <td>Tracks conveyor encoder counts, manages inspection handshakes, executes reject actuation, trips safety alarms.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For related fundamentals on how PLCs process digital signals within their internal scan loops, review our reference on <a href="/plc/plc-basics-inputs-outputs-ladder-logic/index.html">PLC basics, inputs, outputs, and ladder logic</a>. If your edge setup feeds into mobile equipment or warehouse safety cameras, compare this setup against <a href="/ai/ai-pedestrian-detection-system/index.html">factory-floor AI pedestrian detection systems</a>.</p>
+
+<h2>The Deterministic 6-Phase Handshake Protocol</h2>
+<p>The biggest architectural error engineers make is treating the PLC interface as a fire-and-forget message bus. A vision result written to a Modbus register without an explicit handshake guarantees race conditions: the PLC may read stale data from a previous cycle or read half-written registers mid-scan.</p>
+<p>To ensure deterministic synchronization, implement an explicit 6-phase interlocking state machine using two status registers or discrete bits:</p>
+<ol>
+  <li><strong>Part Present / Trigger (PLC to AI):</strong> The PLC detects a part via photo-eye or encoder latch and sets the <code>Trigger</code> bit (Coil or Register bit) HIGH.</li>
+  <li><strong>Acknowledge & Busy (AI to PLC):</strong> The Edge AI sees the trigger, latches an internal processing flag, and sets the <code>Busy</code> bit HIGH while clearing its previous <code>Result_Ready</code> bit.</li>
+  <li><strong>Trigger Clear (PLC to AI):</strong> Upon detecting <code>Busy == 1</code>, the PLC resets its <code>Trigger</code> bit back to LOW. This prevents double-triggering on slow conveyor segments.</li>
+  <li><strong>Inference & Register Update (Edge AI):</strong> The vision engine completes neural network inference, writes numeric scores (defect code, score, coordinates) to data registers, and asserts <code>Result_Ready = 1</code>. Simultaneously, it sets <code>Busy = 0</code>.</li>
+  <li><strong>PLC Read & Process (PLC):</strong> The PLC detects <code>Result_Ready == 1</code>, ingests the data registers into local variables, tracks the part in its shift-register/FIFO queue, and sets an <code>Acknowledge</code> bit HIGH.</li>
+  <li><strong>Reset & Ready (AI to PLC):</strong> The Edge AI sees the PLC's <code>Acknowledge</code>, clears <code>Result_Ready = 0</code>, and returns to the IDLE listening state. The PLC subsequently drops <code>Acknowledge = 0</code>.</li>
+</ol>
+
+<pre><code>[CONVEYOR] ---> Photo-Eye Tripped
+                    |
+[PLC]      ---> Sets Trigger = 1
+                    |---------> [EDGE AI] Detects Trigger
+                                            | Sets Busy = 1
+[PLC]      <--------------------------------|
+[PLC]      ---> Clears Trigger = 0
+                                [EDGE AI] Runs Deep Learning Inference
+                                            | Writes Class, Bounding Box, Pass/Fail
+                                            | Sets Result_Ready = 1, Busy = 0
+[PLC]      <--------------------------------|
+[PLC]      ---> Reads Registers
+           ---> Appends result to Diverter FIFO
+           ---> Sets Ack = 1
+                                [EDGE AI] Detects Ack = 1
+                                            | Sets Result_Ready = 0
+[PLC]      <--------------------------------|
+[PLC]      ---> Clears Ack = 0 (System IDLE)</code></pre>
+
+<h2>Designing the Modbus TCP Register Map</h2>
+<p>Modbus TCP uses 16-bit word addresses. When transmitting multi-byte data (like 32-bit floats for neural network confidence or signed integers for camera coordinates), you must explicitly define endianness (Word swap and Byte swap). Industrial PLCs like Siemens typically default to Big-Endian (Motorola format), while x86/ARM edge systems run Little-Endian (Intel format).</p>
+
+<h3>Standard 100-Word Register Table (Edge AI as Modbus Server)</h3>
+<table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
+  <thead>
+    <tr style="background-color:#f2f4f8; text-align:left;">
+      <th>Address</th>
+      <th>Tag Name</th>
+      <th>Data Type</th>
+      <th>Direction</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>40001</code></td>
+      <td><code>CMD_CONTROL</code></td>
+      <td>UINT16</td>
+      <td>PLC &rarr; AI</td>
+      <td>Bit 0: Trigger, Bit 1: Ack, Bit 2: Reset Error, Bit 7: Recipe Reload.</td>
+    </tr>
+    <tr>
+      <td><code>40002</code></td>
+      <td><code>PLC_HEARTBEAT</code></td>
+      <td>UINT16</td>
+      <td>PLC &rarr; AI</td>
+      <td>Free-running rolling counter (0&ndash;65535, increments every 100&nbsp;ms).</td>
+    </tr>
+    <tr>
+      <td><code>40003</code></td>
+      <td><code>RECIPE_ID</code></td>
+      <td>UINT16</td>
+      <td>PLC &rarr; AI</td>
+      <td>Product SKU or active model weights index (e.g., 101 = Part A, 102 = Part B).</td>
+    </tr>
+    <tr>
+      <td><code>40010</code></td>
+      <td><code>STATUS_FLAGS</code></td>
+      <td>UINT16</td>
+      <td>AI &rarr; PLC</td>
+      <td>Bit 0: Ready, Bit 1: Busy, Bit 2: Result Ready, Bit 3: General Fault.</td>
+    </tr>
+    <tr>
+      <td><code>40011</code></td>
+      <td><code>AI_HEARTBEAT</code></td>
+      <td>UINT16</td>
+      <td>AI &rarr; PLC</td>
+      <td>Echo or independent rolling counter from AI process (watchdog).</td>
+    </tr>
+    <tr>
+      <td><code>40012</code></td>
+      <td><code>INSPECTION_RESULT</code></td>
+      <td>UINT16</td>
+      <td>AI &rarr; PLC</td>
+      <td>0 = Undetermined, 1 = Pass, 2 = Defect / Fail, 3 = Invalid Image/Occluded.</td>
+    </tr>
+    <tr>
+      <td><code>40013</code></td>
+      <td><code>DEFECT_CLASS</code></td>
+      <td>UINT16</td>
+      <td>AI &rarr; PLC</td>
+      <td>Encoded category (1: Scratch, 2: Crack, 3: Missing Component, 4: Wrong Color).</td>
+    </tr>
+    <tr>
+      <td><code>40014&ndash;40015</code></td>
+      <td><code>CONFIDENCE_SCORE</code></td>
+      <td>FLOAT32</td>
+      <td>AI &rarr; PLC</td>
+      <td>Model confidence (0.0 to 1.0). Requires 2 consecutive 16-bit registers.</td>
+    </tr>
+    <tr>
+      <td><code>40016</code></td>
+      <td><code>INFERENCE_TIME_MS</code></td>
+      <td>UINT16</td>
+      <td>AI &rarr; PLC</td>
+      <td>Total duration in milliseconds (frame acquisition + pre-process + inference).</td>
+    </tr>
+    <tr>
+      <td><code>40017</code></td>
+      <td><code>ERROR_CODE</code></td>
+      <td>UINT16</td>
+      <td>AI &rarr; PLC</td>
+      <td>Diagnostic code (0: OK, 10: Camera Disconnect, 20: CUDA OOM, 30: Timeout).</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Edge AI Driver: Python Implementation with PyModbus</h2>
+<p>On the edge device, running inference and serving Modbus registers in a single thread creates unbounded jitter. If an image frame takes 80&nbsp;ms to process, the Modbus server must not block incoming PLC heartbeat requests during that window. A robust implementation runs an asynchronous Modbus TCP server in a background event loop while an inference worker interacts with shared thread-safe datastores.</p>
+
+<p>The following example uses <code>pymodbus</code> (v3.x) with a decoupled worker pattern. For building custom object detection pipelines to plug into this script, see our guide on <a href="/data-science/yolo-object-detection-python/index.html">YOLO object detection in Python</a>.</p>
+
+<pre><code class="language-python">import time
+import struct
+import threading
+import logging
+from pymodbus.server import StartAsyncTcpServer
+from pymodbus.datastore import ModbusSequentialDataBlock, ModbusSlaveContext, ModbusServerContext
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("EdgeVisionBridge")
+
+# Register Offsets (0-indexed in pymodbus)
+REG_CMD_CONTROL      = 0   # 40001
+REG_PLC_HEARTBEAT    = 1   # 40002
+REG_RECIPE_ID        = 2   # 40003
+REG_STATUS_FLAGS     = 9   # 40010
+REG_AI_HEARTBEAT     = 10  # 40011
+REG_INSPECT_RESULT   = 11  # 40012
+REG_DEFECT_CLASS     = 12  # 40013
+REG_CONFIDENCE_HI    = 13  # 40014
+REG_CONFIDENCE_LO    = 14  # 40015
+REG_INFERENCE_MS     = 15  # 40016
+REG_ERROR_CODE       = 16  # 40017
+
+# Bitmasks for CMD_CONTROL
+MASK_TRIGGER         = 0x0001
+MASK_ACK             = 0x0002
+MASK_RESET_ERR       = 0x0004
+
+# Bitmasks for STATUS_FLAGS
+FLAG_READY           = 0x0001
+FLAG_BUSY            = 0x0002
+FLAG_RESULT_READY    = 0x0004
+FLAG_FAULT           = 0x0008
+
+def pack_float32(val):
+    """Packs float32 into two 16-bit registers (Big-Endian word order)."""
+    raw = struct.pack("&gt;f", float(val))
+    hi, lo = struct.unpack("&gt;HH", raw)
+    return hi, lo
+
+class EdgeVisionPipeline:
+    def __init__(self, datastore):
+        self.store = datastore
+        self.running = True
+        self.heartbeat_counter = 0
+        self.last_plc_heartbeat = 0
+        self.heartbeat_timeout_limit = 5.0  # seconds
+        self.last_plc_change_time = time.time()
+
+    def run_mock_inference(self):
+        """Simulate model inference (e.g., ONNX Runtime or TensorRT)."""
+        start = time.perf_counter()
+        # Simulate 35ms inference processing time
+        time.sleep(0.035)
+        elapsed_ms = int((time.perf_counter() - start) * 1000)
+        
+        # Simulated outputs: Pass (1), Defect None (0), Confidence 0.965
+        result = 1
+        defect_class = 0
+        confidence = 0.965
+        return result, defect_class, confidence, elapsed_ms
+
+    def loop(self):
+        logger.info("Edge AI Vision Engine loop started.")
+        # Initialize status as READY
+        self.store.setValues(3, REG_STATUS_FLAGS, [FLAG_READY])
+
+        while self.running:
+            loop_start = time.time()
+            
+            # 1. Heartbeat &amp; Watchdog Supervision
+            self.heartbeat_counter = (self.heartbeat_counter + 1) &amp; 0xFFFF
+            self.store.setValues(3, REG_AI_HEARTBEAT, [self.heartbeat_counter])
+            
+            plc_hb = self.store.getValues(3, REG_PLC_HEARTBEAT, 1)[0]
+            if plc_hb != self.last_plc_heartbeat:
+                self.last_plc_heartbeat = plc_hb
+                self.last_plc_change_time = time.time()
+            elif time.time() - self.last_plc_change_time &gt; self.heartbeat_timeout_limit:
+                # PLC stopped updating heartbeat
+                status = self.store.getValues(3, REG_STATUS_FLAGS, 1)[0]
+                self.store.setValues(3, REG_STATUS_FLAGS, [status | FLAG_FAULT])
+                self.store.setValues(3, REG_ERROR_CODE, [100]) # 100 = PLC Comm Loss
+            
+            # 2. Read Control Word from PLC
+            cmd = self.store.getValues(3, REG_CMD_CONTROL, 1)[0]
+            status = self.store.getValues(3, REG_STATUS_FLAGS, 1)[0]
+            
+            is_trigger = bool(cmd &amp; MASK_TRIGGER)
+            is_ack = bool(cmd &amp; MASK_ACK)
+            
+            # 3. Handshake Execution
+            if is_trigger and not (status &amp; FLAG_BUSY) and not (status &amp; FLAG_RESULT_READY):
+                # Transition to BUSY
+                logger.info("Trigger received. Starting inspection...")
+                self.store.setValues(3, REG_STATUS_FLAGS, [FLAG_BUSY])
+                
+                # Execute vision model
+                res, defect, conf, duration = self.run_mock_inference()
+                
+                # Write output values to data block
+                hi_w, lo_w = pack_float32(conf)
+                self.store.setValues(3, REG_INSPECT_RESULT, [res])
+                self.store.setValues(3, REG_DEFECT_CLASS, [defect])
+                self.store.setValues(3, REG_CONFIDENCE_HI, [hi_w, lo_w])
+                self.store.setValues(3, REG_INFERENCE_MS, [duration])
+                
+                # Set RESULT_READY flag, clear BUSY
+                self.store.setValues(3, REG_STATUS_FLAGS, [FLAG_RESULT_READY])
+                logger.info(f"Inspection complete ({duration}ms). Result={res}. Awaiting PLC Ack.")
+
+            elif is_ack and (status &amp; FLAG_RESULT_READY):
+                # PLC has latched result. Reset back to READY.
+                self.store.setValues(3, REG_STATUS_FLAGS, [FLAG_READY])
+                logger.info("PLC Acknowledged. State machine reset to READY.")
+
+            # Maintain ~100Hz supervisory tick
+            sleep_time = max(0.01 - (time.time() - loop_start), 0.001)
+            time.sleep(sleep_time)
+
+async def start_server():
+    # Holding registers 40001 to 40100 (100 words)
+    datablock = ModbusSequentialDataBlock(0, [0] * 100)
+    slave_context = ModbusSlaveContext(di=None, co=None, hr=datablock, ir=None)
+    server_context = ModbusServerContext(slaves=slave_context, single=True)
+
+    # Spawn edge background inspection loop
+    pipeline = EdgeVisionPipeline(datablock)
+    worker_thread = threading.Thread(target=pipeline.loop, daemon=True)
+    worker_thread.start()
+
+    logger.info("Starting Modbus TCP Server on 0.0.0.0:5020...")
+    # Port 5020 for unprivileged local testing; change to 502 for factory standard
+    await StartAsyncTcpServer(context=server_context, address=("0.0.0.0", 5020))
+
+if __name__ == "__main__":
+    import asyncio
+    asyncio.run(start_server())
+</code></pre>
+
+<h2>PLC Implementation: Structured Text & Ladder Logic State Machine</h2>
+<p>On the PLC side (such as a Siemens S7-1200 running TIA Portal or a Beckhoff TwinCAT controller), the vision cycle should never rely on ad-hoc timer delays. It must be implemented as a rigid Finite State Machine (FSM).</p>
+
+<h3>Structured Text (ST / SCL) Inspection Task</h3>
+<pre><code>// State Definitions
+// 0 = IDLE / WAIT_FOR_PART
+// 10 = SEND_TRIGGER
+// 20 = WAIT_FOR_BUSY
+// 30 = WAIT_FOR_RESULT
+// 40 = READ_AND_QUEUE
+// 50 = SEND_ACK
+// 60 = WAIT_AI_RESET
+// 99 = ERROR_TIMEOUT
+
+CASE iInspectionState OF
+    0: // IDLE
+        bTriggerBit := FALSE;
+        bAckBit := FALSE;
+        IF bPartDetectedAtCameraSensor AND (wAiStatusFlags AND 16#0001 = 16#0001) THEN
+            // Part is present AND AI Vision is in READY state
+            tonTimeout(IN := FALSE);
+            iInspectionState := 10;
+        END_IF;
+
+    10: // SEND_TRIGGER
+        bTriggerBit := TRUE;
+        tonTimeout(IN := TRUE, PT := T#500MS);
+        IF (wAiStatusFlags AND 16#0002) = 16#0002 THEN
+            // AI set BUSY
+            bTriggerBit := FALSE; // Clear trigger immediately
+            tonTimeout(IN := FALSE);
+            iInspectionState := 30;
+        ELSIF tonTimeout.Q THEN
+            iInspectionState := 99; // Handshake timeout
+        END_IF;
+
+    30: // WAIT_FOR_RESULT
+        tonTimeout(IN := TRUE, PT := T#1500MS); // Max inference window
+        IF (wAiStatusFlags AND 16#0004) = 16#0004 THEN
+            // RESULT_READY asserted
+            tonTimeout(IN := FALSE);
+            iInspectionState := 40;
+        ELSIF tonTimeout.Q THEN
+            iInspectionState := 99;
+        END_IF;
+
+    40: // READ_AND_QUEUE
+        // Transfer registers into conveyor tracking FIFO
+        stPartTrackRecord.iResult := wAiResultRegister;
+        stPartTrackRecord.iDefectCode := wAiDefectRegister;
+        stPartTrackRecord.diEncoderPosition := diCurrentEncoderCount;
+        
+        // Push to downstream diverter FIFO buffer
+        fbConveyorFIFO.Push(stPartTrackRecord);
+        iInspectionState := 50;
+
+    50: // SEND_ACK
+        bAckBit := TRUE;
+        tonTimeout(IN := TRUE, PT := T#500MS);
+        IF (wAiStatusFlags AND 16#0004) = 0 THEN
+            // AI has seen ACK and cleared RESULT_READY
+            bAckBit := FALSE;
+            tonTimeout(IN := FALSE);
+            iInspectionState := 0; // Return to IDLE
+        ELSIF tonTimeout.Q THEN
+            iInspectionState := 99;
+        END_IF;
+
+    99: // ERROR / TIMEOUT
+        bTriggerBit := FALSE;
+        bAckBit := FALSE;
+        bVisionFaultAlarm := TRUE;
+        // Route uninspected part to reject bin by default (Fail-Safe)
+        stPartTrackRecord.iResult := 2; // Treat as Defective
+        fbConveyorFIFO.Push(stPartTrackRecord);
+END_CASE;
+</code></pre>
+
+<h2>The Bidirectional Heartbeat Watchdog</h2>
+<p>Unlike traditional optical sensors that fail open or closed, edge AI nodes fail in nuanced ways. An inference model can trigger a CUDA driver lockup or Python memory leak where the TCP socket remains responsive and accepts packets, but the vision application thread is deadlocked.</p>
+<p>To prevent uninspected parts from passing into packaging lines during an AI silent freeze, enforce a <strong>dual-counter rolling watchdog</strong>:</p>
+<ul>
+  <li><strong>PLC Watchdog:</strong> The PLC increments <code>PLC_HEARTBEAT</code> (register <code>40002</code>) every 100&nbsp;ms. The edge Python worker tracks changes to this value. If the value does not change for 3 consecutive seconds, the edge software logs a PLC communication error and pauses trigger listening.</li>
+  <li><strong>Edge AI Watchdog:</strong> The edge vision script increments <code>AI_HEARTBEAT</code> (register <code>40011</code>) inside its active processing loop. The PLC monitors this register using a standard timer block (e.g., Siemens <code>TON</code> or Allen-Bradley <code>TONR</code>). If the edge heartbeat register does not change for 500&nbsp;ms, the PLC trips an audible alarm, halts upstream product infeed, and defaults any in-transit parts to the reject station.</li>
+</ul>
+<p>For safety-critical architectural rules regarding autonomous system boundaries and fail-safe interlocks, consult our reference on <a href="/ai/ai-agent-guardrails-safety-2026/index.html">AI agent guardrails and operational safety</a>.</p>
+
+<h2>Latency Budgets and Cycle Time Calculations</h2>
+<p>Industrial lines running at 120 parts per minute allow a maximum window of <strong>500&nbsp;ms per cycle</strong>. If the physical distance between the camera capture point and the reject pneumatic piston is 800&nbsp;mm on a conveyor running at 1.2&nbsp;m/s, the absolute time-of-flight available for inspection and actuator triggering is:</p>
+
+<blockquote>
+  <strong>Total Available Time Window:</strong><br>
+  <code>T_available = Distance / Velocity = 0.8 m / 1.2 m/s = 0.666 s (666 ms)</code>
+</blockquote>
+
+<p>Every phase of the integration eats into this budget:</p>
+
+<table border="1" cellpadding="8" cellspacing="0" style="width:100%; border-collapse:collapse;">
+  <thead>
+    <tr style="background-color:#f2f4f8; text-align:left;">
+      <th>Subsystem Phase</th>
+      <th>Typical Latency (Min&ndash;Max)</th>
+      <th>Key Latency Drivers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Photo-eye debounce &amp; PLC Input Scan</td>
+      <td>4&nbsp;ms &ndash; 15&nbsp;ms</td>
+      <td>Input card filter time setting (typically 3&nbsp;ms standard).</td>
+    </tr>
+    <tr>
+      <td>Modbus TCP Poll / Trigger Delivery</td>
+      <td>10&nbsp;ms &ndash; 40&nbsp;ms</td>
+      <td>PLC Modbus client cyclic poll rate and network switch hop.</td>
+    </tr>
+    <tr>
+      <td>Camera Exposure &amp; GigE Packet Transfer</td>
+      <td>15&nbsp;ms &ndash; 35&nbsp;ms</td>
+      <td>Exposure duration, ROI sensor read-out, GenICam transfer.</td>
+    </tr>
+    <tr>
+      <td>Edge Pre-processing &amp; TensorRT Inference</td>
+      <td>20&nbsp;ms &ndash; 65&nbsp;ms</td>
+      <td>FP16/INT8 precision, input resolution (e.g., 640x640 vs 1280x1280).</td>
+    </tr>
+    <tr>
+      <td>Modbus Register Write &amp; PLC Read Scan</td>
+      <td>10&nbsp;ms &ndash; 40&nbsp;ms</td>
+      <td>Next PLC Modbus client poll cycle and program scan cycle.</td>
+    </tr>
+    <tr>
+      <td>Pneumatic Actuator Physical Travel</td>
+      <td>40&nbsp;ms &ndash; 80&nbsp;ms</td>
+      <td>Solenoid valve coil energization, air pressure, mechanical stroke.</td>
+    </tr>
+    <tr style="font-weight:bold; background-color:#fafbfc;">
+      <td>Total End-to-End Latency</td>
+      <td>99&nbsp;ms &ndash; 275&nbsp;ms</td>
+      <td>Comfortably inside the 666&nbsp;ms physical line budget.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>If your end-to-end latency budget exceeds the physical travel time, the solution is not to overclock the neural network. You must mechanically move the camera further upstream or decouple the inspection from the diverter using an encoder-tracked shift register.</p>
+
+<h2>Five Common Commissioning Pitfalls &amp; Troubleshooting</h2>
+
+<h3>1. Endianness / Byte Swapping Mismatches</h3>
+<p><strong>Symptom:</strong> The Edge AI writes a confidence value of <code>0.95</code>, but the PLC reads <code>-1.423e-28</code> or an erratic integer.<br>
+<strong>Fix:</strong> Check word swap settings. IEEE 754 32-bit floating-point numbers require two 16-bit registers. Some PLCs read the least significant word first (Little-Endian Word Order), while others expect the most significant word first (Big-Endian Word Order). Provide a software toggle in the edge configuration to swap registers <code>(Word0, Word1) &harr; (Word1, Word0)</code>.</p>
+
+<h3>2. Race Conditions on Result Registers</h3>
+<p><strong>Symptom:</strong> The PLC occasionally rejects a perfect part, logging the defect code from the <em>previous</em> part.<br>
+<strong>Fix:</strong> Never read result registers continuously. The PLC logic must only read registers <code>40012&ndash;40016</code> when the edge system has explicitly transitioned <code>Result_Ready</code> to HIGH. Clear local variables in the PLC at the start of each trigger sequence.</p>
+
+<h3>3. Network Port Conflicts on Industrial PCs</h3>
+<p><strong>Symptom:</strong> The Python edge driver fails to bind with <code>PermissionError: [Errno 13] Permission denied</code>.<br>
+<strong>Fix:</strong> Standard Modbus TCP operates on port <code>502</code>, which requires root/administrator privileges on Linux systems. Either grant the Python binary binding capabilities using <code>sudo setcap 'cap_net_bind_service=+ep' $(readlink -f $(which python3))</code>, or run the Modbus server on a high port (such as <code>5020</code>) and configure port redirection via <code>iptables</code>.</p>
+
+<h3>4. Unbounded Modbus Poll Jitter</h3>
+<p><strong>Symptom:</strong> Handshake cycle times fluctuate randomly between 30&nbsp;ms and 250&nbsp;ms.<br>
+<strong>Fix:</strong> PLCs handle communication tasks in secondary execution slices. If your PLC program uses cyclic Modbus client blocks (such as Siemens <code>MB_CLIENT</code>), ensure the block is scheduled in a dedicated cyclic interrupt OB (Organization Block) with a fixed execution time (e.g., every 10&nbsp;ms) rather than in the main cyclic loop <code>OB1</code>.</p>
+
+<h3>5. Camera Driver Lockup During Network Dropouts</h3>
+<p><strong>Symptom:</strong> The edge computer stops responding to trigger bits after an electrician unplugs and replugs an Ethernet patch cable.<br>
+<strong>Fix:</strong> Implement explicit socket teardown and reconnection logic in your edge communications daemon. Always configure TCP Keep-Alive parameters (<code>SO_KEEPALIVE</code>, <code>TCP_KEEPIDLE=1</code>, <code>TCP_KEEPINTVL=1</code>, <code>TCP_KEEPCNT=3</code>) on both the edge server and the PLC client so that broken sockets drop within 3 seconds instead of hanging in <code>CLOSE_WAIT</code> for several minutes.</p>
+
+<h2>Commissioning Checklist for Production Sign-Off</h2>
+<ul>
+  <li>[ ] <strong>Subnet Isolation:</strong> The Edge AI IPC has two physical NICs: NIC1 on the corporate IT/monitoring network, and NIC2 on a strictly isolated 24V OT subnet directly connected to the PLC.</li>
+  <li>[ ] <strong>Static IP Addressing:</strong> All machine vision devices, cameras, and PLC Ethernet modules have hardcoded, non-DHCP static IP addresses recorded in electrical panel documentation.</li>
+  <li>[ ] <strong>Watchdog Trip Test:</strong> With the conveyor running, forcefully kill the edge Python process (<code>kill -9</code>). Verify that the PLC halts the upstream infeed or routes all downstream parts to reject within 500&nbsp;ms.</li>
+  <li>[ ] <strong>Part Burst Test:</strong> Run 50 parts back-to-back at maximum line speed. Ensure the PLC FIFO queue does not overrun, and verify that every physical trigger maps to exactly one inspection log entry.</li>
+  <li>[ ] <strong>Failsafe Defaulting:</strong> Ensure the PLC logic treats any unrecognized Modbus defect code or timeout as a defect (fail-safe reject), preventing uninspected product from leaving the station.</li>
+</ul>
+
+<h2>Sources</h2>
+<ul>
+  <li><a href="https://www.modbus.org/specs.php">Modbus Organization &ndash; Modbus Application Protocol Specification V1.1b3</a></li>
+  <li><a href="https://pymodbus.readthedocs.io/">PyModbus Documentation &ndash; Python Modbus Library for Industrial Communications</a></li>
+  <li><a href="https://opcfoundation.org/">OPC Foundation &ndash; Unified Architecture (OPC UA) Industrial Interoperability Standards</a></li>
+</ul></div>
+</article>
+</main>
+<script data-xenors-common="read-also-js" defer src="/components/read-also.js"></script>
+<script data-xenors-build="site-shell-js" defer src="/components/site-shell.js"></script>
+</body></html>

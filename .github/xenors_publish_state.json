@@ -1,26 +1,32 @@
 {
-  "last_slot": "2026-11-13-PM",
-  "last_published_at": "2026-11-13T21:19:21.452476+05:30",
-  "last_title": "AI Agent State Persistence and Recovery: How to Handle Crashes, Retries and",
-  "last_url": "https://xenors.in/ai/ai-agent-state-persistence-recovery-2026/",
+  "last_slot": "2026-11-13-MANUAL-221419",
+  "last_published_at": "2026-11-13T22:14:19.024904+05:30",
+  "last_title": "Connecting Edge AI Vision to PLCs: Modbus TCP Architecture, Handshakes & Ladder Logic",
+  "last_url": "https://xenors.in/plc/edge-ai-vision-plc-modbus-integration/",
   "history": [
     {
       "slot": "2026-11-13-PM",
       "url": "https://xenors.in/ai/ai-agent-state-persistence-recovery-2026/",
       "title": "AI Agent State Persistence and Recovery: How to Handle Crashes, Retries and"
+    },
+    {
+      "slot": "2026-11-13-MANUAL-221419",
+      "url": "https://xenors.in/plc/edge-ai-vision-plc-modbus-integration/",
+      "title": "Connecting Edge AI Vision to PLCs: Modbus TCP Architecture, Handshakes & Ladder Logic"
     }
   ],
   "last_model": "gemini-3.8-flash",
   "last_internal_links": [
-    "ai/ai-agents-for-developers-2026/index.html",
-    "ai/ai-agent-human-in-the-loop-approvals-2026/index.html",
-    "ai/agentic-ai-vs-generative-ai-2026/index.html"
+    "plc/plc-basics-inputs-outputs-ladder-logic/index.html",
+    "ai/ai-pedestrian-detection-system/index.html",
+    "data-science/yolo-object-detection-python/index.html",
+    "ai/ai-agent-guardrails-safety-2026/index.html"
   ],
   "last_keyword_cluster": [
-    "AI agent state persistence",
-    "agent checkpointing",
-    "durable agent workflows",
-    "LLM agent error recovery",
-    "idempotent tool execution"
+    "edge ai vision plc integration",
+    "modbus tcp edge ai",
+    "plc vision system handshake",
+    "industrial computer vision plc trigger",
+    "pymodbus plc machine vision"
   ]
 }
