@@ -32,7 +32,15 @@ def read_state():
     return {}
 
 def slot_name():
-    return f"{NOW.date().isoformat()}-{'AM' if NOW.hour < 14 else 'PM'}"
+    # Three publishing windows in IST: 10:00, 14:00, 18:00.
+    # Manual runs are assigned to the nearest forward daily slot bucket.
+    if NOW.hour < 12:
+        slot="AM"
+    elif NOW.hour < 16:
+        slot="MID"
+    else:
+        slot="PM"
+    return f"{NOW.date().isoformat()}-{slot}"
 
 def existing_pages():
     pages=[]
