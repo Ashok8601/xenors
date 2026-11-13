@@ -1,5 +1,5 @@
 from __future__ import annotations
-import json, os, re, textwrap, urllib.request, urllib.error
+import json, os, re, textwrap, urllib.request, urllib.error, time
 from datetime import datetime, timezone, timedelta
 from difflib import SequenceMatcher
 from html import escape
@@ -118,7 +118,6 @@ Return ONLY valid JSON with these keys:
 }}
 """
     api_key=os.environ["GEMINI_API_KEY"]
-    endpoint=f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
     payload={
         "contents":[{"role":"user","parts":[{"text":prompt}]}],
         "generationConfig":{
@@ -126,26 +125,56 @@ Return ONLY valid JSON with these keys:
             "temperature":0.6
         }
     }
-    req=urllib.request.Request(
-        endpoint,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "Content-Type":"application/json",
-            "x-goog-api-key":api_key
-        },
-        method="POST"
-    )
-    try:
-        with urllib.request.urlopen(req,timeout=180) as resp:
-            data=json.loads(resp.read().decode("utf-8"))
-    except urllib.error.HTTPError as e:
-        body=e.read().decode("utf-8",errors="replace")
-        raise RuntimeError(f"Gemini API HTTP {e.code}: {body}") from e
-    parts=(data.get("candidates") or [{}])[0].get("content",{}).get("parts",[])
-    output="".join(p.get("text","") for p in parts if isinstance(p,dict))
-    if not output.strip():
-        raise RuntimeError(f"Gemini returned no text: {json.dumps(data)[:1500]}")
-    return parse_json(output)
+
+    models=[]
+    for m in [MODEL, "gemini-2.5-flash"]:
+        if m and m not in models:
+            models.append(m)
+
+    last_error=None
+    for model_name in models:
+        endpoint=f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent"
+        for attempt in range(1,4):
+            req=urllib.request.Request(
+                endpoint,
+                data=json.dumps(payload).encode("utf-8"),
+                headers={
+                    "Content-Type":"application/json",
+                    "x-goog-api-key":api_key
+                },
+                method="POST"
+            )
+            try:
+                with urllib.request.urlopen(req,timeout=180) as resp:
+                    data=json.loads(resp.read().decode("utf-8"))
+                parts=(data.get("candidates") or [{}])[0].get("content",{}).get("parts",[])
+                output="".join(p.get("text","") for p in parts if isinstance(p,dict))
+                if not output.strip():
+                    raise RuntimeError(f"Gemini returned no text: {json.dumps(data)[:1500]}")
+                print(f"Gemini generation succeeded with {model_name} on attempt {attempt}")
+                return parse_json(output)
+            except urllib.error.HTTPError as e:
+                body=e.read().decode("utf-8",errors="replace")
+                last_error=RuntimeError(f"Gemini API HTTP {e.code} on {model_name}: {body}")
+                if e.code in {429,500,502,503,504} and attempt < 3:
+                    delay=10 * attempt
+                    print(f"Transient Gemini HTTP {e.code} on {model_name}; retrying in {delay}s...")
+                    time.sleep(delay)
+                    continue
+                if e.code in {429,500,502,503,504}:
+                    print(f"Gemini model {model_name} unavailable after retries; trying fallback model...")
+                    break
+                raise last_error from e
+            except (urllib.error.URLError, TimeoutError) as e:
+                last_error=RuntimeError(f"Gemini network error on {model_name}: {e}")
+                if attempt < 3:
+                    delay=10 * attempt
+                    print(f"Transient Gemini network error; retrying in {delay}s...")
+                    time.sleep(delay)
+                    continue
+                break
+
+    raise last_error or RuntimeError("Gemini generation failed after retries and fallback")
 
 def slug_ok(slug):
     return bool(re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",slug or ""))
