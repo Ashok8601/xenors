@@ -1,12 +1,11 @@
 from __future__ import annotations
-import json, os, re, textwrap
+import json, os, re, textwrap, urllib.request, urllib.error
 from datetime import datetime, timezone, timedelta
 from difflib import SequenceMatcher
 from html import escape
 from pathlib import Path
 
 from bs4 import BeautifulSoup
-from openai import OpenAI
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -14,7 +13,7 @@ STATE = ROOT / ".github" / "xenors_publish_state.json"
 IST = timezone(timedelta(hours=5, minutes=30))
 NOW = datetime.now(IST)
 SITE = "https://xenors.in"
-MODEL = os.getenv("OPENAI_MODEL", "gpt-6-luna")
+MODEL = os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
 ALLOWED_SECTIONS = {"ai", "tech", "plc", "coding", "data-science", "machine-learning"}
 PRIORITIES = [
     "AI agents and current AI",
@@ -91,11 +90,11 @@ Hard rules:
 - Do not duplicate or cannibalize an existing page.
 - Prefer a distinct troubleshooting, implementation, comparison, benchmark, architecture, checklist, commissioning, buyer, evaluation, security, or workflow angle.
 - Focus on practical engineering value, not generic filler.
-- Use current web research for time-sensitive claims. Prefer primary sources.
+- Prefer evergreen or implementation-focused topics. Do not make time-sensitive claims unless they are broadly established and stable.
 - Never invent benchmarks, standards, prices, release dates, product capabilities, quotes, or statistics.
 - Article body should be approximately 1600-2600 words and useful enough to bookmark.
 - Use clean HTML fragments only in body_html: h2/h3/p/ul/ol/table/pre/code/blockquote. No html/head/body tags.
-- Include a concise Sources section at the end with 3-6 real source links used.
+- Include a concise Sources section only with official/canonical links you are highly confident are real; never invent URLs.
 - No affiliate claims, no ranking guarantees, no keyword stuffing.
 - section must be one of: {", ".join(sorted(ALLOWED_SECTIONS))}
 - slug must be lowercase kebab-case without dates unless date is truly needed.
@@ -118,13 +117,35 @@ Return ONLY valid JSON with these keys:
   "source_urls":["https://..."]
 }}
 """
-    client=OpenAI(api_key=os.environ["OPENAI_API_KEY"])
-    r=client.responses.create(
-        model=MODEL,
-        tools=[{"type":"web_search"}],
-        input=prompt,
+    api_key=os.environ["GEMINI_API_KEY"]
+    endpoint=f"https://generativelanguage.googleapis.com/v1beta/models/{MODEL}:generateContent"
+    payload={
+        "contents":[{"role":"user","parts":[{"text":prompt}]}],
+        "generationConfig":{
+            "responseMimeType":"application/json",
+            "temperature":0.6
+        }
+    }
+    req=urllib.request.Request(
+        endpoint,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Content-Type":"application/json",
+            "x-goog-api-key":api_key
+        },
+        method="POST"
     )
-    return parse_json(r.output_text)
+    try:
+        with urllib.request.urlopen(req,timeout=180) as resp:
+            data=json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        body=e.read().decode("utf-8",errors="replace")
+        raise RuntimeError(f"Gemini API HTTP {e.code}: {body}") from e
+    parts=(data.get("candidates") or [{}])[0].get("content",{}).get("parts",[])
+    output="".join(p.get("text","") for p in parts if isinstance(p,dict))
+    if not output.strip():
+        raise RuntimeError(f"Gemini returned no text: {json.dumps(data)[:1500]}")
+    return parse_json(output)
 
 def slug_ok(slug):
     return bool(re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",slug or ""))
