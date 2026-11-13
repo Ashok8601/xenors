@@ -214,6 +214,14 @@ body{{margin:0;background:#f6f8fc;color:#101828;font-family:Inter,system-ui,-app
 <script data-xenors-build="site-shell-js" defer src="/components/site-shell.js"></script>
 </body></html>"""
 
+def update_source_date(rel_path):
+    p = ROOT / "config" / "source_dates.json"
+    data = {}
+    if p.exists():
+        data = json.loads(p.read_text(encoding="utf-8"))
+    data[rel_path] = NOW.date().isoformat()
+    p.write_text(json.dumps(data, indent=2, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
+
 def add_internal_links(targets, url, title):
     changed=[]
     for rel in targets[:4]:
@@ -264,6 +272,7 @@ def main():
     out=ROOT/article["section"]/article["slug"]/"index.html"
     out.parent.mkdir(parents=True,exist_ok=False)
     out.write_text(render_page(article,hero_name),encoding="utf-8")
+    update_source_date(out.relative_to(ROOT).as_posix())
     url=f"/{article['section']}/{article['slug']}/"
     changed=add_internal_links(article.get("internal_link_targets",[]),url,article["title"])
     STATE.parent.mkdir(parents=True,exist_ok=True)
