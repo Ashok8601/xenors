@@ -308,6 +308,33 @@ def add_internal_links(targets, url, title):
         changed.append(rel)
     return changed
 
+def trim_text(value, max_len):
+    value=re.sub(r"\s+"," ",str(value or "")).strip()
+    if len(value)<=max_len:
+        return value
+    cut=value[:max_len+1]
+    if " " in cut:
+        cut=cut.rsplit(" ",1)[0]
+    return cut.rstrip(" .,:;|-")
+
+def normalize_article(a):
+    a["title"]=trim_text(a.get("title",""),85)
+    a["meta_description"]=trim_text(a.get("meta_description",""),175)
+
+    if len(a["title"])<30:
+        intent=trim_text(a.get("primary_intent",""),42)
+        if intent:
+            candidate=f"{a['title']}: {intent}".strip(": ")
+            a["title"]=trim_text(candidate,85)
+
+    if len(a["meta_description"])<110:
+        extra=trim_text(a.get("hero_subtitle",""),90)
+        if extra:
+            combined=(a["meta_description"].rstrip(". ") + ". " + extra).strip()
+            a["meta_description"]=trim_text(combined,175)
+
+    return a
+
 def validate(a,pages):
     if a.get("section") not in ALLOWED_SECTIONS:
         raise ValueError("Invalid section")
@@ -333,6 +360,7 @@ def main():
         raise SystemExit(f"Slot {slot} already published: {state.get('last_url')}")
     pages=existing_pages()
     article=model_generate(pages)
+    article=normalize_article(article)
     validate(article,pages)
     hero_name=f"{article['slug']}-hero.webp"
     hero_path=ROOT/"images"/hero_name
