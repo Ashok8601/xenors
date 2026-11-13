@@ -194,6 +194,62 @@ Malformed JSON:
 
     raise last_error or RuntimeError("Gemini generation failed after retries and fallback")
 
+def article_word_count(a):
+    return len(re.findall(r"\b[\w'-]+\b", BeautifulSoup(a.get("body_html",""),"html.parser").get_text(" ")))
+
+def expand_article_if_needed(a, min_words=1200):
+    if article_word_count(a) >= min_words:
+        return a
+
+    api_key=os.environ["GEMINI_API_KEY"]
+    expand_prompt=f"""Expand the following Xenors article body so the final article is at least 1500 words while preserving the same title, topic, intent, structure, and factual caution.
+
+Rules:
+- Return ONLY valid JSON with one key: body_html
+- Keep existing useful sections and add practical depth, implementation detail, troubleshooting, checklists, examples, and decision criteria
+- Do not invent statistics, standards, prices, release dates, benchmarks, quotes, or product capabilities
+- Keep clean HTML fragments only: h2/h3/p/ul/ol/table/pre/code/blockquote
+- Do not add html/head/body tags
+
+TITLE:
+{a.get("title","")}
+
+CURRENT BODY:
+{a.get("body_html","")}
+"""
+    models=[]
+    for m in [MODEL, "gemini-3.5-flash-lite", "gemini-3.6-flash", "gemini-3.1-flash-lite"]:
+        if m and m not in models:
+            models.append(m)
+
+    last_error=None
+    for model_name in models:
+        for attempt in range(1,4):
+            try:
+                output=gemini_request(expand_prompt,model_name,api_key,temperature=0.25)
+                data=parse_json(output)
+                body=data.get("body_html","")
+                if body:
+                    a["body_html"]=body
+                    if article_word_count(a) >= min_words:
+                        print(f"Expanded thin article with {model_name} on attempt {attempt}")
+                        return a
+                    last_error=RuntimeError(f"Expanded article still below {min_words} words")
+            except urllib.error.HTTPError as e:
+                body=e.read().decode("utf-8",errors="replace")
+                last_error=RuntimeError(f"Gemini expansion HTTP {e.code} on {model_name}: {body}")
+                if e.code in {429,500,502,503,504} and attempt < 3:
+                    time.sleep(10 * attempt)
+                    continue
+                if e.code in {429,500,502,503,504}:
+                    break
+                raise last_error from e
+            except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, ValueError) as e:
+                last_error=RuntimeError(f"Gemini expansion failed on {model_name}: {e}")
+                break
+
+    raise last_error or RuntimeError("Unable to expand thin article")
+
 def slug_ok(slug):
     return bool(re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*",slug or ""))
 
@@ -344,8 +400,8 @@ def validate(a,pages):
         raise ValueError("Title length outside safe range")
     if len(a.get("meta_description",""))<110 or len(a.get("meta_description",""))>175:
         raise ValueError("Meta description length outside safe range")
-    if len(re.findall(r"\b[\w'-]+\b",BeautifulSoup(a.get("body_html",""),"html.parser").get_text(" ")))<1200:
-        raise ValueError("Article too thin")
+    if article_word_count(a)<1200:
+        raise ValueError("Article too thin after automatic expansion")
     sim=too_similar(a["title"],pages)
     if sim:
         raise ValueError(f"Likely cannibalization with existing title: {sim}")
@@ -361,6 +417,7 @@ def main():
     pages=existing_pages()
     article=model_generate(pages)
     article=normalize_article(article)
+    article=expand_article_if_needed(article)
     validate(article,pages)
     hero_name=f"{article['slug']}-hero.webp"
     hero_path=ROOT/"images"/hero_name
