@@ -1,8 +1,8 @@
 {
-  "last_slot": "2026-11-14-AM",
-  "last_published_at": "2026-11-14T03:34:27.209061+05:30",
-  "last_title": "AI Agent Token Costs and Latency Optimization in 2026: Practical Engineering",
-  "last_url": "https://xenors.in/ai/ai-agent-token-costs-latency-optimization-2026/",
+  "last_slot": "2026-11-14-PM",
+  "last_published_at": "2026-11-14T17:10:29.300034+05:30",
+  "last_title": "Edge AI Object Detection: TensorRT Quantization and Deployment Guide",
+  "last_url": "https://xenors.in/ai/edge-ai-object-detection-tensorrt-quantization-guide/",
   "history": [
     {
       "slot": "2026-11-13-PM",
@@ -18,18 +18,24 @@
       "slot": "2026-11-14-AM",
       "url": "https://xenors.in/ai/ai-agent-token-costs-latency-optimization-2026/",
       "title": "AI Agent Token Costs and Latency Optimization in 2026: Practical Engineering"
+    },
+    {
+      "slot": "2026-11-14-PM",
+      "url": "https://xenors.in/ai/edge-ai-object-detection-tensorrt-quantization-guide/",
+      "title": "Edge AI Object Detection: TensorRT Quantization and Deployment Guide"
     }
   ],
   "last_model": "gemini-3.8-flash",
   "last_internal_links": [
-    "ai/ai-agent-memory-explained-2026/index.html",
-    "ai/gpt-6-1-sol-ultrafast-explained/index.html",
-    "ai/ai-agent-guardrails-safety-2026/index.html"
+    "data-science/deploy-machine-learning-fastapi-docker/index.html",
+    "data-science/transfer-learning-keras-pytorch/index.html",
+    "plc/edge-ai-vision-plc-modbus-integration/index.html"
   ],
   "last_keyword_cluster": [
-    "AI agent token optimization",
-    "reduce LLM latency 2026",
-    "agentic cost reduction",
-    "LLM API token reduction techniques"
+    "edge ai",
+    "tensorrt quantization",
+    "object detection deployment",
+    "int8 calibration",
+    "jetson inference optimization"
   ]
 }
