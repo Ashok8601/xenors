@@ -34,18 +34,39 @@ def read_state():
     return {}
 
 def slot_name():
-    # Three scheduled publishing windows in IST: 10:00, 14:00, 18:00.
-    # Forced manual runs get a unique slot so they can publish an extra post
-    # without being blocked by an already-used AM/MID/PM slot.
+    # Forced manual runs always publish an extra unique post.
     if FORCE_PUBLISH:
         return f"{NOW.date().isoformat()}-MANUAL-{NOW.strftime('%H%M%S')}"
-    if NOW.hour < 12:
-        slot="AM"
-    elif NOW.hour < 16:
-        slot="MID"
-    else:
-        slot="PM"
-    return f"{NOW.date().isoformat()}-{slot}"
+
+    state_path=ROOT / ".github" / "xenors_publish_state.json"
+    state={}
+    if state_path.exists():
+        try:
+            state=json.loads(state_path.read_text(encoding="utf-8"))
+        except Exception:
+            state={}
+
+    published={item.get("slot") for item in state.get("history",[]) if isinstance(item,dict)}
+    day=NOW.date().isoformat()
+
+    # Publish only slots whose intended IST time has passed.
+    # Pick the oldest missing due slot first so delays self-heal in order.
+    due=[]
+    if NOW.hour >= 10:
+        due.append("AM")
+    if NOW.hour >= 14:
+        due.append("MID")
+    if NOW.hour >= 18:
+        due.append("PM")
+
+    for slot in due:
+        key=f"{day}-{slot}"
+        if key not in published:
+            return key
+
+    # Nothing due is missing. Exiting without generation lets the hourly
+    # checker become a no-op instead of creating duplicate content.
+    return None
 
 def existing_pages():
     pages=[]
@@ -425,6 +446,9 @@ def validate(a,pages):
 def main():
     state=read_state()
     slot=slot_name()
+    if not slot:
+        print("No scheduled Xenors slot is currently due and missing; nothing to publish.")
+        return
     if state.get("last_slot")==slot:
         raise SystemExit(f"Slot {slot} already published: {state.get('last_url')}")
     pages=existing_pages()
