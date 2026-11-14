@@ -10,6 +10,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
 STATE = ROOT / ".github" / "xenors_publish_state.json"
+OPPORTUNITY_MAP = ROOT / "config" / "seo_opportunity_map.json"
 IST = timezone(timedelta(hours=5, minutes=30))
 NOW = datetime.now(IST)
 SITE = "https://xenors.in"
@@ -34,18 +35,22 @@ def read_state():
     return {}
 
 def slot_name():
-    # Three scheduled publishing windows in IST: 10:00, 14:00, 18:00.
-    # Forced manual runs get a unique slot so they can publish an extra post
-    # without being blocked by an already-used AM/MID/PM slot.
+    # Two opportunity windows in IST: 10:00 and 18:00.
+    # These are not publishing quotas. The editorial gate may skip a weak candidate.
     if FORCE_PUBLISH:
         return f"{NOW.date().isoformat()}-MANUAL-{NOW.strftime('%H%M%S')}"
-    if NOW.hour < 12:
-        slot="AM"
-    elif NOW.hour < 16:
-        slot="MID"
-    else:
-        slot="PM"
+    slot="AM" if NOW.hour < 14 else "PM"
     return f"{NOW.date().isoformat()}-{slot}"
+
+def load_opportunities():
+    if not OPPORTUNITY_MAP.exists():
+        return []
+    try:
+        data=json.loads(OPPORTUNITY_MAP.read_text(encoding="utf-8"))
+        return [x for x in data.get("opportunities",[]) if x.get("new_article_allowed",True)]
+    except Exception as e:
+        print(f"Warning: could not load SEO opportunity map: {e}")
+        return []
 
 def existing_pages():
     pages=[]
@@ -115,39 +120,63 @@ def gemini_request(prompt, model_name, api_key, temperature=0.4):
         raise RuntimeError(f"Gemini returned no text: {json.dumps(data)[:1500]}")
     return output
 
-def model_generate(pages):
-    compact=pages[-220:]
+def model_generate(pages, opportunities, feedback=""):
+    compact=pages[-240:]
+    opps=sorted(opportunities,key=lambda x:x.get("priority",0),reverse=True)[:12]
     prompt=f"""
-You are the editorial engine for Xenors.in. Produce exactly ONE original search-focused article for {NOW.date().isoformat()}.
+You are the senior SEO editor for Xenors.in. Your job is NOT to fill a publishing quota. Your job is to choose ONE article only when it has a credible path to organic traffic and strengthens Xenors topical authority.
 
-Editorial priorities:
+BUSINESS GOAL
+- Build toward 100k-250k organic monthly pageviews in six months.
+- Quality, search demand, topical authority and click potential outrank article count.
+- If no strong opportunity exists, return a SKIP decision instead of filler.
+
+EDITORIAL AUTHORITY
 {chr(10).join("- "+x for x in PRIORITIES)}
 
-Hard rules:
-- Do not duplicate or cannibalize an existing page.
-- Prefer a distinct troubleshooting, implementation, comparison, benchmark, architecture, checklist, commissioning, buyer, evaluation, security, or workflow angle.
-- Focus on practical engineering value, not generic filler.
-- Prefer evergreen or implementation-focused topics. Do not make time-sensitive claims unless they are broadly established and stable.
-- Never invent benchmarks, standards, prices, release dates, product capabilities, quotes, or statistics.
-- Article body should be approximately 1600-2600 words and useful enough to bookmark.
-- Use clean HTML fragments only in body_html: h2/h3/p/ul/ol/table/pre/code/blockquote. No html/head/body tags.
-- Include a concise Sources section only with official/canonical links you are highly confident are real; never invent URLs.
-- No affiliate claims, no ranking guarantees, no keyword stuffing.
-- section must be one of: {", ".join(sorted(ALLOWED_SECTIONS))}
-- slug must be lowercase kebab-case without dates unless date is truly needed.
-- Pick 2-4 existing relevant pages for contextual internal links by exact path.
+CURRENT GSC-BACKED OPPORTUNITIES
+{json.dumps(opps, ensure_ascii=False)}
 
-Existing Xenors pages (avoid overlapping primary intent):
+EXISTING XENORS PAGES
 {json.dumps(compact, ensure_ascii=False)}
 
-Return ONLY valid JSON with these keys:
+{("EDITORIAL FEEDBACK FROM A REJECTED DRAFT:\n"+feedback) if feedback else ""}
+
+Choose a topic that is adjacent to a proven opportunity, but has a clearly different primary intent from the existing page. Prefer implementation, troubleshooting, commissioning, comparison, architecture, test plans, failure analysis, calculations, buyer decision criteria or real engineering workflows.
+
+Hard rules:
+- Never invent a topic merely to satisfy a slot.
+- Do not duplicate or cannibalize an existing page.
+- The chosen topic must cite a specific opportunity_id from the GSC opportunity map unless XENORS_TOPIC_HINT is provided.
+- If the best GSC item is marked new_article_allowed=false, do not build a new article around it.
+- Focus on practical engineering value and first-hand-style implementation detail, not generic AI prose.
+- Prefer angles that answer a narrow buyer/engineer question better than a broad overview.
+- No keyword stuffing, fake urgency, fabricated statistics, invented standards, fake benchmarks, fake quotes, made-up product claims, or unsupported prices.
+- Article body target: 2000-3200 words.
+- Use clean HTML fragments only in body_html: h2/h3/p/ul/ol/table/pre/code/blockquote.
+- Include at least 6 substantive h2 sections.
+- Include at least one practical table/checklist/test matrix where useful.
+- Include 3-6 real official/canonical source URLs you are highly confident exist.
+- Pick 2-4 genuinely relevant internal-link targets by exact existing path.
+- section must be one of: {", ".join(sorted(ALLOWED_SECTIONS))}
+- slug must be lowercase kebab-case.
+- Avoid lazy titles such as generic "Ultimate Guide", "Everything You Need to Know", or near-duplicate "Explained" pages unless the query truly demands it.
+
+If there is no credible traffic opportunity, return:
+{{"decision":"skip","reason":"..."}}
+
+Otherwise return ONLY valid JSON:
 {{
+  "decision":"publish",
+  "opportunity_id":"...",
   "section":"ai",
   "slug":"example-slug",
   "title":"...",
   "meta_description":"...",
   "primary_intent":"...",
-  "keyword_cluster":["...","..."],
+  "keyword_cluster":["..."],
+  "search_gap":"What the current SERP/existing page does not fully answer",
+  "why_this_can_win":"Concrete reason this article deserves to exist",
   "hero_subtitle":"...",
   "body_html":"<h2>...</h2>...",
   "internal_link_targets":["ai/example/index.html"],
@@ -155,7 +184,6 @@ Return ONLY valid JSON with these keys:
 }}
 """
     api_key=os.environ["GEMINI_API_KEY"]
-
     models=[]
     for m in [MODEL, "gemini-3.5-flash-lite", "gemini-3.6-flash", "gemini-3.1-flash-lite"]:
         if m and m not in models:
@@ -165,57 +193,109 @@ Return ONLY valid JSON with these keys:
     for model_name in models:
         for attempt in range(1,4):
             try:
-                output=gemini_request(prompt,model_name,api_key,temperature=0.35)
+                output=gemini_request(prompt,model_name,api_key,temperature=0.25)
                 print(f"Gemini generation succeeded with {model_name} on attempt {attempt}")
                 try:
                     return parse_json(output)
-                except json.JSONDecodeError as je:
-                    repair_prompt=f"""The following content was intended to be valid JSON but is malformed.
-Repair it into STRICT valid JSON only. Do not add commentary, markdown fences, or new facts.
-Preserve all fields and HTML content as closely as possible.
+                except json.JSONDecodeError:
+                    repair_prompt=f"""Repair the following into STRICT valid JSON only. Preserve meaning and HTML. No markdown fences.
 
-Malformed JSON:
 {output}
 """
-                    print(f"Malformed JSON from {model_name}; attempting one JSON repair...")
                     repaired=gemini_request(repair_prompt,model_name,api_key,temperature=0.0)
                     return parse_json(repaired)
             except urllib.error.HTTPError as e:
                 body=e.read().decode("utf-8",errors="replace")
                 last_error=RuntimeError(f"Gemini API HTTP {e.code} on {model_name}: {body}")
                 if e.code in {429,500,502,503,504} and attempt < 3:
-                    delay=10 * attempt
-                    print(f"Transient Gemini HTTP {e.code} on {model_name}; retrying in {delay}s...")
-                    time.sleep(delay)
+                    time.sleep(10 * attempt)
                     continue
                 if e.code in {429,500,502,503,504}:
-                    print(f"Gemini model {model_name} unavailable after retries; trying fallback model...")
                     break
                 raise last_error from e
             except (urllib.error.URLError, TimeoutError) as e:
                 last_error=RuntimeError(f"Gemini network error on {model_name}: {e}")
                 if attempt < 3:
-                    delay=10 * attempt
-                    print(f"Transient Gemini network error; retrying in {delay}s...")
-                    time.sleep(delay)
+                    time.sleep(10 * attempt)
                     continue
                 break
             except json.JSONDecodeError as e:
-                last_error=RuntimeError(f"Gemini returned malformed JSON even after repair on {model_name}: {e}")
-                print(str(last_error))
+                last_error=RuntimeError(f"Gemini returned malformed JSON on {model_name}: {e}")
                 break
-
     raise last_error or RuntimeError("Gemini generation failed after retries and fallback")
+
+def editorial_gate(a, pages, opportunities):
+    if a.get("decision")=="skip":
+        return {"approved":False,"score":0,"reason":a.get("reason","Model chose to skip weak opportunity"),"feedback":""}
+
+    opp_ids={x.get("id") for x in opportunities}
+    if not TOPIC_HINT and a.get("opportunity_id") not in opp_ids:
+        return {"approved":False,"score":0,"reason":"Draft is not tied to an approved GSC opportunity.","feedback":"Choose a real opportunity_id from the supplied map."}
+
+    body=BeautifulSoup(a.get("body_html",""),"html.parser")
+    words=article_word_count(a)
+    h2_count=len(body.find_all("h2"))
+    sources=[u for u in a.get("source_urls",[]) if isinstance(u,str) and u.startswith("https://")]
+    practical=bool(body.find("table") or body.find("ol") or body.find("pre"))
+    sim=too_similar(a.get("title",""),pages)
+
+    hard_fail=[]
+    if words < 1800: hard_fail.append(f"too thin: {words} words")
+    if h2_count < 6: hard_fail.append(f"only {h2_count} h2 sections")
+    if len(sources) < 3: hard_fail.append("fewer than 3 credible source URLs")
+    if not practical: hard_fail.append("no practical table/checklist/code/test structure")
+    if sim: hard_fail.append(f"title/intent too similar to existing page: {sim}")
+    if not a.get("search_gap"): hard_fail.append("missing explicit search gap")
+    if not a.get("why_this_can_win"): hard_fail.append("missing reason the article can win")
+
+    if hard_fail:
+        return {"approved":False,"score":40,"reason":"; ".join(hard_fail),"feedback":"Fix every hard-fail item and make the article materially more specific and useful."}
+
+    prompt=f"""
+Act as a ruthless SEO editor. Score this proposed Xenors article against the business goal of building toward 100k-250k monthly organic pageviews.
+
+Score 0-100 using:
+- Search opportunity / demand evidence: 25
+- Topical authority fit for Xenors: 20
+- Unique search intent / cannibalization safety: 20
+- Practical depth and information gain: 20
+- Click-worthiness of title/meta: 10
+- Evidence/source quality: 5
+
+Reject generic filler even if grammatically good. A passing article needs >=85 overall, and none of the first four categories may score below 15.
+
+GSC opportunities:
+{json.dumps(opportunities,ensure_ascii=False)}
+
+Existing page titles:
+{json.dumps([p.get("title") for p in pages[-240:]],ensure_ascii=False)}
+
+Candidate:
+{json.dumps({k:a.get(k) for k in ["opportunity_id","title","meta_description","primary_intent","keyword_cluster","search_gap","why_this_can_win","source_urls"]},ensure_ascii=False)}
+
+Article text:
+{body.get_text(" ",strip=True)[:18000]}
+
+Return ONLY valid JSON:
+{{"score":0,"search_opportunity":0,"authority_fit":0,"intent_uniqueness":0,"practical_depth":0,"click_worthiness":0,"evidence":0,"approved":false,"reason":"...","feedback":"specific fixes"}}
+"""
+    api_key=os.environ["GEMINI_API_KEY"]
+    output=gemini_request(prompt,MODEL,api_key,temperature=0.0)
+    result=parse_json(output)
+    score=int(result.get("score",0))
+    key_scores=[int(result.get(k,0)) for k in ["search_opportunity","authority_fit","intent_uniqueness","practical_depth"]]
+    result["approved"]=bool(score>=85 and all(x>=15 for x in key_scores) and result.get("approved",False))
+    return result
 
 def article_word_count(a):
     return len(re.findall(r"\b[\w'-]+\b", BeautifulSoup(a.get("body_html",""),"html.parser").get_text(" ")))
 
-def expand_article_if_needed(a, min_words=1200):
+def expand_article_if_needed(a, min_words=1800):
     if article_word_count(a) >= min_words:
         return a
 
     api_key=os.environ["GEMINI_API_KEY"]
-    expand_prompt=f"""Expand the following Xenors article body so the final article is at least 1500 words while preserving the same title, topic, intent, structure, and factual caution.
+    expand_prompt=f"""Expand the following Xenors article body so the final article is at least 2200 words while preserving the same title, topic, intent, structure, and factual caution.
 
 Rules:
 - Return ONLY valid JSON with one key: body_html
@@ -413,8 +493,14 @@ def validate(a,pages):
         raise ValueError("Title length outside safe range")
     if len(a.get("meta_description",""))<110 or len(a.get("meta_description",""))>175:
         raise ValueError("Meta description length outside safe range")
-    if article_word_count(a)<1200:
+    if article_word_count(a)<1800:
         raise ValueError("Article too thin after automatic expansion")
+    body=BeautifulSoup(a.get("body_html",""),"html.parser")
+    if len(body.find_all("h2"))<6:
+        raise ValueError("Article lacks enough substantive sections")
+    sources=[u for u in a.get("source_urls",[]) if isinstance(u,str) and u.startswith("https://")]
+    if len(sources)<3:
+        raise ValueError("Article lacks enough credible source URLs")
     sim=too_similar(a["title"],pages)
     if sim:
         raise ValueError(f"Likely cannibalization with existing title: {sim}")
@@ -428,9 +514,31 @@ def main():
     if state.get("last_slot")==slot:
         raise SystemExit(f"Slot {slot} already published: {state.get('last_url')}")
     pages=existing_pages()
-    article=model_generate(pages)
+    opportunities=load_opportunities()
+    article=model_generate(pages,opportunities)
+    if article.get("decision")=="skip":
+        print(f"EDITORIAL SKIP: {article.get('reason','No strong opportunity')}")
+        return
+
     article=normalize_article(article)
-    article=expand_article_if_needed(article)
+    article=expand_article_if_needed(article,1800)
+    gate=editorial_gate(article,pages,opportunities)
+
+    if not gate.get("approved"):
+        print(f"First draft rejected by editorial gate: score={gate.get('score')} reason={gate.get('reason')}")
+        article=model_generate(pages,opportunities,feedback=gate.get("feedback") or gate.get("reason",""))
+        if article.get("decision")=="skip":
+            print(f"EDITORIAL SKIP AFTER REVISION: {article.get('reason','No strong opportunity')}")
+            return
+        article=normalize_article(article)
+        article=expand_article_if_needed(article,1800)
+        gate=editorial_gate(article,pages,opportunities)
+
+    if not gate.get("approved"):
+        print(f"EDITORIAL SKIP: final score={gate.get('score')} reason={gate.get('reason')}")
+        return
+
+    print(f"Editorial gate approved score={gate.get('score')}: {gate.get('reason','')}")
     validate(article,pages)
     hero_name=f"{article['slug']}-hero.webp"
     hero_path=ROOT/"images"/hero_name

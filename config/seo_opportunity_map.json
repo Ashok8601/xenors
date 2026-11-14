@@ -1,0 +1,112 @@
+{
+  "updated_at": "2026-11-14",
+  "source": "Google Search Console via Windsor.ai",
+  "source_window": "2026-10-18 to 2026-11-11",
+  "strategy": "Use these as demand evidence for adjacent, non-cannibalizing content. Do not duplicate the listed page's primary intent.",
+  "traffic_goal": "Build toward 100k-250k organic monthly pageviews in six months; quality and topical authority outrank post count.",
+  "opportunities": [
+    {
+      "id": "pedestrian-detection-camera",
+      "query": "ai pedestrian detection camera",
+      "page": "https://xenors.in/ai/ai-pedestrian-detection-system/",
+      "clicks": 2,
+      "impressions": 21,
+      "ctr": 0.0952,
+      "position": 18.8571,
+      "priority": 98,
+      "new_article_allowed": true,
+      "adjacent_angles": [
+        "camera placement and field-of-view design",
+        "installation and commissioning checklist",
+        "false-positive troubleshooting by environment",
+        "PLC stop architecture and latency testing"
+      ],
+      "avoid": "Do not write another generic overview of AI pedestrian detection."
+    },
+    {
+      "id": "pedestrian-detection-installation",
+      "query": "ai pedestrian detection camera installation",
+      "page": "https://xenors.in/ai/ai-pedestrian-detection-system/",
+      "clicks": 0,
+      "impressions": 25,
+      "ctr": 0,
+      "position": 20.76,
+      "priority": 96,
+      "new_article_allowed": true,
+      "adjacent_angles": [
+        "installation checklist",
+        "camera height/angle/ROI setup",
+        "acceptance test plan",
+        "commissioning failure modes"
+      ],
+      "avoid": "Do not repeat the main system page."
+    },
+    {
+      "id": "forklift-red-zone",
+      "query": "forklift red zone warning lights",
+      "page": "https://xenors.in/tech/forklift-safety-light/",
+      "clicks": 0,
+      "impressions": 25,
+      "ctr": 0,
+      "position": 20.44,
+      "priority": 92,
+      "new_article_allowed": true,
+      "adjacent_angles": [
+        "red-zone vs blue-spot selection",
+        "warehouse placement guide",
+        "pedestrian exclusion-zone design",
+        "installation mistakes and commissioning"
+      ],
+      "avoid": "Do not create another broad forklift safety light overview."
+    },
+    {
+      "id": "forklift-blue-spot",
+      "query": "forklift blue spot light",
+      "page": "https://xenors.in/tech/forklift-safety-light/",
+      "clicks": 0,
+      "impressions": 24,
+      "ctr": 0,
+      "position": 23.5833,
+      "priority": 90,
+      "new_article_allowed": true,
+      "adjacent_angles": [
+        "blue-spot placement and visibility",
+        "blue spot vs red zone",
+        "indoor/outdoor selection",
+        "mounting distance and blind-corner use"
+      ],
+      "avoid": "Do not duplicate the existing forklift safety light page."
+    },
+    {
+      "id": "text-watermarking",
+      "query": "text watermarking",
+      "page": "https://xenors.in/tech/ai-text-watermarking-detect-ai-content-2026",
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0,
+      "position": 12,
+      "priority": 88,
+      "new_article_allowed": true,
+      "adjacent_angles": [
+        "detection limitations",
+        "robustness under paraphrasing",
+        "watermarking vs classifiers",
+        "evaluation checklist"
+      ],
+      "avoid": "Do not repeat what text watermarking is."
+    },
+    {
+      "id": "gemini-agent",
+      "query": "gemini agent",
+      "page": "https://xenors.in/ai/google-gemini-agent-for-work-2026",
+      "clicks": 0,
+      "impressions": 64,
+      "ctr": 0,
+      "position": 1,
+      "priority": 85,
+      "new_article_allowed": false,
+      "adjacent_angles": [],
+      "avoid": "This is primarily an existing-page CTR optimization opportunity; do not create a cannibalizing new page."
+    }
+  ]
+}
