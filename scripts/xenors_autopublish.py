@@ -512,7 +512,8 @@ def main():
     state=read_state()
     slot=slot_name()
     if state.get("last_slot")==slot:
-        raise SystemExit(f"Slot {slot} already published: {state.get('last_url')}")
+        print(f"Slot {slot} already published: {state.get('last_url')}")
+        return
     pages=existing_pages()
     opportunities=load_opportunities()
     article=model_generate(pages,opportunities)
