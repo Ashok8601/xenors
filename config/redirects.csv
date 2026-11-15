@@ -47,7 +47,7 @@ old,new,status
 /ai,/ai/,301
 /ai-basics-finance,/ai-basics-finance/,301
 /ai-basics-finance/index.html,/ai-basics-finance/,301
-/ai-camera-based-human-detection-system,/ai-camera-based-human-detection-system/index.html,301
+/ai-camera-based-human-detection-system,/ai-camera-based-human-detection-system/,301
 /ai-tools,/ai/tools/,301
 /ai-tools/,/ai/tools/,301
 /ai-tools/index.html,/ai/tools/,301
@@ -119,7 +119,7 @@ old,new,status
 /finance/stocks.html,/finance/stocks/,301
 /finance/trading,/finance/trading/,301
 /finance/trading.html,/finance/trading/,301
-/forklift-safety-solutions-guide,/forklift-safety-solutions-guide/index.html,301
+/forklift-safety-solutions-guide,/forklift-safety-solutions-guide/,301
 /founder/ashok-kumar-yadav-application-engineer,/ashok-kumar-yadav-portfolio/,301
 /founder/ashok-kumar-yadav-application-engineer/,/ashok-kumar-yadav-portfolio/,301
 /founder/hesham-industrial-solution-engineer.html,/ashok-kumar-yadav-portfolio/,301
@@ -130,7 +130,7 @@ old,new,status
 /home.html,/,301
 /home/,/,301
 /index.html,/,301
-/industrial-automation-plc-integration,/industrial-automation-plc-integration/index.html,301
+/industrial-automation-plc-integration,/industrial-automation-plc-integration/,301
 /industrial-safety-equipment-guide,/industrial-safety-equipment-guide/index.html,301
 /layout.html,/,301
 /login,/login/,301
@@ -152,7 +152,7 @@ old,new,status
 /python-for-data-science.html,/python-for-data-science/,301
 /python-trading-bot-tutorial,/python-trading-bot-tutorial/,301
 /python-trading-bot-tutorial/index.html,/python-trading-bot-tutorial/,301
-/search,/search/index.html,301
+/search,/search/,301
 /share-market,/share-market/,301
 /share-market/ai-crypto-coins-2026,/share-market/ai-crypto-coins-2026/,301
 /share-market/ai-crypto-coins-2026.html,/share-market/ai-crypto-coins-2026/,301

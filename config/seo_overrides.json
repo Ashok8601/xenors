@@ -1,0 +1,14 @@
+{
+  "/ai/google-gemini-agent-for-work-2026/": {
+    "title": "Google Gemini Agent for Work: What It Does & Limits",
+    "description": "Google Gemini agent for work explained with practical tasks, workflow limits, privacy checks and where it helps most."
+  },
+  "/share-market/can-trading-make-you-a-billionaire/": {
+    "title": "Can Trading Make You a Billionaire? Risks & Reality",
+    "description": "Can trading make you a billionaire? See what would have to go right, why the odds are extreme, and how risk changes the answer."
+  },
+  "/data-science/transfer-learning-keras-pytorch/": {
+    "title": "Transfer Learning in Keras & PyTorch: Practical Guide",
+    "description": "Transfer learning in Keras and PyTorch: compare workflows, freezing layers, fine-tuning and evaluation steps for real projects."
+  }
+}
