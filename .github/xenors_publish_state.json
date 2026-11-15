@@ -1,8 +1,8 @@
 {
-  "last_slot": "2026-11-14-PM",
-  "last_published_at": "2026-11-14T17:10:29.300034+05:30",
-  "last_title": "Edge AI Object Detection: TensorRT Quantization and Deployment Guide",
-  "last_url": "https://xenors.in/ai/edge-ai-object-detection-tensorrt-quantization-guide/",
+  "last_slot": "2026-11-15-MANUAL-SEO",
+  "last_published_at": "2026-11-15T11:30:00+05:30",
+  "last_title": "AI Pedestrian Detection Camera Installation: ROI, Placement & PLC Checklist",
+  "last_url": "https://xenors.in/ai/ai-pedestrian-detection-camera-installation/",
   "history": [
     {
       "slot": "2026-11-13-PM",
@@ -23,19 +23,23 @@
       "slot": "2026-11-14-PM",
       "url": "https://xenors.in/ai/edge-ai-object-detection-tensorrt-quantization-guide/",
       "title": "Edge AI Object Detection: TensorRT Quantization and Deployment Guide"
+    },
+    {
+      "slot": "2026-11-15-MANUAL-SEO",
+      "url": "https://xenors.in/ai/ai-pedestrian-detection-camera-installation/",
+      "title": "AI Pedestrian Detection Camera Installation: ROI, Placement & PLC Checklist"
     }
   ],
-  "last_model": "gemini-3.8-flash",
+  "last_model": "manual-editorial-research",
   "last_internal_links": [
-    "data-science/deploy-machine-learning-fastapi-docker/index.html",
-    "data-science/transfer-learning-keras-pytorch/index.html",
-    "plc/edge-ai-vision-plc-modbus-integration/index.html"
+    "ai/ai-pedestrian-detection-system/index.html",
+    "ai/ai-pedestrian-detection-false-alarms-fixes/index.html"
   ],
   "last_keyword_cluster": [
-    "edge ai",
-    "tensorrt quantization",
-    "object detection deployment",
-    "int8 calibration",
-    "jetson inference optimization"
+    "ai pedestrian detection camera installation",
+    "pedestrian detection camera placement",
+    "AI camera ROI setup",
+    "PLC pedestrian detection integration",
+    "industrial AI camera commissioning"
   ]
 }
