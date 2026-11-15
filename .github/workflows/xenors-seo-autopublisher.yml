@@ -2,10 +2,14 @@ name: Xenors SEO Autopublisher
 
 on:
   schedule:
-    # GitHub cron is UTC. 04:30 = 10:00 IST, 12:30 = 18:00 IST.
-    # These are opportunity slots, not publishing quotas: the editorial gate may skip a weak topic.
-    - cron: "30 4 * * *"
-    - cron: "30 12 * * *"
+    # GitHub cron is UTC. We use staggered primary + backup triggers because
+    # GitHub scheduled workflows can be delayed or occasionally missed.
+    # AM slot: 10:07 IST primary, 10:27 IST backup.
+    - cron: "37 4 * * *"
+    - cron: "57 4 * * *"
+    # PM slot: 18:07 IST primary, 18:27 IST backup.
+    - cron: "37 12 * * *"
+    - cron: "57 12 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
