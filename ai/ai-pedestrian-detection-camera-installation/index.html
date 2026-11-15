@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Pedestrian Detection Camera Installation: ROI, Placement & PLC Checklist</title>
+<meta name="description" content="Install an AI pedestrian detection camera correctly: plan placement, ROI zones, lighting, validation, false-alarm tests and PLC commissioning.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<meta name="author" content="Ashok Kumar Yadav">
+<link rel="canonical" href="https://xenors.in/ai/ai-pedestrian-detection-camera-installation/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Xenors">
+<meta property="og:title" content="AI Pedestrian Detection Camera Installation: ROI, Placement & PLC Checklist">
+<meta property="og:description" content="A field-oriented installation and commissioning guide for industrial AI pedestrian detection cameras, ROI zones, false-alarm testing and PLC integration.">
+<meta property="og:url" content="https://xenors.in/ai/ai-pedestrian-detection-camera-installation/">
+<meta property="og:image" content="https://xenors.in/images/ai-pedestrian-detection-hero.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Pedestrian Detection Camera Installation: ROI, Placement & PLC Checklist">
+<meta name="twitter:description" content="Camera placement, ROI design, scene validation, false-alarm tests and PLC commissioning for industrial pedestrian detection AI.">
+<meta name="twitter:image" content="https://xenors.in/images/ai-pedestrian-detection-hero.webp">
+<link rel="stylesheet" href="/assets/ai-pedestrian-false-alarms.css">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"TechArticle",
+      "@id":"https://xenors.in/ai/ai-pedestrian-detection-camera-installation/#article",
+      "url":"https://xenors.in/ai/ai-pedestrian-detection-camera-installation/",
+      "mainEntityOfPage":{"@type":"WebPage","@id":"https://xenors.in/ai/ai-pedestrian-detection-camera-installation/"},
+      "headline":"AI Pedestrian Detection Camera Installation: ROI, Placement & PLC Checklist",
+      "description":"Install an AI pedestrian detection camera correctly: plan placement, ROI zones, lighting, validation, false-alarm tests and PLC commissioning.",
+      "image":"https://xenors.in/images/ai-pedestrian-detection-hero.webp",
+      "datePublished":"2026-11-15",
+      "dateModified":"2026-11-15",
+      "inLanguage":"en",
+      "author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},
+      "publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/"},
+      "articleSection":"Industrial AI Safety",
+      "keywords":["ai pedestrian detection camera installation","pedestrian detection camera placement","human detection camera installation","AI camera ROI setup","PLC pedestrian detection integration","industrial AI camera commissioning"]
+    },
+    {
+      "@type":"BreadcrumbList",
+      "@id":"https://xenors.in/ai/ai-pedestrian-detection-camera-installation/#breadcrumb",
+      "itemListElement":[
+        {"@type":"ListItem","position":1,"name":"Home","item":"https://xenors.in/"},
+        {"@type":"ListItem","position":2,"name":"AI","item":"https://xenors.in/ai/"},
+        {"@type":"ListItem","position":3,"name":"AI Pedestrian Detection Camera Installation","item":"https://xenors.in/ai/ai-pedestrian-detection-camera-installation/"}
+      ]
+    },
+    {
+      "@type":"FAQPage",
+      "@id":"https://xenors.in/ai/ai-pedestrian-detection-camera-installation/#faq",
+      "mainEntity":[
+        {"@type":"Question","name":"Where should an AI pedestrian detection camera be installed?","acceptedAnswer":{"@type":"Answer","text":"Install it where the full pedestrian path is visible with enough target detail, stable lighting, limited occlusion and minimal extreme perspective distortion. The best height, tilt and lens depend on the camera, analytics and site geometry, so final placement should be validated on the actual scene."}},
+        {"@type":"Question","name":"Should an AI camera look straight down from the ceiling?","acceptedAnswer":{"@type":"Answer","text":"Not automatically. Some person-classification analytics perform worse with steep top-down views because the human shape is harder to classify. Product-specific documentation should be checked and the view validated using real walking tests."}},
+        {"@type":"Question","name":"How should ROI zones be configured for pedestrian detection?","acceptedAnswer":{"@type":"Answer","text":"Keep the decision ROI limited to the true hazard or monitoring area, then exclude reflections, screens, adjacent safe walkways and irrelevant motion with ignore zones where supported. Test every ROI boundary with people entering, leaving and walking near the edge."}},
+        {"@type":"Question","name":"How do you commission an AI pedestrian detection camera?","acceptedAnswer":{"@type":"Answer","text":"Commission it with a written test matrix covering approach directions, near and far distances, partial occlusion, lighting states, multiple people, ROI boundaries, camera loss, AI service failure, PLC communication loss and restart behavior."}},
+        {"@type":"Question","name":"Can an AI pedestrian detection camera directly stop a machine?","acceptedAnswer":{"@type":"Answer","text":"A general AI camera should not automatically be treated as a certified machine-safety device. Any stop function must be designed through an appropriate risk assessment and validated safety architecture using suitable safety-rated components where required."}},
+        {"@type":"Question","name":"What causes false alarms after installation?","acceptedAnswer":{"@type":"Answer","text":"Typical causes include glare, shadows, reflections, moving displays, insects close to the lens, rain, vibration, poor camera angle, very small targets, loose ROI boundaries and thresholds or confirmation timers that are not tuned to the site."}},
+        {"@type":"Question","name":"How should PLC communication be tested?","acceptedAnswer":{"@type":"Answer","text":"Test normal detection, signal timing, signal clearing, camera-offline behavior, application failure, network loss, PLC communication loss, PC restart and any required heartbeat or System OK logic. Record actual end-to-end timing instead of assuming it."}},
+        {"@type":"Question","name":"What is the most important step before handover?","acceptedAnswer":{"@type":"Answer","text":"Run repeatable acceptance tests using the real camera view, real operating conditions and documented pass/fail criteria. Save evidence for both successful detections and known edge cases so future changes can be compared against the commissioned baseline."}}
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<main class="article-wrap">
+<nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/ai/">AI</a> / AI Pedestrian Detection Camera Installation</nav>
+<article>
+<header class="hero">
+<p class="eyebrow">INDUSTRIAL AI · INSTALLATION · COMMISSIONING</p>
+<h1>AI Pedestrian Detection Camera Installation: ROI, Placement & PLC Checklist</h1>
+<p class="lead">A pedestrian-detection model can be excellent and still fail on site if the camera is too high, the target becomes tiny at the far end, lighting changes across shifts, the ROI includes a reflective screen, or PLC fault behavior is never tested. This guide treats installation as an engineering and commissioning problem—not a “mount camera and adjust confidence” exercise.</p>
+<p class="meta">By <a href="/ashok-kumar-yadav-biography/">Ashok Kumar Yadav</a> · Published November 15, 2026 · Updated November 15, 2026</p>
+<figure>
+<img src="/images/ai-pedestrian-detection-hero.webp" alt="AI pedestrian detection camera installation in an industrial safety zone" width="1280" height="720" fetchpriority="high" decoding="async">
+<figcaption>Reliable pedestrian detection depends on camera geometry, scene quality, ROI design, model behavior, network health and PLC commissioning working together.</figcaption>
+</figure>
+</header>
+
+<section class="quick-answer">
+<h2>Quick answer: how to install an AI pedestrian detection camera correctly</h2>
+<p>Start with the <strong>hazard and required response</strong>, not with the camera bracket. Mark the real detection zone, identify every pedestrian approach direction, choose a camera position that keeps people visible and large enough throughout that zone, stabilize lighting and focus, then configure the ROI around the actual decision area. After that, tune AI thresholds and confirmation timing using recorded edge cases. Finally, test the complete path from <strong>person → camera → AI → decision logic → PLC/alarm → reset</strong>, including camera-offline and communication-failure states.</p>
+<p>If you need the broader system architecture first, see the <a href="/ai/ai-pedestrian-detection-system/">AI pedestrian detection camera and system guide</a>. If the system is already installed but producing nuisance alarms or missed people, use the <a href="/ai/ai-pedestrian-detection-false-alarms-fixes/">false-alarm troubleshooting guide</a>.</p>
+</section>
+
+<h2>1. Define the safety and automation boundary before choosing camera position</h2>
+<p>The first installation mistake is treating “detect a person” as the whole requirement. In a factory, the useful question is usually more specific: <em>which person, in which area, under which machine state, for how long, and what should the downstream system do?</em></p>
+<p>Write the requirement in operational language before touching the AI settings. For example: “When a visible person is confirmed inside the robot-cell hazard ROI while the cell is in automatic production state, raise Human Detected to the PLC. When the AI service or camera stream is unhealthy, remove System OK and raise a fault.” This is much more testable than “camera should detect humans.”</p>
+<p>Also separate a <strong>general AI detection function</strong> from a certified safety function. A conventional AI camera or GPU vision application should not be assumed to replace guarding, interlocks, safety laser scanners, light curtains, emergency stops or a safety PLC. If a detection is intended to contribute to machine stopping, the complete machine-safety architecture must be risk-assessed and validated for that use.</p>
+
+<h2>2. Perform a site survey around visibility, not just mounting convenience</h2>
+<p>A convenient wall or cable tray is not automatically a good analytics location. Walk the area from the camera’s perspective and list the conditions that change what the AI actually sees.</p>
+<ul>
+<li><strong>Approach directions:</strong> Can a person enter from the left, right, rear, stairs, doorway or behind equipment?</li>
+<li><strong>Occlusion:</strong> Do robot columns, weld fixtures, pallets, cabinets, parked vehicles or stacked material hide the lower or upper body?</li>
+<li><strong>Lighting:</strong> Does sunlight enter at a particular hour? Are there welding flashes, reflective sheets, strong backlight, dark night-shift zones or IR transitions?</li>
+<li><strong>Movement near the lens:</strong> Fans, curtains, hanging cables, insects, rain and vibration can create unstable visual conditions.</li>
+<li><strong>Background:</strong> TV screens, posters with human figures, mirrors and windows can create human-like patterns or reflections.</li>
+<li><strong>Target scale:</strong> At the farthest detection point, is the person still visually detailed, or has the camera been asked to cover too much area?</li>
+</ul>
+<p>Vendor documentation supports this scene-first approach. AXIS Object Analytics advises correct mounting and warns against strongly top-down views for object classification. Digital Watchdog’s current AI analytics installation guidance emphasizes that mounting height, tilt, field of view and lens selection directly affect target detail; wider views cover more area but make people smaller. Hanwha Vision similarly documents camera-specific requirements for AI analytics that depend on mounting geometry and lighting. These values are product/application specific, so use them as evidence that geometry matters—not as universal numbers for every camera.</p>
+
+<h2>3. Camera placement: optimize target shape and usable detail</h2>
+<p>The practical goal is to keep the pedestrian recognizable across the entire decision zone. A camera image can look sharp to a human operator while still being poor for analytics because the target occupies too little of the frame or is heavily distorted at the edge.</p>
+<h3>Keep the critical zone away from extreme frame edges</h3>
+<p>Wide-angle lenses are useful for coverage, but targets near the outer image can be smaller and more distorted. Place the primary hazard zone closer to the central, optically useful part of the image when possible. If one camera has to watch a very wide floor area, ask whether two narrower views would produce better detection evidence than one panoramic view.</p>
+<h3>Avoid unnecessary top-down geometry</h3>
+<p>Many person-classification systems benefit when the camera can see a recognizable human profile rather than only the top of a helmet and shoulders. AXIS specifically cautions that looking down from above can make object classification harder. For some other analytics, vendors publish different preferred angles. That is why the correct installation method is: <strong>check the product guidance, then validate on the real scene</strong>.</p>
+<h3>Choose lens and distance together</h3>
+<p>Moving the camera farther away increases coverage but reduces target size. A longer focal length can recover target detail but narrows the field of view. Treat camera distance, lens, mounting height and tilt as one geometry problem instead of four independent settings.</p>
+<p>Do not lock an arbitrary “perfect height” into your specification unless it is supported by the exact camera/analytics combination. For example, Hanwha publishes specific height, angle, distance and illumination recommendations for some AI functions, while i-PRO publishes different distance/view guidance for PPE analytics. The important engineering lesson is that <strong>every analytic has a valid scene envelope</strong>.</p>
+
+<h2>4. Measure the hardest detection point before finalizing the bracket</h2>
+<p>Commissioning should be driven by the worst useful view, not the easiest one. Identify the farthest valid pedestrian location, the most severe partial occlusion and the most difficult lighting state. Capture still frames from those conditions and inspect them at the resolution actually used by the AI pipeline.</p>
+<p>A simple field method is to mark three validation points:</p>
+<ol>
+<li><strong>Near point:</strong> closest valid position inside the decision zone.</li>
+<li><strong>Nominal point:</strong> where pedestrians most commonly travel.</li>
+<li><strong>Far/edge point:</strong> hardest position that must still count.</li>
+</ol>
+<p>At each point, walk toward, away from and across the camera. Repeat with realistic PPE, clothing colors and carried objects. If the far point fails repeatedly, do not immediately lower confidence. First improve the view: reduce coverage, change focal length, change mounting position, add a second camera or alter the ROI so the system is not required to make a safety-relevant decision from inadequate imagery.</p>
+
+<h2>5. Design the ROI as a decision boundary, not a drawing exercise</h2>
+<p>ROI configuration is where a general person detector becomes a site-specific industrial rule. A good detector may correctly identify a worker outside the dangerous area; the ROI decides whether that detection matters.</p>
+<h3>Main ROI</h3>
+<p>The main ROI should cover the actual restricted or monitored region—not the entire image simply because the camera can see it. Hanwha’s guidance for AI analytics similarly recommends limiting the detection area to the meaningful walking region rather than blindly using the whole camera view.</p>
+<h3>Ignore zones</h3>
+<p>Use ignore/exclusion zones when the main ROI unavoidably includes visual regions that should never create a decision: reflections, safe platforms, adjacent walkways, monitor screens, windows or inaccessible areas.</p>
+<h3>Dynamic ROI</h3>
+<p>Some industrial applications need the effective hazard zone to change with machine state. For example, a robot path, transfer carriage or moving fixture can change which part of the image is dangerous. In that architecture, the PLC may select an ROI state while the vision system evaluates only the enabled zone. Treat ROI-state communication as part of the control interface and test every state transition.</p>
+<h3>Test the ROI boundary itself</h3>
+<p>Do repeated walks just outside, directly on and just inside each ROI edge. The point is not only to prove that the center works; it is to understand exactly where the software changes from “visible person” to “actionable person.” Record edge cases and confirm that the displayed overlay matches the decision logic.</p>
+
+<h2>6. Lock image quality before tuning AI confidence</h2>
+<p>Confidence thresholds cannot repair a bad image. Before AI tuning, verify:</p>
+<ul>
+<li>focus remains sharp at the critical target distance;</li>
+<li>shutter/exposure does not turn walking people into heavy motion blur;</li>
+<li>backlight and glare do not erase body detail;</li>
+<li>night/low-light mode does not change the scene so drastically that the model behaves differently;</li>
+<li>WDR, gain, noise reduction and sharpening are not creating unstable artifacts;</li>
+<li>the camera mount is rigid and vibration-free;</li>
+<li>the RTSP profile used by the AI is the intended resolution, codec and frame rate.</li>
+</ul>
+<p>Lighting requirements are analytics-specific. Hanwha, for example, specifies minimum illumination for particular AI functions. Do not copy one vendor’s lux figure into another product’s acceptance criteria; instead measure and document the real scene and verify performance across the lighting range the installation must support.</p>
+
+<h2>7. Build a stable RTSP and compute pipeline before judging the model</h2>
+<p>A frozen or delayed stream can look like an AI failure. Separate camera health from inference quality.</p>
+<table>
+<thead><tr><th>Layer</th><th>What to verify</th><th>Typical failure symptom</th></tr></thead>
+<tbody>
+<tr><td>Camera</td><td>Power, link, focus, exposure, encoder</td><td>No image, blur, severe lighting variation</td></tr>
+<tr><td>Network</td><td>Packet stability, switch load, cable, IP conflicts</td><td>Stutter, reconnects, delayed frames</td></tr>
+<tr><td>RTSP decoder</td><td>Correct stream, stale-frame detection, reconnect logic</td><td>Last frame remains visible after camera loss</td></tr>
+<tr><td>Inference</td><td>GPU/CPU load, frame queue, model latency</td><td>Bounding box lags behind real movement</td></tr>
+<tr><td>Decision logic</td><td>ROI, confidence, tracking, confirmation timer</td><td>Chatter, delayed clear, nuisance event</td></tr>
+<tr><td>PLC interface</td><td>Heartbeat, System OK, fault behavior, timing</td><td>AI detects correctly but machine logic receives wrong state</td></tr>
+</tbody>
+</table>
+<p>For multi-camera systems, intentionally disconnect one camera while the others are running. One failed channel should not silently freeze the entire application. The HMI should make stale/offline status obvious and the configured fault output should behave exactly as documented.</p>
+
+<h2>8. Tune confidence, tracking and confirmation time in the correct order</h2>
+<p>Do not tune five variables at once. Use this order:</p>
+<ol>
+<li><strong>Fix the scene and camera geometry.</strong></li>
+<li><strong>Fix ROI and ignore zones.</strong></li>
+<li><strong>Establish a reasonable detection confidence baseline.</strong></li>
+<li><strong>Enable tracking or temporal association if the pipeline supports it.</strong></li>
+<li><strong>Add a confirmation timer only after you understand one-frame and short-lived detections.</strong></li>
+<li><strong>Measure added latency end to end.</strong></li>
+</ol>
+<p>A short confirmation window can reject transient detections, but it also delays the output. That trade-off must be measured against the real application. If a system is connected to PLC logic, the relevant number is not “model inference time”; it is the total time from a real person entering the defined condition to the PLC receiving the intended signal.</p>
+
+<h2>9. Engineer PLC signals for normal, detected and failed states</h2>
+<p>A useful integration normally communicates more than one bit. Exact addresses depend on the project, but the logical interface often benefits from signals such as:</p>
+<ul>
+<li><strong>Human Detected</strong> — confirmed actionable detection;</li>
+<li><strong>System OK</strong> — application, required cameras and communication healthy;</li>
+<li><strong>System Fault</strong> — one or more required health checks failed;</li>
+<li><strong>Heartbeat</strong> — toggled or updated so the PLC can detect a frozen application;</li>
+<li><strong>ROI/Mode input</strong> — optional PLC-to-AI state selection.</li>
+</ul>
+<p>The important design question is what happens when confidence disappears. If the camera cable is pulled, the AI process crashes, the PC freezes or PLC communication drops, the system must move into the documented fault behavior rather than leaving an old “safe” state latched indefinitely.</p>
+
+<h2>10. Use a commissioning test matrix instead of a demo walk</h2>
+<p>A single person walking through the center of the frame proves almost nothing. Use repeatable test cases and record pass/fail evidence.</p>
+<table>
+<thead><tr><th>Test</th><th>Method</th><th>Expected evidence</th></tr></thead>
+<tbody>
+<tr><td>Center entry</td><td>Walk through nominal path</td><td>Stable detection and correct PLC output</td></tr>
+<tr><td>Far edge</td><td>Walk at farthest required point</td><td>Detection remains reliable at worst target scale</td></tr>
+<tr><td>ROI boundary</td><td>Walk just outside / on / inside edge</td><td>Decision changes at intended zone boundary</td></tr>
+<tr><td>Partial occlusion</td><td>Pass behind realistic fixture or pallet</td><td>Known behavior documented; no hidden assumption</td></tr>
+<tr><td>Multiple people</td><td>Two or more people enter with overlap</td><td>No unexpected suppression or unstable event state</td></tr>
+<tr><td>Different directions</td><td>Approach, leave and cross the view</td><td>Required directions validated</td></tr>
+<tr><td>Lighting change</td><td>Day/night or process-light state</td><td>Detection quality remains within acceptance criteria</td></tr>
+<tr><td>Reflection/background</td><td>Expose known reflective/display area</td><td>No actionable false event</td></tr>
+<tr><td>Camera disconnect</td><td>Remove required stream</td><td>Offline state and fault logic occur correctly</td></tr>
+<tr><td>AI service stop</td><td>Stop the inference application</td><td>Heartbeat/System OK fail as designed</td></tr>
+<tr><td>PLC communication loss</td><td>Interrupt link</td><td>Fault behavior matches design</td></tr>
+<tr><td>Restart recovery</td><td>Restart camera/app/PC</td><td>System returns only after health conditions are satisfied</td></tr>
+</tbody>
+</table>
+
+<h2>11. Acceptance criteria should include misses, false alarms and latency</h2>
+<p>“It works” is not a commissioning criterion. Define the evidence you will keep:</p>
+<ul>
+<li>number and type of required test scenarios;</li>
+<li>which scenarios passed, failed or require an operational limitation;</li>
+<li>recorded false-positive cases;</li>
+<li>recorded missed-detection cases;</li>
+<li>measured end-to-end detection-to-PLC timing;</li>
+<li>camera offline detection time;</li>
+<li>restart/recovery behavior;</li>
+<li>final camera position, lens/FOV, ROI screenshot and configuration revision;</li>
+<li>software/model version and threshold values used during acceptance.</li>
+</ul>
+<p>This baseline matters because a future camera move, firmware change, model update, lens adjustment or factory-layout change can alter behavior. Without a commissioning baseline, teams often discover regression only after nuisance alarms or a missed event appears in production.</p>
+
+<h2>12. Common installation mistakes that destroy AI performance</h2>
+<ul>
+<li><strong>Covering too much floor with one camera:</strong> people become tiny at the far end.</li>
+<li><strong>Mounting for CCTV aesthetics instead of analytics:</strong> the view looks wide and clean but the target geometry is poor.</li>
+<li><strong>Using the entire frame as ROI:</strong> safe walkways and reflections become part of the decision.</li>
+<li><strong>Lowering confidence to compensate for poor placement:</strong> this often increases nuisance alarms.</li>
+<li><strong>Ignoring stream health:</strong> a stale image can remain on screen while detection is no longer live.</li>
+<li><strong>Testing only in daylight:</strong> night shift or process lighting behaves differently.</li>
+<li><strong>Testing only one person in the center:</strong> edge, occlusion and multi-person cases remain unknown.</li>
+<li><strong>Sending only a detection bit to PLC:</strong> the PLC has no independent indication that the AI system is alive.</li>
+<li><strong>No failure-state test:</strong> camera/network/application faults are discovered after deployment.</li>
+<li><strong>No change control:</strong> a camera is bumped or ROI edited later and the original acceptance is no longer valid.</li>
+</ul>
+
+<h2>13. Installation checklist for field engineers</h2>
+<ol>
+<li>Document hazard/monitoring objective and required downstream action.</li>
+<li>Mark pedestrian paths and all valid entry directions.</li>
+<li>Identify occlusion, glare, reflections, vibration and lighting changes.</li>
+<li>Select camera position and lens based on the hardest required target view.</li>
+<li>Verify focus/exposure using the actual AI stream.</li>
+<li>Define main ROI only around the actionable area.</li>
+<li>Add ignore zones for irrelevant visual regions where needed.</li>
+<li>Validate ROI edges with repeated walking tests.</li>
+<li>Confirm camera/RTSP health monitoring and stale-frame handling.</li>
+<li>Tune confidence and temporal confirmation one variable at a time.</li>
+<li>Measure total detection-to-output latency.</li>
+<li>Test Human Detected, System OK, Fault and heartbeat logic.</li>
+<li>Disconnect camera/network/PLC intentionally and verify failure behavior.</li>
+<li>Run the full commissioning matrix across relevant lighting and operating states.</li>
+<li>Save screenshots, test evidence, final configuration and software/model version.</li>
+</ol>
+
+<h2>14. When one camera is not enough</h2>
+<p>Add another camera when the required zone cannot be made visually reliable from one view. Typical reasons include deep occlusion behind machinery, a long narrow area where the far target becomes too small, multiple entrances with conflicting view angles, or a scene where one camera cannot avoid severe backlight.</p>
+<p>Two well-designed views can be more valuable than one very wide image. The architecture can treat them as independent detection channels or combine them at the decision layer, depending on the application. What matters is that the logic is explicit and tested.</p>
+
+<h2>15. Related Xenors engineering guides</h2>
+<ul>
+<li><a href="/ai/ai-pedestrian-detection-system/">Pedestrian Detection AI Camera & System for Factory Safety</a> — complete system architecture, multi-camera AI, ROI and PLC overview.</li>
+<li><a href="/ai/ai-pedestrian-detection-false-alarms-fixes/">AI Pedestrian Detection False Alarms: Causes, Testing & Fixes</a> — troubleshooting once the system is running.</li>
+<li><a href="/tech/forklift-ai-camera/">Forklift AI Camera: Pedestrian Detection & Auto Stop Guide</a> — vehicle-specific pedestrian detection architecture.</li>
+<li><a href="/plc/edge-ai-vision-plc-modbus-integration/">Connecting Edge AI Vision to PLCs</a> — PLC handshake and integration concepts for edge vision systems.</li>
+</ul>
+
+<h2>FAQ</h2>
+<h3>Where should an AI pedestrian detection camera be installed?</h3>
+<p>Choose a position where the full required pedestrian path is visible, targets remain large enough across the zone, lighting is stable and occlusion is controlled. Validate the exact position with repeated walking tests before final handover.</p>
+<h3>Should an AI camera look straight down from the ceiling?</h3>
+<p>Not by default. Some object-classification analytics perform worse with steep top-down views. Follow the exact product guidance and validate human shape and target detail in the real scene.</p>
+<h3>How should ROI zones be configured?</h3>
+<p>Limit the decision ROI to the real hazard or monitoring area. Exclude reflections, screens, adjacent safe walkways or irrelevant regions with ignore zones where supported, and test each ROI boundary.</p>
+<h3>How do you commission an AI pedestrian detection camera?</h3>
+<p>Use a documented test matrix covering distance, direction, ROI edges, occlusion, lighting, multiple people, camera loss, AI failure, PLC communication loss and restart recovery.</p>
+<h3>Can an AI camera directly stop a machine?</h3>
+<p>A general AI camera should not automatically be treated as a certified safety function. Machine stopping requires a suitable risk assessment and validated control architecture with safety-rated elements where required.</p>
+<h3>How should PLC communication be tested?</h3>
+<p>Test normal detection, clearing, health/heartbeat signals and every relevant failure state. Measure the real end-to-end response rather than relying only on model inference speed.</p>
+
+<h2>Sources and technical references</h2>
+<p>The installation principles above are informed by vendor documentation and field literature, while all product-specific numeric recommendations remain specific to those products/applications:</p>
+<ul>
+<li><a href="https://help.axis.com/en-us/axis-object-analytics" rel="noopener">AXIS Object Analytics — mounting and scene considerations</a></li>
+<li><a href="https://support.digital-watchdog.com/hc/en-us/articles/54667534189972-Camera-Installation-Best-Practices-for-Ai-Analytics" rel="noopener">Digital Watchdog — Camera Installation Best Practices for AI Analytics</a></li>
+<li><a href="https://supportportal.hanwhavision.com/uk/documentation/block-editor/135" rel="noopener">Hanwha Vision — AI camera installation guidance</a></li>
+<li><a href="https://i-pro.com/products_and_solutions/en/media/documentation_file/safety-vest-installation" rel="noopener">i-PRO — Safety Vest & Helmet Compliance App installation guidance</a></li>
+<li><a href="https://doi.org/10.54941/ahfe1007925" rel="noopener">Field study on implementation and adoption of AI camera pedestrian detection on construction sites</a></li>
+<li><a href="https://journals.sagepub.com/doi/full/10.3233/FAIA260940" rel="noopener">Adaptive Zone Monitoring for Industrial Safety — YOLO, PTZ, HMI and PLC integration</a></li>
+</ul>
+
+<section class="quick-answer">
+<h2>Final commissioning rule</h2>
+<p>The best AI pedestrian detection installation is not the one with the highest demo confidence score. It is the one whose <strong>camera view, ROI, health monitoring, AI timing, PLC interface and failure behavior have all been tested against the real operating conditions</strong> and documented well enough to repeat after any future change.</p>
+</section>
+</article>
+</main>
+<script data-xenors-common="read-also-js" defer src="/components/read-also.js"></script>
+<script data-xenors-build="site-shell-js" defer src="/components/site-shell.js"></script>
+</body>
+</html>
