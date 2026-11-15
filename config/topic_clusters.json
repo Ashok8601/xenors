@@ -1,0 +1,31 @@
+{
+  "ai-agents": {
+    "pillar": "/ai/what-are-ai-agents-and-how-to-create-them/",
+    "pages": [
+      "/ai/how-to-build-an-ai-agent-with-chatgpt/",
+      "/ai/ai-agents-for-marketing-2026/",
+      "/ai/ai-agents-for-sales-2026/",
+      "/ai/ai-agents-for-customer-service-2026/",
+      "/ai/multi-agent-systems-explained/",
+      "/ai/ai-agent-guardrails/",
+      "/ai/ai-agent-memory/"
+    ]
+  },
+  "industrial-ai-safety": {
+    "pillar": "/tech/ai-pedestrian-detection-system/",
+    "pages": [
+      "/tech/forklift-ai-camera/",
+      "/forklift-safety-solutions-guide/",
+      "/ai-camera-based-human-detection-system/",
+      "/industrial-automation-plc-integration/",
+      "/tech/pedestrian-detection-camera-installation/"
+    ]
+  },
+  "edge-ai": {
+    "pillar": "/tech/edge-ai/",
+    "pages": [
+      "/tech/ai-camera-based-human-detection-system/",
+      "/tech/forklift-ai-camera/"
+    ]
+  }
+}
