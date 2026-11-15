@@ -1,8 +1,8 @@
 {
-  "last_slot": "2026-11-15-MANUAL-SEO",
-  "last_published_at": "2026-11-15T11:30:00+05:30",
-  "last_title": "AI Pedestrian Detection Camera Installation: ROI, Placement & PLC Checklist",
-  "last_url": "https://xenors.in/ai/ai-pedestrian-detection-camera-installation/",
+  "last_slot": "2026-11-15-MANUAL-AI-TECH",
+  "last_published_at": "2026-11-15T11:45:00+05:30",
+  "last_title": "AI Text Watermark vs AI Detector vs C2PA: What Actually Proves AI Content?",
+  "last_url": "https://xenors.in/tech/ai-text-watermark-vs-ai-detector-c2pa/",
   "history": [
     {
       "slot": "2026-11-13-PM",
@@ -28,18 +28,22 @@
       "slot": "2026-11-15-MANUAL-SEO",
       "url": "https://xenors.in/ai/ai-pedestrian-detection-camera-installation/",
       "title": "AI Pedestrian Detection Camera Installation: ROI, Placement & PLC Checklist"
+    },
+    {
+      "slot": "2026-11-15-MANUAL-AI-TECH",
+      "url": "https://xenors.in/tech/ai-text-watermark-vs-ai-detector-c2pa/",
+      "title": "AI Text Watermark vs AI Detector vs C2PA: What Actually Proves AI Content?"
     }
   ],
   "last_model": "manual-editorial-research",
   "last_internal_links": [
-    "ai/ai-pedestrian-detection-system/index.html",
-    "ai/ai-pedestrian-detection-false-alarms-fixes/index.html"
+    "tech/ai-text-watermarking-detect-ai-content-2026/index.html"
   ],
   "last_keyword_cluster": [
-    "ai pedestrian detection camera installation",
-    "pedestrian detection camera placement",
-    "AI camera ROI setup",
-    "PLC pedestrian detection integration",
-    "industrial AI camera commissioning"
+    "AI text watermark",
+    "AI detector",
+    "C2PA",
+    "AI provenance",
+    "text watermarking 2026"
   ]
 }
