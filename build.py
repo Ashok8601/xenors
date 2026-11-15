@@ -127,7 +127,24 @@ def ensure_link(s,rel,href,**attrs):
     return t
 
 def ensure_property_meta(s,prop,content):
-    t=s.find('meta',attrs={'property':re.compile('^'+re.escape(prop)+'def title_text(s,url):
+    t=s.find('meta',attrs={'property':re.compile('^'+re.escape(prop)+'$',re.I)})
+    if not t:
+        t=s.new_tag('meta')
+        t['property']=prop
+        s.head.append(t)
+    t['content']=content
+    return t
+
+def text_count(s):
+    node=s.find('main') or s.body or s
+    parts=[]
+    for t in node.find_all(string=True):
+        if t.parent and t.parent.name in {'script','style','noscript'}:
+            continue
+        parts.append(str(t))
+    return len(re.findall(r"\b[\w'-]+\b",' '.join(parts)))
+
+def title_text(s,url):
     override=seo_override(url,'title')
     if override: return override[:60]
     if url in CTR_META: return CTR_META[url][0]
