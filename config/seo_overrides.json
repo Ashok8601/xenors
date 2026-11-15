@@ -10,5 +10,165 @@
   "/data-science/transfer-learning-keras-pytorch/": {
     "title": "Transfer Learning in Keras & PyTorch: Practical Guide",
     "description": "Transfer learning in Keras and PyTorch: compare workflows, freezing layers, fine-tuning and evaluation steps for real projects."
+  },
+  "/ai/how-to-build-an-ai-agent-with-chatgpt/": {
+    "title": "How to Build an AI Agent with ChatGPT: Step-by-Step",
+    "description": "Build an AI agent with ChatGPT using tools, memory, reasoning loops and practical workflows, with clear limits and testing steps."
+  },
+  "/home/code-lab/html/html-seo-basics/": {
+    "title": "HTML SEO Basics: Tags, Structure & Best Practices",
+    "description": "Learn HTML SEO basics with title tags, meta descriptions, headings, semantic structure, canonical tags and crawl-friendly markup."
+  },
+  "/tech/forklift-safety-light/": {
+    "title": "Forklift Warning Lights: Types, Uses & Safety Guide",
+    "description": "Compare forklift warning lights, blue and red zone lights, placement, visibility and practical safety use in warehouses and factories."
+  },
+  "/ai/what-are-ai-agents-and-how-to-create-them/": {
+    "title": "What Are AI Agents? How They Work and How to Build One",
+    "description": "Understand AI agents, how they differ from chatbots, how tool use and feedback loops work, and how to build a practical agent."
+  },
+  "/home/code-lab/html/html-deprecated-tags/": {
+    "title": "Deprecated HTML Tags: What to Avoid and Use Instead",
+    "description": "See deprecated HTML tags, why modern HTML avoids them, and the current semantic or CSS alternatives you should use instead."
+  },
+  "/tech/forklift-ai-camera/": {
+    "title": "Forklift AI Camera: Pedestrian Detection & Collision Safety",
+    "description": "How forklift AI cameras detect pedestrians, trigger alerts, support slow-stop logic and improve collision safety around moving vehicles."
+  },
+  "/home/code-lab/git/git-push-pull/": {
+    "title": "Git Push and Pull: Commands, Workflow & Examples",
+    "description": "Learn git push and git pull with practical examples, remote branch workflow, common errors and safe synchronization steps."
+  },
+  "/home/code-lab/nodejs/express-js/": {
+    "title": "Express.js Tutorial: Routes, Middleware & REST APIs",
+    "description": "Learn Express.js fundamentals with routes, middleware, request handling and a simple REST API workflow in Node.js."
+  },
+  "/share-market/best-ai-crypto-trading-bots/": {
+    "title": "AI Crypto Trading Bots: How to Evaluate Them Safely",
+    "description": "Compare AI crypto trading bot features, risks, automation limits, fees and the checks to make before trusting any trading system."
+  },
+  "/interview-preparation/ai-projects-for-resume-interviews/": {
+    "title": "AI Projects for Resume and Interviews: Practical Ideas",
+    "description": "AI project ideas for resumes and interviews, with implementation scope, measurable results and talking points recruiters can evaluate."
+  },
+  "/share-market/how-to-invest-and-make-money-daily/": {
+    "title": "Can You Invest and Make Money Daily? Risks & Reality",
+    "description": "Understand the difference between investing and daily trading, realistic expectations, risks, costs and why daily profit is never guaranteed."
+  },
+  "/share-market/can-i-make-200-per-day-from-trading/": {
+    "title": "Can You Make $200 a Day Trading? Risks and Math",
+    "description": "See what earning $200 a day from trading would require, including capital, risk, fees, consistency and why returns are not guaranteed."
+  },
+  "/home/code-lab/html/html-link-target-rel/": {
+    "title": "HTML Link target and rel Attributes: Complete Guide",
+    "description": "Learn target and rel attributes in HTML links, including _blank, noopener, noreferrer, sponsored and safe external-link patterns."
+  },
+  "/data-science/yolo-object-detection-python/": {
+    "title": "YOLO Object Detection in Python: Practical Tutorial",
+    "description": "Run YOLO object detection in Python with a practical workflow covering setup, inference, confidence thresholds and result handling."
+  },
+  "/ai-camera-based-human-detection-system/": {
+    "title": "AI Human Detection System: Cameras, Alerts & Integration",
+    "description": "How an AI human detection system works with cameras, ROI zones, alerts, edge inference and PLC or automation integration."
+  },
+  "/home/code-lab/dsa/dsa-basics/": {
+    "title": "DSA Basics: Data Structures and Algorithms Guide",
+    "description": "Learn DSA basics with arrays, stacks, queues, linked lists, searching, sorting and a simple roadmap for problem solving."
+  },
+  "/home/code-lab/html/html-bdi-bdo/": {
+    "title": "HTML bdi and bdo Tags: Bidirectional Text Guide",
+    "description": "Learn how HTML bdi and bdo tags handle bidirectional text, when to use each, and practical examples for mixed-language content."
+  },
+  "/home/code-lab/html/html-select-option/": {
+    "title": "HTML select and option: Dropdown Examples & Guide",
+    "description": "Create HTML dropdowns with select and option, default values, disabled options, groups, labels and accessible form patterns."
+  },
+  "/share-market/best-stocks-under-100/": {
+    "title": "Stocks Under 100: How to Evaluate Low-Priced Shares",
+    "description": "A practical framework for evaluating stocks priced under 100 using fundamentals, liquidity, risk, valuation and business quality."
+  },
+  "/home/code-lab/html/html-canonical-tag/": {
+    "title": "Canonical Tag in HTML: Syntax, SEO Use & Examples",
+    "description": "Learn how to add a canonical tag in HTML, when to use it, common mistakes and how canonical URLs help consolidate duplicate signals."
+  },
+  "/share-market/ai-stock-in-dow-jones/": {
+    "title": "AI Stocks in the Dow Jones: What Investors Should Check",
+    "description": "Understand how to identify AI exposure among Dow Jones companies and evaluate business fundamentals instead of relying on AI hype."
+  },
+  "/ai/multi-agent-systems-explained-2026/": {
+    "title": "Multi-Agent Systems Explained: Architecture & Use Cases",
+    "description": "Learn how multi-agent systems coordinate specialized agents, tools, memory and tasks, plus practical architecture and failure modes."
+  },
+  "/tech/ai-search-agents-future-of-search-2026/": {
+    "title": "AI Search Agents: How They May Change Search",
+    "description": "Explore how AI search agents retrieve, compare and act on information, and what site owners should do for crawlability and visibility."
+  },
+  "/data-science/convolutional-neural-networks-cnn/": {
+    "title": "Convolutional Neural Networks (CNN): How They Work",
+    "description": "Understand CNN layers, filters, pooling, feature extraction and the training workflow behind image classification and vision systems."
+  },
+  "/data-science/cnn-architecture-resnet-vgg/": {
+    "title": "CNN Architectures: ResNet vs VGG Explained",
+    "description": "Compare ResNet and VGG architectures, residual connections, depth, tradeoffs and when each design pattern is useful."
+  },
+  "/share-market/ai-crypto-coins-2026/": {
+    "title": "AI Crypto Coins: How to Evaluate Projects and Risk",
+    "description": "A risk-first guide to evaluating AI crypto projects using utility, token economics, liquidity, team evidence and market risk."
+  },
+  "/home/code-lab/html/html-alt-text/": {
+    "title": "HTML Alt Text: Image Accessibility and SEO Guide",
+    "description": "Write useful HTML alt text for accessibility and image SEO, with examples, decorative-image rules and common mistakes to avoid."
+  },
+  "/data-science/logistic-regression-classification/": {
+    "title": "Logistic Regression for Classification: Practical Guide",
+    "description": "Learn logistic regression for classification, sigmoid probability, thresholds, evaluation metrics and a simple modeling workflow."
+  },
+  "/share-market/100-shares-of-stock-is-called/": {
+    "title": "What Is 100 Shares of Stock Called? Round Lot Explained",
+    "description": "100 shares of stock are traditionally called a round lot. Learn what that means, how odd lots differ and why lot size matters."
+  },
+  "/plc/plc-basics-inputs-outputs-ladder-logic/": {
+    "title": "PLC Basics: Inputs, Outputs and Ladder Logic",
+    "description": "Learn PLC inputs, outputs, contacts, coils and ladder logic with a simple industrial automation workflow and practical examples."
+  },
+  "/ai/": {
+    "title": "AI Engineering, Agents, Computer Vision & Edge AI",
+    "description": "Explore practical AI engineering guides on agents, computer vision, industrial AI, edge inference, safety systems and implementation."
+  },
+  "/ashok-kumar-yadav-biography/": {
+    "title": "Ashok Kumar Yadav: AI & Industrial Automation Profile",
+    "description": "Profile of Ashok Kumar Yadav covering AI engineering, industrial automation, computer vision and practical technology work."
+  },
+  "/home/code-lab/html/html-dialog/": {
+    "title": "HTML dialog Element: Modal Examples and Best Practices",
+    "description": "Learn the HTML dialog element with modal and non-modal examples, showModal(), close(), forms and accessibility considerations."
+  },
+  "/industrial-automation-plc-integration/": {
+    "title": "Industrial Automation and PLC Integration: Practical Guide",
+    "description": "A practical guide to PLC integration, sensors, I/O, networking, interlocks, HMI communication and industrial automation workflows."
+  },
+  "/": {
+    "title": "Xenors: AI Engineering, Industrial AI & Automation",
+    "description": "Practical guides on AI engineering, industrial AI, computer vision, edge AI, PLC automation and emerging technology."
+  },
+  "/share-market/can-i-earn-500-daily-by-trading/": {
+    "title": "Can You Earn 500 Daily From Trading? Risks & Reality",
+    "description": "Understand what earning 500 per day from trading would require, including capital, consistency, fees, risk and realistic expectations."
+  },
+  "/home/code-lab/html/html-layout/": {
+    "title": "HTML Layout: Semantic Page Structure with Examples",
+    "description": "Build clean HTML layouts using header, nav, main, section, article, aside and footer with semantic and accessible structure."
+  },
+  "/interview-preparation/data-science-projects-for-resume/": {
+    "title": "Data Science Projects for Resume: Strong Portfolio Ideas",
+    "description": "Data science project ideas for resumes with clear problem statements, measurable results, deployment options and interview talking points."
+  },
+  "/data-science/vector-databases-chromadb-pinecone/": {
+    "title": "Vector Databases: ChromaDB vs Pinecone and More",
+    "description": "Compare vector databases such as ChromaDB and Pinecone by indexing, retrieval, scale, deployment, cost and RAG use cases."
+  },
+  "/home/code-lab/html/html-security-links/": {
+    "title": "Secure External Links in HTML: rel and target Guide",
+    "description": "Learn safer external-link patterns using target, rel, noopener, noreferrer and sponsored attributes with practical HTML examples."
   }
 }

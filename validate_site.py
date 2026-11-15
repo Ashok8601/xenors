@@ -16,6 +16,10 @@ try:
 except Exception:
     INDEXING_POLICY={'noindex':[]}
 POLICY_NOINDEX=set(INDEXING_POLICY.get('noindex',[]))
+try:
+    SEO_REFRESH_DATES=json.loads((Path(__file__).resolve().parent/'config/seo_refresh_dates.json').read_text(encoding='utf-8'))
+except Exception:
+    SEO_REFRESH_DATES={}
 
 def url_for(p):
     rel=p.relative_to(ROOT).as_posix()
@@ -37,6 +41,16 @@ rp=Path(__file__).resolve().parent/'config/redirects.csv'
 if rp.exists():
     with rp.open(encoding='utf-8-sig') as f:
         for r in csv.DictReader(f): redirects[r.get('old') or r.get('old_url')]=r.get('new') or r.get('new_url')
+# Include build-generated canonical variants so legacy no-slash, .html,
+# /index.html and accidental double-slash routes are validated too.
+grp=ROOT/'_redirects'
+if grp.exists():
+    for line in grp.read_text(encoding='utf-8',errors='ignore').splitlines():
+        line=line.strip()
+        if not line or line.startswith('#'): continue
+        parts=line.split()
+        if len(parts)>=2:
+            redirects[parts[0]]=parts[1]
 for old in list(redirects):
     seen=set(); cur=old
     while cur in redirects:
@@ -138,11 +152,19 @@ for old,new in redirects.items():
 # sitemap checks
 sp=ROOT/'sitemap.xml'
 try:
-    tree=ET.parse(sp); ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}; locs=[x.text for x in tree.findall('.//s:loc',ns)]
-except Exception as e: errors.append(f'sitemap invalid XML: {e}'); locs=[]
+    tree=ET.parse(sp); ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}
+    url_nodes=tree.findall('.//s:url',ns)
+    locs=[x.find('s:loc',ns).text for x in url_nodes if x.find('s:loc',ns) is not None]
+    sitemap_lastmod={}
+    for x in url_nodes:
+        loc=x.find('s:loc',ns); lm=x.find('s:lastmod',ns)
+        if loc is not None and lm is not None: sitemap_lastmod[urlparse(loc.text).path]=lm.text
+except Exception as e:
+    errors.append(f'sitemap invalid XML: {e}'); locs=[]; sitemap_lastmod={}
 if len(locs)!=len(set(locs)): errors.append('sitemap duplicate URLs')
 for loc in locs:
     path=urlparse(loc).path
+    if path!='/' and not path.endswith('/'): errors.append(f'sitemap URL is not canonical trailing-slash form: {path}')
     if path in redirects: errors.append(f'sitemap URL is redirect source: {path}')
     if not target_exists(path,{}): errors.append(f'sitemap URL not a 200 static file: {path}')
     if path not in pages: errors.append(f'sitemap URL missing page: {path}')
@@ -223,8 +245,118 @@ for loc in locs:
         c=pages[path].find('link',rel='canonical')
         if not c or c.get('href')!=loc: errors.append(f'sitemap canonical mismatch: {loc}')
 for url,s in pages.items():
+    robots=s.find('meta',attrs={'name':re.compile('^robots
+# orphans: utility pages excluded; homepage can be root.
+for url,n in inbound.items():
+    utility=url in UTILITY or any(url.startswith(x) for x in UTILITY_PREFIX)
+    if url!='/' and not utility and n==0: errors.append(f'orphan page: {url}')
+# component html must not be public
+if any((ROOT/'components').glob('*.html')) if (ROOT/'components').exists() else False: errors.append('components/*.html leaked into dist')
+# every image asset under 200KB
+large=[p for p in ROOT.rglob('*') if p.is_file() and p.suffix.lower() in {'.png','.jpg','.jpeg','.webp'} and p.stat().st_size>200*1024]
+for p in large: errors.append(f'image asset >200KB: {p.relative_to(ROOT)} ({p.stat().st_size})')
+print(json.dumps({'root':str(ROOT),'html_pages':len(pages),'sitemap_urls':len(locs),'redirects':len(redirects),'errors':len(errors),'warnings':len(warnings),'error_list':errors[:500],'warning_list':warnings},indent=2,ensure_ascii=False))
+sys.exit(1 if errors or warnings else 0)
+,re.I)}); noindex=robots and 'noindex' in robots.get('content','').lower()
+    if not noindex and SITE+url not in locs: errors.append(f'indexable page missing sitemap: {url}')
+# orphans: utility pages excluded; homepage can be root.
+for url,n in inbound.items():
+    utility=url in UTILITY or any(url.startswith(x) for x in UTILITY_PREFIX)
+    if url!='/' and not utility and n==0: errors.append(f'orphan page: {url}')
+# component html must not be public
+if any((ROOT/'components').glob('*.html')) if (ROOT/'components').exists() else False: errors.append('components/*.html leaked into dist')
+# every image asset under 200KB
+large=[p for p in ROOT.rglob('*') if p.is_file() and p.suffix.lower() in {'.png','.jpg','.jpeg','.webp'} and p.stat().st_size>200*1024]
+for p in large: errors.append(f'image asset >200KB: {p.relative_to(ROOT)} ({p.stat().st_size})')
+print(json.dumps({'root':str(ROOT),'html_pages':len(pages),'sitemap_urls':len(locs),'redirects':len(redirects),'errors':len(errors),'warnings':len(warnings),'error_list':errors[:500],'warning_list':warnings},indent=2,ensure_ascii=False))
+sys.exit(1 if errors or warnings else 0)
+,re.I)})
+    if not og or og.get('content')!=expected: errors.append(f'{url}: og:url mismatch ({og.get("content") if og else "missing"} != {expected})')
+    robots=s.find('meta',attrs={'name':re.compile('^robots$',re.I)}); noindex=robots and 'noindex' in robots.get('content','').lower()
+    should_noindex=url in NOINDEX or url in POLICY_NOINDEX
+    if should_noindex and not noindex: errors.append(f'{url}: should be noindex')
+    if not should_noindex and noindex: errors.append(f'{url}: unexpected noindex')
+    # JSON-LD must parse
+    for sc in s.find_all('script',attrs={'type':'application/ld+json'}):
+        try: json.loads(sc.string or sc.get_text())
+        except Exception as e: errors.append(f'{url}: invalid JSON-LD: {e}')
+    # script domains
+    for sc in s.find_all('script',src=True):
+        src=sc['src']
+        if src.startswith('http') and urlparse(src).netloc not in APPROVED: errors.append(f'{url}: unapproved script {src}')
+    # images
+    for im in s.find_all('img'):
+        if not im.get('src'): errors.append(f'{url}: img missing src'); continue
+        if not im.get('alt','').strip(): errors.append(f'{url}: img missing alt {im.get("src")}')
+        if not im.get('width') or not im.get('height'): errors.append(f'{url}: img missing width/height {im.get("src")}')
+        src=im['src']; pu=urlparse(src)
+        if not pu.netloc or pu.netloc in {'xenors.in','www.xenors.in'}:
+            q=ROOT/(pu.path or src).lstrip('/')
+            if q.exists() and q.stat().st_size>200*1024: errors.append(f'{url}: referenced image >200KB {pu.path or src}')
+    # internal links
+    for a in s.find_all('a',href=True):
+        href=a['href'].strip()
+        if not href or href.startswith(('#','mailto:','tel:','javascript:')): continue
+        pu=urlparse(href)
+        if pu.scheme in {'http','https'} and pu.netloc not in {'xenors.in','www.xenors.in'}: continue
+        path=pu.path or '/'
+        if path.startswith('/components/') and path.endswith('.html'): errors.append(f'{url}: links public component {path}')
+        if path and not target_exists(path,redirects): errors.append(f'{url}: broken internal link {href}')
+        if path in inbound: inbound[path]+=1
+    # Editorial depth is reviewed by humans/GSC performance, not padded to an arbitrary word count.
+    # The validator intentionally does not fail a page based only on length.
+
+
+# Every redirect must resolve directly to a final static 200 target.
+for old,new in redirects.items():
+    if '*' in old or ':splat' in new:
+        errors.append(f'unverifiable wildcard redirect: {old} -> {new}')
+    elif new in redirects:
+        errors.append(f'redirect chain: {old} -> {new} -> {redirects[new]}')
+    elif not target_exists(new,{}):
+        errors.append(f'redirect target missing: {old} -> {new}')
+
+# sitemap checks
+sp=ROOT/'sitemap.xml'
+try:
+    tree=ET.parse(sp); ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9'}; locs=[x.text for x in tree.findall('.//s:loc',ns)]
+except Exception as e: errors.append(f'sitemap invalid XML: {e}'); locs=[]
+if len(locs)!=len(set(locs)): errors.append('sitemap duplicate URLs')
+for loc in locs:
+    path=urlparse(loc).path
+    if path in redirects: errors.append(f'sitemap URL is redirect source: {path}')
+    if not target_exists(path,{}): errors.append(f'sitemap URL not a 200 static file: {path}')
+    if path not in pages: errors.append(f'sitemap URL missing page: {path}')
+    else:
+        c=pages[path].find('link',rel='canonical')
+        if not c or c.get('href')!=loc: errors.append(f'sitemap canonical mismatch: {loc}')
+for url,s in pages.items():
     robots=s.find('meta',attrs={'name':re.compile('^robots$',re.I)}); noindex=robots and 'noindex' in robots.get('content','').lower()
     if not noindex and SITE+url not in locs: errors.append(f'indexable page missing sitemap: {url}')
+# orphans: utility pages excluded; homepage can be root.
+for url,n in inbound.items():
+    utility=url in UTILITY or any(url.startswith(x) for x in UTILITY_PREFIX)
+    if url!='/' and not utility and n==0: errors.append(f'orphan page: {url}')
+# component html must not be public
+if any((ROOT/'components').glob('*.html')) if (ROOT/'components').exists() else False: errors.append('components/*.html leaked into dist')
+# every image asset under 200KB
+large=[p for p in ROOT.rglob('*') if p.is_file() and p.suffix.lower() in {'.png','.jpg','.jpeg','.webp'} and p.stat().st_size>200*1024]
+for p in large: errors.append(f'image asset >200KB: {p.relative_to(ROOT)} ({p.stat().st_size})')
+print(json.dumps({'root':str(ROOT),'html_pages':len(pages),'sitemap_urls':len(locs),'redirects':len(redirects),'errors':len(errors),'warnings':len(warnings),'error_list':errors[:500],'warning_list':warnings},indent=2,ensure_ascii=False))
+sys.exit(1 if errors or warnings else 0)
+,re.I)}); noindex=robots and 'noindex' in robots.get('content','').lower()
+    if not noindex and SITE+url not in locs: errors.append(f'indexable page missing sitemap: {url}')
+
+for url,expected_date in SEO_REFRESH_DATES.items():
+    if url in pages and url not in POLICY_NOINDEX and url not in NOINDEX:
+        if sitemap_lastmod.get(url)!=expected_date:
+            errors.append(f'{url}: sitemap lastmod {sitemap_lastmod.get(url)} != refresh date {expected_date}')
+        s=pages[url]
+        hero=(s.find('main') or s.find('article') or s.body).find('img',src=True) if (s.find('main') or s.find('article') or s.body) else None
+        if hero:
+            src=urlparse(hero.get('src','')).path.lower()
+            if src.endswith(('.png','.jpg','.jpeg')):
+                warnings.append(f'{url}: refreshed page hero still uses legacy raster format {src}')
 # orphans: utility pages excluded; homepage can be root.
 for url,n in inbound.items():
     utility=url in UTILITY or any(url.startswith(x) for x in UTILITY_PREFIX)

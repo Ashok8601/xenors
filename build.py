@@ -41,6 +41,7 @@ def load_json_config(name, default):
 SEO_OVERRIDES=load_json_config('seo_overrides.json', {})
 TOPIC_CLUSTERS=load_json_config('topic_clusters.json', {})
 INDEXING_POLICY=load_json_config('indexing_policy.json', {'noindex':[],'keep':[],'merge':{},'redirect':{}})
+SEO_REFRESH_DATES=load_json_config('seo_refresh_dates.json', {})
 
 def configured_noindex(url):
     return url in set(INDEXING_POLICY.get('noindex', []))
@@ -104,6 +105,12 @@ except Exception:
 def git_date(p):
     key=p.relative_to(ROOT).as_posix()
     return GIT_DATES.get(key) or SOURCE_DATES.get(key)
+
+def effective_modified_date(url,p):
+    base=git_date(p)
+    refresh=SEO_REFRESH_DATES.get(url)
+    if base and refresh: return max(base,refresh)
+    return refresh or base
 
 def ensure_meta(s,name,content):
     t=s.find('meta',attrs={'name':re.compile('^'+re.escape(name)+'$',re.I)})
@@ -230,7 +237,7 @@ def add_jsonld_modified(s,mod,url,title,desc):
                 typ=o.get('@type')
                 types=typ if isinstance(typ,list) else [typ]
                 if any(x in {'Article','BlogPosting','NewsArticle','TechArticle'} for x in types):
-                    found_article=True; o.setdefault('dateModified',mod); o['dateModified']=o.get('dateModified') or mod
+                    found_article=True; o['dateModified']=mod
                     o.setdefault('author',{'@type':'Person','name':'Ashok Kumar Yadav','url':SITE+'/founder/ashok-kumar-yadav-application-engineer/'})
                 for v in o.values(): walk(v)
             elif isinstance(o,list):
@@ -271,7 +278,7 @@ def normalize_internal_urls(s):
         if src.startswith('/') and not src.startswith('//'):
             tag['src']=re.sub(r'/+', '/', src)
 
-def fix_images(s):
+def fix_images(s,url,title):
     imgs=s.find_all('img',src=True)
     hero=None
     main=s.find('main') or s.find('article')
@@ -291,8 +298,10 @@ def fix_images(s):
             if (DIST/wp.lstrip('/')).exists():
                 im['src']=wp
                 src=wp
-        if not im.get('alt','').strip():
-            im['alt']=(im.get('title') or (s.find('h1').get_text(' ',strip=True) if s.find('h1') else 'Xenors image'))[:150]
+        alt=im.get('alt','').strip()
+        generic=not alt or alt.lower() in {'image','photo','picture','xenors image','banner','hero image'} or len(alt)<4
+        if generic:
+            im['alt']=(title if hero is not None and im is hero else (im.get('title') or title))[:150]
         dims=image_dimensions(im['src'])
         if dims: im['width'],im['height']=str(dims[0]),str(dims[1])
         else:
@@ -305,6 +314,12 @@ def fix_images(s):
                 l=s.new_tag('link',rel='preload',href=im['src']); l['as']='image'; s.head.append(l)
         else:
             im['loading']='lazy'; im.attrs.pop('fetchpriority',None)
+    if hero is not None and hero.get('src') and s.head:
+        src=hero.get('src')
+        if src.startswith('/'):
+            ensure_property_meta(s,'og:image',SITE+src)
+        elif src.startswith('http'):
+            ensure_property_meta(s,'og:image',src)
 
 def add_finance_notice(s,url):
     if not any(x in url.lower() for x in FINANCE_HINTS): return
@@ -445,6 +460,25 @@ def copy_assets():
         dest=DIST/rel; dest.parent.mkdir(parents=True,exist_ok=True); shutil.copy2(p,dest)
     for p in DIST.rglob('*'):
         if p.is_file() and p.suffix.lower() in {'.png','.jpg','.jpeg','.webp'}: compress_image(p)
+    # Create WebP derivatives for raster images so HTML can switch to a
+    # smaller modern format without requiring every source page to be edited.
+    for p in list(DIST.rglob('*')):
+        if not p.is_file() or p.suffix.lower() not in {'.png','.jpg','.jpeg'}: continue
+        wp=p.with_suffix('.webp')
+        if wp.exists(): continue
+        try:
+            with Image.open(p) as im:
+                im.load()
+                if max(im.size)>1800:
+                    im.thumbnail((1800,1800),Image.Resampling.LANCZOS)
+                if 'A' in im.getbands():
+                    out=im.convert('RGBA')
+                else:
+                    out=im.convert('RGB')
+                out.save(wp,'WEBP',quality=78,method=6)
+                compress_image(wp)
+        except Exception:
+            pass
 
 def clean_html_source_candidates():
     by_url={}
@@ -458,11 +492,21 @@ def clean_html_source_candidates():
         if u not in by_url or score>by_url[u][0]: by_url[u]=(score,p)
     return {u:v[1] for u,v in by_url.items()}
 
-def generate_redirect_files():
-    lines=['# Generated from config/redirects.csv by build.py']
-    for old,(new,st) in sorted(REDIRECTS.items()): lines.append(f'{old} {new} {st}')
+def generate_redirect_files(sources):
+    redirects=dict(REDIRECTS)
+    # Canonicalize common historical variants Google may still crawl.
+    # Every public route resolves to the trailing-slash canonical URL.
+    for url in sources:
+        if url in {'/','/404.html'}: continue
+        bare=url.rstrip('/')
+        redirects.setdefault(bare,(url,301))
+        redirects.setdefault(url+'/',(url,301))
+        redirects.setdefault(bare+'.html',(url,301))
+        redirects.setdefault(bare+'/index.html',(url,301))
+    lines=['# Generated from config/redirects.csv + canonical route variants by build.py']
+    for old,(new,st) in sorted(redirects.items()): lines.append(f'{old} {new} {st}')
     txt='\n'.join(lines)+'\n'; (ROOT/'_redirects').write_text(txt,encoding='utf-8'); (DIST/'_redirects').write_text(txt,encoding='utf-8')
-    routes='\n'.join([f'      - type: redirect\n        source: {old}\n        destination: {new}' for old,(new,_) in sorted(REDIRECTS.items())])
+    routes='\n'.join([f'      - type: redirect\n        source: {old}\n        destination: {new}' for old,(new,_) in sorted(redirects.items())])
     render=f'''services:\n  - type: web\n    name: xenors\n    runtime: static\n    buildCommand: pip install -r requirements.txt && python build.py\n    staticPublishPath: ./dist\n    headers:\n      - path: /images/*\n        name: Cache-Control\n        value: public, max-age=31536000, immutable\n      - path: /components/*\n        name: Cache-Control\n        value: public, max-age=604800\n    routes:\n{routes}\n'''
     (ROOT/'render.yaml').write_text(render,encoding='utf-8')
     (DIST/'_headers').write_text('/images/*\n  Cache-Control: public, max-age=31536000, immutable\n/components/*\n  Cache-Control: public, max-age=604800\n',encoding='utf-8')
@@ -470,8 +514,9 @@ def generate_redirect_files():
 def main():
     if DIST.exists(): shutil.rmtree(DIST)
     DIST.mkdir()
-    copy_assets(); generate_redirect_files()
+    copy_assets()
     sources=clean_html_source_candidates(); urls=sorted(sources)
+    generate_redirect_files(sources)
     seen_titles={}; seen_desc={}; records=[]
     for url,p in sources.items():
         raw=p.read_text(encoding='utf-8',errors='ignore'); s=BeautifulSoup(raw,'html.parser')
@@ -508,7 +553,7 @@ def main():
         # Common merged core CSS + consent
         for href in ['/assets/xenors-core.css']:
             if not s.find('link',href=href): s.head.append(s.new_tag('link',rel='stylesheet',href=href))
-        mod=git_date(p)
+        mod=effective_modified_date(url,p)
         if not mod:
             raise SystemExit(f'Missing real source date for {p.relative_to(ROOT)}; add it to config/source_dates.json')
         add_ga4(s)
@@ -527,7 +572,7 @@ def main():
                 sc=s.new_tag('script',src=src); sc['defer']=''; s.body.append(sc)
         if url=='/sitemap/': add_complete_sitemap(s,urls)
         normalize_internal_urls(s)
-        fix_images(s)
+        fix_images(s,url,title)
         # Add a query-first quick answer to selected low-CTR pages without unsupported metrics.
         if (url in CTR_META or url in SEO_OVERRIDES) and not s.find(class_='x-quick-answer'):
             mainnode=s.find('main') or s.body; h=mainnode.find('h1') if mainnode else None
