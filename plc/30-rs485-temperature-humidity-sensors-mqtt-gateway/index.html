@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>30 RS485 Sensors to MQTT Cloud: Modbus RTU Guide</title>
+<meta name="description" content="Connect 30 RS485 temperature and humidity sensors to a cloud dashboard using Modbus RTU, an MQTT gateway and offline buffering. Wiring and test guide.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://xenors.in/plc/30-rs485-temperature-humidity-sensors-mqtt-gateway/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="30 RS485 Sensors to MQTT Cloud: Modbus RTU Guide">
+<meta property="og:description" content="Connect 30 RS485 temperature and humidity sensors to a cloud dashboard using Modbus RTU, an MQTT gateway and offline buffering. Wiring and test guide.">
+<meta property="og:url" content="https://xenors.in/plc/30-rs485-temperature-humidity-sensors-mqtt-gateway/">
+<meta property="og:image" content="https://xenors.in/images/industrial-automation-plc-integration.webp">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"TechArticle","@id":"https://xenors.in/plc/30-rs485-temperature-humidity-sensors-mqtt-gateway/#article","headline":"30 RS485 Temperature and Humidity Sensors to MQTT Cloud: Design and Commissioning Guide","description":"Connect 30 RS485 temperature and humidity sensors to a cloud dashboard using Modbus RTU, an MQTT gateway and offline buffering. Wiring and test guide.","url":"https://xenors.in/plc/30-rs485-temperature-humidity-sensors-mqtt-gateway/","mainEntityOfPage":"https://xenors.in/plc/30-rs485-temperature-humidity-sensors-mqtt-gateway/","inLanguage":"en","datePublished":"2026-11-16","dateModified":"2026-11-16","author":{"@type":"Person","name":"Ashok Kumar Yadav","url":"https://xenors.in/ashok-kumar-yadav-biography/"},"publisher":{"@type":"Organization","name":"Xenors","url":"https://xenors.in/"},"image":["https://xenors.in/images/industrial-automation-plc-integration.webp"],"about":[{"@type":"Thing","name":"Modbus RTU"},{"@type":"Thing","name":"RS485"},{"@type":"Thing","name":"MQTT"}]},{"@type":"BreadcrumbList","@id":"https://xenors.in/plc/30-rs485-temperature-humidity-sensors-mqtt-gateway/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://xenors.in/"},{"@type":"ListItem","position":2,"name":"PLC & Automation","item":"https://xenors.in/plc/"},{"@type":"ListItem","position":3,"name":"30 RS485 Sensors to MQTT Cloud","item":"https://xenors.in/plc/30-rs485-temperature-humidity-sensors-mqtt-gateway/"}]},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Can one RS485 gateway read 30 temperature and humidity sensors?","acceptedAnswer":{"@type":"Answer","text":"Often yes, provided the gateway supports that number of Modbus addresses, the serial bus meets its electrical loading and cable limits, and the polling cycle meets the monitoring requirement. Check each device's unit load and the manufacturer's specification."}},{"@type":"Question","name":"Do all 30 Modbus sensors need different slave IDs?","acceptedAnswer":{"@type":"Answer","text":"Yes. Each addressed sensor on the same Modbus RTU segment must have a unique slave address. Devices normally share baud rate, parity and stop-bit settings."}},{"@type":"Question","name":"Do I need a 120-ohm resistor at every RS485 sensor?","acceptedAnswer":{"@type":"Answer","text":"No. Terminate at the two physical ends of the trunk when required by the interface and cable specification, not at every sensor. Check for built-in termination and biasing."}},{"@type":"Question","name":"Will MQTT QoS 1 protect sensor readings during an Internet outage?","acceptedAnswer":{"@type":"Answer","text":"QoS 1 alone is not an offline historian. Use a persistent, bounded local queue with timestamps and IDs, then replay after reconnection. QoS 1 messages may be duplicated."}},{"@type":"Question","name":"How should a tablet display stale sensor data?","acceptedAnswer":{"@type":"Answer","text":"Display last sample time, connection state and freshness; explicitly mark values stale after an engineering-defined timeout rather than showing old values as live."}},{"@type":"Question","name":"Can the same readings drive a safety shutdown?","acceptedAnswer":{"@type":"Answer","text":"Not without a separate hazard analysis and appropriately designed and validated protective system. Cloud connectivity and a general monitoring gateway should not be treated as a safety-rated interlock."}}]}]}</script>
+<style>
+:root{color-scheme:light}.rs-guide{max-width:1040px;margin:0 auto;padding:34px 20px 76px;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:#182638;line-height:1.78}.rs-guide h1{font-size:clamp(2rem,4.6vw,3.4rem);line-height:1.16;letter-spacing:-.035em;margin:15px 0}.rs-guide h2{font-size:clamp(1.38rem,2.4vw,1.95rem);line-height:1.3;margin:42px 0 15px}.rs-guide h3{font-size:1.16rem;margin:26px 0 8px}.rs-guide p,.rs-guide li{color:#3e5064}.rs-guide a{color:#0f6280;text-decoration:underline;text-underline-offset:3px}.rs-guide .eyebrow{font-size:.85rem;font-weight:750;letter-spacing:.08em;text-transform:uppercase;color:#146c7a}.rs-guide .lede{font-size:1.13rem;max-width:850px}.rs-guide .hero{width:100%;height:auto;display:block;border-radius:18px;margin:22px 0 8px}.rs-guide .caption{font-size:.86rem;color:#687a8c;margin:3px 0 24px}.rs-guide .answer{background:#eaf6f7;border-left:4px solid #21848b;padding:18px 20px;border-radius:10px;margin:24px 0}.rs-guide .navbox{background:#f6f8fb;border:1px solid #e2e8f0;border-radius:14px;padding:18px 22px;margin:24px 0}.rs-guide .navbox ul{columns:2;margin:8px 0;padding-left:22px}.rs-guide .note{background:#fff7e8;border-left:4px solid #d68a2b;padding:15px 18px;border-radius:8px}.rs-guide .diagram{background:#10253a;color:#ecf6f7;padding:26px 16px 12px;border-radius:18px;overflow:auto}.rs-guide .diagram svg{width:100%;height:auto;min-width:590px;display:block}.rs-guide .tablewrap{overflow-x:auto;border:1px solid #dce5ed;border-radius:12px}.rs-guide table{border-collapse:collapse;width:100%;font-size:.94rem}.rs-guide th,.rs-guide td{border-bottom:1px solid #e4ebf0;padding:12px 14px;text-align:left;vertical-align:top}.rs-guide th{background:#eff6f8;color:#163447}.rs-guide tr:last-child td{border-bottom:0}.rs-guide pre{max-width:100%;overflow-x:auto;background:#15273b;color:#e5f3f2;padding:21px;border-radius:12px;line-height:1.65;font-size:.88rem}.rs-guide code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.rs-guide .steps li{margin:8px 0}.rs-guide .faq details{border-top:1px solid #dbe4e9;padding:14px 0}.rs-guide .faq summary{font-weight:700;cursor:pointer;color:#183445}.rs-guide .faq details p{margin:9px 0}.rs-guide .sources li{word-break:break-word}.rs-guide .related{border-top:1px solid #e1e8ee;margin-top:42px;padding-top:18px}.rs-guide .meta{font-size:.9rem;color:#6a7888}@media(max-width:680px){.rs-guide{padding:22px 16px 55px}.rs-guide .navbox ul{columns:1}.rs-guide .tablewrap{font-size:.87rem}.rs-guide .diagram{padding:12px 8px}.rs-guide h2{margin-top:32px}}
+</style>
+</head>
+<body>
+<main class="rs-guide" id="xenors-main-content">
+<nav aria-label="Breadcrumb" class="meta"><a href="/">Home</a> / <a href="/plc/">PLC &amp; Automation</a> / RS485 to MQTT</nav>
+<p class="eyebrow">Industrial IoT • Modbus RTU • Commissioning</p>
+<h1>30 RS485 Temperature and Humidity Sensors to MQTT Cloud: Design and Commissioning Guide</h1>
+<p class="lede">Need live temperature and relative-humidity readings from 30 locations on a tablet, with cloud history and no missing data when the Internet drops? This guide turns that requirement into a practical RS485 Modbus RTU network, edge polling design, durable MQTT pipeline and repeatable acceptance test.</p>
+<p class="meta">Published 16 November 2026 · Engineering design guide · Vendor-neutral examples, not a claim of a completed site installation</p>
+<img class="hero" src="/images/industrial-automation-plc-integration.webp" alt="Industrial PLC and sensor network automation illustration for RS485 Modbus gateway design" width="1200" height="630">
+<p class="caption">Illustrative industrial automation hero. The custom wiring and data-flow architecture below describes this specific 30-sensor design.</p>
+<div class="answer"><strong>Quick answer:</strong> A typical architecture uses 30 uniquely addressed RS485 temperature/humidity sensors on an appropriately engineered Modbus RTU bus, one local master or RS485-to-IP gateway, an edge computer with a durable timestamped queue, and an MQTT broker over TLS. The tablet reads a local dashboard when offline and a synced cloud history when online. Bus loading, power, register maps, security and read-cycle budgets must be verified against actual hardware.</div>
+<nav class="navbox" aria-label="On this page"><strong>Jump to</strong><ul>
+<li><a href="#architecture">Architecture</a></li><li><a href="#wiring">RS485 wiring</a></li>
+<li><a href="#polling">30-device polling budget</a></li><li><a href="#registers">Register map</a></li>
+<li><a href="#cloud">MQTT + offline storage</a></li><li><a href="#commission">Commissioning checklist</a></li>
+<li><a href="#costs">Parts and cost drivers</a></li><li><a href="#faq">Buyer questions</a></li>
+</ul></nav>
+<section id="architecture">
+<h2>1. System architecture: field devices to tablet and cloud</h2>
+<p>Keep the physical serial line, data collection, local history and Internet connection as separate failure domains. If the broker is down, sensing should continue locally. If one sensor is unreachable, the other addresses should still be polled. If the gateway reboots, a stored device map and queued readings must survive.</p>
+<div class="diagram"><svg viewBox="0 0 920 252" role="img" aria-label="Thirty sensor nodes on a daisy-chain RS485 trunk connect to a Modbus RTU master, which passes validated samples to a local durable queue and MQTT TLS cloud for a tablet dashboard.">
+<rect x="10" y="12" width="205" height="193" rx="17" fill="#1d6271"/><rect x="245" y="12" width="205" height="193" rx="17" fill="#275d7c"/><rect x="480" y="12" width="205" height="193" rx="17" fill="#216f71"/><rect x="715" y="12" width="195" height="193" rx="17" fill="#2a6480"/>
+<g fill="#f5fcff" font-family="Arial,sans-serif" text-anchor="middle"><text x="112" y="62" font-size="19" font-weight="bold">30 TH sensors</text><text x="112" y="100" font-size="15">Slave IDs 1–30</text><text x="112" y="134" font-size="15">12–24 V*</text><text x="112" y="166" font-size="13">Physical inputs</text><text x="347" y="62" font-size="19" font-weight="bold">RS485 bus</text><text x="347" y="100" font-size="15">Modbus RTU</text><text x="347" y="134" font-size="15">A / B / COM*</text><text x="347" y="166" font-size="13">One master</text><text x="582" y="62" font-size="19" font-weight="bold">Edge gateway</text><text x="582" y="100" font-size="15">Poll + validate</text><text x="582" y="134" font-size="15">SQLite queue</text><text x="582" y="166" font-size="13">Local dashboard</text><text x="812" y="62" font-size="18" font-weight="bold">MQTT cloud</text><text x="812" y="100" font-size="15">TLS + replay</text><text x="812" y="134" font-size="15">History + alerts</text><text x="812" y="166" font-size="13">Tablet / phone</text></g>
+<g stroke="#8be4d2" stroke-width="5" fill="none"><path d="M215 107H239"/><path d="M450 107H474"/><path d="M685 107H709"/></g><g fill="#8be4d2"><path d="M235 99l12 8-12 8z"/><path d="M470 99l12 8-12 8z"/><path d="M705 99l12 8-12 8z"/></g><text x="10" y="237" fill="#bddee0" font-family="Arial,sans-serif" font-size="15">*Confirm sensor supply voltage and signal common against the exact datasheet.</text></svg></div>
+<p class="caption">Original conceptual diagram: sensing → serial acquisition → local persistence → secure synchronization. Cloud outages should not prevent local monitoring.</p>
+<p>Choose whether the edge master is an industrial gateway, PLC or small computer. A PLC can handle deterministic local acquisition and a separate service can publish telemetry. A Linux computer with an isolated USB-RS485 adapter is useful for a laboratory proof of concept, but an industrial gateway with surge protection, watchdog and controlled power is usually easier to maintain on a plant floor. For foundational terminology, see <a href="/plc/plc-basics-inputs-outputs-ladder-logic/">PLC inputs, outputs and ladder logic</a>.</p>
+</section>
+<section id="wiring">
+<h2>2. RS485 wiring: a 30-node bus is not 30 separate serial ports</h2>
+<p>On a common two-wire, half-duplex Modbus RTU network, the transmit/receive pair runs as a trunk from the master to each instrument. Avoid a large star of long branches. Use twisted-pair cable of appropriate impedance, route away from noisy high-power conductors where possible, and keep derivations short. The installation should follow the gateway and sensor manufacturers’ EMC, shielding, isolation and grounding guidance.</p>
+<div class="tablewrap"><table><thead><tr><th>Item</th><th>Practical decision</th><th>What to verify on site</th></tr></thead><tbody>
+<tr><td>Network topology</td><td>Trunk / daisy chain with short drops</td><td>Measured run length, stub lengths, cable specification</td></tr>
+<tr><td>Signal labels</td><td>D1/D0 or A/B and a signal common where specified</td><td>Vendor polarity labels differ; do not rely on the letter A alone</td></tr>
+<tr><td>Termination</td><td>At the two physical ends, if required</td><td>Built-in terminators, cable impedance, no accidental middle terminators</td></tr>
+<tr><td>Bias / polarization</td><td>One coordinated bias point when needed</td><td>Master and sensor manuals; avoid competing bias networks</td></tr>
+<tr><td>Supply</td><td>Separate rated DC power distribution with protection</td><td>Total sensor current, voltage drop, fusing, isolation</td></tr>
+<tr><td>Addresses</td><td>Unique IDs 1–30 in a documented plan</td><td>Duplicate address test before installing all nodes</td></tr>
+<tr><td>Serial format</td><td>One agreed baud, parity and stop-bit configuration</td><td>9600 8N1 is only an example, not a universal factory default</td></tr>
+</tbody></table></div>
+<p>The <a href="https://www.modbus.org/modbus-specifications" rel="noopener">Modbus Organization’s current specification index</a> points implementers to the Serial Line Protocol and Implementation Guide V1.02. It describes termination at both physical ends and how polarization should be coordinated; it does <em>not</em> justify placing a resistor at every sensor.</p>
+<p class="note"><strong>Do not guess terminal pins or apply 24 V to RS485 data terminals.</strong> The connector marked A/B/COM is a data interface; supply terminals are different. Check the exact sensor drawing and isolation arrangement before energizing. For long/noisy sites, choose isolated interfaces and an appropriate surge-protection strategy.</p>
+</section>
+<section id="polling">
+<h2>3. How fast can one gateway read 30 sensors?</h2>
+<p>Do not promise a fixed update rate from the sensor count alone. Polling depends on baud rate, serial framing, number of registers, device turnaround, gateway overhead, timeouts and retries. Many temperature/humidity applications need a reliable multi-second refresh rather than aggressive sub-second scanning.</p>
+<p><strong>Worked line-time illustration:</strong> reading two contiguous holding registers can require an eight-byte request and a nine-byte normal response. With an example 9600-baud, 8N1 link, 17 bytes × 10 bits/byte ÷ 9600 ≈ <strong>17.7 ms</strong> of on-wire character time, before inter-frame silence and device processing. Multiply by 30 devices, then add turnaround and scheduled margins. A time-out on even one absent sensor may dominate the cycle. Actual Modbus RTU framing and timing must follow the equipment's protocol implementation.</p>
+<p>A useful planning formula is:</p>
+<pre><code>round_time ≈ Σ (request + response + turnaround + gaps
+                + retry allowance) per polled device
+data_age   = now - timestamp_of_last_valid_sample
+</code></pre>
+<p>Set a cycle-time objective, then measure the 95th-percentile and worst-case <em>valid sample age</em> with all 30 nodes attached. Pilot with three real sensors first, expand to 10, then 30. Do not compensate for a badly wired bus by simply increasing retries indefinitely.</p>
+</section>
+<section id="registers">
+<h2>4. Register map: temperature is not always register 0</h2>
+<p>Each sensor model has its own documented map. Some place temperature and humidity in adjacent holding registers; others use input registers, 32-bit floating values or status registers. Never assume that a raw value of 256 means 25.6 °C without checking the scaling, sign and register address convention.</p>
+<div class="tablewrap"><table><thead><tr><th>Field</th><th>Illustrative mapping only</th><th>Validation needed</th></tr></thead><tbody>
+<tr><td>Device ID</td><td>01–30</td><td>Exactly one responder per ID</td></tr>
+<tr><td>Temperature</td><td>Holding register offset 0, signed 16-bit, ÷ 10</td><td>Vendor register map, signedness and scale</td></tr>
+<tr><td>Humidity</td><td>Holding register offset 1, unsigned 16-bit, ÷ 10</td><td>Vendor register map, unit and range</td></tr>
+<tr><td>Function code</td><td>03 (holding) or 04 (input), depending on device</td><td>Confirm supported functions</td></tr>
+<tr><td>Status / error</td><td>Optional vendor register</td><td>Sentinel values and documented exceptions</td></tr>
+</tbody></table></div>
+<p>Modbus PDU register addresses are zero-based even when a device manual displays a register as 40001. The <a href="https://www.modbus.org/introduction-to-modbus" rel="noopener">Modbus Organization’s function-code introduction</a> explains FC03 holding-register reads and address conventions. Use the tested vendor map in configuration, not an undocumented assumption in application code.</p>
+<h3>One safe read loop pattern</h3>
+<pre><code># Pseudocode; adapt to the gateway and register map
+for sensor in configured_sensors:
+    try:
+        raw = read_modbus(sensor.slave_id, sensor.register_map)
+        value = decode_with_vendor_scale(raw)
+        if not within_plausible_physical_range(value):
+            record_invalid(sensor, reason="out_of_range")
+            continue
+        store_local(sensor.id, value, sampled_at_utc(), quality="ok")
+    except TimeoutOrCRCError as exc:
+        mark_sensor_stale(sensor.id, reason=type(exc).__name__)
+        continue
+# A publisher reads only committed records from the local queue.
+</code></pre>
+<p>Separate acquisition from publishing. If a sensor times out, keep the previous value as historical data, but mark it stale. Do not quietly write 0 °C or 0% RH; those are potentially valid readings and would corrupt the history.</p>
+</section>
+<section id="cloud">
+<h2>5. MQTT, offline buffering and a tablet dashboard</h2>
+<p>Think of a gateway as two independent services: a <strong>Modbus poller</strong> that writes valid samples locally, and a <strong>cloud publisher</strong> that uploads already-stored records. This prevents an Internet interruption from stopping collection. The local store can be SQLite with a bounded queue on a small computer or a vendor gateway’s documented nonvolatile buffer.</p>
+<p>For each sample, store <code>sensor_id</code>, <code>captured_at_utc</code>, values, unit, quality, a monotonically assigned or unique <code>sample_id</code>, and an upload state. A representative message is:</p>
+<pre><code>Topic: factory/zone-a/sensors/th-07/telemetry
+{
+  "sample_id": "zone-a-th07-20261116T041000Z-01",
+  "sensor_id": "th-07",
+  "captured_at": "2026-11-16T04:10:00Z",
+  "temperature_c": 28.4,
+  "humidity_pct": 57.2,
+  "quality": "ok"
+}
+</code></pre>
+<p><strong>Offline replay:</strong> append to a durable queue before acknowledging the polling result as stored; publish pending records in capture order where sensible; mark delivered only after the required acknowledgment; use unique sample IDs to deduplicate on the server. Check storage capacity and retention before rollout. A 30-sensor system sampling once every 30 seconds would produce about 86,400 samples per day if all nodes are healthy, so plan real storage and network budgets rather than assuming a free cloud tier is unlimited.</p>
+<p>MQTT QoS 1 means <em>at least once</em>, not exactly once. It may deliver duplicates; persistent local storage and application-level deduplication are still required for trustworthy history. See the <a href="https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html" rel="noopener">OASIS MQTT 5.0 standard</a> for QoS, retained messages and session state.</p>
+<h3>What should the tablet show?</h3>
+<p>Give each instrument its own compact card: sensor name/location, current temperature, humidity, last successful sample time, freshness state and high/low alarm thresholds. Use an obvious <strong>offline / stale</strong> state rather than presenting an old number as current. When a tablet is on the same plant Wi-Fi, a local API can serve recent readings even with WAN down. Cloud history can synchronize when connectivity returns.</p>
+<p>Choose a clear freshness policy. For example, if the nominal poll period is 5 seconds, marking data stale after 20 seconds might be an initial test hypothesis, not a universal standard. Set the alarm based on the actual measured end-to-end latency and site process risk; record why it was chosen.</p>
+<h3>Security and reliability</h3>
+<p>Use broker-side credentials per device, TLS with certificate validation, least-privilege publish topics, network segmentation between OT devices and the public Internet, controlled remote updates and secure time synchronization. Never expose the RS485 master directly to the Internet. NIST <a href="https://csrc.nist.gov/pubs/sp/800/82/r3/final" rel="noopener">SP 800-82 Rev. 3 (final, September 2023)</a> provides OT risk-management guidance; as of November 2026 a Revision 4 initial public draft was open for comment, so do not mistake it for the published final revision.</p>
+</section>
+<section id="costs">
+<h2>6. Practical bill of materials and buyer questions</h2>
+<p>Before requesting quotations, specify the network and operating requirements. A low-cost gateway that cannot retain data during a power loss may be more expensive in operational time than a slightly costlier industrial gateway with a documented local queue.</p>
+<div class="tablewrap"><table><thead><tr><th>Component</th><th>Quantity</th><th>What to ask the supplier</th></tr></thead><tbody>
+<tr><td>Industrial RS485 temperature/RH transmitters</td><td>30</td><td>Accuracy, calibration, ingress rating, response time, supply voltage, register map and unit load</td></tr>
+<tr><td>Isolated RTU master / edge gateway</td><td>1</td><td>Supported addresses, polling, buffer size, watchdog, MQTT TLS, firmware support</td></tr>
+<tr><td>24 VDC supply, fuse and enclosure</td><td>Site-sized</td><td>Current and voltage-drop calculation, environmental protection and labeling</td></tr>
+<tr><td>Shielded RS485 cable and terminations</td><td>By survey</td><td>Length, impedance, grounding, stub topology, pre-existing termination</td></tr>
+<tr><td>Local LAN/Wi-Fi and optional 4G</td><td>By coverage</td><td>Outage behavior, fallback connectivity, cellular data and remote management</td></tr>
+<tr><td>MQTT broker + durable history + dashboard</td><td>1 stack</td><td>TLS, retention, backups, alerting, access control, tablet offline behavior</td></tr>
+</tbody></table></div>
+<p><strong>Selection rule:</strong> insist on a real register-map PDF, a test utility, documented RS485 loading, and evidence of persistent store-and-forward before choosing the cheapest sensor or converter. Include calibration, installation and maintenance labor in total cost. Avoid quoting an unverified per-sensor price as if it applied to every vendor.</p>
+</section>
+<section id="commission">
+<h2>7. FAT/SAT commissioning checklist for 30 devices</h2>
+<ol class="steps">
+<li><strong>Bench test one instrument.</strong> Verify power, polarity using the vendor manual, Modbus ID, serial framing and raw register scaling against a reference thermometer/hygrometer.</li>
+<li><strong>Create the address register.</strong> Record sensor ID, physical tag, location, register-map version, firmware and cable branch for all 30 nodes.</li>
+<li><strong>Bench test three nodes.</strong> Confirm one response per ID and no timeouts. Deliberately duplicate an address only on an isolated test setup to confirm the fault can be diagnosed.</li>
+<li><strong>Build the trunk.</strong> Inspect wiring for daisy-chain routing, termination only at ends, bias arrangement and compliant grounding/isolation; de-energize before wiring changes.</li>
+<li><strong>Scale to 10 then 30.</strong> Log CRC, timeout and retry counters per device. Measure the last-good sample age, not only the number of loop iterations per second.</li>
+<li><strong>Test an offline sensor.</strong> Remove one slave from the test network and verify the remaining 29 continue, while the missing device turns stale without false zero readings.</li>
+<li><strong>Test WAN loss.</strong> Disconnect Internet while keeping plant LAN and power intact. Confirm values remain visible on the local dashboard and durable records accumulate.</li>
+<li><strong>Test replay.</strong> Restore connectivity; verify every queued sample reaches cloud history without duplicates after deduplication, preserving original capture timestamps.</li>
+<li><strong>Test power interruption.</strong> Reboot the gateway, inspect queue durability and ensure no corrupted data are shown as valid; reconcile unavoidable gaps transparently.</li>
+<li><strong>Test alarms and maintenance.</strong> Use simulated over/under-limit values and approved test procedures; verify notification timing, role-based acknowledgement, backups and restore instructions.</li>
+</ol>
+<p class="note"><strong>Monitoring is not safety control.</strong> Temperature/RH telemetry over general-purpose Modbus, MQTT and cloud services must not be assumed to provide a safety-rated machine trip or life-safety alarm. Any protective function needs a separate documented hazard assessment, suitable devices and validated logic.</p>
+</section>
+<section id="faq" class="faq">
+<h2>Frequently asked questions</h2>
+<details><summary>Can one gateway handle all 30 temperature and humidity sensors?</summary><p>Often yes, but only after checking the gateway's Modbus address count, RS485 transceiver unit loading, cable constraints and the time budget. The number 30 by itself is not an engineering guarantee.</p></details>
+<details><summary>Should every sensor use a different Modbus slave address?</summary><p>Yes, every responder on one serial segment needs a unique configured address. A duplicate address is a common cause of unreliable data and apparent communication noise.</p></details>
+<details><summary>Do I install a 120-ohm terminator at each sensor?</summary><p>No. Install termination at the appropriate two physical ends of the trunk when required. Confirm built-in terminations and cable characteristic impedance before adding external parts.</p></details>
+<details><summary>Can MQTT QoS 1 save readings during an Internet outage?</summary><p>Not alone. A durable local database or supported gateway queue must store readings; QoS 1 can then help deliver them when connectivity returns. The cloud must handle duplicate deliveries.</p></details>
+<details><summary>Why does the tablet still show a temperature after a sensor goes offline?</summary><p>Most systems retain the last value. That is fine for history, but it must be labeled stale with a timestamp and fault indicator so an operator cannot mistake it for a live reading.</p></details>
+<details><summary>Can the system automatically switch on a machine or trigger an emergency shutdown?</summary><p>Only through separately engineered, approved and validated controls suitable for the actual hazard. A generic IoT dashboard is not a substitute for a safety instrumented or safety-rated function.</p></details>
+</section>
+<section class="related">
+<h2>Related Xenors engineering guides</h2>
+<p>Start with <a href="/plc/plc-basics-inputs-outputs-ladder-logic/">PLC Basics: Inputs, Outputs and Ladder Logic</a> if you are learning digital interfaces, then use the broader <a href="/industrial-automation-plc-integration/">Industrial Automation and PLC Integration Guide</a> for network, commissioning and maintenance planning. Explore the <a href="/plc/">PLC &amp; Automation learning hub</a> for related tutorials.</p>
+</section>
+<section class="sources">
+<h2>Primary references</h2>
+<ol>
+<li><a href="https://www.modbus.org/modbus-specifications" rel="noopener">Modbus Organization — specifications and serial implementation guides</a> (serial topology, RTU network implementation).</li>
+<li><a href="https://www.modbus.org/introduction-to-modbus" rel="noopener">Modbus Organization — introduction and function codes</a> (register reading and address conventions).</li>
+<li><a href="https://docs.oasis-open.org/mqtt/mqtt/v5.0/os/mqtt-v5.0-os.html" rel="noopener">OASIS — MQTT Version 5.0 standard</a> (QoS and session semantics).</li>
+<li><a href="https://csrc.nist.gov/pubs/sp/800/82/r3/final" rel="noopener">NIST SP 800-82 Rev. 3 — Guide to Operational Technology Security</a> (network/security architecture, September 2023 final).</li>
+</ol>
+<p class="meta">Editorial note: numerical examples illustrate planning arithmetic, not vendor-certified performance. Verify the datasheets and regulatory requirements for the chosen installation before deployment.</p>
+</section>
+</main>
+</body>
+</html>
