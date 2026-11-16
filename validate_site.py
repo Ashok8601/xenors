@@ -274,8 +274,12 @@ for url, s in pages.items():
 
 for url, expected_date in SEO_REFRESH_DATES.items():
     if url in pages and url not in POLICY_NOINDEX and url not in NOINDEX:
-        if sitemap_lastmod.get(url) != expected_date:
-            errors.append(f'{url}: sitemap lastmod {sitemap_lastmod.get(url)} != refresh date {expected_date}')
+        actual_date = sitemap_lastmod.get(url)
+        # Refresh dates are minimum freshness guarantees, not exact timestamps.
+        # build.py uses max(source Git date, configured refresh date), so a
+        # legitimate newer source edit must not fail validation.
+        if not actual_date or actual_date < expected_date:
+            errors.append(f'{url}: sitemap lastmod {actual_date} older than refresh date {expected_date}')
 
 for url, n in inbound.items():
     utility = url in UTILITY or any(url.startswith(x) for x in UTILITY_PREFIX)
