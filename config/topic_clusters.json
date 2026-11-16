@@ -3,29 +3,35 @@
     "pillar": "/ai/what-are-ai-agents-and-how-to-create-them/",
     "pages": [
       "/ai/how-to-build-an-ai-agent-with-chatgpt/",
-      "/ai/ai-agents-for-marketing-2026/",
-      "/ai/ai-agents-for-sales-2026/",
-      "/ai/ai-agents-for-customer-service-2026/",
-      "/ai/multi-agent-systems-explained/",
-      "/ai/ai-agent-guardrails/",
-      "/ai/ai-agent-memory/"
+      "/ai/ai-agent-memory-explained-2026/",
+      "/ai/ai-agent-evaluation-testing-2026/",
+      "/ai/ai-agent-guardrails-safety-2026/",
+      "/ai/multi-agent-systems-explained-2026/",
+      "/ai/ai-agents-vs-chatbots-2026/"
     ]
   },
   "industrial-ai-safety": {
-    "pillar": "/tech/ai-pedestrian-detection-system/",
+    "pillar": "/ai/ai-pedestrian-detection-system/",
     "pages": [
+      "/ai/ai-pedestrian-detection-camera-installation/",
       "/tech/forklift-ai-camera/",
-      "/forklift-safety-solutions-guide/",
-      "/ai-camera-based-human-detection-system/",
-      "/industrial-automation-plc-integration/",
-      "/tech/pedestrian-detection-camera-installation/"
+      "/tech/forklift-safety-light/",
+      "/plc/edge-ai-vision-plc-modbus-integration/",
+      "/ai-camera-based-human-detection-system/"
     ]
   },
-  "edge-ai": {
-    "pillar": "/tech/edge-ai/",
+  "edge-ai-deployment": {
+    "pillar": "/ai/edge-ai-object-detection-tensorrt-quantization-guide/",
     "pages": [
-      "/tech/ai-camera-based-human-detection-system/",
+      "/plc/edge-ai-vision-plc-modbus-integration/",
+      "/data-science/yolo-object-detection-python/",
       "/tech/forklift-ai-camera/"
+    ]
+  },
+  "ai-text-provenance": {
+    "pillar": "/tech/ai-text-watermarking-detect-ai-content-2026/",
+    "pages": [
+      "/tech/ai-text-watermark-vs-ai-detector-c2pa/"
     ]
   }
 }
