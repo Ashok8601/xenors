@@ -1,8 +1,8 @@
 {
-  "last_slot": "2026-11-15-MANUAL-AI-TECH",
-  "last_published_at": "2026-11-15T11:45:00+05:30",
-  "last_title": "AI Text Watermark vs AI Detector vs C2PA: What Actually Proves AI Content?",
-  "last_url": "https://xenors.in/tech/ai-text-watermark-vs-ai-detector-c2pa/",
+  "last_slot": "2026-11-20-PM",
+  "last_published_at": "2026-11-20T19:20:36.313815+05:30",
+  "last_title": "Forklift Red Zone Warning Lights: Mounting Height, Line Distance & Safety Zone Setup",
+  "last_url": "https://xenors.in/tech/forklift-red-zone-warning-lights-placement-guide/",
   "history": [
     {
       "slot": "2026-11-13-PM",
@@ -33,17 +33,25 @@
       "slot": "2026-11-15-MANUAL-AI-TECH",
       "url": "https://xenors.in/tech/ai-text-watermark-vs-ai-detector-c2pa/",
       "title": "AI Text Watermark vs AI Detector vs C2PA: What Actually Proves AI Content?"
+    },
+    {
+      "slot": "2026-11-20-PM",
+      "url": "https://xenors.in/tech/forklift-red-zone-warning-lights-placement-guide/",
+      "title": "Forklift Red Zone Warning Lights: Mounting Height, Line Distance & Safety Zone Setup"
     }
   ],
-  "last_model": "manual-editorial-research",
+  "last_model": "gemini-3.8-flash",
   "last_internal_links": [
-    "tech/ai-text-watermarking-detect-ai-content-2026/index.html"
+    "tech/forklift-safety-light/index.html",
+    "tech/forklift-ai-camera/index.html",
+    "tech/ai-human-detection-camera-industrial-safety/index.html",
+    "tech/ai-pedestrian-detection-plc-integration/index.html"
   ],
   "last_keyword_cluster": [
-    "AI text watermark",
-    "AI detector",
-    "C2PA",
-    "AI provenance",
-    "text watermarking 2026"
+    "forklift red zone warning lights",
+    "forklift red zone installation height",
+    "forklift boundary line light placement",
+    "pedestrian exclusion zone lighting setup",
+    "red line forklift safety light wiring"
   ]
 }
